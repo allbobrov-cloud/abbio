@@ -1,0 +1,36 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next
+/out
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# env
+.env*.local
+
+# vercel
+.vercel
+
+# local review artifacts
+/.playwright-cli
+/output
+/references
+/plans
+/*.png
+
+# obsolete local context and unused legacy asset
+/PROJECT_CONTEXT.md
+/public/why-us

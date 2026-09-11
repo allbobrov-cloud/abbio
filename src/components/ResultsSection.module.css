@@ -1,0 +1,509 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #05070d 0%, rgba(5, 7, 13, 0) 14%, rgba(5, 7, 13, 0) 86%, #05070d 100%),
+    radial-gradient(circle at 28% 18%, rgba(74, 88, 210, 0.14), transparent 34%),
+    radial-gradient(circle at 82% 56%, rgba(33, 205, 230, 0.08), transparent 36%),
+    linear-gradient(180deg, #05070d 0%, #07101a 50%, #05070d 100%);
+  color: #f6f7fb;
+}
+
+.section::before {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 22% 44%, rgba(108, 124, 255, 0.08), transparent 34%),
+    radial-gradient(circle at 52% 50%, rgba(39, 205, 245, 0.045), transparent 30%);
+  content: "";
+  opacity: 0.8;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at 50% 48%, #000 0%, transparent 74%);
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 64px, 1440px);
+  margin: 0 auto;
+  padding: clamp(88px, 8vw, 122px) 0 clamp(92px, 8vw, 126px);
+}
+
+.particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.particles span {
+  position: absolute;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: color-mix(in srgb, #72dfff 70%, #8a6cff 30%);
+  box-shadow: 0 0 14px rgba(114, 223, 255, 0.66);
+  opacity: 0.16;
+  animation: particleTwinkle var(--d) ease-in-out var(--delay) infinite alternate;
+}
+
+.layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(440px, 0.88fr) minmax(590px, 1.12fr);
+  gap: clamp(56px, 6vw, 96px);
+  align-items: center;
+  min-height: 660px;
+}
+
+.left {
+  position: relative;
+  z-index: 2;
+  animation: resultsIn 760ms ease both;
+}
+
+.eyebrow {
+  width: fit-content;
+  margin: 0 0 30px;
+  padding: 12px 22px;
+  border: 1px solid rgba(108, 124, 255, 0.34);
+  border-radius: 999px;
+  background:
+    linear-gradient(135deg, rgba(88, 102, 255, 0.12), rgba(124, 92, 255, 0.07)),
+    rgba(9, 14, 29, 0.62);
+  color: #9aa6ff;
+  font-size: 13px;
+  font-weight: 760;
+  letter-spacing: 0.22em;
+}
+
+.left h2 {
+  max-width: 780px;
+  margin: 0;
+  color: #f7f8ff;
+  font-size: clamp(50px, 4.1vw, 64px);
+  font-weight: 620;
+  line-height: 1.06;
+  letter-spacing: 0;
+}
+
+.left h2,
+.left h2 span {
+  white-space: nowrap;
+}
+
+.left h2 span {
+  background: linear-gradient(100deg, #6fd4ff 0%, #6c7cff 48%, #a86cff 100%);
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 34px rgba(108, 124, 255, 0.14);
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(54px, 6vw, 76px);
+  align-items: start;
+  margin-top: clamp(56px, 6vw, 82px);
+}
+
+.metric {
+  animation: metricIn 780ms calc(220ms + var(--delay)) ease both;
+}
+
+.metric strong {
+  display: block;
+  background: linear-gradient(115deg, #73dcff 0%, #6c7cff 36%, #a86cff 58%, #72dfff 100%);
+  background-size: 190% 190%;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(150px, 11.4vw, 190px);
+  font-weight: 780;
+  line-height: 0.82;
+  letter-spacing: -0.02em;
+  text-shadow: 0 0 46px rgba(108, 124, 255, 0.2);
+  animation: numberGradient 8s ease-in-out infinite;
+}
+
+.metric > span {
+  display: block;
+  margin-top: 20px;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 13px;
+  font-weight: 740;
+  line-height: 1.45;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.flow {
+  position: relative;
+  min-height: 560px;
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+  animation: resultsIn 800ms 180ms ease both;
+}
+
+.orbits ellipse {
+  fill: none;
+  stroke: rgba(108, 124, 255, 0.045);
+  stroke-width: 1;
+}
+
+.paths path {
+  fill: none;
+  filter: url("#resultsGlow");
+  stroke: url("#resultsLine");
+  stroke-dasharray: 760;
+  stroke-dashoffset: 760;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.78;
+  stroke-width: 1;
+  animation: lineDraw 1.6s 420ms ease forwards, lineBreathe 8s 2s ease-in-out infinite;
+}
+
+.paths path:nth-child(2) {
+  opacity: 1;
+  stroke-width: 1.18;
+  animation-delay: 520ms, 2.1s;
+}
+
+.paths path:nth-child(3) {
+  animation-delay: 620ms, 2.2s;
+}
+
+.paths .middlePath {
+  opacity: 1;
+  stroke-width: 1.24;
+  stroke-dasharray: 760;
+  stroke-dashoffset: 760;
+  animation: lineDraw 1.6s 520ms ease forwards, lineBreathe 8s 2.1s ease-in-out infinite;
+}
+
+.core {
+  position: absolute;
+  top: calc(50 * 1%);
+  left: calc(25.8 * 1%);
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.72) 0 5%, rgba(108, 124, 255, 0.46) 18%, rgba(39, 205, 245, 0.18) 42%, transparent 72%);
+  filter: blur(1.5px);
+  box-shadow:
+    0 0 44px rgba(108, 124, 255, 0.46),
+    0 0 94px rgba(39, 205, 245, 0.18);
+  transform: translate(-50%, -50%);
+  animation: corePulse 4.6s ease-in-out infinite;
+}
+
+.core span {
+  display: none;
+}
+
+.insights {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+.insight {
+  position: absolute;
+  top: calc(var(--icon-y) * 1% - 21px);
+  left: calc(var(--icon-x) * 1% - 21px);
+  width: min(330px, 44%);
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 18px;
+  align-items: start;
+  animation: insightIn 720ms calc(520ms + var(--delay)) ease both;
+}
+
+.iconBox {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(108, 124, 255, 0.2);
+  border-radius: 50%;
+  background: rgba(8, 14, 29, 0.58);
+  color: #7f8dff;
+  box-shadow:
+    0 0 26px rgba(108, 124, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  transition:
+    border-color 280ms ease,
+    box-shadow 280ms ease,
+    transform 280ms ease;
+}
+
+.insight:hover .iconBox {
+  border-color: rgba(166, 108, 255, 0.48);
+  box-shadow:
+    0 0 30px rgba(166, 108, 255, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.iconBox svg {
+  width: 25px;
+  height: 25px;
+}
+
+.iconBox path,
+.iconBox circle {
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.insight h3 {
+  margin: 0 0 10px;
+  color: #ffffff;
+  font-size: clamp(20px, 1.35vw, 23px);
+  font-weight: 720;
+  line-height: 1.1;
+}
+
+.insight p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.62);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.insight div::after {
+  width: 42px;
+  height: 1px;
+  display: block;
+  margin-top: 20px;
+  background: linear-gradient(90deg, #6c7cff, transparent);
+  content: "";
+  opacity: 0.72;
+}
+
+@keyframes resultsIn {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes metricIn {
+  from {
+    opacity: 0;
+    filter: blur(4px);
+    transform: translateY(34px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes insightIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes lineDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes lineBreathe {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes numberGradient {
+  0%,
+  100% {
+    background-position: 0% 50%;
+    filter: drop-shadow(0 0 14px rgba(108, 124, 255, 0.1));
+  }
+
+  50% {
+    background-position: 100% 50%;
+    filter: drop-shadow(0 0 22px rgba(108, 124, 255, 0.2));
+  }
+}
+
+@keyframes corePulse {
+  0%,
+  100% {
+    opacity: 0.72;
+    box-shadow:
+      0 0 34px rgba(108, 124, 255, 0.38),
+      0 0 76px rgba(39, 205, 245, 0.13);
+  }
+
+  50% {
+    opacity: 1;
+    box-shadow:
+      0 0 54px rgba(108, 124, 255, 0.6),
+      0 0 110px rgba(39, 205, 245, 0.22);
+  }
+}
+
+@keyframes particleTwinkle {
+  from {
+    opacity: 0.08;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0.58;
+    transform: translate3d(4px, -5px, 0);
+  }
+}
+
+@media (max-width: 1199px) {
+  .container {
+    width: min(100% - 48px, 1020px);
+  }
+
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 76px;
+    min-height: 0;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr;
+    gap: 54px;
+  }
+
+  .metric strong {
+    font-size: clamp(116px, 16vw, 158px);
+  }
+
+  .flow {
+    min-height: 520px;
+  }
+
+  .insight {
+    width: min(330px, 42%);
+  }
+}
+
+@media (max-width: 767px) {
+  .container {
+    width: min(100% - 28px, 620px);
+    padding: 76px 0 86px;
+  }
+
+  .eyebrow {
+    margin-bottom: 22px;
+    padding: 10px 16px;
+    font-size: 11px;
+    letter-spacing: 0.18em;
+  }
+
+  .left h2 {
+    font-size: clamp(40px, 10.5vw, 52px);
+    line-height: 1.08;
+  }
+
+  .left h2,
+  .left h2 span {
+    white-space: normal;
+  }
+
+  .metrics {
+    grid-template-columns: 1fr;
+    gap: 42px;
+    margin-top: 56px;
+  }
+
+  .metric strong {
+    font-size: clamp(82px, 25vw, 106px);
+    line-height: 0.86;
+  }
+
+  .metric span {
+    margin-top: 18px;
+    font-size: 12px;
+  }
+
+  .flow {
+    min-height: 0;
+  }
+
+  .lines,
+  .core {
+    display: none;
+  }
+
+  .insights {
+    position: relative;
+    inset: auto;
+    width: auto;
+    max-width: none;
+    gap: 28px;
+    padding: 0;
+    margin: 0;
+  }
+
+  .insight {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    animation: resultsIn 720ms calc(520ms + var(--delay)) ease both;
+  }
+
+  .iconBox {
+    width: 46px;
+    height: 46px;
+  }
+
+  .iconBox svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .insight h3 {
+    font-size: 24px;
+  }
+
+  .insight p {
+    font-size: 16px;
+  }
+}

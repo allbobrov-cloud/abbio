@@ -1,0 +1,126 @@
+.trust {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(108, 124, 255, 0.12), transparent 36%),
+    linear-gradient(180deg, #f8f9fd 0%, #eef1f7 100%);
+  color: #747b8d;
+}
+
+.trust::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+  content: "";
+  opacity: 0.42;
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 1440px);
+  margin: 0 auto;
+  padding: 44px 0 58px;
+}
+
+.inner h2 {
+  margin: 0 0 34px;
+  color: #8a91a4;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-align: center;
+}
+
+.logoMarquee {
+  width: 100%;
+  overflow: hidden;
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+}
+
+.logos {
+  width: max-content;
+  display: flex;
+  align-items: center;
+  gap: clamp(70px, 7vw, 120px);
+  padding-inline: clamp(32px, 5vw, 72px);
+  animation: trustMarquee 42s linear infinite;
+  will-change: transform;
+}
+
+.logoItem {
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #777f91;
+  font-size: clamp(18px, 1.8vw, 27px);
+  font-weight: 780;
+  line-height: 1.05;
+  text-align: center;
+  letter-spacing: 0;
+  opacity: 0.88;
+  white-space: nowrap;
+}
+
+.logoItem span {
+  display: inline-block;
+}
+
+.logoMark {
+  width: clamp(24px, 2.1vw, 32px);
+  height: clamp(24px, 2.1vw, 32px);
+  flex: 0 0 auto;
+}
+
+.logoMark circle,
+.logoMark path {
+  stroke: currentColor;
+  stroke-width: 2.15;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+@keyframes trustMarquee {
+  from {
+    transform: translateX(-50%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 960px) {
+  .inner {
+    width: min(100%, 760px);
+  }
+}
+
+@media (max-width: 620px) {
+  .inner {
+    width: min(100%, 420px);
+    padding: 36px 0 44px;
+  }
+
+  .inner h2 {
+    margin-bottom: 28px;
+    font-size: 12px;
+  }
+
+  .logos {
+    gap: 54px;
+    padding-inline: 28px;
+    animation-duration: 36s;
+  }
+
+  .logoItem {
+    font-size: 17px;
+  }
+
+  .logoMark {
+    width: 23px;
+    height: 23px;
+  }
+}
