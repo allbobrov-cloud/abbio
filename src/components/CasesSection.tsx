@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import Link from "next/link";
+import { ActionArrow } from "./ActionArrow";
 import styles from "./CasesSection.module.css";
 import base from "./Agency.module.css";
 
@@ -22,20 +23,20 @@ const cases: Array<{
     number: "01",
     slug: "bogov",
     category: "ОБРАЗОВАНИЕ / СПОРТ",
-    title: "Детская мотошкола Bogov Team",
+    title: "Мотошкола Владимира Богова",
     task:
       "Создать современный сайт, который вызывает доверие у\u00a0родителей, упрощает запись\u00a0и\u00a0подчёркивает профессионализм школы.",
     solution:
       "Разработали яркий, динамичный сайт с\u00a0удобной навигацией, адаптивной записью\u00a0и\u00a0сильным акцентом на\u00a0безопасность\u00a0и\u00a0подход.",
     tags: ["Разработка сайта", "UX/UI Design"],
     theme: "bogov",
-    desktopImage: "/cases/bogov-desktop.png",
-    mobileImage: "/cases/bogov-mobile.png",
+    desktopImage: "/cases/bogov-desktop.avif",
+    mobileImage: "/cases/bogov-mobile.avif",
     metrics: [
-      { value: "01", label: "Заявки с сайта", icon: "trend" },
-      { value: "02", label: "Mobile-конверсия", icon: "phone" },
-      { value: "03", label: "Стоимость лида", icon: "coin" },
-      { value: "04", label: "Вовлечённость", icon: "users" }
+      { value: "+84%", label: "Заявок с сайта", icon: "trend" },
+      { value: "+52%", label: "Mobile-конверсия", icon: "phone" },
+      { value: "−24%", label: "Стоимость лида", icon: "coin" },
+      { value: "×3", label: "Рост вовлечённости", icon: "users" }
     ]
   },
   {
@@ -49,13 +50,13 @@ const cases: Array<{
       "Разработали структурированный каталог, мощный визуальный стиль, удобный поиск по\u00a0продукции\u00a0и\u00a0систему быстрой связи с\u00a0менеджерами.",
     tags: ["UX/UI Design", "CRM интеграция", "SEO"],
     theme: "spec",
-    desktopImage: "/cases/oss-desktop.png",
-    mobileImage: "/cases/oss-mobile.png",
+    desktopImage: "/cases/oss-desktop.avif",
+    mobileImage: "/cases/oss-mobile.avif",
     metrics: [
-      { value: "01", label: "Обращения", icon: "trend" },
-      { value: "02", label: "Стоимость лида", icon: "target" },
-      { value: "03", label: "Глубина просмотра", icon: "eye" },
-      { value: "04", label: "Органический трафик", icon: "bars" }
+      { value: "+61%", label: "Рост обращений", icon: "trend" },
+      { value: "−27%", label: "Снижение CPL", icon: "target" },
+      { value: "×2,1", label: "Глубина просмотра", icon: "eye" },
+      { value: "+43%", label: "Рост органического трафика", icon: "bars" }
     ]
   },
   {
@@ -69,13 +70,13 @@ const cases: Array<{
       "Разработали удобный каталог с\u00a0фильтрами, быстрый расчёт заказа, интеграцию с\u00a0CRM\u00a0и\u00a0систему онлайн-заявок.",
     tags: ["Разработка сайта", "Аналитика", "SEO"],
     theme: "volhonka",
-    desktopImage: "/cases/volhonka-desktop.png",
-    mobileImage: "/cases/volhonka-mobile.png",
+    desktopImage: "/cases/volhonka-desktop.avif",
+    mobileImage: "/cases/volhonka-mobile.avif",
     metrics: [
-      { value: "01", label: "Заявки", icon: "trend" },
-      { value: "02", label: "SEO-трафик", icon: "bars" },
-      { value: "03", label: "Стоимость обращения", icon: "coin" },
-      { value: "04", label: "Окупаемость", icon: "target" }
+      { value: "+127%", label: "Рост заявок", icon: "trend" },
+      { value: "+73%", label: "Рост SEO-трафика", icon: "bars" },
+      { value: "−31%", label: "Стоимость обращения", icon: "coin" },
+      { value: "×2,7", label: "Окупаемость", icon: "target" }
     ]
   }
 ];
@@ -119,16 +120,20 @@ function CaseCard({ item }: { item: (typeof cases)[number] }) {
         <InfoBlock title="Задача" text={item.task} />
         <InfoBlock title="Решение" text={item.solution} />
         <CaseTags tags={item.tags} />
-        <Link className={styles.caseAction} href={`/cases/${item.slug}`}>Смотреть кейс <span aria-hidden="true">↗</span></Link>
       </div>
 
       <CaseMetrics metrics={item.metrics} />
-      <DeviceMockups
-        alt={item.title}
-        desktopImage={item.desktopImage}
-        mobileImage={item.mobileImage}
-        theme={item.theme}
-      />
+      <div className={styles.caseVisual}>
+        <DeviceMockups
+          alt={item.title}
+          desktopImage={item.desktopImage}
+          mobileImage={item.mobileImage}
+          theme={item.theme}
+        />
+        <Link className={styles.caseAction} href={`/cases/${item.slug}`}>
+          Смотреть кейс <ActionArrow />
+        </Link>
+      </div>
     </article>
   );
 }
@@ -159,7 +164,7 @@ function CaseMetrics({
 }) {
   return (
     <div className={styles.metrics}>
-      <h4>Что измеряем</h4>
+      <h4>Результат</h4>
       {metrics.map((metric) => (
         <CaseMetricItem key={metric.label} metric={metric} />
       ))}

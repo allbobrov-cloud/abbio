@@ -39,6 +39,15 @@
   margin: 0 0 25px;
 }
 
+.header .eyebrow {
+  max-width: none;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: normal;
+  letter-spacing: 1.5px;
+}
+
 .header h2 {
   max-width: 800px;
   margin: 0;
@@ -71,7 +80,8 @@
   align-items: center;
   gap: 22px;
   min-height: 44px;
-  margin: 18px 0 0 90px;
+  align-self: center;
+  margin: 0;
   border-bottom: 1px solid currentColor;
   color: currentColor;
   font-size: 12px;
@@ -103,15 +113,15 @@
   --case-glow: rgba(255, 199, 40, 0.16);
   position: relative;
   width: 100%;
-  max-width: 1440px;
+  max-width: 1180px;
   height: auto;
   min-height: auto;
   display: grid;
-  grid-template-columns: minmax(320px, 0.9fr) minmax(160px, 0.35fr) minmax(500px, 1.2fr);
-  gap: clamp(24px, 3vw, 48px);
+  grid-template-columns: minmax(270px, 0.92fr) minmax(132px, 0.35fr) minmax(390px, 1.08fr);
+  gap: clamp(20px, 2.4vw, 34px);
   align-items: start;
   overflow: visible;
-  padding: clamp(28px, 4vw, 56px);
+  padding: clamp(28px, 3.4vw, 44px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: clamp(24px, 2vw, 28px);
   background:
@@ -263,8 +273,16 @@
 .metrics {
   min-width: 0;
   align-self: start;
-  padding-left: clamp(18px, 2vw, 30px);
+  padding-left: clamp(16px, 1.8vw, 24px);
   border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.caseVisual {
+  min-width: 0;
+  align-self: stretch;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 24px;
 }
 
 .volhonka .metrics {
@@ -272,7 +290,7 @@
 }
 
 .metrics h4 {
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
 .metricItem {
@@ -283,7 +301,7 @@
 }
 
 .metricItem + .metricItem {
-  margin-top: 18px;
+  margin-top: 20px;
 }
 
 .metricIcon {
@@ -310,7 +328,7 @@
 .metricItem strong {
   display: block;
   color: currentColor;
-  font-size: clamp(28px, 2.7vw, 40px);
+  font-size: clamp(28px, 2.45vw, 38px);
   font-weight: 760;
   line-height: 1.02;
   white-space: nowrap;
@@ -340,6 +358,23 @@
   align-self: center;
   margin-right: -6px;
   transition: transform 340ms ease;
+}
+
+@media (min-width: 1200px) {
+  .caseVisual > .devices {
+    grid-column: 1;
+    grid-row: 1 / -1;
+    align-self: center;
+  }
+
+  .caseVisual > .caseAction {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+    justify-self: center;
+    position: relative;
+    z-index: 1;
+  }
 }
 
 .card:hover .devices {
@@ -455,8 +490,11 @@
     align-items: start;
   }
 
-  .devices {
+  .caseVisual {
     grid-column: 1 / -1;
+  }
+
+  .devices {
     align-items: center;
     justify-content: center;
     gap: 0;
@@ -548,6 +586,10 @@
   }
 
   .tags {
+    margin-top: 0;
+  }
+
+  .caseAction {
     margin-top: 0;
   }
 
@@ -649,7 +691,7 @@
   .number { font-size: 36px; }
   .category { font-size: 9px; line-height: 1.35; }
   .card h3, .infoBlock, .tags { margin-left: 0; }
-  .caseAction { margin-left: 0; }
+  .caseAction { margin-top: 0; }
   .card h3 { margin-block: 10px 18px; font-size: 24px; }
   .infoBlock + .infoBlock { margin-top: 14px; }
   .infoBlock p { font-size: 12px; line-height: 1.55; }

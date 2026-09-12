@@ -2,7 +2,8 @@
 .dialog::backdrop{background:rgba(3,5,12,.76);backdrop-filter:blur(8px)}
 .shell{position:relative;padding:48px;background:radial-gradient(120% 85% at 0% 0%,rgba(153,117,224,.2),transparent 52%),radial-gradient(75% 60% at 100% 100%,rgba(68,81,140,.16),transparent 65%),#10111b}
 .shell::after{content:"";position:absolute;inset:12px;border:1px solid rgba(255,255,255,.06);border-radius:16px;pointer-events:none}
-.close{position:absolute;z-index:1;top:24px;right:24px;display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid rgba(222,209,255,.34);border-radius:50%;background:rgba(11,12,22,.45);color:#f7f3ff;font-size:28px;line-height:1;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.close{position:absolute;z-index:1;top:24px;right:24px;display:flex;align-items:center;justify-content:center;width:40px;height:40px;padding:0;border:1px solid rgba(222,209,255,.34);border-radius:50%;background:rgba(11,12,22,.45);color:#f7f3ff;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.close svg{display:block;width:20px;height:20px;fill:none;stroke:currentColor;stroke-linecap:round;stroke-width:2.5}
 .close:hover{border-color:#d6c1ff;background:rgba(171,141,232,.2);transform:rotate(90deg)}
 .heading{position:relative;z-index:1;max-width:460px;padding-right:34px}
 .eyebrow{margin:0 0 17px;color:#c9b4fa;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}

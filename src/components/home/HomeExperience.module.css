@@ -81,7 +81,7 @@
 .taskAnswer h3 { min-height: 70px; }
 .taskAnswer .answerContent>p:first-of-type { min-height: 74px; }
 .taskAnswer .taskResult { font-size: 12px; line-height: 1.6; border-top: 1px solid #baa2d532; padding-top: 16px; color: #d7cbe7; }
-.taskAnswer>a { align-self: flex-start; margin-top: auto; padding-top: 14px; }
+.taskAnswer>a { align-self: center; margin-top: auto; padding-top: 14px; }
 .taskAnswer[data-scenario="1"] { background: radial-gradient(ellipse at 100% 0,#447b9125,transparent 70%),#0f141c; border-color: #779eb044; }
 .taskAnswer[data-scenario="2"] { background: radial-gradient(ellipse at 100% 0,#7d914425,transparent 70%),#121710; border-color: #a3b07744; }
 .taskAnswer[data-scenario="3"] { background: radial-gradient(ellipse at 30% 100%,#79529135,transparent 70%),#14101c; }
@@ -339,7 +339,8 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
 .tasks .taskChoices button[aria-pressed=true] .choiceMark::after { opacity: 0; }
 .tasks .taskChoices button:active { transform: translateX(2px) scale(.99); }
 @media (max-width: 760px) {
-  .tasks .taskChoices button { border-radius: 11px; }
+  .tasks .taskChoices button { align-items: center; border-radius: 11px; }
+  .tasks .taskChoices button > span:first-child { padding-top: 0; }
   .tasks .taskChoices .choiceMark { width: 32px; height: 32px; border-radius: 10px; }
   .tasks .taskChoices .choiceMark::before { width: 11px; }
   .tasks .taskChoices .choiceMark::after { height: 11px; }
@@ -470,11 +471,11 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
 }
 .tasks .crmMetricHeader { display: flex; justify-content: space-between; align-items: center; gap: 14px; color: #a9cbc0; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; letter-spacing: .13em; }
 .tasks .crmMetricHeader b { color: #9be2c2; font-size: 9px; font-weight: 500; letter-spacing: .16em; }
-.tasks .crmMetricGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 2vw, 26px); }
-.tasks .crmMetric { min-width: 0; padding-left: clamp(10px, 1.4vw, 18px); border-left: 1px solid #8bd0c53b; }
-.tasks .crmMetric:first-child { padding-left: 0; border-left: 0; }
+.tasks .crmMetricGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
+.tasks .crmMetric { display: flex; min-width: 0; min-height: 144px; flex-direction: column; align-items: center; justify-content: center; padding: 0 clamp(8px, 1.4vw, 18px); border-left: 1px solid #8bd0c53b; text-align: center; }
+.tasks .crmMetric:first-child { border-left: 0; }
 .tasks .crmMetric strong { display: block; color: #b9efd5; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: clamp(28px, 3vw, 44px); font-weight: 400; letter-spacing: -.08em; line-height: .95; }
-.tasks .crmMetric small { display: block; max-width: 90px; margin-top: 8px; color: #b4c9c5; font-size: 10px; line-height: 1.4; }
+.tasks .crmMetric small { display: block; max-width: 120px; margin-top: 8px; color: #b4c9c5; font-size: 10px; line-height: 1.4; text-align: center; }
 .tasks .crmTimeline { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: 0; color: #dcebe5; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; letter-spacing: .04em; }
 .tasks .crmTimeline::before { content: ''; position: absolute; z-index: 0; left: 0; right: 0; top: 50%; height: 1px; background: linear-gradient(90deg, #8bd0c544, #8bd0c5aa, #8bd0c544); }
 .tasks .crmTimeline span { position: relative; z-index: 1; justify-self: center; padding-inline: 10px; background: #111b1d; text-align: center; }
@@ -488,7 +489,7 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   .tasks .crmMetricHeader { font-size: 8px; }
   .tasks .crmMetricHeader b { font-size: 8px; }
   .tasks .crmMetricGrid { gap: 10px; }
-  .tasks .crmMetric { padding-left: 9px; }
+  .tasks .crmMetric { min-height: 0; padding-inline: 6px; }
   .tasks .crmMetric strong { font-size: clamp(25px, 8vw, 34px); }
   .tasks .crmMetric small { margin-top: 5px; font-size: 9px; }
   .tasks .crmTimeline { font-size: 9px; }
@@ -512,6 +513,7 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   position: relative;
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: 104px;
   gap: clamp(12px, 2.2vw, 34px);
   padding: 0 0 34px;
   border: 0;
@@ -532,7 +534,8 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   grid-template-rows: auto auto auto;
   column-gap: 15px;
   align-items: center;
-  min-height: 104px;
+  height: 104px;
+  min-height: 0;
   padding: 0 12px 0 0;
   border: 0 !important;
   border-radius: 0;
@@ -605,22 +608,26 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
 }
 .journeyRoute .journeyDetail {
   display: grid;
-  grid-template-columns: minmax(0, .78fr) minmax(300px, 1.22fr);
+  grid-template-columns: minmax(0, .86fr) minmax(300px, 1.14fr);
   gap: clamp(36px, 6vw, 92px);
   align-items: center;
+  width: min(86%, 1180px);
   min-height: 300px;
-  margin: 0;
+  margin: 0 auto;
   padding: 38px 0 32px;
   border-top: 1px solid #b7a0ef2b;
   background: transparent;
 }
-.journeyNarrative { padding: 0 0 4px; }
+.journeyNarrative { width: 100%; max-width: 510px; justify-self: center; padding: 0 0 4px; }
 .journeyRoute .detailLabel { margin: 0 0 15px !important; color: #bca1de !important; font-size: 10px !important; letter-spacing: .14em; }
 .journeyRoute .journeyDetail h3 { max-width: 455px; margin-bottom: 18px; font-size: clamp(29px, 3vw, 42px); line-height: 1.08; }
 .journeyRoute .journeyDetail p { max-width: 435px; font-size: 14px; line-height: 1.75; }
 .journeyRoute .journeyResult { max-width: 390px; margin-top: 28px; padding-top: 17px; color: #dfd1f2; font-size: 13px; }
 .journeyRoute .journeyVisual {
   position: relative;
+  width: 100%;
+  max-width: 650px;
+  justify-self: center;
   min-height: 232px;
   padding: 0 0 0 clamp(22px, 3vw, 46px);
   border-left: 1px solid #b7a0ef3d;
@@ -669,6 +676,7 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   .journeyRoute .journeyStages small { font-size: 8px; }
   .journeyRoute .journeyDetail {
     grid-template-columns: 1fr;
+    width: 100%;
     gap: 28px;
     min-height: 0;
     padding: 32px 0 24px;
@@ -693,10 +701,10 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
 }
 
 @media (min-width: 761px) {
-  .journeyRoute .journeyDetail { align-items: stretch; }
+  .journeyRoute .journeyDetail { align-items: stretch; box-sizing: border-box; height: 390px; min-height: 390px; }
   .journeyRoute .journeyNarrative { display: flex; flex-direction: column; justify-content: center; }
   .journeyRoute .journeyVisual { display: flex; min-height: 0; }
-  .journeyRoute .journeyVisual .scene { flex: 1 1 auto; height: auto; min-height: 100%; margin: 0; }
+  .journeyRoute .journeyVisual .scene { flex: 1 1 100%; width: 100%; height: auto; min-height: 100%; margin: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

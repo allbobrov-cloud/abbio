@@ -2,14 +2,15 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { ActionArrow, ScenarioVisual } from "./ScenarioVisual";
+import { ScenarioVisual } from "./ScenarioVisual";
+import { ActionArrow } from "../ActionArrow";
 import base from "../Agency.module.css";
 import styles from "./HomeExperience.module.css";
 
 const directions = [
-  { name: "Дизайн", title: "Впечатление, за которым есть смысл.", text: "Помогаем объяснить продукт и сделать бренд узнаваемым.", image: "/home/design-board-v1.png", project: "Дизайн-доска / AI-концепция", label: "От идеи к макету", output: "Характер вашего бренда" },
-  { name: "Сайты", title: "Удобно выбрать. Легко обратиться.", text: "Продумываем путь посетителя — от первого экрана до заявки.", image: "/cases/volhonka-desktop.png", project: "Металлобаза Волхонка", label: "Сценарий клиента", output: "От интереса к заявке" },
-  { name: "Маркетинг", title: "Привлечение — только начало.", text: "Соединяем продвижение с аналитикой и работой с обращениями.", image: "/home/marketing-report-v1.png", project: "Пример отчёта / условные данные", label: "Каналы · обращения · расходы", output: "Решения на основе данных" }
+  { name: "Дизайн", title: "Впечатление, за которым есть смысл.", text: "Помогаем объяснить продукт и сделать бренд узнаваемым.", image: "/home/design-board-v1.avif", project: "Дизайн-доска / AI-концепция", label: "От идеи к макету", output: "Характер вашего бренда" },
+  { name: "Сайты", title: "Удобно выбрать. Легко обратиться.", text: "Продумываем путь посетителя — от первого экрана до заявки.", image: "/cases/volhonka-desktop.avif", project: "Металлобаза Волхонка", label: "Сценарий клиента", output: "От интереса к заявке" },
+  { name: "Маркетинг", title: "Привлечение — только начало.", text: "Соединяем продвижение с аналитикой и работой с обращениями.", image: "/home/marketing-report-v1.avif", project: "Пример отчёта / условные данные", label: "Каналы · обращения · расходы", output: "Решения на основе данных" }
 ];
 
 function useVisible() {
@@ -46,7 +47,7 @@ export function HomeHero() {
             <p className={styles.lead}>Помогаем выглядеть убедительно, привлекать клиентов и работать с обращениями.</p>
             <p className={styles.heroDetail}>От первого впечатления до заявки в CRM — подключаем дизайн, разработку и продвижение там, где они нужны вашему бизнесу.</p>
             <div className={styles.actions}>
-              <a className={base.button} href="#tasks">Найти решение <span aria-hidden="true">↗</span></a>
+              <a className={base.button} href="#contacts" data-contact-dialog>Обсудить задачу <ActionArrow /></a>
               <a className={base.textLink} href="#cases">Посмотреть работы <span aria-hidden="true">↓</span></a>
             </div>
           </div>
@@ -143,11 +144,10 @@ export function ClientJourney() {
 
   return (
     <section className={`${base.section} ${styles.journey}`} id="client-journey" aria-labelledby="journey-title"><div className={base.container}>
-      <div className={`${base.sectionHead} ${styles.journeyHead}`}><div><p className={base.eyebrow}>Путь после первого интереса</p><h2 id="journey-title" aria-label="Важно не только привлечь. Важно довести до обращения.">Важно не только привлечь.<br /><em>Важно довести до обращения.</em></h2></div><p className={`${base.sectionIntro} ${styles.journeyIntro}`}>Соединяем каналы, страницы и работу команды, чтобы интерес не терялся по пути.</p></div>
+      <div className={`${base.sectionHead} ${styles.journeyHead}`}><div><p className={base.eyebrow}>Путь после первого интереса</p><h2 id="journey-title" aria-label="Важно не только привлечь. Важно довести до продажи.">Важно не только привлечь.<br /><em>Важно довести до продажи.</em></h2></div><p className={`${base.sectionIntro} ${styles.journeyIntro}`}>Соединяем каналы, страницы и работу команды, чтобы интерес не терялся по пути.</p></div>
       <div className={styles.journeyRoute} data-motion={pointer}>
         <div className={styles.journeyStages} data-stage={selected} role="group" aria-label="Этапы пути клиента">{journey.map((item, index) => <button key={item.title} type="button" aria-pressed={selected === index} aria-controls="journey-detail" onClick={() => selectStage(index)}><span className={styles.stageNode} aria-hidden="true"><JourneyIcon name={item.symbol} /></span><span className={styles.stageIndex}>0{index + 1}</span><strong>{item.title}</strong><small>{item.subtitle}</small></button>)}</div>
         <div className={styles.journeyDetail} id="journey-detail" aria-live="polite" data-scenario={selected}><div className={styles.journeyNarrative}><p className={styles.detailLabel}>Этап 0{selected + 1} / 04</p><h3>{stage.heading}</h3><p>{stage.text}</p><strong className={styles.journeyResult}>{stage.result}</strong></div><div className={styles.journeyVisual} key={selected}><ScenarioVisual kind={(["reach", "audit", "crm", "report"] as const)[selected]} animate={pointer} /></div></div>
-        <p className={styles.diagramNote}>Схема подхода — не статистика клиента. Подключаемся к одному этапу или связываем весь маршрут.</p>
       </div>
     </div></section>
   );
@@ -167,8 +167,8 @@ export function WorkFormats() {
       <div className={base.sectionHead}><div><p className={base.eyebrow}>Масштаб выбираем вместе</p><h2 id="formats-title" aria-label="Одна задача. Или работа вдолгую.">Одна задача.<br /><em>Или работа вдолгую.</em></h2></div><p className={base.sectionIntro}>Не обязательно заказывать всё сразу.<br /> Отталкиваемся от приоритетов и ресурсов.</p></div>
       <p className={styles.mobileSwipeHint} id="formats-scroll-hint">Листайте варианты <span aria-hidden="true">→</span></p>
       <div className={styles.formatGrid} role="region" aria-label="Форматы работы" aria-describedby="formats-scroll-hint" tabIndex={0}>
-        <article className={styles.formatCard}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Проект</span><h3>Сделать и запустить</h3><p>Когда есть конкретная задача: разработать сайт, обновить дизайн, подключить CRM или автоматизировать процесс.</p><ul><li>Понятный состав работ</li><li>Согласованные этапы</li><li>Передача результата</li></ul><a href="#contacts" data-contact-dialog className={base.textLink}>Обсудить проект <span aria-hidden="true">↗</span></a></article>
-        <article className={`${styles.formatCard} ${styles.longTerm}`}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Развитие</span><h3>Улучшать и развивать</h3><p>Когда нужно регулярно работать над сайтом, поисковым продвижением, контентом и качеством обращений.</p><ul><li>Приоритеты на следующий этап</li><li>Проверка изменений</li><li>Обсуждение данных и результатов</li></ul><a href="#contacts" data-contact-dialog className={base.textLink}>Обсудить развитие <span aria-hidden="true">↗</span></a></article>
+        <article className={styles.formatCard}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Проект</span><h3>Сделать и запустить</h3><p>Когда есть конкретная задача: разработать сайт, обновить дизайн, подключить CRM или автоматизировать процесс.</p><ul><li>Понятный состав работ</li><li>Согласованные этапы</li><li>Передача результата</li></ul><a href="#contacts" data-contact-dialog className={base.textLink}>Обсудить проект <ActionArrow /></a></article>
+        <article className={`${styles.formatCard} ${styles.longTerm}`}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Развитие</span><h3>Улучшать и развивать</h3><p>Когда нужно регулярно работать над сайтом, поисковым продвижением, контентом и качеством обращений.</p><ul><li>Приоритеты на следующий этап</li><li>Проверка изменений</li><li>Обсуждение данных и результатов</li></ul><a href="#contacts" data-contact-dialog className={base.textLink}>Обсудить развитие <ActionArrow /></a></article>
       </div>
     </div></section>
   );

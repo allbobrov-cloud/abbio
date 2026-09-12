@@ -2,6 +2,7 @@
 
 import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
 import { ContactFormErrors, formatRussianPhone, nationalPhoneDigits } from "@/lib/contactForm";
+import { ActionArrow } from "./ActionArrow";
 import styles from "./ContactDialog.module.css";
 
 export function ContactDialog() {
@@ -78,7 +79,9 @@ export function ContactDialog() {
     >
       <div className={styles.shell}>
         <button className={styles.close} type="button" onClick={closeDialog} aria-label="Закрыть форму">
-          <span aria-hidden="true">×</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
         </button>
 
         {submitted ? (
@@ -151,7 +154,7 @@ export function ContactDialog() {
               </div>
 
               <div className={styles.formFooter}>
-                <button className={styles.submit} type="submit">Отправить заявку <span aria-hidden="true">↗</span></button>
+                <button className={styles.submit} type="submit">Отправить заявку <ActionArrow /></button>
                 <p>Поля со звёздочкой обязательны.</p>
               </div>
             </form>

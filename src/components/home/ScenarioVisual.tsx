@@ -9,14 +9,13 @@ export function ScenarioVisual({ kind, animate = true, className, expanded = fal
       <div className={styles.ready}><span>✓</span> Готово к запуску</div><span className={styles.cursor}>↖ <b>Дизайнер</b></span>
     </>}
     {kind === "audit" && <>
-      <div className={styles.auditPage}><small>СТРАНИЦА ПОД ЛУПОЙ</small><strong>Понятно ли,<br />почему выбрать вас?</strong><i /><i /><span>Оставить заявку</span><b className={styles.target}>◎</b></div>
+      <div className={styles.auditPage}><small>СТРАНИЦА ПОД ЛУПОЙ</small><strong>Почему стоит<br />выбрать вас?</strong><i /><i /></div>
       <div className={styles.findings}>
         <small className={styles.findingsLabel}>ПРОВЕРЯЕМ ПО ПОРЯДКУ</small>
         <span><b>01</b><span><strong>Ясное предложение</strong><em>Понятно, что вы предлагаете и кому это нужно.</em></span></span>
         <span><b>02</b><span><strong>Удобство на телефоне</strong><em>Ключевые действия доступны без лишнего поиска.</em></span></span>
         <span><b>03</b><span><strong>Заметный следующий шаг</strong><em>Обратиться можно в момент, когда возник интерес.</em></span></span>
       </div>
-      <div className={styles.auditFlow}><small>ПУТЬ ДО ОБРАЩЕНИЯ</small><span>Визит</span><i /><span>Понятная страница</span><i /><strong>Следующий шаг</strong></div>
     </>}
     {kind === "reach" && <>
       <div className={styles.search}><span>⌕</span> Клиент ищет ваш продукт<i /></div>
@@ -33,8 +32,4 @@ export function ScenarioVisual({ kind, animate = true, className, expanded = fal
       <small className={styles.reportNote}>Схема анализа, не показатели клиента</small>
     </>}
   </div>;
-}
-
-export function ActionArrow() {
-  return <span className={styles.arrow} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M6 18 18 6M6 6h12v12" /><path d="M6 18 18 6M6 6h12v12" /></svg></span>;
 }

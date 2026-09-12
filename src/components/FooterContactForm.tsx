@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { ContactFormErrors, formatRussianPhone, nationalPhoneDigits } from "@/lib/contactForm";
+import { ActionArrow } from "./ActionArrow";
 import styles from "./FooterContactForm.module.css";
 
 export function FooterContactForm() {
@@ -104,7 +105,7 @@ export function FooterContactForm() {
         </div>
 
         <div className={styles.formFooter}>
-          <button type="submit">Отправить заявку <span aria-hidden="true">↗</span></button>
+          <button type="submit">Отправить заявку <ActionArrow /></button>
           <p>Поля со звёздочкой обязательны.</p>
         </div>
       </form>

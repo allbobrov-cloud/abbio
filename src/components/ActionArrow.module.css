@@ -1,0 +1,30 @@
+.arrow {
+  display: inline-grid;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  place-items: center;
+  border: 1px solid rgba(183, 160, 239, .72);
+  border-radius: 50%;
+  background: transparent;
+  color: currentColor;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+
+.arrow svg { width: 18px; height: 18px; }
+.arrow path { stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+a:hover .arrow,
+button:hover .arrow {
+  border-color: #cbb7ff;
+  background: rgba(183, 160, 239, .18);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 760px) {
+  .arrow { width: 40px; height: 40px; flex-basis: 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arrow { transition: none; }
+}

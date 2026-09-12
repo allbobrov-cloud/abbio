@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { cases, services } from "@/lib/content";
-import { ActionArrow } from "./ScenarioVisual";
+import { ActionArrow } from "../ActionArrow";
 import base from "../Agency.module.css";
 import styles from "./HomePortfolio.module.css";
 
@@ -44,11 +44,21 @@ export function ReportsPreview() {
         <p>Показываем не только итоги: в отчёте можно посмотреть количество лидов и обращений, расходы по каналам, источники и статус работ.</p>
       </div>
       <a className={styles.reportBoard} href={reportDemoUrl} target="_blank" rel="noopener noreferrer" aria-label="Открыть демо-отчёт в Google Sheets, новая вкладка">
-        <Image className={styles.reportShot} src="/home/report-demo-preview.png" alt="Превью демо-отчёта маркетинга: дашборд с лидами и расходами" width={1440} height={1000} sizes="(max-width: 760px) calc(100vw - 76px), (max-width: 1100px) 46vw, 48vw" />
+        <Image className={styles.reportShot} src="/home/report-demo-preview.avif" alt="Превью демо-отчёта маркетинга: дашборд с лидами и расходами" width={1440} height={1000} sizes="(max-width: 760px) calc(100vw - 76px), (max-width: 1100px) 46vw, 48vw" />
         <span className={styles.reportBoardHint}><span className={styles.reportBoardHintCopy}><small>Демо в Google Sheets</small><strong>Открыть таблицу</strong></span><ActionArrow /></span>
       </a>
     </div></div>
   </section>;
+}
+
+export function ProjectCta() {
+  return <section className={styles.projectCta} aria-labelledby="project-cta-title"><div className={base.container}>
+    <div className={styles.projectCtaShell}><div className={styles.projectCtaPanel}>
+      <div className={styles.projectCtaArtwork} aria-hidden="true"><Image src="/home/project-cta-orbit-v1.avif" alt="" fill sizes="(max-width: 760px) 100vw, 1200px" /></div>
+      <div className={styles.projectCtaMain}><p className={styles.projectCtaLabel}>ПЕРВЫЙ ШАГ</p><h2 id="project-cta-title">Есть задача — найдём точку старта.</h2></div>
+      <div className={styles.projectCtaAside}><p>Расскажите, что хотите изменить: сайт, поток обращений или процессы команды. На встрече разберём контекст и определим, с чего логично начать.</p><a href="#contacts" data-contact-dialog className={styles.projectCtaAction}>Обсудить задачу <ActionArrow /></a></div>
+    </div></div>
+  </div></section>;
 }
 
 export function IndustryFocus() {
@@ -69,12 +79,12 @@ export function IndustryFocus() {
       <div className={styles.industryEvidence}>
         <p className={styles.evidenceLabel}>Отраслевые кейсы</p>
         <Link href="/cases/oss" className={`${styles.industryProject} ${styles.ossProject}`}>
-          <div className={styles.projectPreview}><Image src="/home/industry-oss-steel-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 80px), 580px" /></div>
+          <div className={styles.projectPreview}><Image src="/home/industry-oss-steel-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 80px), 760px" /></div>
           <div className={styles.projectCopy}><small>Промышленность / спецстали</small><strong>ОборонСпецСплав</strong><span>Каталог · поиск · SEO</span></div><ActionArrow />
         </Link>
         <Link href="/cases/volhonka" className={`${styles.industryProject} ${styles.volhonkaProject}`}>
-          <div className={styles.projectCopy}><small>Металлопрокат</small><strong>Волхонка</strong><span>Сайт · CRM · SEO</span></div><ActionArrow />
-          <div className={styles.projectPreview}><Image src="/home/industry-volhonka-materials-v1.webp" alt="" fill sizes="(max-width: 760px) 122px, 230px" /></div>
+          <div className={styles.projectCopy}><small>Металлопрокат</small><strong>Металлобаза Волхонка</strong><span>Сайт · CRM · SEO</span></div><ActionArrow />
+          <div className={styles.projectPreview}><Image src="/home/industry-volhonka-materials-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 80px), 760px" /></div>
         </Link>
       </div>
     </div>
