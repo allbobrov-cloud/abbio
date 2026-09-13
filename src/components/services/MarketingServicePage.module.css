@@ -37,3 +37,129 @@
 @media(max-width:760px){.seoSection,.improvementSection{padding:75px 0}.seoHeader,.improvementHeader{display:block;margin-bottom:39px}.seoHeader h2,.improvementHeader h2{margin-top:20px;font-size:clamp(34px,9.5vw,44px)}.seoHeader>div>p,.improvementHeader>div>p{margin-top:18px;font-size:13px}.seoRoute{grid-template-columns:1fr;padding:20px;border-radius:16px}.seoRoute li,.seoRoute li:first-child,.seoRoute li:last-child{display:grid;grid-template-columns:48px minmax(0,1fr);align-items:center;min-height:0;padding:15px 0;border-left:0;border-bottom:1px solid rgba(227,218,244,.18)}.seoRoute li:last-child{border-bottom:0}.seoRoute li::after{top:auto;right:auto;bottom:-5px;left:14px;transform:rotate(135deg)}.seoRoute h3{max-width:none;margin:0;font-size:18px}.seoLinks{display:block;margin-top:23px;padding:0}.seoLinks>p{font-size:12px}.seoLinks>div{display:grid;gap:5px;margin-top:15px}.seoLinks a{justify-content:space-between;font-size:12px}.improvementCycle{grid-template-columns:1fr;margin-left:2px}.improvementCycle::before{top:20px;bottom:20px;left:20px;right:auto;width:1px;height:auto;background:linear-gradient(#c8b0f3,rgba(161,200,221,.22))}.improvementCycle li,.improvementCycle li:first-child,.improvementCycle li:last-child{display:grid;grid-template-columns:57px minmax(0,1fr);align-items:center;min-height:0;padding:0 0 22px;border:0}.improvementCycle li::after{top:auto;right:auto;bottom:7px;left:16px;transform:rotate(135deg)}.improvementCycle li:last-child{padding-bottom:0}.improvementCycle span{width:42px;height:42px;font-size:10px;box-shadow:0 0 0 5px rgba(188,166,239,.06)}.improvementCycle h3{margin:0;font-size:19px}}
 @media(max-width:360px){.seoRoute{padding:17px}.seoLinks a{gap:8px}.improvementCycle li,.improvementCycle li:first-child,.improvementCycle li:last-child{grid-template-columns:49px minmax(0,1fr)}.improvementCycle h3{font-size:18px}}
 @media(prefers-reduced-motion:reduce){.seoLinks a{transition:none}}
+
+/* Единая заголовочная сетка и вертикальный ритм внутренних страниц ABB. */
+.sectionHeader {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) minmax(260px, .52fr);
+  gap: 42px;
+  align-items: start;
+  margin-bottom: 60px;
+}
+
+.sectionHeader h2 {
+  max-width: 790px;
+  margin: 0;
+  font-size: clamp(39px, 4.15vw, 60px);
+  font-weight: 500;
+  letter-spacing: -.067em;
+  line-height: 1.07;
+  text-wrap: balance;
+}
+
+.sectionLead {
+  max-width: 385px;
+  margin: 0;
+  color: #aaa7ba;
+  font-size: 14px;
+  line-height: 1.7;
+  text-wrap: pretty;
+}
+
+.sectionHeaderLight .sectionIndex {
+  color: #69538d;
+}
+
+.sectionHeaderLight .sectionLead {
+  color: #5c5667;
+}
+
+.sources,
+.seoSection,
+.demandRoute,
+.bitrixSection,
+.metricsSection,
+.reportSection,
+.improvementSection,
+.deliverables {
+  padding: 122px 0;
+  border-top: 0;
+  border-bottom: 1px solid rgba(213, 201, 241, .14);
+}
+
+.seoSection,
+.bitrixSection {
+  border-bottom-color: rgba(42, 34, 50, .18);
+}
+
+.deliverables .container {
+  display: block;
+}
+
+.deliverableList {
+  margin-left: 262px;
+}
+
+.reportHero {
+  align-items: stretch;
+}
+
+.reportCopy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.reportCopy .reportWarning {
+  margin: 0;
+}
+
+@media(max-width:1080px) {
+  .sectionHeader {
+    grid-template-columns: 180px minmax(0, 1fr);
+    gap: 32px;
+  }
+
+  .sectionLead {
+    grid-column: 2;
+    max-width: 520px;
+  }
+
+  .deliverableList {
+    margin-left: 212px;
+  }
+}
+
+@media(max-width:760px) {
+  .sources,
+  .seoSection,
+  .demandRoute,
+  .bitrixSection,
+  .metricsSection,
+  .reportSection,
+  .improvementSection,
+  .deliverables {
+    padding: 76px 0;
+  }
+
+  .sectionHeader {
+    display: block;
+    margin-bottom: 38px;
+  }
+
+  .sectionHeader h2 {
+    margin-top: 20px;
+    font-size: clamp(34px, 9.5vw, 44px);
+  }
+
+  .sectionLead {
+    margin-top: 18px;
+    font-size: 13px;
+  }
+
+  .deliverableList {
+    margin-left: 0;
+  }
+}

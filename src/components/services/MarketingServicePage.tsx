@@ -8,17 +8,17 @@ const reportDemoUrl = "https://docs.google.com/spreadsheets/d/1_t_nzlVjj-NE8Lvdq
 const sourceGroups = ["SEO", "Реклама", "Материалы и посадочные страницы", "Формы", "Звонки", "Чаты", "Прямые и другие согласованные переходы"];
 
 const demandStages = [
-  { title: "Спрос", text: "Задача или вопрос, с которым приходит человек." },
-  { title: "Источник или кампания", text: "Согласованный канал приводит к нужному предложению." },
+  { title: "Потребность", text: "Задача или вопрос, с которым приходит человек." },
+  { title: "Канал", text: "Согласованный источник приводит к нужному предложению." },
   { title: "Посадочная страница", text: "Страница объясняет предложение и помогает выбрать." },
   { title: "Действие", text: "Форма, звонок или чат дают способ обратиться." },
-  { title: "Заявка", text: "Интерес становится конкретным обращением." },
+  { title: "Обращение", text: "Интерес получает контакт, контекст и следующий шаг." },
 ];
 
-const bitrixStages = [
-  { title: "Заявка", text: "Обращение сохранено" },
+const crmStages = [
+  { title: "Обращение", text: "Контакт сохранён" },
   { title: "Источник и запрос", text: "Согласованный контекст" },
-  { title: "Битрикс24", text: "Рабочая точка команды" },
+  { title: "CRM", text: "Рабочая точка команды" },
   { title: "Ответственный", text: "Обращение передано" },
   { title: "Статус", text: "Текущий этап виден" },
   { title: "Следующий этап", text: "Работа продолжается" },
@@ -26,32 +26,32 @@ const bitrixStages = [
 
 const reportMetrics = [
   "Расходы по источникам",
-  "Количество заявок",
-  "Стоимость заявки",
+  "Количество обращений",
+  "Стоимость обращения",
   "Квалифицированные обращения",
-  "Распределение заявок по источникам",
-  "Статусы обращений",
+  "Распределение по источникам",
+  "Статусы работы",
   "Сделки — когда CRM заполняется и позволяет их учитывать",
 ];
 
-const seoStages = ["Поисковый спрос", "Страницы и материалы", "Органические переходы", "Заявки", "Битрикс24", "Отчёт"];
+const seoStages = ["Поисковый спрос", "Страницы и материалы", "Органические переходы", "Обращения", "CRM", "Отчёт"];
 
 const improvementStages = ["Запуск", "Данные", "Вывод", "Изменение", "Новый период наблюдения"];
 
 const deliverables = [
   "Настроенные согласованные источники",
   "Точки обращения",
-  "Передача заявок в Битрикс24",
+  "Передача обращений в CRM",
   "Согласованные статусы и ответственные",
   "Структура показателей",
   "Отчёт для руководителя",
   "Доступы и документация в составе проекта",
 ];
 
-function BitrixPipelineVisual() {
+function CrmPipelineVisual() {
   return (
-    <ol className={styles.bitrixPipeline} aria-label="Маршрут обращения в Битрикс24">
-      {bitrixStages.map((stage, index) => (
+    <ol className={styles.bitrixPipeline} aria-label="Маршрут обращения в CRM">
+      {crmStages.map((stage, index) => (
         <li key={stage.title}>
           <span>{String(index + 1).padStart(2, "0")}</span>
           <h3>{stage.title}</h3>
@@ -59,6 +59,32 @@ function BitrixPipelineVisual() {
         </li>
       ))}
     </ol>
+  );
+}
+
+function SectionHeader({
+  label,
+  title,
+  lead,
+  titleId,
+  light = false,
+}: {
+  label: string;
+  title: string;
+  lead: string;
+  titleId: string;
+  light?: boolean;
+}) {
+  return (
+    <div
+      className={[styles.sectionHeader, light ? styles.sectionHeaderLight : ""]
+        .filter(Boolean)
+        .join(" ")}
+    >
+      <p className={styles.sectionIndex}>{label}</p>
+      <h2 id={titleId}>{title}</h2>
+      <p className={styles.sectionLead}>{lead}</p>
+    </div>
   );
 }
 
@@ -77,9 +103,9 @@ export function MarketingServicePage() {
 
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
-              <p className={styles.kicker}>Маркетинг для бизнеса</p>
+              <p className={styles.kicker}>Управляемый маркетинг</p>
               <h1 id="marketing-title">Маркетинг, где видна каждая заявка.</h1>
-              <p className={styles.heroLead}>Настраиваем продвижение, собираем обращения из согласованных источников в Битрикс24 и показываем в отчёте, сколько заявок пришло, откуда они появились и что с ними происходит дальше.</p>
+              <p className={styles.heroLead}>Настраиваем продвижение, передаём обращения из согласованных источников в CRM и показываем в отчёте, какие каналы приводят клиентов и что происходит дальше.</p>
               <div className={styles.heroActions}>
                 <a href="#contact-dialog" data-contact-dialog className={styles.primaryAction}>
                   Обсудить продвижение <ActionArrow />
@@ -94,8 +120,8 @@ export function MarketingServicePage() {
                 <li><span>01</span><strong>Источник</strong><small>Согласованный канал</small></li>
                 <li><span>02</span><strong>Страница</strong><small>Предложение и выбор</small></li>
                 <li><span>03</span><strong>Заявка</strong><small>Форма, звонок или чат</small></li>
-                <li><span>04</span><strong>Битрикс24</strong><small>Обращение в работе</small></li>
-                <li><span>05</span><strong>Отчёт</strong><small>Заявки, источники, движение</small></li>
+                <li><span>04</span><strong>CRM</strong><small>Обращение в работе</small></li>
+                <li><span>05</span><strong>Отчёт</strong><small>Каналы, обращения, статусы</small></li>
               </ol>
               <p className={styles.heroRouteNote}>Показываем согласованный состав показателей без выдуманных значений.</p>
             </div>
@@ -105,30 +131,29 @@ export function MarketingServicePage() {
 
       <section className={styles.sources} id="marketing-situations" aria-labelledby="sources-title">
         <div className={styles.container}>
-          <div className={styles.sourcesHeader}>
-            <p className={styles.sectionIndex}>01 / Источники обращений</p>
-            <div>
-              <h2 id="sources-title">Все источники — в одной картине.</h2>
-              <p>Связываем согласованные каналы и точки контакта с обращениями, чтобы руководитель понимал, откуда пришла каждая заявка.</p>
-            </div>
-          </div>
+          <SectionHeader
+            label="01 / Источники обращений"
+            title="Все источники — в одной системе."
+            lead="Связываем каналы и точки контакта с CRM, чтобы было видно, откуда приходят обращения и как они распределяются дальше."
+            titleId="sources-title"
+          />
           <div className={styles.sourceMap} aria-label="Согласованные источники сходятся в единую точку учёта обращения">
             <ul className={styles.sourceList}>{sourceGroups.map((source, index) => <li key={source}><span>{String(index + 1).padStart(2, "0")}</span>{source}</li>)}</ul>
-            <div className={styles.sourceHub}><span>Единая точка учёта</span><strong>Заявка</strong><small>Источник · запрос · контакт</small></div>
-            <div className={styles.sourceCrm}><span>Битрикс24</span><strong>Обращение сохранено</strong><small>Данные доступны для дальнейшей работы</small></div>
+            <div className={styles.sourceHub}><span>Единая точка учёта</span><strong>Обращение</strong><small>Источник · запрос · контакт</small></div>
+            <div className={styles.sourceCrm}><span>CRM</span><strong>Контекст сохранён</strong><small>Данные доступны команде для дальнейшей работы</small></div>
           </div>
         </div>
       </section>
 
       <section className={styles.seoSection} aria-labelledby="seo-title">
         <div className={styles.container}>
-          <div className={styles.seoHeader}>
-            <p className={styles.sectionIndex}>02 / SEO</p>
-            <div>
-              <h2 id="seo-title">SEO развиваем как измеряемый канал.</h2>
-              <p>Изучаем поисковый спрос, развиваем структуру и материалы сайта, устраняем технические препятствия и связываем органические переходы с обращениями и Битрикс24.</p>
-            </div>
-          </div>
+          <SectionHeader
+            label="02 / SEO"
+            title="SEO развиваем как измеряемый канал."
+            lead="Изучаем поисковый спрос, развиваем структуру и материалы сайта, устраняем технические препятствия и связываем органические переходы с обращениями в CRM."
+            titleId="seo-title"
+            light
+          />
           <ol className={styles.seoRoute} aria-label="Маршрут SEO от спроса до отчёта">
             {seoStages.map((stage, index) => <li key={stage}><span>{String(index + 1).padStart(2, "0")}</span><h3>{stage}</h3></li>)}
           </ol>
@@ -141,14 +166,13 @@ export function MarketingServicePage() {
 
       <section className={styles.demandRoute} aria-labelledby="demand-title">
         <div className={styles.container}>
-          <div className={styles.demandHeader}>
-            <p className={styles.sectionIndex}>03 / Путь к заявке</p>
-            <div>
-              <h2 id="demand-title">От первого интереса — к заявке.</h2>
-              <p>Задача маркетинга — не просто привести посещение, а связать интерес с конкретным обращением: показать нужное предложение, дать понятный способ действовать и зафиксировать заявку.</p>
-            </div>
-          </div>
-          <ol className={styles.demandPath} aria-label="Путь от спроса до заявки">
+          <SectionHeader
+            label="03 / Путь клиента"
+            title="От первого касания — к обращению."
+            lead="Связываем потребность, канал и посадочную страницу, чтобы человеку было понятно предложение, следующий шаг и способ связаться."
+            titleId="demand-title"
+          />
+          <ol className={styles.demandPath} aria-label="Путь от потребности до обращения">
             {demandStages.map((stage, index) => (
               <li key={stage.title}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
@@ -161,31 +185,30 @@ export function MarketingServicePage() {
         </div>
       </section>
 
-      <section className={styles.bitrixSection} aria-labelledby="bitrix-title">
+      <section className={styles.bitrixSection} aria-labelledby="crm-title">
         <div className={styles.container}>
-          <div className={styles.bitrixHeader}>
-            <div>
-              <p className={styles.sectionIndex}>04 / Битрикс24</p>
-              <h2 id="bitrix-title">Каждая заявка попадает в Битрикс24.</h2>
-            </div>
-            <p>Заявка сохраняется вместе с согласованным контекстом: видно источник и содержание запроса, назначается ответственный, появляется статус и следующий этап. Эти данные становятся основой для отчётности.</p>
-          </div>
+          <SectionHeader
+            label="04 / CRM"
+            title="Каждое обращение фиксируется в CRM."
+            lead="Вместе с контактом сохраняются источник и содержание запроса. Команда видит ответственного, текущий статус и следующий этап работы."
+            titleId="crm-title"
+            light
+          />
           <div className={styles.bitrixCanvas}>
-            <div className={styles.bitrixCanvasTop}><span>Рабочий контур</span><strong>Битрикс24</strong><small>Согласованный маршрут обращения</small></div>
-            <BitrixPipelineVisual />
+            <div className={styles.bitrixCanvasTop}><span>Рабочий контур</span><strong>CRM</strong><small>Согласованный маршрут обращения</small></div>
+            <CrmPipelineVisual />
           </div>
         </div>
       </section>
 
       <section className={styles.metricsSection} aria-labelledby="metrics-title">
         <div className={styles.container}>
-          <div className={styles.metricsHeader}>
-            <p className={styles.sectionIndex}>05 / Показатели</p>
-            <div>
-              <h2 id="metrics-title">Считаем не клики, а движение заявок.</h2>
-              <p>Бизнес видит не только активность в каналах, но и путь обращения от источника до текущего статуса.</p>
-            </div>
-          </div>
+          <SectionHeader
+            label="05 / Показатели"
+            title="Смотрим на результат каналов, а не на отдельные клики."
+            lead="Сопоставляем расходы, количество и качество обращений, источники и текущие статусы — в пределах доступных данных."
+            titleId="metrics-title"
+          />
           <div className={styles.metricsBoard}>
             <p className={styles.metricsBoardLabel}>Структура согласованного отчёта</p>
             <ul>
@@ -198,11 +221,14 @@ export function MarketingServicePage() {
 
       <section className={styles.reportSection} id="report-example" aria-labelledby="report-title">
         <div className={styles.container}>
+          <SectionHeader
+            label="06 / Пример отчётности"
+            title="Руководитель видит результат в отчёте."
+            lead="Отчёт соединяет расходы, источники, обращения и их дальнейшие статусы. По нему видно, что происходит с продвижением и где требуется решение."
+            titleId="report-title"
+          />
           <div className={styles.reportHero}>
             <div className={styles.reportCopy}>
-              <p className={styles.sectionIndex}>06 / Пример отчётности</p>
-              <h2 id="report-title">Руководитель видит результат в отчёте.</h2>
-              <p>Отчёт соединяет расходы, источники, заявки и их дальнейший статус. По нему можно увидеть, что происходит с продвижением и где требуется решение.</p>
               <p className={styles.reportWarning}>В примере используются условные данные. Это демонстрация структуры отчёта, а не показатели клиента и не гарантия конкретного результата.</p>
               <a href={reportDemoUrl} target="_blank" rel="noopener noreferrer" className={styles.reportLink} aria-label="Открыть демонстрацию структуры отчёта в Google Sheets, новая вкладка">
                 Открыть демо-отчёт <ActionArrow />
@@ -218,13 +244,12 @@ export function MarketingServicePage() {
 
       <section className={styles.improvementSection} aria-labelledby="improvement-title">
         <div className={styles.container}>
-          <div className={styles.improvementHeader}>
-            <p className={styles.sectionIndex}>07 / Работа ABB</p>
-            <div>
-              <h2 id="improvement-title">Данные помогают развивать работу, а не только фиксировать результат.</h2>
-              <p>По данным ABB развивает и корректирует SEO, рекламу, содержание и посадочные страницы, точки обращения, учёт источников, согласованные сценарии в Битрикс24 и отчётность.</p>
-            </div>
-          </div>
+          <SectionHeader
+            label="07 / Работа ABB"
+            title="Данные помогают развивать работу, а не только фиксировать результат."
+            lead="По данным ABB корректирует SEO, рекламу, содержание посадочных страниц, точки обращения, сценарии в CRM и состав отчётности."
+            titleId="improvement-title"
+          />
           <ol className={styles.improvementCycle} aria-label="Цикл работы ABB по данным">
             {improvementStages.map((stage, index) => <li key={stage}><span>{String(index + 1).padStart(2, "0")}</span><h3>{stage}</h3></li>)}
           </ol>
@@ -233,11 +258,12 @@ export function MarketingServicePage() {
 
       <section className={styles.deliverables} aria-labelledby="deliverables-title">
         <div className={styles.container}>
-          <div className={styles.deliverableLead}>
-            <p className={styles.sectionIndex}>08 / Результат работы</p>
-            <h2 id="deliverables-title">Что получает бизнес.</h2>
-            <p>Конкретный состав зависит от согласованного проекта и остаётся у команды для дальнейшей работы.</p>
-          </div>
+          <SectionHeader
+            label="08 / Результат работы"
+            title="Что остаётся у команды после запуска."
+            lead="Передаём настроенные каналы, точки обращения, рабочую связку с CRM, структуру показателей и документацию в согласованном составе проекта."
+            titleId="deliverables-title"
+          />
           <ol className={styles.deliverableList}>
             {deliverables.map((item, index) => (
               <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
@@ -268,7 +294,7 @@ export function MarketingServicePage() {
           <div className={styles.startPanel}>
             <div>
               <p className={styles.sectionIndex}>Первый разговор</p>
-              <h2 id="start-title">Хотите видеть, откуда приходят заявки и что происходит дальше?</h2>
+              <h2 id="start-title">Хотите понимать, какие каналы приводят клиентов и где требуется решение?</h2>
             </div>
             <div className={styles.startCopy}>
               <p>Обсудим источники, текущую работу с обращениями и данные, которые нужны руководителю.</p>
