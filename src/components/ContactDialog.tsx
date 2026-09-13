@@ -1,12 +1,11 @@
 "use client";
 
-import { FormEvent, useCallback, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { ContactFormErrors, formatRussianPhone, nationalPhoneDigits } from "@/lib/contactForm";
 import { ActionArrow } from "./ActionArrow";
 import styles from "./ContactDialog.module.css";
 
 export function ContactDialog() {
-  const dialog = useRef<HTMLDialogElement>(null);
   const nameInput = useRef<HTMLInputElement>(null);
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("+7");
@@ -14,43 +13,15 @@ export function ContactDialog() {
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [submitted, setSubmitted] = useState(false);
 
-  const resetForm = useCallback(() => {
-    setFullName("");
-    setPhone("+7");
-    setDescription("");
-    setErrors({});
-    setSubmitted(false);
-  }, []);
-
-  const openDialog = useCallback(() => {
-    const element = dialog.current;
-    if (!element) return;
-
-    resetForm();
-    if (!element.open) element.showModal();
-    window.requestAnimationFrame(() => nameInput.current?.focus());
-  }, [resetForm]);
-
-  const closeDialog = useCallback(() => dialog.current?.close(), []);
-
-  useEffect(() => {
-    const handleTrigger = (event: MouseEvent) => {
-      if (!(event.target instanceof Element)) return;
-
-      const trigger = event.target.closest<HTMLElement>("[data-contact-dialog]");
-      if (!trigger) return;
-
-      event.preventDefault();
-      openDialog();
-    };
-
-    document.addEventListener("click", handleTrigger);
-    return () => document.removeEventListener("click", handleTrigger);
-  }, [openDialog]);
-
   const handlePhoneChange = (value: string) => {
     setPhone(formatRussianPhone(value));
     if (errors.phone) setErrors(current => ({ ...current, phone: undefined }));
+  };
+
+  const closeDialog = () => {
+    setSubmitted(false);
+    setErrors({});
+    window.history.replaceState(null, "", `${window.location.pathname}${window.location.search}`);
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -68,21 +39,18 @@ export function ContactDialog() {
 
   return (
     <dialog
+      id="contact-dialog"
       className={styles.dialog}
-      ref={dialog}
+      open
       aria-labelledby="contact-dialog-title"
       aria-describedby="contact-dialog-description"
-      onClick={event => {
-        if (event.target === dialog.current) closeDialog();
-      }}
-      onClose={resetForm}
     >
       <div className={styles.shell}>
-        <button className={styles.close} type="button" onClick={closeDialog} aria-label="Закрыть форму">
+        <a className={styles.close} href="#" aria-label="Закрыть форму">
           <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
             <path d="m6 6 12 12M18 6 6 18" />
           </svg>
-        </button>
+        </a>
 
         {submitted ? (
           <div className={styles.success} aria-live="polite">

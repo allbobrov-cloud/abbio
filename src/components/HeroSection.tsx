@@ -34,7 +34,7 @@ export function HeroSection() {
           </p>
 
           <div className={styles.buttons} aria-label="Основные действия">
-            <a className={styles.primaryButton} href="#contacts" data-contact-dialog>
+            <a className={styles.primaryButton} href="#contact-dialog" data-contact-dialog>
               <span>Обсудить проект</span>
               <span aria-hidden="true">↗</span>
             </a>

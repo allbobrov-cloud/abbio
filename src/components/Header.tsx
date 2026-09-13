@@ -22,7 +22,7 @@ export function Header() {
         </nav>
 
         <div className={styles.actions}>
-          <a className={styles.cta} href="#contacts" data-contact-dialog>
+          <a className={styles.cta} href="#contact-dialog" data-contact-dialog>
             <span>Обсудить проект</span>
             <span aria-hidden="true">↗</span>
           </a>

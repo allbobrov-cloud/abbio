@@ -56,7 +56,7 @@ export function ProjectCta() {
     <div className={styles.projectCtaShell}><div className={styles.projectCtaPanel}>
       <div className={styles.projectCtaArtwork} aria-hidden="true"><Image src="/home/project-cta-orbit-v1.avif" alt="" fill sizes="(max-width: 760px) 100vw, 1200px" /></div>
       <div className={styles.projectCtaMain}><p className={styles.projectCtaLabel}>ПЕРВЫЙ ШАГ</p><h2 id="project-cta-title">Есть задача — найдём точку старта.</h2></div>
-      <div className={styles.projectCtaAside}><p>Расскажите, что хотите изменить: сайт, поток обращений или процессы команды. На встрече разберём контекст и определим, с чего логично начать.</p><a href="#contacts" data-contact-dialog className={styles.projectCtaAction}>Обсудить задачу <ActionArrow /></a></div>
+      <div className={styles.projectCtaAside}><p>Расскажите, что хотите изменить: сайт, поток обращений или процессы команды. На встрече разберём контекст и определим, с чего логично начать.</p><a href="#contact-dialog" data-contact-dialog className={styles.projectCtaAction}>Обсудить задачу <ActionArrow /></a></div>
     </div></div>
   </div></section>;
 }

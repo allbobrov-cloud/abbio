@@ -105,7 +105,7 @@
 .comingSoon{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:#b7a0ef}
 .journalTopics p{font-size:18px;line-height:1.4;border-bottom:1px solid #ffffff18;padding:22px 0;margin:0;display:flex;gap:25px}
 .journalTopics p span{font-size:10px;color:#8b869a;padding-top:5px}
-.footer{padding:100px 0 0;margin-top:85px;background:radial-gradient(ellipse at 15% 100%,#34224445,transparent 65%);border-top:1px solid #ffffff13}
+.footer{padding:100px 0 0;margin-top:0;border-top:1px solid #d5c9f524;background:radial-gradient(ellipse at 15% 100%,#34224445,transparent 65%)}
 .contactGrid{display:grid;grid-template-columns:1.3fr 1fr;gap:70px;align-items:start;padding-bottom:80px}
 .contactDescription{color:#a6a1b6;font-size:14px;line-height:1.7;margin:24px 0 0}
 .contactDetails{padding-left:45px;border-left:1px solid #ffffff20}
@@ -143,7 +143,8 @@
 @media(max-width:960px){.headerInner{height:76px;width:calc(100% - 48px)}.menuButton{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:46px;height:46px;padding:0;border:1px solid #ffffff35;border-radius:50%;background:#ffffff06;color:#e9e4f1;cursor:pointer;transition:border-color .2s ease,background .2s ease,transform .2s ease}.menuButton span{display:block;width:16px;height:1px;background:currentColor;transition:transform .24s ease,opacity .2s ease}.menuButton[aria-expanded=true]{border-color:#c7b0f2;background:#b7a0ef19}.menuButton[aria-expanded=true] span:first-child{transform:translateY(6px) rotate(45deg)}.menuButton[aria-expanded=true] span:nth-child(2){opacity:0}.menuButton[aria-expanded=true] span:last-child{transform:translateY(-6px) rotate(-45deg)}.headerCta{margin-left:auto}.nav{display:none;position:absolute;top:76px;left:0;right:0;background:#101019;padding:24px;flex-direction:column;align-items:stretch;gap:0;border-bottom:1px solid #ffffff30;max-height:calc(100dvh - 76px);overflow-y:auto}.nav[data-open=true]{display:flex}.nav a{font-size:18px;padding:17px 8px;border-bottom:1px solid #ffffff15}.nav .mobileContact{display:block;color:var(--accent)}.container{width:calc(100% - 64px)}.hero h1{font-size:58px}.heroGrid{grid-template-columns:1.1fr 1fr;min-height:600px}.heroVisual{height:380px}.heroWindow{height:220px;top:70px}.heroPhone{width:95px;height:194px;bottom:0}.visualCaption{bottom:12px}.heroStamp{font-size:10px;top:5%}.heroDescription{font-size:15px}.section{padding-top:80px}.serviceRow p{font-size:13px}.serviceRow .tags{font-size:9px}.serviceRow h3{font-size:31px}.caseVisual{height:265px;padding:60px 25px 0}.caseCard:first-child .caseVisual{height:380px;padding-inline:12%}.steps{grid-template-columns:1fr 1fr;gap:35px}.stepNumber{margin-bottom:20px}.teamGrid{gap:18px}.person h3{font-size:18px}.journalTopics p{font-size:15px}.contactGrid{gap:30px}.contactDetails{padding-left:25px}.contactDetails .email{font-size:22px}}
 @media(max-width:760px){.container{width:calc(100% - 40px)}.headerInner{width:calc(100% - 40px)}.brand{font-size:32px}.heroGrid{display:flex;flex-direction:column;align-items:stretch;padding:48px 0 20px;gap:5px}.hero h1{font-size:clamp(46px,9.4vw,70px);letter-spacing:-2.6px}.heroCopy .eyebrow{font-size:9px;margin-bottom:25px}.heroDescription{font-size:16px;max-width:400px;margin-bottom:27px}.heroVisual{height:390px;width:90%;max-width:500px;align-self:center;margin-top:12px}.heroWindow{top:55px;left:0;width:100%;height:265px;transform:rotate(-4deg)}.heroPhone{right:0;width:115px;height:235px;bottom:5px}.heroStamp{right:3%;top:0}.visualCaption{left:0;bottom:5px}.heroBottom{font-size:10px;gap:20px;padding-block:18px}.heroBottom>span{max-width:190px;line-height:1.6}.section{padding-top:65px;padding-bottom:15px}.section h2,.footer h2{font-size:36px;letter-spacing:-1.5px}.sectionHead{gap:22px;margin-bottom:30px;flex-wrap:wrap}.sectionHead .eyebrow{font-size:10px;margin-bottom:19px}.sectionIntro{font-size:13px}.serviceRow{grid-template-columns:26px 1fr 44px;gap:8px;padding:25px 0}.serviceRow h3{font-size:32px;grid-column:2}.serviceRow>div{grid-column:2;grid-row:2;padding-top:8px}.serviceRow>.circleArrow{grid-column:3;grid-row:1/3;align-self:center;width:40px;height:40px}.serviceRow p{line-height:1.6;margin-bottom:10px}.serviceRow .tags{font-size:9px;gap:5px}.casesGrid{grid-template-columns:1fr;gap:35px}.caseCard:first-child{grid-column:auto}.caseCard:first-child .caseVisual,.caseVisual{height:300px;padding:58px 30px 0}.caseCaption{display:block}.caseCaption h3{font-size:23px}.caseCaption .tags{justify-content:flex-start;margin-top:14px}.caseIndex{font-size:8px;left:18px;top:21px}.caseOpen{width:38px;height:38px;font-size:20px}.processSection{margin-top:0;padding:55px 0}.steps{gap:28px 22px}.steps h3{font-size:18px}.steps p{font-size:12px}.teamGrid{gap:15px}.person h3{font-size:16px;line-height:1.3}.person p{font-size:11px}.portrait span{font-size:8px;left:8px;bottom:8px}.journal{grid-template-columns:1fr;gap:35px;padding:35px 0}.journal h2{font-size:32px}.journalTopics p{font-size:17px}.footer{margin-top:55px;padding-top:60px}.contactGrid{grid-template-columns:1fr;gap:40px;padding-bottom:45px}.contactDetails{border-left:0;border-top:1px solid #ffffff20;padding:25px 0 0}.contactDetails .email{font-size:26px}.footerBottom{gap:18px;font-size:9px}.footerBrand{font-size:28px}.pageHero{padding-top:45px}.pageHero h1{font-size:44px;letter-spacing:-1.8px}.pageDescription{font-size:16px}.breadcrumb{margin-bottom:32px}.detailGrid{grid-template-columns:1fr;gap:25px}.detailGrid h2{font-size:26px}.detailGrid p,.detailGrid li{font-size:14px}.relatedLink{font-size:18px;padding:22px}.detailSection{padding-top:40px}}
 @media(max-width:600px){.teamGrid{grid-template-columns:1fr;gap:30px}.portrait{aspect-ratio:1/1.05;max-height:470px}.person h3{font-size:22px;margin-top:15px}.person p{font-size:13px}.portrait span{font-size:10px;left:15px;bottom:15px}.placeholderNote{font-size:11px}.heroVisual{height:340px}.heroWindow{height:220px}.heroPhone{width:102px;height:209px}.heroStamp{font-size:9px}.heroBottom>span{max-width:160px}.caseCard:first-child .caseVisual,.caseVisual{height:255px;padding-inline:22px}}
-@media(max-width:360px){.hero h1{font-size:43px;letter-spacing:-2px}.heroVisual{height:300px}.heroWindow{height:190px}.heroPhone{width:90px;height:184px}.heroBottom>span{max-width:140px}.serviceRow h3{font-size:29px}.steps{grid-template-columns:1fr}.footerBottom>span{max-width:85px;line-height:1.5}}
+@media(max-width:600px){.pageHero h1{font-size:clamp(36px,10.3vw,40px);letter-spacing:-1.6px;overflow-wrap:anywhere}}
+@media(max-width:360px){.hero h1{font-size:43px;letter-spacing:-2px}.pageHero h1{font-size:clamp(34px,10.6vw,38px);letter-spacing:-1.6px;overflow-wrap:anywhere}.heroVisual{height:300px}.heroWindow{height:190px}.heroPhone{width:90px;height:184px}.heroBottom>span{max-width:140px}.serviceRow h3{font-size:29px}.steps{grid-template-columns:1fr}.footerBottom>span{max-width:85px;line-height:1.5}}
 @media(max-width:760px){.footerBottom{min-height:0;grid-template-columns:1fr auto;gap:16px;padding:22px 0}.footerBrand{font-size:32px}.footerScope{grid-column:1/-1;grid-row:2;width:100%;padding:14px 0 0;border-left:0;border-top:1px solid #ffffff12;gap:5px;text-align:center;justify-items:center}.footerScope strong{font-size:10px}.footerTop{grid-column:2;grid-row:1}}
 @media(max-width:360px){.footerScope strong{font-size:9px}.footerTop{gap:8px;padding-left:11px}}
 
@@ -152,7 +153,7 @@
   .headerInner{height:68px}
   .nav{top:68px;max-height:calc(100dvh - 68px)}
   .headerInner{gap:10px}
-  .headerCta{display:inline-flex;align-items:center;min-height:42px;padding:0 12px;border-radius:999px;font-size:11px;font-weight:600}
+  .headerCta{display:none}
   .menuButton{flex:0 0 44px;width:44px;height:44px;min-width:44px;min-height:44px}
   .brand{font-size:31px}
   .section{padding:68px 0 42px;scroll-margin-top:68px}
@@ -181,6 +182,12 @@
   .person h3{margin-top:14px;font-size:20px}
   .person p{font-size:12px}
 
-  .footer{margin-top:42px;padding-top:66px}
+  .footer{margin-top:0;padding-top:42px}
   .contactGrid{gap:32px}
 }
+
+
+/* Header CTA is a button so it can open the contact dialog without navigation. */
+
+/* Keep breadcrumb links reachable on touch screens. */
+@media(max-width:760px){.breadcrumb a{display:inline-flex;align-items:center;min-height:28px}}

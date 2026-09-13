@@ -47,7 +47,7 @@ export function HomeHero() {
             <p className={styles.lead}>Помогаем выглядеть убедительно, привлекать клиентов и работать с обращениями.</p>
             <p className={styles.heroDetail}>От первого впечатления до заявки в CRM — подключаем дизайн, разработку и продвижение там, где они нужны вашему бизнесу.</p>
             <div className={styles.actions}>
-              <a className={base.button} href="#contacts" data-contact-dialog>Обсудить задачу <ActionArrow /></a>
+              <a className={base.button} href="#contact-dialog" data-contact-dialog>Обсудить задачу <ActionArrow /></a>
               <a className={base.textLink} href="#cases">Посмотреть работы <span aria-hidden="true">↓</span></a>
             </div>
           </div>
@@ -118,7 +118,7 @@ export function TaskExplorer() {
               )}
               <p className={styles.taskResult}>{situation.result}</p>
             </div>
-            <a href="#contacts" data-contact-dialog className={base.textLink}>Обсудить такую задачу <ActionArrow /></a>
+            <a href="#contact-dialog" data-contact-dialog className={base.textLink}>Обсудить такую задачу <ActionArrow /></a>
           </div>
         </div>
       </div>
@@ -167,8 +167,8 @@ export function WorkFormats() {
       <div className={base.sectionHead}><div><p className={base.eyebrow}>Масштаб выбираем вместе</p><h2 id="formats-title" aria-label="Одна задача. Или работа вдолгую.">Одна задача.<br /><em>Или работа вдолгую.</em></h2></div><p className={base.sectionIntro}>Не обязательно заказывать всё сразу.<br /> Отталкиваемся от приоритетов и ресурсов.</p></div>
       <p className={styles.mobileSwipeHint} id="formats-scroll-hint">Листайте варианты <span aria-hidden="true">→</span></p>
       <div className={styles.formatGrid} role="region" aria-label="Форматы работы" aria-describedby="formats-scroll-hint" tabIndex={0}>
-        <article className={styles.formatCard}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Проект</span><h3>Сделать и запустить</h3><p>Когда есть конкретная задача: разработать сайт, обновить дизайн, подключить CRM или автоматизировать процесс.</p><ul><li>Понятный состав работ</li><li>Согласованные этапы</li><li>Передача результата</li></ul><a href="#contacts" data-contact-dialog className={base.textLink}>Обсудить проект <ActionArrow /></a></article>
-        <article className={`${styles.formatCard} ${styles.longTerm}`}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Развитие</span><h3>Улучшать и развивать</h3><p>Когда нужно регулярно работать над сайтом, поисковым продвижением, контентом и качеством обращений.</p><ul><li>Приоритеты на следующий этап</li><li>Проверка изменений</li><li>Обсуждение данных и результатов</li></ul><a href="#contacts" data-contact-dialog className={base.textLink}>Обсудить развитие <ActionArrow /></a></article>
+        <article className={styles.formatCard}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Проект</span><h3>Сделать и запустить</h3><p>Когда есть конкретная задача: разработать сайт, обновить дизайн, подключить CRM или автоматизировать процесс.</p><ul><li>Понятный состав работ</li><li>Согласованные этапы</li><li>Передача результата</li></ul><a href="#contact-dialog" data-contact-dialog className={base.textLink}>Обсудить проект <ActionArrow /></a></article>
+        <article className={`${styles.formatCard} ${styles.longTerm}`}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Развитие</span><h3>Улучшать и развивать</h3><p>Когда нужно регулярно работать над сайтом, поисковым продвижением, контентом и качеством обращений.</p><ul><li>Приоритеты на следующий этап</li><li>Проверка изменений</li><li>Обсуждение данных и результатов</li></ul><a href="#contact-dialog" data-contact-dialog className={base.textLink}>Обсудить развитие <ActionArrow /></a></article>
       </div>
     </div></section>
   );
