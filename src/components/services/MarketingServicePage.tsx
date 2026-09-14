@@ -2,26 +2,50 @@ import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
 import styles from "./MarketingServicePage.module.css";
+import deliverablesStyles from "./MarketingDeliverables.module.css";
+import ctaStyles from "./MarketingCta.module.css";
+import heroBlendStyles from "./MarketingHeroBlend.module.css";
+import { CasePortfolio } from "./CasePortfolio";
 
 const reportDemoUrl = "https://docs.google.com/spreadsheets/d/1_t_nzlVjj-NE8Lvdqqsz3XC_L0DNfjz0K1nLGFqu1Tk/edit?gid=185043878#gid=185043878";
 
-const sourceGroups = ["SEO", "Реклама", "Материалы и посадочные страницы", "Формы", "Звонки", "Чаты", "Прямые и другие согласованные переходы"];
+const sourceGroups = ["SEO", "Реклама", "Материалы и посадочные страницы", "Формы", "Звонки", "Чаты", "Прямые и другие согласованные переходы", "Email и рассылки"];
 
 const demandStages = [
-  { title: "Потребность", text: "Задача или вопрос, с которым приходит человек." },
-  { title: "Канал", text: "Согласованный источник приводит к нужному предложению." },
-  { title: "Посадочная страница", text: "Страница объясняет предложение и помогает выбрать." },
-  { title: "Действие", text: "Форма, звонок или чат дают способ обратиться." },
-  { title: "Обращение", text: "Интерес получает контакт, контекст и следующий шаг." },
+  {
+    title: "Потребность",
+    text: "Задача или вопрос, с которым приходит человек.",
+    image: "/services/marketing-demand-need-v1.png",
+  },
+  {
+    title: "Канал",
+    text: "Согласованный источник приводит к нужному предложению.",
+    image: "/services/marketing-demand-channel-v1.png",
+  },
+  {
+    title: "Посадочная страница",
+    text: "Страница объясняет предложение и помогает выбрать.",
+    image: "/services/marketing-demand-landing-v1.png",
+  },
+  {
+    title: "Действие",
+    text: "Форма, звонок или чат дают способ обратиться.",
+    image: "/services/marketing-demand-action-v1.png",
+  },
+  {
+    title: "Обращение",
+    text: "Интерес получает контакт, контекст и следующий шаг.",
+    image: "/services/marketing-demand-lead-v1.png",
+  },
 ];
 
 const crmStages = [
-  { title: "Обращение", text: "Контакт сохранён" },
-  { title: "Источник и запрос", text: "Согласованный контекст" },
-  { title: "CRM", text: "Рабочая точка команды" },
-  { title: "Ответственный", text: "Обращение передано" },
-  { title: "Статус", text: "Текущий этап виден" },
-  { title: "Следующий этап", text: "Работа продолжается" },
+  { title: "Обращение", text: "Контакт сохранён", icon: "/services/marketing-crm-lead-icon-v1.png" },
+  { title: "Источник и запрос", text: "Согласованный контекст", icon: "/services/marketing-crm-source-icon-v1.png" },
+  { title: "CRM", text: "Рабочая точка команды", icon: "/services/marketing-crm-icon-v1.png" },
+  { title: "Ответственный", text: "Обращение передано", icon: "/services/marketing-crm-owner-icon-v1.png" },
+  { title: "Статус", text: "Текущий этап виден", icon: "/services/marketing-crm-status-icon-v1.png" },
+  { title: "Следующий этап", text: "Работа продолжается", icon: "/services/marketing-crm-next-icon-v1.png" },
 ];
 
 const reportMetrics = [
@@ -51,9 +75,11 @@ const deliverables = [
 function CrmPipelineVisual() {
   return (
     <ol className={styles.bitrixPipeline} aria-label="Маршрут обращения в CRM">
-      {crmStages.map((stage, index) => (
+      {crmStages.map((stage) => (
         <li key={stage.title}>
-          <span>{String(index + 1).padStart(2, "0")}</span>
+          <div className={styles.crmStageIcon} aria-hidden="true">
+            <Image src={stage.icon} alt="" fill sizes="56px" />
+          </div>
           <h3>{stage.title}</h3>
           <p>{stage.text}</p>
         </li>
@@ -114,16 +140,14 @@ export function MarketingServicePage() {
               </div>
             </div>
 
-            <div className={styles.heroRoute}>
-              <p className={styles.routeEyebrow}>Управляемый маршрут</p>
-              <ol aria-label="Маршрут от источника до отчёта">
-                <li><span>01</span><strong>Источник</strong><small>Согласованный канал</small></li>
-                <li><span>02</span><strong>Страница</strong><small>Предложение и выбор</small></li>
-                <li><span>03</span><strong>Заявка</strong><small>Форма, звонок или чат</small></li>
-                <li><span>04</span><strong>CRM</strong><small>Обращение в работе</small></li>
-                <li><span>05</span><strong>Отчёт</strong><small>Каналы, обращения, статусы</small></li>
-              </ol>
-              <p className={styles.heroRouteNote}>Показываем согласованный состав показателей без выдуманных значений.</p>
+        <div className={`${styles.heroVisual} ${heroBlendStyles.visual}`} aria-hidden="true">
+              <Image
+                src="/services/marketing-hero-measurable-workflow-v1.png"
+                alt=""
+                fill
+                priority
+                sizes="(max-width: 760px) 100vw, (max-width: 1280px) 55vw, 720px"
+              />
             </div>
           </div>
         </div>
@@ -158,8 +182,7 @@ export function MarketingServicePage() {
             {seoStages.map((stage, index) => <li key={stage}><span>{String(index + 1).padStart(2, "0")}</span><h3>{stage}</h3></li>)}
           </ol>
           <div className={styles.seoLinks}>
-            <p>На «Сайтах» закладывается техническая и структурная основа; в «Маркетинге» SEO развивается как постоянный канал привлечения и измерения спроса.</p>
-            <div><Link href="/services/websites">Нужны новые или переработанные посадочные страницы <ActionArrow /></Link><Link href="/services/design">Нужна отдельная визуальная работа <ActionArrow /></Link></div>
+            <div><Link href="/services/seo">Перейти к SEO <ActionArrow /></Link></div>
           </div>
         </div>
       </section>
@@ -176,7 +199,9 @@ export function MarketingServicePage() {
             {demandStages.map((stage, index) => (
               <li key={stage.title}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
-                <div className={styles.demandStageVisual} aria-hidden="true"><i /><i /><b /></div>
+              <div className={styles.demandStageVisual} aria-hidden="true">
+                <Image src={stage.image} alt="" fill sizes="20vw" />
+              </div>
                 <h3>{stage.title}</h3>
                 <p>{stage.text}</p>
               </li>
@@ -209,12 +234,42 @@ export function MarketingServicePage() {
             lead="Сопоставляем расходы, количество и качество обращений, источники и текущие статусы — в пределах доступных данных."
             titleId="metrics-title"
           />
-          <div className={styles.metricsBoard}>
-            <p className={styles.metricsBoardLabel}>Структура согласованного отчёта</p>
-            <ul>
+          <div className={styles.metricsAtlas}>
+            <div className={styles.metricsAtlasMeta}>
+              <p className={styles.metricsAtlasLabel}>Структура согласованного отчёта</p>
+              <p className={styles.metricsNote}>
+                Выручка, ROMI, окупаемость и стоимость продажи могут учитываться, если в проекте есть
+                полные данные для их расчёта. Они не появляются автоматически.
+              </p>
+            </div>
+            <ul className={styles.metricsLedger} aria-label="Показатели согласованного отчёта">
               {reportMetrics.map((metric, index) => <li key={metric}><span>{String(index + 1).padStart(2, "0")}</span>{metric}</li>)}
             </ul>
             <p className={styles.metricsNote}>Выручка, ROMI, окупаемость и стоимость продажи могут учитываться, если в проекте есть полные данные для их расчёта. Они не появляются автоматически.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.startSection} aria-labelledby="report-cta-title">
+        <div className={styles.container}>
+          <div className={`${styles.startPanel} ${ctaStyles.panel}`}>
+            <div className={ctaStyles.image}>
+              <Image
+                src="/services/marketing-cta-project-brief-v1.png"
+                alt=""
+                fill
+                sizes="(max-width: 1040px) 48vw, 760px"
+              />
+            </div>
+            <div className={ctaStyles.content}>
+              <p className={styles.sectionIndex}>Первый разговор</p>
+              <h2 id="report-cta-title">Обсудим задачи и найдём следующий шаг.</h2>
+            </div>
+            <div className={styles.startCopy}>
+              <p>Расскажите, что хотите изменить. Подскажем, с чего начать.</p>
+              <a href="#contact-dialog" data-contact-dialog className={styles.finalAction}>Обсудить маркетинг <ActionArrow /></a>
+              <Link href="/process" className={styles.processLink}>Как строится работа <span aria-hidden="true">→</span></Link>
+            </div>
           </div>
         </div>
       </section>
@@ -260,11 +315,11 @@ export function MarketingServicePage() {
         <div className={styles.container}>
           <SectionHeader
             label="08 / Результат работы"
-            title="Что остаётся у команды после запуска."
-            lead="Передаём настроенные каналы, точки обращения, рабочую связку с CRM, структуру показателей и документацию в согласованном составе проекта."
+      title="Результат работы: управляемый маркетинг."
+      lead="В результате команда получает настроенные каналы, точки обращения, рабочую связку с CRM, структуру показателей и документацию в согласованном составе проекта."
             titleId="deliverables-title"
           />
-          <ol className={styles.deliverableList}>
+      <ol className={`${styles.deliverableList} ${deliverablesStyles.board}`}>
             {deliverables.map((item, index) => (
               <li key={item}><span>{String(index + 1).padStart(2, "0")}</span>{item}</li>
             ))}
@@ -272,32 +327,30 @@ export function MarketingServicePage() {
         </div>
       </section>
 
-      <section className={styles.caseSection} aria-labelledby="case-title">
-        <div className={styles.container}>
-          <div className={styles.caseGrid}>
-            <div className={styles.caseCopy}>
-              <p className={styles.sectionIndex}>Кейс / Металлопрокат B2B</p>
-              <h2 id="case-title">Металлобаза Волхонка. От поиска металла до заявки на поставку.</h2>
-              <p>В проекте соединили сайт и каталог, поисковое продвижение, работу с обращениями и CRM.</p>
-              <p>Заявка сохраняет контекст, чтобы отдел продаж мог продолжить разговор с покупателем.</p>
-              <Link href="/cases/volhonka" className={styles.caseLink}>Открыть кейс <ActionArrow /></Link>
-            </div>
-            <div className={styles.caseVisual}>
-              <Image src="/cases/volhonka-desktop-v1.webp" alt="Сайт Металлобазы Волхонка с каталогом металлопроката" fill sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1040px) 46vw, 590px" />
-            </div>
-          </div>
-        </div>
-      </section>
+      <CasePortfolio
+        title="Три проекта — три разные задачи."
+        description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."
+        slugs={["bogov", "oss", "volhonka"]}
+        featuredSlug="bogov"
+      />
 
-      <section className={styles.startSection} aria-labelledby="start-title">
+      <section className={`${styles.startSection} ${styles.postCasesCta}`} aria-labelledby="start-title">
         <div className={styles.container}>
-          <div className={styles.startPanel}>
-            <div>
+      <div className={`${styles.startPanel} ${ctaStyles.panel}`}>
+        <div className={ctaStyles.image}>
+          <Image
+            src="/services/marketing-cta-project-brief-v1.png"
+            alt=""
+            fill
+            sizes="(max-width: 1040px) 48vw, 760px"
+          />
+        </div>
+        <div className={ctaStyles.content}>
               <p className={styles.sectionIndex}>Первый разговор</p>
-              <h2 id="start-title">Хотите понимать, какие каналы приводят клиентов и где требуется решение?</h2>
+          <h2 id="start-title">Обсудим задачу и найдём следующий шаг.</h2>
             </div>
             <div className={styles.startCopy}>
-              <p>Обсудим источники, текущую работу с обращениями и данные, которые нужны руководителю.</p>
+          <p>Расскажите, что хотите изменить. Подскажем, с чего начать.</p>
               <a href="#contact-dialog" data-contact-dialog className={styles.finalAction}>Обсудить маркетинг <ActionArrow /></a>
               <Link href="/process" className={styles.processLink}>Как строится работа <span aria-hidden="true">→</span></Link>
             </div>

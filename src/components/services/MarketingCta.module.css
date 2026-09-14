@@ -1,0 +1,251 @@
+@media (min-width: 761px) {
+  .panel {
+    position: relative;
+    display: grid !important;
+    max-width: 1460px;
+    margin-inline: auto;
+    grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr) !important;
+    min-height: 360px;
+    padding: 0 !important;
+    overflow: hidden;
+    background: #0b0d16 !important;
+    border: 1px solid rgba(185, 166, 247, 0.35) !important;
+    border-radius: 28px;
+  }
+
+  .panel::before {
+    display: none;
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 358px;
+    content: "";
+    background:
+      linear-gradient(90deg, rgba(6, 7, 13, 0.05) 46%, rgba(6, 7, 13, 0.94) 100%),
+      linear-gradient(0deg, rgba(6, 7, 13, 0.36), rgba(6, 7, 13, 0.04)),
+      url("/services/marketing-cta-conversation-v1.png") center / cover no-repeat;
+  }
+
+  .panel > div {
+    position: relative;
+    z-index: 1;
+  }
+
+  .image {
+    position: relative !important;
+    z-index: 1 !important;
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    min-height: 358px;
+    overflow: hidden;
+  }
+
+  .image::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: linear-gradient(90deg, rgba(5, 7, 13, 0.04), rgba(5, 7, 13, 0.22) 68%, rgba(5, 7, 13, 0.96));
+    pointer-events: none;
+  }
+
+  .image :global(img) {
+    object-fit: cover;
+    object-position: 36% center;
+  }
+
+  .content {
+    position: relative !important;
+    z-index: 2 !important;
+    display: flex !important;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    align-self: start !important;
+    flex-direction: column;
+    justify-content: center;
+    padding: 38px 48px 0 !important;
+  }
+
+  .content > div {
+    position: static !important;
+    display: block !important;
+    width: 100%;
+    margin-top: 20px !important;
+    padding: 0 !important;
+  }
+
+  .panel > div:first-child {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    padding: 56px 56px 16px 20px;
+  }
+
+  .panel > div:last-child {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    padding: 0 56px 56px 20px;
+  }
+
+  .panel > div:last-child {
+    position: relative !important;
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    align-self: end !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 0 48px 38px !important;
+    transform: none !important;
+  }
+
+  .panel > .image {
+    grid-column: 1 !important;
+    grid-row: 1 !important;
+    align-self: stretch !important;
+    padding: 0 !important;
+  }
+
+  .panel > .content {
+    grid-column: 2 !important;
+    grid-row: 1 !important;
+    align-self: start !important;
+    padding: 38px 48px 0 !important;
+  }
+
+  .panel h2 {
+    max-width: 17ch;
+    margin: 12px 0 0;
+    font-size: clamp(36px, 2.6vw, 46px) !important;
+    line-height: 0.98 !important;
+  }
+
+  .content .startCopy {
+    position: static !important;
+    display: block !important;
+    width: 100% !important;
+    margin-top: 20px !important;
+  }
+
+  .panel p {
+    max-width: 36ch;
+  }
+
+  .panel :global(a) {
+    margin-top: 20px;
+  }
+
+  .panel :global(a:first-of-type) {
+    display: inline-flex;
+    gap: 14px;
+    font-size: 0;
+  }
+
+  .panel :global(a:first-of-type)::before {
+    content: "Написать нам";
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .panel :global(a:first-of-type svg) {
+    width: 22px;
+    height: 22px;
+    color: #17131f;
+  }
+
+  .panel :global(a + a) {
+    display: none;
+  }
+}
+
+@media (max-width: 760px) {
+  .panel {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    overflow: hidden;
+    border: 1px solid rgba(198, 179, 249, 0.42) !important;
+    border-radius: 16px !important;
+    background: #0d1020 !important;
+  }
+
+  .image {
+    position: relative !important;
+    z-index: 0;
+    display: block;
+    order: 1;
+    aspect-ratio: 16 / 8;
+    overflow: hidden;
+    background: #090c15;
+  }
+
+  .image::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    background: linear-gradient(180deg, rgba(7, 9, 16, 0) 34%, #0d1020 100%);
+    pointer-events: none;
+  }
+
+  .image :global(img) {
+    object-fit: cover;
+    object-position: 48% center;
+  }
+
+  .content {
+    position: relative !important;
+    z-index: 1;
+    display: block !important;
+    order: 2;
+    padding: 26px 24px 0 !important;
+  }
+
+  .panel > div:last-child {
+    position: relative !important;
+    z-index: 1;
+    order: 3;
+    align-self: auto !important;
+    width: auto !important;
+    margin: 0 !important;
+    padding: 22px 24px 28px !important;
+    transform: none !important;
+  }
+
+  .panel h2 {
+    max-width: 14ch;
+    margin: 14px 0 0 !important;
+    font-size: clamp(34px, 9.5vw, 40px) !important;
+    line-height: 1.02 !important;
+  }
+
+  .panel p {
+    max-width: 32ch;
+  }
+
+  .panel :global(a) {
+    margin-top: 22px;
+  }
+
+  .panel :global(a:first-of-type) {
+    gap: 14px;
+  }
+
+  .panel :global(a + a) {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .content {
+    padding: 23px 20px 0 !important;
+  }
+
+  .panel > div:last-child {
+    padding: 20px 20px 25px !important;
+  }
+
+  .panel h2 {
+    font-size: 34px !important;
+  }
+}

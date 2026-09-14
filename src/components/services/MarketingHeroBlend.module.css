@@ -1,0 +1,54 @@
+@media (min-width: 761px) {
+  .visual {
+    isolation: isolate;
+    position: relative !important;
+  }
+
+  .visual::after {
+    background:
+      linear-gradient(
+        180deg,
+        #070810 0%,
+        rgba(7, 8, 16, 0.98) 9%,
+        rgba(7, 8, 16, 0.68) 24%,
+        transparent 44%
+      ),
+      linear-gradient(
+        90deg,
+        #070810 0%,
+        rgba(7, 8, 16, 0.98) 9%,
+        rgba(7, 8, 16, 0.84) 20%,
+        rgba(7, 8, 16, 0.36) 38%,
+        transparent 58%
+      );
+    content: "";
+    inset: -1px;
+    pointer-events: none;
+    position: absolute;
+    z-index: 2;
+  }
+
+  .visual :global(img) {
+    z-index: 0 !important;
+  }
+}
+@media (min-width: 761px) {
+  .visual {
+    position: absolute !important;
+    inset: -54px 0 -38px !important;
+    left: calc((100vw - 100%) / -2) !important;
+    right: calc((100vw - 100%) / -2) !important;
+    margin: 0 !important;
+    width: auto !important;
+  }
+
+  .visual::after {
+    background:
+      linear-gradient(180deg, #070810 0%, rgba(7, 8, 16, 0.99) 7%, rgba(7, 8, 16, 0.86) 18%, rgba(7, 8, 16, 0.5) 32%, transparent 52%),
+      linear-gradient(90deg, #070810 0%, rgba(7, 8, 16, 0.99) 7%, rgba(7, 8, 16, 0.9) 17%, rgba(7, 8, 16, 0.62) 32%, rgba(7, 8, 16, 0.22) 48%, transparent 66%);
+  }
+
+  .visual img {
+    object-position: 78% center !important;
+  }
+}

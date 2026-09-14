@@ -6,16 +6,8 @@ import styles from "./ServicesOverviewPage.module.css";
 
 const directions = [
   {
-    slug: "design",
-    number: "01",
-    title: "Дизайн",
-    eyebrow: "Когда важно впечатление",
-    description: "Помогаем ясно представить продукт и собрать последовательный визуальный язык.",
-    items: ["Визуальная концепция", "Веб-дизайн", "Макеты и презентации"],
-  },
-  {
     slug: "websites",
-    number: "02",
+    number: "01",
     title: "Сайты",
     eyebrow: "Когда важен путь до обращения",
     description: "Собираем сайт, в котором проще разобраться, выбрать и связаться с командой.",
@@ -23,13 +15,41 @@ const directions = [
   },
   {
     slug: "marketing",
-    number: "03",
+    number: "02",
     title: "Маркетинг",
     eyebrow: "Когда нужен связанный маршрут",
     description: "Соединяем спрос, каналы, страницы, обращения и следующий шаг для команды.",
     items: ["SEO и реклама", "CRM и автоматизация", "Отчётность в согласованном составе"],
   },
+  {
+    slug: "design",
+    number: "03",
+    title: "Дизайн",
+    eyebrow: "Когда важно впечатление",
+    description: "Помогаем ясно представить продукт и собрать последовательный визуальный язык.",
+    items: ["Визуальная концепция", "Веб-дизайн", "Макеты и презентации"],
+  },
+  {
+    slug: "seo",
+    number: "04",
+    title: "Органический поиск как самостоятельный источник обращений.",
+    eyebrow: "SEO-продвижение",
+    description: "Развиваем структуру, техническую основу и содержание сайта, чтобы его находили по реальному спросу, а компания меньше зависела от платной рекламы.",
+    items: [],
+    linkLabel: "Подробнее об SEO",
+  },
+  {
+    slug: "yandex-direct",
+    number: "05",
+    title: "Быстрый запуск обращений из Яндекс Директа.",
+    eyebrow: "Контекстная реклама",
+    description: "Настраиваем рекламу, связываем объявления с посадочными страницами и CRM, показываем расходы и обращения в понятном отчёте.",
+    items: [],
+    linkLabel: "Подробнее о рекламе",
+  },
 ] as const;
+
+const heroDirections = directions.slice(0, 3);
 
 const situations = [
   {
@@ -84,6 +104,8 @@ const directionClasses = {
   design: styles.directionDesign,
   websites: styles.directionWebsites,
   marketing: styles.directionMarketing,
+  seo: styles.directionSeo,
+  "yandex-direct": styles.directionDirect,
 };
 
 function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }) {
@@ -95,7 +117,15 @@ function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }
     return <div className={styles.websiteVisual} aria-hidden="true"><i /><i /><i /><b /><b /><b /></div>;
   }
 
-  return <div className={styles.marketingVisual} aria-hidden="true"><span>Спрос</span><i /><span>Страница</span><i /><strong>Обращение</strong></div>;
+  if (slug === "marketing") {
+    return <div className={styles.marketingVisual} aria-hidden="true"><span>Спрос</span><i /><span>Страница</span><i /><strong>Обращение</strong></div>;
+  }
+
+  if (slug === "seo") {
+    return <div className={styles.seoVisual} aria-hidden="true"><span>Поисковый спрос</span><i /><b /><b /><b /></div>;
+  }
+
+  return <div className={styles.directVisual} aria-hidden="true"><span>Объявление</span><i /><span>Обращение</span><i /><strong>Отчёт</strong></div>;
 }
 
 export function ServicesOverviewPage() {
@@ -123,7 +153,7 @@ export function ServicesOverviewPage() {
             <aside className={styles.heroMap} aria-label="Три самостоятельных направления работы ABB">
               <p>Можно начать с одной точки</p>
               <ul>
-                {directions.map((item) => (
+                {heroDirections.map((item) => (
                   <li key={item.slug}>
                     <Link href={`/services/${item.slug}`}>
                       <span>{item.number}</span>
@@ -163,7 +193,7 @@ export function ServicesOverviewPage() {
                   <ul>
                     {item.items.map((entry) => <li key={entry}>{entry}</li>)}
                   </ul>
-                  <Link href={`/services/${item.slug}`} className={styles.directionLink}>Открыть направление <ActionArrow /></Link>
+                  <Link href={`/services/${item.slug}`} className={styles.directionLink}>{"linkLabel" in item ? item.linkLabel : "Открыть направление"} <ActionArrow /></Link>
                 </div>
                 <DirectionVisual slug={item.slug} />
               </article>
