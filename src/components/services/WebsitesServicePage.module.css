@@ -984,7 +984,7 @@
   .heroMedia {
     display: block;
     position: relative;
-    margin: 26px -8px 0;
+    margin: clamp(26px, calc(13svh - 65px), 46px) -8px 0;
     overflow: hidden;
   }
   .heroVisual:after {
