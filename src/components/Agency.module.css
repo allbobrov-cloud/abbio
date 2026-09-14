@@ -153,7 +153,7 @@
   .headerInner{height:68px}
   .nav{top:68px;max-height:calc(100dvh - 68px)}
   .headerInner{gap:10px}
-  .headerCta{display:none}
+  .headerCta{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 12px;gap:0;font-size:11px}
   .menuButton{flex:0 0 44px;width:44px;height:44px;min-width:44px;min-height:44px}
   .brand{font-size:31px}
   .section{padding:68px 0 42px;scroll-margin-top:68px}

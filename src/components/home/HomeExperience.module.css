@@ -802,3 +802,15 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   .journeyRoute .journeyVisual .scene { height: 158px; }
   .formatCard { flex-basis: 84vw; min-height: 450px; padding: 24px; }
 }
+
+@media (max-width: 760px) {
+  .journey,
+  .formats,
+  .home > section#process {
+    padding-block: 26px;
+  }
+
+  .home > section:last-child {
+    padding-top: 26px;
+  }
+}
