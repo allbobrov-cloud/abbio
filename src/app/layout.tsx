@@ -5,9 +5,9 @@ import { AgencyFooter } from "@/components/AgencySections";
 import { ContactDialog } from "@/components/ContactDialog";
 
 export const metadata: Metadata = {
-  title: { default: "Агентство ABB — дизайн, сайты и маркетинг", template: "%s | Агентство ABB" },
+  title: { default: "Агентство ABB.IO — дизайн, сайты и маркетинг", template: "%s | Агентство ABB.IO" },
   description:
-    "Создаём дизайн и сайты, занимаемся SEO, рекламой, CRM и автоматизацией. Посмотрите проекты агентства ABB и обсудите свою задачу.",
+    "Создаём дизайн и сайты, занимаемся SEO, рекламой, CRM и автоматизацией. Посмотрите проекты агентства ABB.IO и обсудите свою задачу.",
   robots: { index: false, follow: false }
 };
 

@@ -1,0 +1,13 @@
+.demandCore.demandCore {
+  grid-template-columns: 120px minmax(0, 1fr) 180px;
+}
+
+.demandCore.demandCore small {
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .demandCore.demandCore {
+    grid-template-columns: 1fr;
+  }
+}

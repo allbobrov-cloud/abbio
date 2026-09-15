@@ -9,7 +9,7 @@
 .nav a:hover,.nav a[aria-current=page]{color:var(--accent)}
 .headerCta{display:flex;gap:20px;align-items:center;font-size:13px;padding:15px 20px;border:1px solid #ffffff30;border-radius:7px;white-space:nowrap;transition:background .2s,border-color .2s}
 .headerCta:hover{background:#b7a0ef15;border-color:var(--accent)}
-.menuButton,.mobileContact{display:none}
+.menuButton,.mobileContact,.menuBackdrop{display:none}
 .menuButton{order:4}
 .hero{position:relative;overflow:hidden;background:radial-gradient(ellipse at 80% 40%,#39215c38,transparent 55%)}
 .heroGrid{display:grid;grid-template-columns:1.1fr 1fr;gap:30px;align-items:center;min-height:700px;padding-block:70px 60px}
@@ -147,6 +147,12 @@
 @media(max-width:360px){.hero h1{font-size:43px;letter-spacing:-2px}.pageHero h1{font-size:clamp(34px,10.6vw,38px);letter-spacing:-1.6px;overflow-wrap:anywhere}.heroVisual{height:300px}.heroWindow{height:190px}.heroPhone{width:90px;height:184px}.heroBottom>span{max-width:140px}.serviceRow h3{font-size:29px}.steps{grid-template-columns:1fr}.footerBottom>span{max-width:85px;line-height:1.5}}
 @media(max-width:760px){.footerBottom{min-height:0;grid-template-columns:1fr auto;gap:16px;padding:22px 0}.footerBrand{font-size:32px}.footerScope{grid-column:1/-1;grid-row:2;width:100%;padding:14px 0 0;border-left:0;border-top:1px solid #ffffff12;gap:5px;text-align:center;justify-items:center}.footerScope strong{font-size:10px}.footerTop{grid-column:2;grid-row:1}}
 @media(max-width:360px){.footerScope strong{font-size:9px}.footerTop{gap:8px;padding-left:11px}}
+
+@media(max-width:960px){
+  .menuBackdrop{display:block;position:fixed;inset:0;z-index:1;border:0;background:rgba(3,5,10,.44);cursor:default}
+  .brand,.menuButton,.headerCta{position:relative;z-index:3}
+  .nav{z-index:2}
+}
 
 /* Purpose-built mobile layouts for the shared homepage sections. */
 @media(max-width:760px){

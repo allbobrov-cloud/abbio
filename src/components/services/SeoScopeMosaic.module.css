@@ -1,0 +1,268 @@
+.scopeStage {
+  display: grid;
+  grid-template-columns: minmax(300px, 0.73fr) minmax(0, 1.27fr);
+  gap: clamp(24px, 3vw, 48px);
+  align-items: stretch;
+}
+
+.scopeObject {
+  position: relative;
+  min-height: 540px;
+  overflow: hidden;
+  border: 1px solid rgba(205, 185, 249, 0.25);
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at 73% 56%, rgba(151, 108, 231, 0.21), transparent 34%),
+    linear-gradient(145deg, rgba(29, 22, 46, 0.92), rgba(9, 12, 21, 0.96) 62%);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.scopeObject::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  background:
+    linear-gradient(180deg, rgba(7, 9, 16, 0.2), rgba(7, 9, 16, 0) 38%, rgba(7, 9, 16, 0.42)),
+    linear-gradient(90deg, rgba(7, 9, 16, 0.76), transparent 56%);
+  pointer-events: none;
+}
+
+.scopeObject img {
+  object-fit: contain;
+  object-position: 61% 66%;
+  padding: 18px 0 10px 22px;
+  transform: scale(1.72);
+}
+
+.scopeList.scopeList {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-auto-rows: minmax(122px, 1fr);
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  list-style: none;
+}
+
+.scopeList.scopeList li {
+  --index-line: 54px;
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 19px 20px;
+  overflow: hidden;
+  border: 1px solid rgba(213, 201, 245, 0.21);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(20, 23, 37, 0.94), rgba(10, 13, 22, 0.9));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.05);
+  transition: border-color 220ms ease, background 220ms ease, transform 220ms ease;
+}
+
+.scopeList.scopeList li::before {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(198, 173, 248, 0.82), transparent);
+  opacity: 0.72;
+}
+
+.scopeList.scopeList li:nth-child(1),
+.scopeList.scopeList li:nth-child(4),
+.scopeList.scopeList li:nth-child(7) {
+  background:
+    radial-gradient(circle at 100% 0%, rgba(144, 105, 220, 0.14), transparent 43%),
+    linear-gradient(145deg, rgba(31, 25, 49, 0.96), rgba(11, 14, 24, 0.92));
+}
+
+.scopeList.scopeList li:nth-child(1) {
+  grid-column: span 4;
+  --index-line: 76px;
+}
+
+.scopeList.scopeList li:nth-child(2) {
+  grid-column: span 2;
+}
+
+.scopeList.scopeList li:nth-child(3) {
+  grid-column: span 2;
+}
+
+.scopeList.scopeList li:nth-child(4) {
+  grid-column: span 4;
+  --index-line: 68px;
+}
+
+.scopeList.scopeList li:nth-child(5),
+.scopeList.scopeList li:nth-child(6) {
+  grid-column: span 3;
+}
+
+.scopeList.scopeList li:nth-child(7) {
+  grid-column: span 6;
+  --index-line: 88px;
+}
+
+.scopeList.scopeList li:hover {
+  border-color: rgba(206, 184, 250, 0.56);
+  background-color: rgba(30, 29, 49, 0.96);
+  transform: translateY(-3px);
+}
+
+.scopeList.scopeList span {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 58px;
+  height: 38px;
+  padding: 0 12px 0 14px;
+  align-items: center;
+  clip-path: polygon(0 0, 100% 0, 82% 100%, 0 100%);
+  color: #d8c6ff;
+  background: linear-gradient(128deg, rgba(164, 132, 231, 0.34), rgba(65, 49, 100, 0.16));
+  box-shadow: inset 1px 0 rgba(226, 214, 255, 0.46), inset 0 1px rgba(226, 214, 255, 0.26);
+  font-size: 17px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.scopeList.scopeList span::before,
+.scopeList.scopeList span::after {
+  position: absolute;
+  content: "";
+}
+
+.scopeList.scopeList span::before {
+  right: 7px;
+  bottom: 7px;
+  left: 14px;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(233, 225, 255, 0.74), transparent);
+}
+
+.scopeList.scopeList span::after {
+  top: 50%;
+  left: calc(100% + 10px);
+  width: var(--index-line);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(202, 179, 249, 0.64), rgba(202, 179, 249, 0.08));
+}
+
+.scopeList.scopeList strong {
+  max-width: 26ch;
+  margin: 22px 0 0;
+  font-size: clamp(17px, 1.45vw, 21px);
+  font-weight: 500;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+
+.scopeList.scopeList i {
+  display: none;
+}
+
+@media (max-width: 980px) {
+  .scopeStage {
+    grid-template-columns: minmax(260px, 0.72fr) minmax(0, 1.28fr);
+    gap: 24px;
+  }
+
+  .scopeObject {
+    min-height: 500px;
+  }
+
+  .scopeList.scopeList li {
+    padding: 17px;
+  }
+
+  .scopeList.scopeList strong {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 760px) {
+  .scopeStage {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .scopeObject {
+    min-height: 210px;
+    border-radius: 15px;
+  }
+
+  .scopeObject img {
+    padding: 0;
+    transform: scale(1.16);
+  }
+
+  .scopeList.scopeList {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: minmax(104px, auto);
+    gap: 8px;
+  }
+
+  .scopeList.scopeList li,
+  .scopeList.scopeList li:nth-child(n) {
+    grid-column: span 1;
+    min-height: 104px;
+    padding: 15px;
+  }
+
+  .scopeList.scopeList li {
+    --index-line: 31px;
+  }
+
+  .scopeList.scopeList span {
+    width: 48px;
+    height: 33px;
+    padding: 0 10px 0 12px;
+    font-size: 15px;
+  }
+
+  .scopeList.scopeList span::before {
+    right: 6px;
+    bottom: 6px;
+    left: 12px;
+  }
+
+  .scopeList.scopeList span::after {
+    left: calc(100% + 7px);
+  }
+
+  .scopeList.scopeList li:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .scopeList.scopeList strong {
+    margin-top: 18px;
+    font-size: 15px;
+    line-height: 1.16;
+  }
+}
+
+@media (max-width: 360px) {
+  .scopeList.scopeList {
+    grid-template-columns: 1fr;
+  }
+
+  .scopeList.scopeList li,
+  .scopeList.scopeList li:nth-child(n),
+  .scopeList.scopeList li:last-child {
+    grid-column: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scopeList.scopeList li {
+    transition: none;
+  }
+}

@@ -300,12 +300,12 @@ export function MarketingServicePage() {
       <section className={styles.improvementSection} aria-labelledby="improvement-title">
         <div className={styles.container}>
           <SectionHeader
-            label="07 / Работа ABB"
+            label="07 / Работа ABB.IO"
             title="Данные помогают развивать работу, а не только фиксировать результат."
-            lead="По данным ABB корректирует SEO, рекламу, содержание посадочных страниц, точки обращения, сценарии в CRM и состав отчётности."
+            lead="По данным ABB.IO корректирует SEO, рекламу, содержание посадочных страниц, точки обращения, сценарии в CRM и состав отчётности."
             titleId="improvement-title"
           />
-          <ol className={styles.improvementCycle} aria-label="Цикл работы ABB по данным">
+          <ol className={styles.improvementCycle} aria-label="Цикл работы ABB.IO по данным">
             {improvementStages.map((stage, index) => <li key={stage}><span>{String(index + 1).padStart(2, "0")}</span><h3>{stage}</h3></li>)}
           </ol>
         </div>

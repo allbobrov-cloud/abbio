@@ -1,0 +1,14 @@
+.reportSignal.reportSignal {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  align-items: end;
+  gap: 7px;
+}
+
+.reportSignal.reportSignal i {
+  width: auto;
+}
+
+.reportSignal.reportSignal i:nth-child(5) {
+  height: 48%;
+}

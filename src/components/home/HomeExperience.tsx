@@ -42,7 +42,7 @@ export function HomeHero() {
       <div className={base.container}>
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <p className={base.eyebrow}><span className={base.dot} /> Агентство ABB / от идеи до запуска</p>
+            <p className={base.eyebrow}><span className={base.dot} /> Агентство ABB.IO / от идеи до запуска</p>
             <h1 id="hero-title" aria-label="Дизайн, сайты и маркетинг. Для бизнеса.">Дизайн, сайты<br />и маркетинг.<br /><em>Для бизнеса.</em></h1>
             <p className={styles.lead}>Помогаем выглядеть убедительно, привлекать клиентов и работать с обращениями.</p>
             <p className={styles.heroDetail}>От первого впечатления до заявки в CRM — подключаем дизайн, разработку и продвижение там, где они нужны вашему бизнесу.</p>

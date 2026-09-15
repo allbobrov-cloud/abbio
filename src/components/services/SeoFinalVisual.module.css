@@ -1,0 +1,59 @@
+.finalVisual.finalVisual {
+  position: absolute;
+  inset: 0 0 0 auto;
+  width: 58%;
+  height: auto;
+  margin: 0;
+  overflow: hidden;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.finalVisual.finalVisual img {
+  object-fit: cover;
+  object-position: 66% center;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.08) 13%, #000 43%, #000 100%);
+  mask-image: linear-gradient(90deg, transparent 0%, rgba(0, 0, 0, 0.08) 13%, #000 43%, #000 100%);
+}
+
+.finalVisual.finalVisual::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background:
+    linear-gradient(90deg, rgba(33, 22, 56, 0.56), rgba(30, 23, 51, 0.26) 35%, transparent 66%),
+    linear-gradient(180deg, rgba(8, 10, 17, 0.44), transparent 29%, rgba(8, 10, 17, 0.38) 100%);
+  pointer-events: none;
+}
+
+@media (max-width: 760px) {
+  .finalVisual.finalVisual {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    height: 230px;
+    margin: 30px 0 0;
+    border: 1px solid rgba(213, 201, 245, 0.22);
+    border-radius: 12px;
+  }
+
+  .finalVisual.finalVisual img {
+    object-position: 58% 58%;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+
+  .finalVisual.finalVisual::after {
+    background:
+      linear-gradient(90deg, rgba(21, 17, 36, 0.54), transparent 57%),
+      linear-gradient(180deg, rgba(8, 10, 17, 0.16), rgba(8, 10, 17, 0.36));
+  }
+}
+
+@media (max-width: 360px) {
+  .finalVisual.finalVisual {
+    height: 198px;
+  }
+}
