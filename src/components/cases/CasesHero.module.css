@@ -1,0 +1,364 @@
+/* Hero «Кейсы»: работы ABBiO — главный визуал. Базовое состояние — финальное. */
+.hero {
+  --lav: #b7a0ef;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - 90px);
+  padding: 34px 0 40px;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 76% 44%, rgba(107, 75, 181, 0.16), transparent 42%),
+    radial-gradient(circle at 6% 92%, rgba(51, 89, 139, 0.1), transparent 30%),
+    #06070f;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+.grid {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: minmax(0, 0.42fr) minmax(0, 0.58fr);
+  gap: clamp(20px, 2.4vw, 44px);
+  align-items: center;
+}
+
+.copy {
+  max-width: 560px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 26px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.hero h1 {
+  margin: 0;
+  font-size: clamp(38px, 4.7vw, 68px);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
+}
+.hero h1 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.line2 {
+  margin: 28px 0 0;
+  color: #b2adc4;
+  font-size: 18px;
+  letter-spacing: -0.005em;
+}
+
+.visual {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+/* Сцена: координаты 1000 × 860, подписи — от её ширины. */
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: max(min(100%, calc((100svh - 190px) * 1.163)), 480px);
+  max-width: 100%;
+  aspect-ratio: 1000 / 860;
+}
+.glow {
+  position: absolute;
+  inset: -6% -8%;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 46% 46% at 54% 48%,
+    rgba(150, 118, 235, 0.2),
+    transparent 70%
+  );
+}
+
+.proj {
+  position: absolute;
+  display: block;
+  color: inherit;
+  transition:
+    opacity 0.5s ease,
+    filter 0.5s ease;
+}
+.p1 {
+  top: 22%;
+  left: 0;
+  z-index: 1;
+  width: 66%;
+}
+.p2 {
+  top: 4%;
+  left: 54%;
+  z-index: 2;
+  width: 46%;
+}
+.p3 {
+  top: 66%;
+  left: 62%;
+  z-index: 3;
+  width: 36%;
+}
+
+/* Крупный crop без рамок-макетов: только реальный фрагмент проекта */
+.frame {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: #0d0e1a;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(150, 118, 235, 0.08);
+}
+.p1 .frame {
+  aspect-ratio: 1.35;
+}
+.p2 .frame {
+  aspect-ratio: 1.6;
+  filter: brightness(0.92);
+}
+.p3 .frame {
+  aspect-ratio: 1.5;
+  filter: brightness(0.84) saturate(0.9);
+}
+.frame img {
+  object-fit: cover;
+}
+.frame {
+  transition: filter 0.5s ease;
+}
+
+/* Минимальная подпись над кадром: номер, название, направления */
+.meta {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  padding-bottom: 9px;
+  white-space: nowrap;
+  font-size: max(11px, 1.25cqw);
+}
+.p3 .meta {
+  top: 100%;
+  bottom: auto;
+  padding: 9px 0 0;
+}
+.meta i {
+  color: var(--lav);
+  font-size: 0.9em;
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.12em;
+}
+.meta strong {
+  color: #f2f0f7;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.meta em {
+  color: #8f89a5;
+  font-style: normal;
+  transition: color 0.5s ease;
+}
+
+/* Тонкая нить через три проекта */
+.thread {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.line {
+  fill: none;
+  stroke: rgba(210, 194, 250, 0.6);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.node {
+  fill: #06070f;
+  stroke: rgba(226, 214, 255, 0.9);
+  stroke-width: 1.3;
+}
+
+/* Hover: проект контрастнее, остальные приглушены, направления проявляются */
+@media (hover: hover) {
+  .stage:has(.proj:hover) .proj:not(:hover) {
+    opacity: 0.55;
+    filter: saturate(0.8);
+  }
+  .proj:hover .frame,
+  .proj:focus-visible .frame {
+    filter: brightness(1.05) contrast(1.06);
+    border-color: rgba(183, 160, 239, 0.6);
+  }
+  .proj:hover .meta em,
+  .proj:focus-visible .meta em {
+    color: var(--lav);
+  }
+}
+.proj:focus-visible {
+  outline: 2px solid #d4bfff;
+  outline-offset: 6px;
+}
+
+/* Появление: около 1.4 секунды, только при движении. */
+@media (prefers-reduced-motion: no-preference) {
+  .stage[data-armed="true"] .rev {
+    opacity: 0;
+    transition:
+      opacity 0.55s ease,
+      translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .proj.rev {
+    translate: 0 16px;
+  }
+  .stage[data-armed="true"] .p2.rev {
+    translate: 22px 16px;
+  }
+  .stage[data-armed="true"] .rev.isIn {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .stage[data-armed="true"] .draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .draw.isIn {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 1080px) {
+  .hero {
+    min-height: 0;
+    padding-top: 44px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .copy {
+    max-width: none;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 8.4vw, 64px);
+  }
+  .visual {
+    justify-content: center;
+  }
+  .stage {
+    width: min(100%, 720px);
+  }
+}
+
+@media (max-width: 960px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+/* Телефон: вертикальная editorial-композиция из крупных кадров разной ширины. */
+@media (max-width: 760px) {
+  .hero {
+    padding: 30px 0 48px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .grid {
+    gap: 40px;
+  }
+  .eyebrow {
+    margin-bottom: 18px;
+    font-size: 10px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 10vw, 44px);
+    letter-spacing: -0.045em;
+  }
+  .line2 {
+    margin-top: 20px;
+    font-size: 16px;
+  }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+    width: 100%;
+    aspect-ratio: auto;
+  }
+  .thread {
+    display: none;
+  }
+  .glow {
+    inset: 0;
+  }
+  .proj,
+  .p1,
+  .p2,
+  .p3 {
+    position: relative;
+    inset: auto;
+    display: flex;
+    flex-direction: column;
+  }
+  .p1 {
+    width: 100%;
+  }
+  .p2 {
+    width: 84%;
+    margin-left: auto;
+  }
+  .p3 {
+    width: 72%;
+  }
+  .frame {
+    order: 1;
+  }
+  .p3 .meta {
+    top: auto;
+  }
+  .meta {
+    position: static;
+    order: 2;
+    flex-wrap: wrap;
+    padding: 12px 0 0;
+    font-size: 13px;
+    white-space: normal;
+  }
+  .p2 .frame,
+  .p3 .frame {
+    filter: none;
+  }
+  .p1 .frame {
+    aspect-ratio: 1.3;
+  }
+}

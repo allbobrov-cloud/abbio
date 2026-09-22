@@ -100,7 +100,7 @@
 
   .panel > .image {
     grid-column: 1 !important;
-    grid-row: 1 !important;
+    grid-row: 1 / span 2 !important;
     align-self: stretch !important;
     padding: 0 !important;
   }
@@ -108,8 +108,13 @@
   .panel > .content {
     grid-column: 2 !important;
     grid-row: 1 !important;
-    align-self: start !important;
+    align-self: end !important;
     padding: 38px 48px 0 !important;
+  }
+
+  .panel > div:last-child {
+    grid-row: 2 !important;
+    align-self: start !important;
   }
 
   .panel h2 {

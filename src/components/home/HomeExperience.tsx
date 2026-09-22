@@ -45,7 +45,6 @@ export function HomeHero() {
             <p className={base.eyebrow}><span className={base.dot} /> Агентство ABB.IO / от идеи до запуска</p>
             <h1 id="hero-title" aria-label="Дизайн, сайты и маркетинг. Для бизнеса.">Дизайн, сайты<br />и маркетинг.<br /><em>Для бизнеса.</em></h1>
             <p className={styles.lead}>Помогаем выглядеть убедительно, привлекать клиентов и работать с обращениями.</p>
-            <p className={styles.heroDetail}>От первого впечатления до заявки в CRM — подключаем дизайн, разработку и продвижение там, где они нужны вашему бизнесу.</p>
             <div className={styles.actions}>
               <a className={base.button} href="#contact-dialog" data-contact-dialog>Обсудить задачу <ActionArrow /></a>
               <a className={base.textLink} href="#cases">Посмотреть работы <span aria-hidden="true">↓</span></a>
@@ -65,7 +64,6 @@ export function HomeHero() {
             <div className={styles.directionSummary} id="direction-summary" aria-live="polite"><strong>{direction.title}</strong><p>{direction.text}</p></div>
           </div>
         </div>
-        <div className={styles.heroFoot} aria-label="Что важно в работе над проектом"><span>Понятный объём работ до старта</span><span>Промежуточный результат по ходу работы</span><span>Решения с учётом вашей команды</span><span>Заранее обсуждаем доступы и материалы</span></div>
       </div>
     </section>
   );
@@ -79,8 +77,8 @@ const situations = [
 ];
 
 const taskVisuals = {
-  launch: "/home/launch-concept-v2.webp",
-  reach: "/home/task-reach-v1.webp"
+  launch: "/home/launch-concept-workspace-v3.png",
+  reach: "/home/task-reach-workspace-v2.png"
 } as const;
 
 export function TaskExplorer() {

@@ -1,0 +1,364 @@
+/* Структура сайта Bogov Team: ABBiO — оболочка, жёлто-чёрное — содержимое проекта. */
+.section {
+  --lav: #b7a0ef;
+  --yellow: #f5b301;
+
+  padding: 92px 0 100px;
+  background: #05070d;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+/* Общий паттерн заголовка секции: H2 слева, пояснение справа. */
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.head h2 {
+  max-width: 700px;
+  margin: 0;
+  font-size: clamp(33px, 3.4vw, 49px);
+  font-weight: 500;
+  letter-spacing: -0.042em;
+  line-height: 1.05;
+}
+.head h2 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.description {
+  max-width: 420px;
+  margin: 0 0 6px;
+  color: #a5a5b7;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* Сцена: координаты 1000 × 700 */
+.stage {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 1000 / 700;
+  margin-bottom: 64px;
+}
+.lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.link {
+  fill: none;
+  stroke: rgba(196, 178, 244, 0.6);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 0.4s ease;
+}
+.dot {
+  fill: #05070d;
+  stroke: rgba(226, 214, 255, 0.9);
+  stroke-width: 1.3;
+}
+
+/* Node — фрагмент страницы сайта и подпись рядом */
+.node {
+  position: absolute;
+  z-index: 1;
+  transition: opacity 0.5s ease;
+}
+.home {
+  z-index: 2;
+}
+.pv {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+  background: #0a0a0c;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
+  transition:
+    filter 0.5s ease,
+    border-color 0.5s ease;
+}
+/* Главная в карте — не скриншот, а узел той же системы, но крупнее и ярче */
+.pvHome {
+  position: relative;
+  container-type: inline-size;
+  display: block;
+  aspect-ratio: 1363 / 654;
+  overflow: hidden;
+  padding: 7% 7% 6%;
+  border: 1px solid rgba(245, 179, 1, 0.45);
+  border-radius: 3px;
+  background:
+    radial-gradient(ellipse 60% 90% at 88% 50%, rgba(245, 179, 1, 0.18), transparent 70%),
+    #0a0a0c;
+  box-shadow:
+    0 30px 70px rgba(0, 0, 0, 0.55),
+    0 0 110px rgba(245, 179, 1, 0.14);
+}
+.homeH {
+  position: absolute;
+  top: 26%;
+  left: 7%;
+  color: var(--yellow);
+  font-size: 9.6cqw;
+  font-weight: 800;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
+  text-transform: uppercase;
+}
+.homeCta {
+  position: absolute;
+  bottom: 11%;
+  left: 7%;
+  padding: 2.4% 5%;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: #12100a;
+  font-size: 4.4cqw;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.pv {
+  container-type: inline-size;
+  aspect-ratio: var(--aspect);
+  padding: 9% 8%;
+  background:
+    radial-gradient(ellipse 70% 80% at 85% 40%, rgba(245, 179, 1, 0.13), transparent 70%),
+    #0a0a0c;
+}
+.bars {
+  position: absolute;
+  top: 9%;
+  left: 8%;
+  display: flex;
+  gap: 4%;
+  width: 60%;
+}
+.bars i {
+  flex: 1 1 0;
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.16);
+}
+.h {
+  position: absolute;
+  right: 8%;
+  bottom: 12%;
+  left: 8%;
+  color: var(--yellow);
+  font-size: max(11px, 8.4cqw);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.02;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+
+.cap {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 12px 0 0;
+  font-size: max(12px, 1.3cqw);
+}
+.cap span {
+  color: var(--lav);
+  font-size: 0.82em;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.cap strong {
+  color: #f2f0f7;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+.home .cap strong {
+  font-size: 1.15em;
+}
+
+.foot {
+  position: absolute;
+  top: calc(100% + 28px);
+  left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 0;
+  color: #c4bed4;
+  font-size: 14px;
+  letter-spacing: 0.005em;
+}
+.foot i {
+  color: var(--lav);
+  font-style: normal;
+}
+
+/* Hover: направление выделяется вместе со своей связью, остальные приглушены */
+@media (hover: hover) {
+  .stage:has(.dir:hover) .node:not(:hover) {
+    opacity: 0.5;
+  }
+  .dir:hover .pv {
+    border-color: rgba(183, 160, 239, 0.7);
+    filter: contrast(1.08) brightness(1.05);
+  }
+  .stage:has(.n-courses:hover) .c-courses .link,
+  .stage:has(.n-trial:hover) .c-trial .link,
+  .stage:has(.n-city:hover) .c-city .link,
+  .stage:has(.n-skills:hover) .c-skills .link,
+  .stage:has(.n-kids:hover) .c-kids .link,
+  .stage:has(.n-stunt:hover) .c-stunt .link {
+    stroke: #e2d6ff;
+  }
+}
+
+/* Раскрытие от главной: один раз, только при движении. */
+@media (prefers-reduced-motion: no-preference) {
+  .stage[data-armed="true"] .rev {
+    opacity: 0;
+    transition:
+      opacity 0.6s ease,
+      translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .node.rev {
+    translate: 0 14px;
+  }
+  .stage[data-armed="true"] .rev.isIn {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .stage[data-armed="true"] .draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .draw.isIn {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+/* Телефон: вертикальная карта — главная, затем три пары направлений на общей линии. */
+@media (max-width: 760px) {
+  .section {
+    padding: 64px 0 72px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .head {
+    display: block;
+    margin-bottom: 36px;
+  }
+  .head h2 {
+    font-size: clamp(28px, 7.8vw, 35px);
+  }
+  .description {
+    max-width: none;
+    margin: 16px 0 0;
+    font-size: 14px;
+    text-align: left;
+  }
+  .description br {
+    display: none;
+  }
+
+  .stage {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 34px 14px;
+    aspect-ratio: auto;
+    margin-bottom: 0;
+    padding-left: 20px;
+  }
+  .stage::before {
+    position: absolute;
+    top: 6px;
+    bottom: 40px;
+    left: 4px;
+    width: 1px;
+    background: linear-gradient(
+      180deg,
+      rgba(210, 194, 250, 0.9),
+      rgba(196, 178, 244, 0.25)
+    );
+    content: "";
+  }
+  .lines {
+    display: none;
+  }
+  .node,
+  .dir {
+    position: relative;
+    inset: auto;
+    width: auto !important;
+    left: auto !important;
+    top: auto !important;
+  }
+  .node::before {
+    position: absolute;
+    top: 6px;
+    left: -20px;
+    width: 9px;
+    height: 9px;
+    border: 1px solid rgba(226, 214, 255, 0.9);
+    border-radius: 50%;
+    background: #05070d;
+    content: "";
+  }
+  .home {
+    grid-column: 1 / -1;
+  }
+  .dir:nth-of-type(even)::before {
+    display: none;
+  }
+  .pv {
+    aspect-ratio: 1.15;
+  }
+  .cap {
+    font-size: 13px;
+  }
+  .foot {
+    position: static;
+    grid-column: 1 / -1;
+    margin-top: 6px;
+    font-size: 13.5px;
+  }
+}

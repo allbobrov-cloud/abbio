@@ -1,0 +1,646 @@
+/* Прозрачность работы: один объект — прототип, который меняется вместе с шагами истории. */
+.section {
+  --line: rgba(255, 255, 255, 0.1);
+  --faint: #7d7692;
+  --lav: #b7a0ef;
+  --amber: #e0ae6c;
+  --mint: #85c7ae;
+
+  padding: 92px 0 100px;
+  background:
+    radial-gradient(circle at 12% 22%, rgba(107, 75, 181, 0.11), transparent 34%),
+    #070912;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+/* Общий паттерн заголовка секции: H2 слева, пояснение справа. */
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.head h2 {
+  max-width: 700px;
+  margin: 0;
+  font-size: clamp(33px, 3.4vw, 49px);
+  font-weight: 500;
+  letter-spacing: -0.042em;
+  line-height: 1.05;
+}
+.head h2 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.description {
+  max-width: 420px;
+  margin: 0 0 6px;
+  color: #a5a5b7;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.root {
+  position: relative;
+}
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(36px, 5vw, 88px);
+  align-items: center;
+  padding-top: 44px;
+  border-top: 1px solid var(--line);
+}
+
+/* Прототип */
+.proto {
+  min-width: 0;
+  max-width: 560px;
+}
+.protoHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.label {
+  color: var(--faint);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+.version {
+  padding: 4px 11px;
+  border: 1px solid rgba(183, 160, 239, 0.55);
+  border-radius: 999px;
+  background: rgba(183, 160, 239, 0.14);
+  color: #f1ebff;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  animation: fadeIn 0.3s ease both;
+}
+.approved {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  color: #e2f3ec;
+  font-size: 12px;
+  font-weight: 500;
+  animation: fadeIn 0.3s ease both;
+}
+.approved i {
+  display: inline-flex;
+  color: var(--mint);
+}
+.approved svg {
+  width: 13px;
+  height: 13px;
+}
+
+/* Мини-сайт: живой прототип главной страницы условной компании. */
+.site {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0a0b14;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.34);
+  transition: border-color 0.35s ease;
+}
+.site[data-mode="approved"] {
+  border-color: rgba(133, 199, 174, 0.5);
+}
+.siteBody {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "chrome chrome"
+    "bar bar"
+    "text text"
+    "benefits benefits"
+    "form form"
+    "foot foot";
+  align-content: start;
+  min-height: 486px;
+  animation: wireIn 0.32s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+/* V02: форма поднята к первому экрану, рядом с текстом. */
+.site[data-version="v2"] .siteBody {
+  grid-template-areas:
+    "chrome chrome"
+    "bar bar"
+    "text form"
+    "benefits benefits"
+    "foot foot";
+}
+
+.chrome {
+  grid-area: chrome;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+}
+.chrome i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.16);
+}
+.chrome span {
+  margin-left: 10px;
+  color: var(--faint);
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+.stamp {
+  position: absolute;
+  top: 6px;
+  right: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border: 1px solid rgba(133, 199, 174, 0.55);
+  border-radius: 999px;
+  background: rgba(133, 199, 174, 0.12);
+  color: #e2f3ec;
+  font-size: 10px;
+  opacity: 0;
+  transform: scale(0.9);
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stamp i {
+  display: inline-flex;
+  color: var(--mint);
+}
+.stamp svg {
+  width: 10px;
+  height: 10px;
+}
+.site[data-mode="approved"] .stamp {
+  opacity: 1;
+  transform: none;
+}
+
+.bar {
+  grid-area: bar;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.logo {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--lav);
+}
+.bar strong {
+  color: #ece8f6;
+  font-size: 12px;
+  font-weight: 600;
+}
+.bar nav {
+  display: flex;
+  gap: 14px;
+  margin-left: auto;
+  color: #a39dbb;
+  font-size: 10.5px;
+}
+
+.text {
+  grid-area: text;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 24px 16px 20px;
+}
+.headline {
+  max-width: 300px;
+}
+.headline strong {
+  display: block;
+  color: #f4f0fb;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+.headline p {
+  margin: 8px 0 0;
+  color: #a9a3bf;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.button {
+  padding: 8px 15px;
+  border: 1px solid rgba(183, 160, 239, 0.7);
+  border-radius: 6px;
+  color: #ddd0ff;
+  font-size: 11px;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    padding 0.3s ease;
+}
+.site[data-version="v2"] .button {
+  padding: 10px 20px;
+  background: var(--lav);
+  color: #1b1522;
+  font-weight: 600;
+}
+
+.benefits {
+  grid-area: benefits;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 4px 16px 18px;
+}
+.benefits div {
+  display: grid;
+  gap: 4px;
+  align-content: start;
+}
+.benefits i {
+  width: 20px;
+  height: 20px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  background: rgba(183, 160, 239, 0.2);
+}
+.benefits strong {
+  color: #e6e1f1;
+  font-size: 10.5px;
+  font-weight: 600;
+}
+.benefits span {
+  color: #8f89a5;
+  font-size: 9.5px;
+  line-height: 1.35;
+}
+
+.form {
+  grid-area: form;
+  display: grid;
+  gap: 7px;
+  margin: 0 16px 16px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.02);
+}
+.form > strong {
+  color: #ece8f6;
+  font-size: 11px;
+  font-weight: 600;
+}
+.field {
+  display: flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  color: #7f7a94;
+  font-size: 10px;
+}
+.fieldTall {
+  height: 46px;
+  align-items: flex-start;
+  padding-top: 7px;
+}
+.formButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 26px;
+  border: 1px solid rgba(183, 160, 239, 0.5);
+  border-radius: 5px;
+  color: #ddd0ff;
+  font-size: 10.5px;
+}
+.site[data-version="v1"] .form {
+  grid-template-columns: 1fr 1fr auto;
+  align-items: center;
+}
+.site[data-version="v1"] .form > strong {
+  grid-column: 1 / -1;
+}
+.site[data-version="v1"] .formButton {
+  padding: 0 14px;
+}
+.site[data-version="v2"] .form {
+  align-self: start;
+  margin: 24px 16px 16px 0;
+}
+.site[data-version="v2"] .formButton {
+  background: var(--lav);
+  color: #1b1522;
+  font-weight: 600;
+}
+
+.foot {
+  grid-area: foot;
+  display: flex;
+  justify-content: space-between;
+  padding: 11px 16px;
+  border-top: 1px solid var(--line);
+  color: #7f7a94;
+  font-size: 9.5px;
+}
+
+/* Зоны, о которых идёт речь на текущем шаге. */
+.zone {
+  position: relative;
+  outline: 1px dashed transparent;
+  outline-offset: 5px;
+  border-radius: 6px;
+  transition: outline-color 0.28s ease;
+}
+.site[data-mode="comments"] .zone {
+  outline-color: rgba(224, 174, 108, 0.8);
+}
+.site[data-mode="changed"] .zone {
+  outline-color: rgba(183, 160, 239, 0.85);
+  animation: zoneFlash 1.1s ease;
+}
+
+.marker {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 19px;
+  height: 19px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: #1c1409;
+  font-size: 11px;
+  font-weight: 700;
+  opacity: 0;
+  transform: scale(0.5);
+  transition:
+    opacity 0.28s ease,
+    transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.markerOn {
+  opacity: 1;
+  transform: none;
+}
+
+.caption {
+  min-height: 20px;
+  margin: 14px 0 0;
+  color: var(--faint);
+  font-size: 12px;
+  letter-spacing: 0.01em;
+  animation: fadeIn 0.3s ease both;
+}
+
+/* Шаги истории: крупные, переключают прототип. */
+.steps {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.stepItem {
+  border-bottom: 1px solid var(--line);
+}
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 84px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 26px 8px 26px 20px;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: background 0.24s ease;
+}
+.step:disabled {
+  cursor: default;
+}
+.step::before {
+  position: absolute;
+  top: -1px;
+  bottom: -1px;
+  left: 0;
+  width: 2px;
+  background: var(--lav);
+  content: "";
+  opacity: 0;
+  transition: opacity 0.24s ease;
+}
+.step time {
+  color: var(--faint);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.24s ease;
+}
+.step strong {
+  color: #ece8f6;
+  font-size: clamp(20px, 1.9vw, 26px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  transition: color 0.24s ease;
+}
+.stepTick {
+  display: inline-flex;
+  color: var(--mint);
+}
+.stepTick svg {
+  width: 18px;
+  height: 18px;
+}
+.now {
+  background: linear-gradient(90deg, rgba(183, 160, 239, 0.09), transparent 80%);
+}
+.now::before {
+  opacity: 1;
+}
+.now time {
+  color: var(--lav);
+}
+.now strong {
+  color: #fbfaff;
+}
+.done strong {
+  color: #b9b3c9;
+}
+.next strong {
+  color: #6f6a7e;
+}
+@media (hover: hover) {
+  .step:not(:disabled):hover strong {
+    color: #fbfaff;
+  }
+}
+.step:focus-visible {
+  outline: 2px solid #d4bfff;
+  outline-offset: -2px;
+}
+
+
+@keyframes wireIn {
+  from {
+    opacity: 0.4;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes zoneFlash {
+  0% {
+    outline-color: rgba(183, 160, 239, 0);
+    outline-offset: 12px;
+  }
+  100% {
+    outline-color: rgba(183, 160, 239, 0.85);
+    outline-offset: 5px;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Базовое состояние — финальное; появление добавляется только при движении. */
+@media (prefers-reduced-motion: no-preference) {
+  .root[data-armed="true"] .proto,
+  .root[data-armed="true"] .stepItem {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .root[data-armed="true"] .isIn {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .siteBody,
+  .version,
+  .approved,
+  .caption,
+  .zone {
+    animation: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+  .proto {
+    max-width: 520px;
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 62px 0 68px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .head {
+    display: block;
+    margin-bottom: 32px;
+  }
+  .head h2 {
+    font-size: clamp(28px, 7.8vw, 35px);
+  }
+  .description {
+    max-width: none;
+    margin: 16px 0 0;
+    font-size: 14px;
+    text-align: left;
+  }
+  .description br {
+    display: none;
+  }
+  .grid {
+    padding-top: 30px;
+  }
+  .step {
+    grid-template-columns: 62px minmax(0, 1fr) auto;
+    gap: 12px;
+    padding: 20px 4px 20px 16px;
+  }
+}
+
+/* Узкие экраны: в V02 форма встаёт под текстом, высота прототипа не меняется. */
+@media (max-width: 560px) {
+  .siteBody {
+    min-height: 600px;
+  }
+  .site[data-version="v2"] .siteBody {
+    grid-template-areas:
+      "chrome chrome"
+      "bar bar"
+      "text text"
+      "form form"
+      "benefits benefits"
+      "foot foot";
+  }
+  .site[data-version="v2"] .form {
+    margin: 0 16px 16px;
+  }
+  .headline {
+    max-width: none;
+  }
+}

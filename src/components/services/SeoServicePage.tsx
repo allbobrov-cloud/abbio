@@ -1,42 +1,23 @@
+import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
 import { CasePortfolio } from "./CasePortfolio";
+import { SeoHeroExperience } from "./SeoHeroExperience";
+import { SeoDemandSpace } from "./SeoDemandSpace";
+import { SeoHealthScan } from "./SeoHealthScan";
+import { SeoPageAnatomy } from "./SeoPageAnatomy";
+import { SeoQueryJourney } from "./SeoQueryJourney";
+import { SeoOwnChannel } from "./SeoOwnChannel";
 import styles from "./SeoServicePage.module.css";
 import heroStyles from "./SeoHeroBlend.module.css";
-import auditStyles from "./SeoTechnicalAudit.module.css";
-import contentVisualStyles from "./SeoContentPageVisual.module.css";
-import measurementIconStyles from "./SeoMeasurementIcons.module.css";
-import reportSignalStyles from "./SeoReportSignal.module.css";
+import heroLayoutStyles from "./SeoHeroLayout.module.css";
 import developmentCycleStyles from "./SeoDevelopmentCycle.module.css";
-import scopeStyles from "./SeoScopeMosaic.module.css";
-import demandMapStyles from "./SeoDemandMap.module.css";
 import finalVisualStyles from "./SeoFinalVisual.module.css";
-
-const technicalChecks = [
-  "Индексация",
-  "Адреса страниц",
-  "Дубли",
-  "Метаданные",
-  "Внутренние ссылки",
-  "Мобильная версия",
-  "Скорость загрузки",
-  "robots.txt и sitemap.xml",
-];
-
-const scope = [
-  "Анализ поискового спроса",
-  "Структура запросов и страниц",
-  "Технический SEO-аудит",
-  "Задания на доработку сайта",
-  "Создание и обновление материалов",
-  "Настройка измерения",
-  "Понятная отчётность",
-];
 
 type SectionLeadProps = {
   index: string;
-  title: string;
+  title: ReactNode;
   description: string;
   id: string;
 };
@@ -61,21 +42,16 @@ export function SeoServicePage() {
             <Link href="/services">Услуги</Link><span aria-hidden="true">/</span>
             <span aria-current="page">SEO-продвижение</span>
           </nav>
-          <div className={heroStyles.stage}>
-            <div className={`${styles.heroCopy} ${heroStyles.copy}`}>
-              <h1 id="seo-title">Органический поиск становится самостоятельным источником обращений.</h1>
+          <div className={heroLayoutStyles.stage}>
+            <div className={`${styles.heroCopy} ${heroLayoutStyles.copy}`}>
+              <p className={styles.kicker}>SEO · Структура · Контент · Аналитика</p>
+              <h1 id="seo-title">Клиенты уже ищут.<br />Помогаем им найти вас.</h1>
             </div>
-            <div className={heroStyles.visual} aria-hidden="true">
-              <Image
-                src="/services/seo-hero-search-index-v5.png"
-                alt=""
-                fill
-                priority
-                sizes="(max-width: 760px) calc(100vw - 32px), 760px"
-              />
+            <div className={heroLayoutStyles.visual} aria-hidden="true">
+              <SeoHeroExperience />
             </div>
-            <div className={heroStyles.details}>
-              <p className={styles.heroDescription}>Развиваем сайт под реальный спрос, чтобы люди находили компанию самостоятельно, а бизнес меньше зависел от платной рекламы.</p>
+            <div className={heroLayoutStyles.details}>
+              <p className={styles.heroDescription}>Развиваем сайт под реальный поисковый спрос: создаём нужные страницы, улучшаем их и связываем органический трафик с обращениями.</p>
               <a href="#contact-dialog" data-contact-dialog className={styles.primaryAction}>Обсудить SEO <ActionArrow /></a>
             </div>
           </div>
@@ -84,60 +60,22 @@ export function SeoServicePage() {
 
       <section className={styles.section} aria-labelledby="demand-title">
         <div className={styles.container}>
-          <SectionLead index="01 / Поисковый спрос" id="demand-title" title="Начинаем не с позиций, а с того, что ищут люди." description="Собираем и группируем запросы, отделяем полезный для компании спрос и определяем, какие страницы должны на него отвечать." />
-            <div className={styles.demandMap} aria-label="Пример группировки поискового спроса">
-            <div className={`${styles.demandCore} ${demandMapStyles.demandCore}`}><span>Спрос</span><strong>Задача клиента</strong><small>контекст · намерение · выбор</small></div>
-            <div className={styles.queryGroup}><span>Услуга</span><p>Что нужно сделать клиенту</p><i /></div>
-            <div className={styles.queryGroup}><span>Категория</span><p>Что выбирает заказчик</p><i /></div>
-            <div className={styles.queryGroup}><span>Вопрос</span><p>Что мешает клиенту принять решение</p><i /></div>
-            <div className={styles.queryGroup}><span>Сравнение</span><p>По каким критериям выбирает заказчик</p><i /></div>
-          </div>
-        </div>
-      </section>
-
-      <section className={`${styles.section} ${styles.structureSection}`} aria-labelledby="structure-title">
-        <div className={styles.container}>
-          <SectionLead index="02 / Структура сайта" id="structure-title" title="Под важный запрос должна быть подходящая страница." description="Определяем, какие разделы, услуги, категории и материалы нужно создать или переработать, чтобы человек сразу попадал в нужный контекст." />
-          <div className={styles.siteTree} aria-label="Схема структуры сайта">
-            <div className={styles.treeRoot}><small>Сайт</small><strong>Главная</strong></div>
-            <div className={styles.treeBranch}>
-              <article><span>01</span><strong>Услуги</strong><p>Запрос с конкретной задачей</p></article>
-              <article><span>02</span><strong>Категории</strong><p>Выбор внутри ассортимента</p></article>
-              <article><span>03</span><strong>Материалы</strong><p>Вопросы и критерии выбора</p></article>
-            </div>
-            <p className={styles.treeCaption}>Каждая ветка отвечает своему типу спроса.</p>
-          </div>
+          <SectionLead index="01 / Поисковый спрос" id="demand-title" title={<>SEO начинается не с позиций.<br />Оно начинается со спроса.</>} description="Сначала изучаем, что и как ищут потенциальные клиенты. Разные запросы отражают разные задачи — купить, выбрать, сравнить или разобраться." />
+          <SeoDemandSpace />
         </div>
       </section>
 
       <section className={styles.section} aria-labelledby="technical-title">
         <div className={styles.container}>
-          <SectionLead index="03 / Техническая основа" id="technical-title" title="Поисковые системы должны находить и понимать страницы." description="Проверяем индексацию, адреса страниц, дубли, метаданные, внутренние ссылки, мобильную версию, скорость загрузки, robots.txt и sitemap.xml. Состав технических работ определяем после изучения сайта." />
-          <div className={styles.auditPanel}>
-            <header><div><i /><i /><i /></div><span>Технический контур сайта</span><small>проверка</small></header>
-            <ul>
-              {technicalChecks.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong><em>изучаем</em></li>)}
-            </ul>
-            <div className={`${styles.auditSignal} ${auditStyles.auditSignal}`} aria-hidden="true"><i /><i /><i /><i /><i /><i /><i /></div>
-          </div>
+          <SectionLead index="02 / Техническая основа" id="technical-title" title="Убираем то, что мешает поиску видеть сайт." description="Проверяем индексацию, адреса страниц, дубли, метаданные, внутренние ссылки, мобильную версию, скорость загрузки, robots.txt и sitemap.xml. Найденные ограничения устраняем, а не просто фиксируем в отчёте." />
+          <SeoHealthScan />
         </div>
       </section>
 
       <section className={`${styles.section} ${styles.contentSection}`} aria-labelledby="content-title">
         <div className={styles.container}>
-          <SectionLead index="04 / Страницы и материалы" id="content-title" title="Контент отвечает на вопрос и помогает сделать выбор." description="Прорабатываем структуру и содержание страниц вокруг реальных вопросов, услуг, ассортимента и критериев выбора — без текстов, написанных только ради ключевых слов." />
-          <div className={styles.contentWorkbench}>
-            <div className={styles.searchQuestion}><span>Запрос</span><strong>Как выбрать подходящее решение?</strong><p>У человека есть задача, контекст и критерии.</p></div>
-            <article className={`${styles.pageOutline} ${contentVisualStyles.pageOutline}`}>
-              <Image
-                src="/services/seo-content-decision-page-v1.png"
-                alt="Схема страницы с ответом, условиями, вариантами и действием"
-                fill
-                sizes="(max-width: 760px) calc(100vw - 62px), 700px"
-              />
-            </article>
-            <p className={styles.workbenchCaption}>Вопрос определяет структуру страницы, а структура помогает принять решение.</p>
-          </div>
+          <SectionLead index="03 / Страницы и материалы" id="content-title" title="Не пишем тексты для робота." description="Каждая страница строится вокруг реального вопроса: сразу отвечает на запрос, помогает выбрать нужный вариант и ведёт к понятному действию — без текста, написанного только ради ключевых слов." />
+          <SeoPageAnatomy />
         </div>
       </section>
 
@@ -150,7 +88,7 @@ export function SeoServicePage() {
             <a href="#contact-dialog" data-contact-dialog className={styles.finalAction}>Обсудить SEO <ActionArrow /></a>
             <div className={`${styles.finalVisual} ${finalVisualStyles.finalVisual}`} aria-hidden="true">
               <Image
-                src="/services/seo-final-search-channel-v1.png"
+                src="/services/seo-final-search-channel-v2.webp"
                 alt=""
                 fill
                 sizes="(max-width: 760px) calc(100vw - 80px), 620px"
@@ -162,22 +100,14 @@ export function SeoServicePage() {
 
       <section className={styles.section} aria-labelledby="measurement-title">
         <div className={styles.container}>
-          <SectionLead index="05 / Измерение" id="measurement-title" title="Смотрим не только на позиции, но и на действия после перехода." description="Связываем поисковые запросы и страницы с целевыми действиями. Если доступны необходимые данные, передаём обращения в CRM и оцениваем их дальнейшее движение." />
-          <div className={styles.measurementFlow} aria-label="Схема измерения пути из поиска">
-            <ol>
-              <li><span>01</span><div className={measurementIconStyles.measurementIcon} aria-hidden="true"><Image src="/services/seo-measurement-query-icon-v1.png" alt="" fill sizes="(max-width: 760px) 64px, 104px" /></div><strong>Запрос</strong><small>намерение</small></li>
-              <li><span>02</span><div className={measurementIconStyles.measurementIcon} aria-hidden="true"><Image src="/services/seo-measurement-page-icon-v1.png" alt="" fill sizes="(max-width: 760px) 64px, 104px" /></div><strong>Страница</strong><small>контекст</small></li>
-              <li><span>03</span><div className={measurementIconStyles.measurementIcon} aria-hidden="true"><Image src="/services/seo-measurement-action-icon-v1.png" alt="" fill sizes="(max-width: 760px) 64px, 104px" /></div><strong>Действие</strong><small>обращение</small></li>
-              <li><span>04</span><div className={measurementIconStyles.measurementIcon} aria-hidden="true"><Image src="/services/seo-measurement-url-crm-icon-v1.png" alt="" fill sizes="(max-width: 760px) 64px, 104px" /></div><strong>CRM</strong><small>движение</small></li>
-            </ol>
-            <div className={styles.reportCard}><span>Отчёт</span><strong>Видим путь, а не отдельную цифру.</strong><div className={reportSignalStyles.reportSignal} aria-hidden="true"><i /><i /><i /><i /><i /></div></div>
-          </div>
+          <SectionLead index="04 / Измерение" id="measurement-title" title="Позиция — ещё не результат." description="Смотрим не на позицию саму по себе, а на весь путь одного запроса: от поиска до обращения. Если доступны нужные данные, доводим этот путь до статуса в CRM." />
+          <SeoQueryJourney />
         </div>
       </section>
 
       <section className={`${styles.section} ${styles.developmentSection}`} aria-labelledby="development-title">
         <div className={styles.container}>
-          <SectionLead index="06 / Развитие" id="development-title" title="SEO — это постоянное развитие сайта." description="Следим за спросом и состоянием страниц, обновляем материалы, проверяем изменения и определяем следующие приоритеты." />
+          <SectionLead index="05 / Развитие" id="development-title" title="SEO — это постоянное развитие сайта." description="Следим за спросом и состоянием страниц, обновляем материалы, проверяем изменения и определяем следующие приоритеты." />
           <div className={`${styles.developmentLoop} ${developmentCycleStyles.developmentLoop}`}>
             <ol>
               <li><span>01</span><strong>Наблюдаем за спросом</strong></li>
@@ -198,33 +128,10 @@ export function SeoServicePage() {
         </div>
       </section>
 
-      <section className={styles.section} aria-labelledby="scope-title">
-        <div className={styles.container}>
-          <SectionLead index="07 / Состав работ" id="scope-title" title="Что может входить в SEO-продвижение." description="Точный состав, последовательность и периодичность работ определяем после изучения сайта, ниши и текущих данных." />
-          <div className={scopeStyles.scopeStage}>
-            <div className={scopeStyles.scopeObject} aria-hidden="true">
-              <Image
-                src="/services/seo-scope-index-rail-v1.png"
-                alt=""
-                fill
-                sizes="(max-width: 760px) calc(100vw - 32px), 500px"
-              />
-            </div>
-            <ol className={`${styles.scopeList} ${scopeStyles.scopeList}`}>
-              {scope.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong><i aria-hidden="true" /></li>)}
-            </ol>
-          </div>
-        </div>
-      </section>
-
       <section className={`${styles.section} ${styles.resultSection}`} aria-labelledby="result-title">
         <div className={styles.container}>
-          <SectionLead index="08 / Результат" id="result-title" title="Собственный канал обращений вместо постоянной зависимости от рекламы." description="Результат SEO-продвижения — сайт, способный привлекать целевой спрос из поиска без оплаты за каждый переход. Скорость и объём результата зависят от спроса, конкуренции, состояния сайта и выполненных работ." />
-          <div className={styles.channelPanel}>
-            <div className={styles.channelSource}><span>Органический поиск</span><strong>Спрос существует независимо от рекламной кампании.</strong></div>
-            <div className={styles.channelLine} aria-hidden="true"><i /><i /><i /></div>
-            <div className={styles.channelDestination}><span>Сайт компании</span><strong>Собственная система страниц и материалов.</strong><small>Развивается со временем</small></div>
-          </div>
+          <SectionLead index="06 / Результат" id="result-title" title="Сайт начинает работать как собственный канал привлечения." description="Постепенно сайт начинает приводить обращения из поиска — наравне с рекламой, а не вместо неё. Скорость и объём результата зависят от спроса, конкуренции, состояния сайта и выполненных работ." />
+          <SeoOwnChannel />
         </div>
       </section>
 

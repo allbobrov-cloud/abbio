@@ -1,0 +1,307 @@
+/* Hero кейса Bogov Team: реальный сайт — главный визуал. */
+.hero {
+  --lav: #b7a0ef;
+  --line: rgba(255, 255, 255, 0.1);
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - 90px);
+  padding: 34px 0 26px;
+  overflow-x: clip;
+  background:
+    radial-gradient(circle at 70% 40%, rgba(240, 178, 30, 0.11), transparent 40%),
+    radial-gradient(circle at 8% 90%, rgba(51, 89, 139, 0.1), transparent 30%),
+    #06070f;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+.grid {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+  gap: clamp(20px, 2.4vw, 44px);
+  align-items: center;
+}
+
+.copy {
+  max-width: 520px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 26px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.hero h1 {
+  margin: 0;
+  font-size: clamp(36px, 4.2vw, 60px);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.05;
+}
+.hero h1 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.description {
+  max-width: 440px;
+  margin: 26px 0 0;
+  color: #b2adc4;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+/* Композиция реального сайта: выходит к правому краю окна */
+.visual {
+  min-width: 0;
+  margin-right: calc(-1 * max(48px, (100vw - 1280px) / 2));
+}
+.stage {
+  position: relative;
+  aspect-ratio: 1000 / 690;
+  width: max(min(100%, calc((100svh - 300px) * 1.52)), 520px);
+  max-width: 100%;
+}
+.desktop {
+  position: absolute;
+  top: 3%;
+  left: 0;
+  z-index: 1;
+  width: 90%;
+  aspect-ratio: 1363 / 654;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: #0d0e1a;
+  box-shadow:
+    0 34px 80px rgba(0, 0, 0, 0.55),
+    0 0 120px rgba(240, 178, 30, 0.1);
+}
+.mobile {
+  position: absolute;
+  top: 27%;
+  left: 73%;
+  z-index: 2;
+  width: 21%;
+  aspect-ratio: 354 / 692;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 10px;
+  background: #0d0e1a;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65);
+}
+.desktop img,
+.mobile img {
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Proof — небольшой элемент интерфейса кейса, не рекламный бейдж */
+.proof {
+  position: absolute;
+  top: 67.5%;
+  left: 2%;
+  z-index: 3;
+  display: grid;
+  gap: 5px;
+  min-width: 15%;
+  padding: 13px 16px 14px;
+  border: 1px solid rgba(196, 178, 244, 0.4);
+  border-left: 2px solid var(--lav);
+  border-radius: 4px;
+  background: rgba(8, 9, 20, 0.94);
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.5);
+}
+.proof span {
+  color: var(--lav);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+.proof strong {
+  color: #fbfaff;
+  font-size: 26px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.proof strong em {
+  margin-left: 6px;
+  color: #cfc8e2;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.proof small {
+  color: #8a84a0;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+}
+
+/* Нижняя часть: факты одной строкой, сноска и состав работ */
+.band {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.facts li {
+  padding-right: 32px;
+  color: #d8d3e6;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.facts li + li {
+  padding-left: 32px;
+  border-left: 1px solid var(--line);
+}
+.facts .key {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.facts .key b {
+  color: #fbfaff;
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.note {
+  margin: 10px 0 0;
+  color: #7d7692;
+  font-size: 11.5px;
+  letter-spacing: 0.01em;
+}
+.scope {
+  margin: 14px 0 0;
+  color: #a39dbb;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 1080px) {
+  .hero {
+    min-height: 0;
+    padding-top: 44px;
+  }
+  .container {
+    width: calc(100% - 64px);
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .copy {
+    max-width: none;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 7.6vw, 60px);
+  }
+  .visual {
+    margin-right: calc(-32px);
+  }
+  .stage {
+    width: min(100%, 760px);
+  }
+}
+
+/* Телефон: реальный сайт крупно, без уменьшенного desktop-коллажа. */
+@media (max-width: 760px) {
+  .hero {
+    padding: 30px 0 40px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .grid {
+    gap: 32px;
+  }
+  .eyebrow {
+    margin-bottom: 18px;
+    font-size: 10px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 9.2vw, 42px);
+    letter-spacing: -0.045em;
+  }
+  .hero h1 br {
+    display: none;
+  }
+  .description {
+    margin-top: 18px;
+    font-size: 16px;
+  }
+  .visual {
+    margin-right: 0;
+  }
+  .stage {
+    width: 100%;
+    aspect-ratio: 1000 / 1120;
+  }
+  .desktop {
+    top: 0;
+    width: 100%;
+    aspect-ratio: 1.5;
+  }
+  .desktop img {
+    object-position: 8% top;
+  }
+  .mobile {
+    top: 46%;
+    left: 64%;
+    width: 33%;
+  }
+  .proof {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    min-width: 0;
+    padding: 11px 14px 12px;
+  }
+  .facts {
+    display: grid;
+    gap: 14px;
+  }
+  .facts li,
+  .facts li + li {
+    padding: 0;
+    border: 0;
+  }
+  .note {
+    margin-top: 14px;
+  }
+  .band {
+    margin-top: 40px;
+  }
+}

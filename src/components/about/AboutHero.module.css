@@ -1,0 +1,627 @@
+/* Hero «Об ABBiO»: одна задача превращается в одно решение. Базовое состояние — финальное. */
+.hero {
+  --line: rgba(255, 255, 255, 0.1);
+  --lineStrong: rgba(213, 201, 245, 0.28);
+  --faint: #7d7692;
+  --lav: #b7a0ef;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - 90px);
+  padding: 34px 0 0;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 70% 40%, rgba(107, 75, 181, 0.16), transparent 42%),
+    radial-gradient(circle at 6% 92%, rgba(51, 89, 139, 0.12), transparent 30%),
+    #06070f;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+.grid {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-columns: minmax(0, 0.43fr) minmax(0, 0.57fr);
+  gap: clamp(20px, 2.4vw, 44px);
+  align-items: center;
+}
+
+.copy {
+  max-width: 580px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 26px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.hero h1 {
+  margin: 0;
+  font-size: clamp(38px, 4.7vw, 68px);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 1.04;
+}
+.hero h1 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.description {
+  max-width: 400px;
+  margin: 26px 0 0;
+  color: #ada7bc;
+  font-size: 18px;
+  line-height: 1.55;
+}
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  min-height: 62px;
+  margin-top: 34px;
+  padding: 10px 11px 10px 24px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #181222;
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.action:hover {
+  background: #d0bcff;
+  box-shadow: 0 14px 36px rgba(136, 104, 205, 0.24);
+  transform: translateY(-2px);
+}
+.action :global(.arrow) {
+  border-color: rgba(24, 18, 34, 0.22);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.visual {
+  display: flex;
+  justify-content: flex-end;
+  min-width: 0;
+}
+
+/* Сцена. Все размеры внутри — от её ширины (container query). */
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: max(min(100%, calc((100svh - 250px) * 1.163)), 460px);
+  max-width: 100%;
+  aspect-ratio: 1000 / 860;
+  color: #f2f0f7;
+}
+.field,
+.glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.field {
+  background-image:
+    linear-gradient(rgba(213, 201, 245, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(213, 201, 245, 0.035) 1px, transparent 1px);
+  background-size: 6.4cqw 6.4cqw;
+  -webkit-mask-image: radial-gradient(ellipse at 58% 48%, #000 18%, transparent 70%);
+  mask-image: radial-gradient(ellipse at 58% 48%, #000 18%, transparent 70%);
+}
+.glow {
+  background: radial-gradient(
+    ellipse 46% 46% at 64% 46%,
+    rgba(150, 118, 235, 0.26),
+    transparent 70%
+  );
+}
+
+/* Исходная задача — небольшой объект в начале композиции */
+.chip {
+  position: absolute;
+  top: 46.4%;
+  left: 2%;
+  display: grid;
+  gap: 7px;
+  width: 24%;
+  padding: 12px 14px 14px;
+  border: 1px solid rgba(213, 201, 245, 0.34);
+  border-radius: 12px;
+  background: rgba(14, 13, 26, 0.92);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
+}
+.chip span {
+  color: var(--faint);
+  font-size: max(8.5px, 1.25cqw);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.chip strong {
+  color: #fbfaff;
+  font-size: max(13px, 2.05cqw);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.22;
+}
+
+/* Один объект, к которому добавляются слои */
+.panelWrap {
+  position: absolute;
+  top: 14%;
+  left: 32%;
+  width: 64%;
+  aspect-ratio: 660 / 570;
+  perspective: 1500px;
+}
+.tilt {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(-7deg) rotateX(2.5deg);
+  transform-origin: 20% 50%;
+  transform-style: preserve-3d;
+}
+.panel {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+}
+.panelSvg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 30px 50px rgba(0, 0, 0, 0.5));
+}
+.frame {
+  fill: #0b0c17;
+  stroke: rgba(213, 201, 245, 0.3);
+  stroke-width: 1;
+  transition:
+    stroke 0.7s ease;
+}
+.p7 .frame {
+  stroke: rgba(196, 178, 244, 0.7);
+}
+.p7 .panelSvg {
+  filter: drop-shadow(0 0 26px rgba(150, 118, 235, 0.34))
+    drop-shadow(0 30px 50px rgba(0, 0, 0, 0.5));
+}
+
+/* Слой 1 — дизайн: тонкие контуры и иерархия */
+.dLine circle,
+.dLine rect,
+.dLine path {
+  fill: none;
+  stroke: rgba(213, 201, 245, 0.3);
+  stroke-width: 1;
+}
+.bar1 {
+  fill: rgba(242, 240, 247, 0.85);
+}
+.bar2 {
+  fill: rgba(213, 201, 245, 0.2);
+}
+.cta {
+  fill: var(--accent);
+}
+.ctaLabel {
+  fill: rgba(24, 18, 34, 0.75);
+}
+.ctaArrow {
+  fill: none;
+  stroke: rgba(24, 18, 34, 0.75);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.dashed {
+  fill: none;
+  stroke: rgba(213, 201, 245, 0.24);
+  stroke-dasharray: 4 5;
+  transition: opacity 0.6s ease;
+}
+.p3 .ph {
+  opacity: 0;
+}
+.block {
+  fill: rgba(213, 201, 245, 0.025);
+  stroke: rgba(213, 201, 245, 0.2);
+}
+.blockIcon {
+  fill: rgba(183, 160, 239, 0.22);
+}
+
+/* Слой 2 — разработка: controls и состояния, сплошные заливки */
+.pillOn {
+  fill: rgba(183, 160, 239, 0.92);
+}
+.pill {
+  fill: none;
+  stroke: rgba(213, 201, 245, 0.36);
+}
+.input {
+  fill: rgba(255, 255, 255, 0.035);
+  stroke: rgba(213, 201, 245, 0.4);
+}
+.inputText {
+  fill: rgba(242, 240, 247, 0.5);
+}
+.caret {
+  stroke: var(--accent);
+  stroke-width: 1.6;
+}
+.toggle {
+  fill: rgba(183, 160, 239, 0.85);
+}
+.knob {
+  fill: #fff;
+}
+.blockOn {
+  fill: rgba(183, 160, 239, 0.14);
+  stroke: rgba(196, 178, 244, 0.7);
+}
+.tickMark {
+  fill: none;
+  stroke: #e4daff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Слой 4 — аналитика: действие через CTA */
+.cursor {
+  fill: #fbfaff;
+  stroke: #0b0c17;
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+}
+
+/* Data signal: одно обращение */
+.card {
+  position: absolute;
+  top: 56%;
+  left: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  width: 41%;
+  padding: 11px 14px;
+  border: 1px solid rgba(196, 178, 244, 0.6);
+  border-radius: 12px;
+  background: rgba(20, 17, 38, 0.96);
+  box-shadow:
+    0 0 28px rgba(150, 118, 235, 0.3),
+    0 18px 36px rgba(0, 0, 0, 0.45);
+  transform: translateZ(36px);
+}
+.card > div {
+  display: grid;
+  gap: 4px;
+}
+.card strong {
+  color: #fbfaff;
+  font-size: max(12px, 1.9cqw);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.card span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #d9cdf5;
+  font-size: max(10px, 1.45cqw);
+}
+.card span i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 10px rgba(183, 160, 239, 0.9);
+}
+.card b {
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  height: 22px;
+}
+.card em {
+  display: block;
+  width: 4px;
+  border-radius: 2px;
+  background: rgba(196, 178, 244, 0.7);
+}
+.card em:nth-child(1) { height: 7px; }
+.card em:nth-child(2) { height: 11px; }
+.card em:nth-child(3) { height: 9px; }
+.card em:nth-child(4) { height: 16px; }
+.card em:nth-child(5) { height: 22px; background: var(--accent); }
+
+/* Подписи слоёв */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px 4px 8px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(8, 8, 16, 0.88);
+  color: #a9a3bf;
+  font-size: max(8.5px, 1.25cqw);
+  font-weight: 600;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    color 0.6s ease,
+    border-color 0.6s ease;
+}
+/* Слои ABBiO — ряд над объектом */
+.layers {
+  position: absolute;
+  top: 3%;
+  left: 32%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.tag i {
+  width: 6px;
+  height: 6px;
+  border-radius: 2px;
+  background: rgba(196, 178, 244, 0.55);
+  transition: background 0.6s ease;
+}
+.p7 .tag {
+  border-color: rgba(196, 178, 244, 0.5);
+  color: #e4daff;
+}
+.p7 .tag i {
+  background: var(--accent);
+}
+
+/* Финальная подпись */
+.whole {
+  position: absolute;
+  top: 83%;
+  left: 32%;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0;
+  color: #f1ebff;
+  font-size: max(10px, 1.55cqw);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.whole i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(183, 160, 239, 0.9);
+}
+
+/* Появление слоёв — только при движении. */
+@media (prefers-reduced-motion: no-preference) {
+  .stage[data-armed="true"] .rev {
+    opacity: 0;
+    transition:
+      opacity 0.6s ease,
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .lift {
+    translate: 0 10px;
+  }
+  .stage[data-armed="true"] .late {
+    transition-delay: 0.35s;
+  }
+  .stage[data-armed="true"] .rev.isIn {
+    opacity: 1;
+  }
+  .stage[data-armed="true"] .lift.isIn {
+    translate: 0 0;
+  }
+
+
+}
+
+/* Нижний уровень: второй слой понимания */
+.principles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 0;
+  margin: 0;
+  padding: 20px 0 24px;
+  border-top: 1px solid var(--line);
+  list-style: none;
+  color: #a5a5b7;
+  font-size: 13px;
+  letter-spacing: 0.01em;
+}
+.principles li + li::before {
+  margin: 0 18px;
+  color: rgba(183, 160, 239, 0.7);
+  content: "•";
+}
+
+@media (max-width: 1080px) {
+  .hero {
+    min-height: 0;
+    padding-top: 44px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .copy {
+    max-width: none;
+  }
+  .hero h1 {
+    font-size: clamp(38px, 8.4vw, 64px);
+  }
+  .visual {
+    justify-content: center;
+  }
+  .stage {
+    width: min(100%, 720px);
+  }
+  .principles {
+    margin-top: 40px;
+  }
+}
+
+@media (max-width: 960px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+/* Телефон: вертикальная композиция, а не уменьшенный десктоп. */
+@media (max-width: 760px) {
+  .hero {
+    padding-top: 30px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .grid {
+    gap: 34px;
+  }
+  .eyebrow {
+    margin-bottom: 18px;
+    font-size: 10px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 10vw, 44px);
+    letter-spacing: -0.045em;
+  }
+  .hero h1 br {
+    display: none;
+  }
+  .description {
+    margin-top: 18px;
+    font-size: 16px;
+  }
+  .action {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 340px;
+    min-height: 56px;
+    margin-top: 26px;
+    padding-left: 20px;
+    font-size: 13px;
+  }
+
+  .stage {
+    width: 100%;
+    aspect-ratio: 335 / 510;
+  }
+  .field {
+    background-size: 22px 22px;
+    -webkit-mask-image: radial-gradient(ellipse at 60% 50%, #000 12%, transparent 72%);
+    mask-image: radial-gradient(ellipse at 60% 50%, #000 12%, transparent 72%);
+  }
+  .glow {
+    background: radial-gradient(
+      ellipse 70% 46% at 55% 54%,
+      rgba(150, 118, 235, 0.26),
+      transparent 70%
+    );
+  }
+  .chip {
+    top: 0;
+    left: 0;
+    gap: 5px;
+    width: 58%;
+    padding: 10px 12px 12px;
+  }
+  .chip span {
+    font-size: 9px;
+  }
+  .chip strong {
+    font-size: 15px;
+  }
+  .layers {
+    top: 17.2%;
+    left: 3%;
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    width: 94%;
+    gap: 6px 8px;
+  }
+  .panelWrap {
+    top: 30%;
+    left: 3%;
+    width: 94%;
+  }
+  .tilt {
+    transform: rotateY(-4deg) rotateX(1.5deg);
+  }
+  .tag {
+    font-size: 9px;
+  }
+  .card {
+    top: 55%;
+    left: 5%;
+    width: 60%;
+    padding: 10px 12px;
+  }
+  .card strong {
+    font-size: 14px;
+  }
+  .card span {
+    font-size: 11.5px;
+  }
+  .whole {
+    top: 86.5%;
+    left: 3%;
+    font-size: 11px;
+  }
+
+  .principles {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 20px;
+    margin-top: 34px;
+    padding: 18px 0 26px;
+    font-size: 12.5px;
+    line-height: 1.4;
+  }
+  .principles li + li::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action:hover {
+    transform: none;
+  }
+}

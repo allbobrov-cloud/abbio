@@ -1,0 +1,437 @@
+/* Старт проекта: из размытого в чёткое. Воронка сужается, рамка меняется от пунктира к заливке. */
+.section {
+  --line: rgba(255, 255, 255, 0.1);
+  --lineStrong: rgba(213, 201, 245, 0.28);
+  --dim: #b4aec4;
+  --faint: #7d7692;
+  --lav: #b7a0ef;
+
+  padding: 92px 0 104px;
+  background:
+    radial-gradient(circle at 50% 62%, rgba(107, 75, 181, 0.1), transparent 46%),
+    #05070d;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+/* Общий паттерн заголовка секции: H2 слева, пояснение справа. */
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 52px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.head h2 {
+  max-width: 700px;
+  margin: 0;
+  font-size: clamp(33px, 3.4vw, 49px);
+  font-weight: 500;
+  letter-spacing: -0.042em;
+  line-height: 1.05;
+}
+.head h2 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.description {
+  max-width: 420px;
+  margin: 0 0 6px;
+  color: #a5a5b7;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.root {
+  position: relative;
+  max-width: 1000px;
+  margin-inline: auto;
+}
+
+.microLabel {
+  margin: 0;
+  color: var(--faint);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+.microLabel em {
+  margin-left: 10px;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+/* Фраза клиента: как введённая в поле. Точечная рамка — ещё неопределённо. */
+.ask {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding: 16px 16px 16px 30px;
+  border: 1.5px dotted rgba(183, 160, 239, 0.6);
+  border-radius: 999px;
+  background: rgba(183, 160, 239, 0.04);
+}
+.askLabel {
+  flex: none;
+  color: var(--lav);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.askText {
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0;
+  color: #fbfaff;
+  font-size: clamp(20px, 2.2vw, 30px);
+  font-weight: 450;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+}
+.askNext {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px 11px 20px;
+  border: 1px solid var(--lineStrong);
+  border-radius: 999px;
+  background: none;
+  color: #e7e0fa;
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    background 0.22s ease,
+    border-color 0.22s ease;
+}
+.askNext small {
+  color: var(--faint);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+.askNext i {
+  display: inline-flex;
+  color: var(--lav);
+}
+.askNext svg {
+  width: 15px;
+  height: 15px;
+}
+.askNext:hover {
+  border-color: rgba(213, 201, 245, 0.6);
+  background: rgba(183, 160, 239, 0.12);
+}
+.askNext:focus-visible {
+  outline: 2px solid #d4bfff;
+  outline-offset: 3px;
+}
+
+/* Воронка: каждый следующий уровень уже и определённее. */
+.funnel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.link {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 30px;
+  margin: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(183, 160, 239, 0.15),
+    rgba(183, 160, 239, 0.6)
+  );
+}
+.link span {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  color: var(--faint);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transform: translateY(-50%);
+}
+.band {
+  box-sizing: border-box;
+  margin: 0;
+  border-radius: 16px;
+}
+.band ul,
+.band ol,
+.band dl {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Состав — штриховая рамка */
+.bandScope {
+  width: 86%;
+  padding: 18px 26px 20px;
+  border: 1.5px dashed rgba(183, 160, 239, 0.5);
+}
+.bandScope ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 32px;
+  margin-top: 12px;
+}
+.bandScope li {
+  color: #e6e1f1;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+}
+
+/* Этапы — сплошная сегментная полоса */
+.bandStages {
+  width: 70%;
+  overflow: hidden;
+  border: 1px solid rgba(213, 201, 245, 0.3);
+}
+.bandStages .microLabel {
+  padding: 15px 24px 0;
+}
+.bandStages ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 10px;
+  border-top: 1px solid var(--line);
+}
+.bandStages li {
+  display: grid;
+  gap: 6px;
+  padding: 14px 20px 16px;
+  border-left: 1px solid var(--line);
+  color: #e6e1f1;
+  font-size: 14px;
+  line-height: 1.3;
+}
+.bandStages li:first-child {
+  border-left: 0;
+}
+.bandStages li span {
+  color: var(--lav);
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.1em;
+}
+
+/* Условия — заливка: конкретика */
+.bandTerms {
+  width: 54%;
+  padding: 22px 28px;
+  border: 1px solid rgba(183, 160, 239, 0.5);
+  background: linear-gradient(
+    135deg,
+    rgba(183, 160, 239, 0.2),
+    rgba(183, 160, 239, 0.07)
+  );
+}
+.bandTerms dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.bandTerms div {
+  padding-right: 20px;
+}
+.bandTerms div + div {
+  padding-left: 24px;
+  border-left: 1px solid rgba(213, 201, 245, 0.28);
+}
+.bandTerms dt {
+  color: #cdbff2;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+.bandTerms dd {
+  margin: 9px 0 0;
+  color: #fbfaff;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+}
+
+@keyframes funnelIn {
+  from {
+    opacity: 0.35;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes textIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Базовое состояние — финальное; появление добавляется только при движении. */
+@media (prefers-reduced-motion: no-preference) {
+  .fresh {
+    animation: funnelIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .askText {
+    animation: textIn 0.3s ease both;
+  }
+  .root[data-armed="true"] .ask,
+  .root[data-armed="true"] .link,
+  .root[data-armed="true"] .band {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .root[data-armed="true"] .isIn {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 960px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+  .bandScope {
+    width: 92%;
+  }
+  .bandStages {
+    width: 82%;
+  }
+  .bandTerms {
+    width: 70%;
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 62px 0 68px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .head {
+    display: block;
+    margin-bottom: 32px;
+  }
+  .head h2 {
+    font-size: clamp(28px, 7.8vw, 35px);
+  }
+  .description {
+    max-width: none;
+    margin: 16px 0 0;
+    font-size: 14px;
+    text-align: left;
+  }
+  .description br {
+    display: none;
+  }
+  .ask {
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    padding: 20px 18px 16px 22px;
+    border-radius: 26px;
+  }
+  .askText {
+    flex-basis: 100%;
+    order: 2;
+    font-size: 22px;
+  }
+  .askLabel {
+    order: 1;
+  }
+  .askNext {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+    min-height: 46px;
+  }
+  .askLabel {
+    flex: 1 1 auto;
+  }
+  .bandScope,
+  .bandStages,
+  .bandTerms {
+    width: 100%;
+  }
+  .bandScope {
+    padding: 16px 18px 18px;
+  }
+  .bandScope li {
+    font-size: 16px;
+  }
+  .bandStages .microLabel {
+    padding: 14px 18px 0;
+  }
+  .bandStages ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .bandStages li:nth-child(3) {
+    border-left: 0;
+  }
+  .bandStages li:nth-child(n + 3) {
+    border-top: 1px solid var(--line);
+  }
+  .bandTerms {
+    padding: 18px;
+  }
+  .bandTerms dl {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  .bandTerms div + div {
+    padding-left: 0;
+    padding-top: 16px;
+    border-left: 0;
+    border-top: 1px solid rgba(213, 201, 245, 0.28);
+  }
+}
+
+/* Узкие экраны: высота не зависит от длины примера. */
+@media (max-width: 760px) {
+  .askText {
+    min-height: 53px;
+  }
+  .bandScope ul {
+    min-height: 62px;
+    align-content: flex-start;
+  }
+}

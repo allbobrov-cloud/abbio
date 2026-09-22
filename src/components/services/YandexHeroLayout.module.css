@@ -1,0 +1,49 @@
+.stage {
+  position: static;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(440px, 580px);
+  grid-template-areas: "copy visual" "details visual";
+  align-items: center;
+  gap: clamp(28px, 4vw, 64px);
+  min-height: 0;
+  flex: 1 1 auto;
+}
+.copy {
+  grid-area: copy;
+  max-width: 700px;
+}
+.details {
+  grid-area: details;
+  max-width: 640px;
+  margin-top: 0;
+}
+.visual {
+  grid-area: visual;
+  position: relative;
+  align-self: center;
+  width: 100%;
+  pointer-events: none;
+}
+
+@media (max-width: 1180px) {
+  .stage {
+    grid-template-columns: 1fr;
+    grid-template-areas: "copy" "visual" "details";
+    gap: 32px;
+  }
+  .visual {
+    max-width: 640px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 900px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+  }
+  .copy { order: 0; max-width: none; }
+  .visual { order: 1; width: 100%; max-width: none; margin: 24px 0; }
+  .details { order: 2; max-width: none; margin-top: 0; }
+}

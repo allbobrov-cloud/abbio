@@ -1,6 +1,5 @@
 import { AgencyProcess, TeamSection } from "@/components/AgencySections";
-import { HomeServices, IndustryFocus, ProjectCta, ReportsPreview } from "@/components/home/HomePortfolio";
-import { CasesSection } from "@/components/CasesSection";
+import { HomeCases, HomeServices, IndustryFocus, ProjectCta, ReportsPreview } from "@/components/home/HomePortfolio";
 import { HomeHero, TaskExplorer, ClientJourney, WorkFormats } from "@/components/home/HomeExperience";
 import styles from "@/components/home/HomeExperience.module.css";
 
@@ -10,7 +9,7 @@ export default function Home() {
       <HomeHero />
       <TaskExplorer />
       <HomeServices />
-      <CasesSection />
+      <HomeCases />
       <ReportsPreview />
       <ProjectCta />
       <IndustryFocus />

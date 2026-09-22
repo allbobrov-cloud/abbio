@@ -1,0 +1,210 @@
+/* SEO: editorial data-composition. 91% — главный объект, реальные позиции — второй и третий слой. */
+.section {
+  --lav: #b7a0ef;
+  --line: rgba(255, 255, 255, 0.1);
+
+  padding: 92px 0 100px;
+  background: #05070d;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 56px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.head h2 {
+  max-width: 700px;
+  margin: 0;
+  font-size: clamp(33px, 3.4vw, 49px);
+  font-weight: 500;
+  letter-spacing: -0.042em;
+  line-height: 1.05;
+}
+.head h2 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.description {
+  max-width: 340px;
+  margin: 0 0 6px;
+  color: #a5a5b7;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: start;
+}
+
+/* Главный объект — крупная цифра */
+.headline {
+  display: grid;
+  gap: 2px;
+}
+.big {
+  margin: 0;
+  color: #fbfaff;
+  font-size: clamp(96px, 10.5vw, 170px);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+}
+.big span {
+  color: var(--lav);
+  font-size: 0.5em;
+}
+.bigLabel {
+  margin: 4px 0 0;
+  color: #d8d3e6;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+}
+.sample {
+  margin: 22px 0 0;
+  color: #a39dbb;
+  font-size: 13px;
+}
+.context {
+  margin: 8px 0 0;
+  color: #7d7692;
+  font-size: 12px;
+  letter-spacing: 0.01em;
+}
+
+/* Второй уровень — подтверждённые #1 */
+.top {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.top li {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+  color: #f2f0f7;
+  font-size: clamp(16px, 1.7vw, 21px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+.top li:last-child {
+  border-bottom: 1px solid var(--line);
+}
+.top b {
+  flex: none;
+  width: 34px;
+  color: var(--lav);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Третий уровень — остальные позиции, спокойнее, без красного */
+.other {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin: 22px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.other li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  color: #8a84a0;
+  font-size: 13px;
+}
+.other b {
+  color: #a9a3bf;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stage[data-armed="true"] .rev {
+    opacity: 0;
+    transition:
+      opacity 0.7s ease,
+      translate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .rev {
+    translate: 0 14px;
+  }
+  .stage[data-armed="true"] .rev.isIn {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 64px 0 72px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .head {
+    display: block;
+    margin-bottom: 34px;
+  }
+  .head h2 {
+    font-size: clamp(28px, 7.8vw, 35px);
+  }
+  .description {
+    max-width: none;
+    margin: 16px 0 0;
+    font-size: 14px;
+    text-align: left;
+  }
+  .description br {
+    display: none;
+  }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+  .big {
+    font-size: clamp(76px, 24vw, 108px);
+  }
+}

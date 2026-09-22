@@ -1,8 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
+import { YandexDirectHeroExperience } from "./YandexDirectHeroExperience";
+import { YandexDirectAdPage } from "./YandexDirectAdPage";
+import { YandexDirectCrmSection } from "./YandexDirectCrmSection";
 import styles from "./YandexDirectServicePage.module.css";
 import heroStyles from "./SeoHeroBlend.module.css";
+import heroLayoutStyles from "./YandexHeroLayout.module.css";
 
 type SectionLeadProps = { index: string; title: string; description: string; id: string };
 const reportDemoUrl = "https://docs.google.com/spreadsheets/d/1_t_nzlVjj-NE8Lvdqqsz3XC_L0DNfjz0K1nLGFqu1Tk/edit?gid=185043878#gid=185043878";
@@ -15,7 +19,23 @@ export function YandexDirectServicePage() {
   return <main id="main" className={styles.page}>
     <section className={`${styles.hero} ${heroStyles.hero}`} aria-labelledby="direct-title"><div className={`${styles.container} ${heroStyles.container}`}>
       <nav className={styles.breadcrumbs} aria-label="Хлебные крошки"><Link href="/">Главная</Link><span aria-hidden="true">/</span><Link href="/services">Услуги</Link><span aria-hidden="true">/</span><span aria-current="page">Яндекс Директ</span></nav>
-      <div className={heroStyles.stage}><div className={`${styles.heroCopy} ${heroStyles.copy}`}><p className={styles.kicker}>Контекстная реклама</p><h1 id="direct-title">Быстрее получаем обращения и видим результат в понятном отчёте.</h1></div><div className={heroStyles.visual} aria-hidden="true"><Image src="/services/yandex-direct-hero-conversion-route-v1.png" alt="" fill priority sizes="(max-width: 760px) calc(100vw - 32px), 760px" /></div><div className={heroStyles.details}><p className={styles.heroDescription}>Настраиваем Яндекс Директ, связываем объявления с подходящими страницами, передаём обращения в CRM и показываем результат по рекламным направлениям.</p><div className={styles.heroActions}><a href="#contact-dialog" data-contact-dialog className={styles.primaryAction}>Обсудить рекламу <ActionArrow /></a><Link href="#direct-report" className={styles.reportLink}>Как выглядит отчёт</Link></div></div></div>
+      <div className={heroLayoutStyles.stage}>
+        <div className={`${styles.heroCopy} ${heroLayoutStyles.copy}`}>
+          <p className={styles.kicker}>Контекстная реклама</p>
+          <h1 id="direct-title">Спрос уже есть.<br />Приводим его на ваш сайт.</h1>
+        </div>
+        <div className={heroLayoutStyles.visual} aria-hidden="true">
+          <YandexDirectHeroExperience />
+        </div>
+        <div className={heroLayoutStyles.details}>
+          <p className={styles.heroDescription}>Настраиваем Яндекс Директ вокруг реального спроса: связываем запрос, объявление и посадочную страницу, а обращения — с расходами и источником.</p>
+          <p className={styles.semanticLine}>Спрос · Объявление · Страница · Обращение</p>
+          <div className={styles.heroActions}>
+            <a href="#contact-dialog" data-contact-dialog className={styles.primaryAction}>Обсудить рекламу <ActionArrow /></a>
+            <Link href="#direct-report" className={styles.reportLink}>Как выглядит отчёт</Link>
+          </div>
+        </div>
+      </div>
     </div></section>
 
     <section className={styles.section} aria-labelledby="offer-title"><div className={styles.container}>
@@ -43,19 +63,7 @@ export function YandexDirectServicePage() {
 
     <section className={styles.section} aria-labelledby="message-title"><div className={styles.container}>
       <SectionLead index="03 / Объявление и страница" id="message-title" title="Страница должна продолжать смысл объявления." description="Согласуем запрос, текст объявления и содержание посадочной страницы. Если подходящей страницы нет, предлагаем её доработку или создание." />
-      <div className={styles.messageBridge}>
-        <article className={styles.adMessage}>
-          <header className={styles.messageMeta}><span>Запрос</span><span>Объявление</span></header>
-          <strong>Точный ответ на задачу</strong>
-          <p>Понятное предложение и следующий шаг.</p>
-          <span className={styles.messageAction}>Перейти на сайт</span>
-        </article>
-        <div className={styles.messageTrack} aria-hidden="true"><i /></div>
-        <article className={styles.landingMessage}>
-          <div className={styles.landingMessageCopy}><span>Посадочная страница</span><h3>То же предложение без смыслового разрыва.</h3><p>Целевое действие</p></div>
-          <div className={styles.messageVisual} aria-hidden="true"><Image src="/services/yandex-direct-message-continuity-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 760px" /></div>
-        </article>
-      </div>
+      <YandexDirectAdPage />
       <div className={styles.relatedInline}><span>Если страницу нужно доработать:</span><Link href="/services/websites">Создание сайтов <b aria-hidden="true">↗</b></Link><Link href="/services/design">Дизайн страниц <b aria-hidden="true">↗</b></Link></div>
     </div></section>
 
@@ -63,7 +71,7 @@ export function YandexDirectServicePage() {
       <SectionLead index="04 / Структура кампаний" id="campaign-title" title="Разделяем направления, аудитории и бюджет." description="Строим кампании вокруг предложений, географии и характера спроса. Цели, расписание и правила показов определяем в рамках согласованной задачи." />
       <div className={styles.campaignMap}>
         <div className={styles.campaignVisual} aria-hidden="true">
-          <Image src="/services/yandex-direct-campaign-structure-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 620px" />
+          <Image src="/services/yandex-direct-campaign-structure-v2.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 620px" />
         </div>
         <div className={styles.campaignRoot}><span>Задача</span><strong>Структура запуска</strong></div>
         <div className={styles.campaignColumns}>
@@ -77,17 +85,7 @@ export function YandexDirectServicePage() {
 
     <section className={styles.section} aria-labelledby="actions-title"><div className={styles.container}>
       <SectionLead index="05 / Целевые действия" id="actions-title" title="Формы, звонки и чаты должны быть видны после клика." description="Настраиваем передачу доступных целевых действий и источника обращения в CRM. Коллтрекинг и дополнительные сервисы подключаются отдельно, когда они необходимы задаче." />
-      <div className={styles.actionStream}>
-        <div className={styles.actionSources} aria-label="Доступные целевые действия">
-          <article><span>Форма</span></article>
-          <article><span>Звонок</span></article>
-          <article><span>Чат</span></article>
-        </div>
-        <div className={styles.actionVisual} aria-hidden="true">
-          <Image src="/services/yandex-direct-action-capture-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1180px) 52vw, 640px" />
-        </div>
-        <div className={styles.crmCard}><span>CRM</span><strong>Обращение и источник</strong><dl><div><dt>Канал</dt><dd>Яндекс Директ</dd></div><div><dt>Действие</dt><dd>доступные данные</dd></div></dl></div>
-      </div>
+      <YandexDirectCrmSection />
     </div></section>
 
     <section className={`${styles.section} ${styles.metricsSection}`} id="direct-report" aria-labelledby="metrics-title"><div className={styles.container}>

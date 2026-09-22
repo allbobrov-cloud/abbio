@@ -1,0 +1,283 @@
+/* Принципы: editorial-манифест. Базовое состояние — финальное (все четыре видны). */
+.section {
+  --line: rgba(255, 255, 255, 0.1);
+  --lav: #b7a0ef;
+
+  position: relative;
+  padding: 76px 0 84px;
+  background:
+    radial-gradient(ellipse 50% 40% at 70% 60%, rgba(107, 75, 181, 0.1), transparent 70%),
+    #05070d;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+.head {
+  margin-bottom: 44px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.head h2 {
+  margin: 0;
+  font-size: clamp(33px, 3.4vw, 49px);
+  font-weight: 500;
+  letter-spacing: -0.042em;
+  line-height: 1.05;
+}
+.head h2 em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* Сцена: координаты 1000 × 490, кегль — от её ширины и в пределах кеглей сайта. */
+.stage {
+  --pd: 1;
+  --pm: 1;
+
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 1000 / 490;
+}
+
+/* Тонкая сетка колонок, мягко исчезающая к краям */
+.guides {
+  position: absolute;
+  inset: -4% 0;
+  pointer-events: none;
+  background-image: linear-gradient(90deg, rgba(213, 201, 245, 0.06) 1px, transparent 1px);
+  background-size: 8.3333% 100%;
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+  mask-image: linear-gradient(180deg, transparent, #000 14%, #000 86%, transparent);
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.trackBase,
+.trackFill {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+}
+.trackBase {
+  stroke: rgba(196, 178, 244, 0.16);
+  stroke-width: 1;
+}
+.trackFill {
+  stroke: rgba(210, 194, 250, 0.95);
+  stroke-width: 1.4;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--pd));
+  transition: stroke-dashoffset 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.node {
+  fill: #05070d;
+  stroke: rgba(196, 178, 244, 0.45);
+  stroke-width: 1.2;
+  transition:
+    fill 0.5s ease,
+    stroke 0.5s ease;
+}
+.nodeOn {
+  fill: var(--lav);
+  stroke: #efe8ff;
+}
+.rail {
+  display: none;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.row {
+  position: absolute;
+  display: flex;
+  gap: 0;
+  align-items: flex-start;
+}
+.row1 {
+  top: 0;
+  left: 2%;
+}
+.row2 {
+  top: 18.4%;
+  left: 34%;
+}
+.row3 {
+  top: 46.9%;
+  left: 10%;
+}
+.row4 {
+  top: 75.5%;
+  left: 56%;
+}
+
+.num {
+  flex: 0 0 3.6cqw;
+  padding-top: 0.75cqw;
+  color: var(--lav);
+  font-size: max(11px, 1.3cqw);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+}
+
+/* Очень крупная типографика — главный visual блока */
+.phrase {
+  margin: 0;
+  color: #f2f0f7;
+  font-size: clamp(38px, 5.3cqw, 68px);
+  font-weight: 500;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
+  white-space: nowrap;
+  transition: color 0.7s ease;
+}
+.line {
+  display: block;
+}
+.stop {
+  color: var(--lav);
+  transition: color 0.7s ease;
+}
+
+/* Активность: следующие приглушены, активный ярче всех, пройденные спокойнее */
+.next .phrase {
+  color: #4a4661;
+}
+.next .stop {
+  color: #4a4661;
+}
+.now .phrase {
+  color: #fbfaff;
+}
+.past .phrase {
+  color: #a39dbb;
+}
+.lit .phrase {
+  color: #f2f0f7;
+}
+.next .num {
+  opacity: 0.45;
+}
+.num {
+  transition: opacity 0.6s ease;
+}
+
+@media (max-width: 1080px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+/* Телефон: вертикальный ряд со сдвигами и общей направляющей, а не обычный список. */
+@media (max-width: 760px) {
+  .section {
+    padding: 62px 0 72px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .head {
+    margin-bottom: 40px;
+  }
+  .head h2 {
+    font-size: clamp(28px, 7.8vw, 35px);
+  }
+  .stage {
+    aspect-ratio: auto;
+    padding-left: 22px;
+  }
+  .guides,
+  .lines {
+    display: none;
+  }
+  .rail {
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 4px;
+    display: block;
+    width: 1px;
+    background:
+      linear-gradient(
+        180deg,
+        rgba(210, 194, 250, 0.95) calc(var(--pm) * 100%),
+        rgba(196, 178, 244, 0.16) calc(var(--pm) * 100%)
+      );
+    transition: background 0.6s ease;
+  }
+  .list {
+    display: grid;
+    gap: 34px;
+  }
+  .row {
+    position: relative;
+    top: auto;
+    left: auto;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .row::before {
+    position: absolute;
+    top: 3px;
+    left: -22px;
+    width: 9px;
+    height: 9px;
+    border: 1px solid rgba(196, 178, 244, 0.6);
+    border-radius: 50%;
+    background: #05070d;
+    content: "";
+  }
+  .row.now::before,
+  .row.past::before,
+  .row.lit::before {
+    border-color: #efe8ff;
+    background: var(--lav);
+  }
+  .row1 {
+    margin-left: 0;
+  }
+  .row2 {
+    margin-left: 26px;
+  }
+  .row3 {
+    margin-left: 8px;
+  }
+  .row4 {
+    margin-left: 34px;
+  }
+  .num {
+    flex: none;
+    padding: 0;
+    font-size: 12px;
+  }
+  .phrase {
+    font-size: clamp(34px, 10.4vw, 44px);
+    letter-spacing: -0.05em;
+  }
+}

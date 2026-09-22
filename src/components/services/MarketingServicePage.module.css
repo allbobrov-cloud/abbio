@@ -955,10 +955,6 @@
     display: none;
   }
 
-  .postCasesCta {
-    display: none;
-  }
-
   .improvementCycle {
     grid-template-columns: 1fr;
     gap: 10px;

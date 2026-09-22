@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
 import { CasePortfolio } from "./CasePortfolio";
+import { WebsitesCrmSection } from "./WebsitesCrmSection";
 import styles from "./WebsitesServicePage.module.css";
 
 const formats = [
@@ -70,17 +71,37 @@ const formatVisuals = {
   catalog: "/services/websites-format-catalog-smartphones-v1.png",
 } as const;
 
-const crmVisuals = {
-  contactPoints: "/services/websites-crm-contact-points-v1.png",
-  requestContext: "/services/websites-crm-request-context-v1.png",
-  workspace: "/services/websites-crm-workspace-v1.png",
-} as const;
-
 const platformLogos = {
   react: "/services/websites-platform-react.svg",
   bitrix: "/services/websites-platform-1c-bitrix.svg",
   wordpress: "/services/websites-platform-wordpress.png",
 } as const;
+
+const platforms = [
+  {
+    id: "react",
+    number: "01",
+    title: "React / Next.js",
+    text: "Для индивидуальной логики, высокой скорости работы и интерфейсов, которые развиваются вместе с бизнесом.",
+  },
+  {
+    id: "bitrix",
+    number: "02",
+    title: "1С-Битрикс",
+    text: "Когда сайт должен учитывать существующую среду бизнеса, сложный каталог или согласованные интеграции.",
+  },
+  {
+    id: "wordpress",
+    number: "03",
+    title: "WordPress",
+    text: "Когда команде важно самостоятельно работать с согласованным содержанием сайта и развивать разделы без сложного технического процесса.",
+  },
+] as const satisfies ReadonlyArray<{
+  id: keyof typeof platformLogos;
+  number: string;
+  title: string;
+  text: string;
+}>;
 
 function FormatVisual({ kind }: { kind: (typeof formats)[number]["kind"] }) {
   return (
@@ -91,19 +112,6 @@ function FormatVisual({ kind }: { kind: (typeof formats)[number]["kind"] }) {
         fill
         loading="eager"
         sizes="(max-width: 760px) calc(100vw - 88px), (max-width: 1080px) 29vw, 380px"
-      />
-    </div>
-  );
-}
-
-function CrmBackground({ src }: { src: (typeof crmVisuals)[keyof typeof crmVisuals] }) {
-  return (
-    <div className={styles.crmVisual} aria-hidden="true">
-      <Image
-        src={src}
-        alt=""
-        fill
-        sizes="(max-width: 760px) calc(100vw - 88px), 30vw"
       />
     </div>
   );
@@ -210,7 +218,6 @@ export function WebsitesServicePage() {
                   <h3>Понятно, что вы предлагаете</h3>
                   <p>Главное предложение и условия видны без долгого поиска.</p>
                 </div>
-                <i aria-hidden="true" />
               </li>
               <li>
                 <span>02</span>
@@ -220,7 +227,6 @@ export function WebsitesServicePage() {
                     Структура, категории и содержание помогают сориентироваться.
                   </p>
                 </div>
-                <i aria-hidden="true" />
               </li>
               <li>
                 <span>03</span>
@@ -228,7 +234,6 @@ export function WebsitesServicePage() {
                   <h3>Просто обратиться</h3>
                   <p>Следующий шаг заметен там, где он нужен посетителю.</p>
                 </div>
-                <i aria-hidden="true" />
               </li>
             </ol>
           </div>
@@ -320,37 +325,22 @@ export function WebsitesServicePage() {
               <span>Что должен уметь сайт</span>
               <strong>Работать сегодня и развиваться дальше.</strong>
             </div>
-            <article>
-              <div className={styles.techIcon} aria-hidden="true">
-                <PlatformLogo platform="react" />
-              </div>
-              <h3>React / Next.js</h3>
-              <p>
-                Для индивидуальной логики, высокой скорости работы и
-                интерфейсов, которые развиваются вместе с бизнесом.
-              </p>
-            </article>
-            <article>
-              <div className={styles.techIcon} aria-hidden="true">
-                <PlatformLogo platform="bitrix" />
-              </div>
-              <h3>1С-Битрикс</h3>
-              <p>
-                Когда сайт должен учитывать существующую среду бизнеса, сложный
-                каталог или согласованные интеграции.
-              </p>
-            </article>
-            <article>
-              <div className={styles.techIcon} aria-hidden="true">
-                <PlatformLogo platform="wordpress" />
-              </div>
-              <h3>WordPress</h3>
-              <p>
-                Когда команде важно самостоятельно работать с согласованным
-                содержанием сайта и развивать разделы без сложного технического
-                процесса.
-              </p>
-            </article>
+            <div className={styles.techIndex}>
+              {platforms.map((platform) => (
+                <article key={platform.id}>
+                  <div className={styles.techRow}>
+                    <span className={styles.techNumber}>
+                      {platform.number}
+                    </span>
+                    <div className={styles.techIcon} aria-hidden="true">
+                      <PlatformLogo platform={platform.id} />
+                    </div>
+                    <h3>{platform.title}</h3>
+                  </div>
+                  <p>{platform.text}</p>
+                </article>
+              ))}
+            </div>
           </div>
           <p className={styles.techNote}>
             Не подбираем платформу ради названия. Подбираем решение под задачу
@@ -359,41 +349,7 @@ export function WebsitesServicePage() {
         </div>
       </section>
 
-      <section className={styles.crmSection} aria-labelledby="crm-title">
-        <div className={styles.container}>
-          <SectionHeader
-            label="05 / Интеграция сайта"
-            title="Соединяем все точки обращения с CRM."
-            lead="Формы, почту, звонки и чат подключаем к согласованной воронке, чтобы обращения попадали в рабочую среду команды вместе с источником и содержанием запроса. Состав интеграции фиксируется в проекте."
-            titleId="crm-title"
-          />
-          <div
-            className={styles.crmRoute}
-            aria-label="Передача обращения и согласованного контекста в CRM"
-          >
-            <div>
-              <CrmBackground src={crmVisuals.contactPoints} />
-              <small>01</small>
-              <strong>Форма, почта, звонок или чат</strong>
-              <span>Точка обращения</span>
-            </div>
-            <i aria-hidden="true" />
-            <div>
-              <CrmBackground src={crmVisuals.requestContext} />
-              <small>02</small>
-              <strong>Источник и содержание</strong>
-              <span>Контакт и детали запроса</span>
-            </div>
-            <i aria-hidden="true" />
-            <div className={styles.crmDestination}>
-              <CrmBackground src={crmVisuals.workspace} />
-              <small>03</small>
-              <strong>CRM</strong>
-              <span>Обращение передано команде</span>
-            </div>
-          </div>
-        </div>
-      </section>
+      <WebsitesCrmSection />
 
       <section className={styles.readiness} aria-labelledby="readiness-title">
         <div className={styles.container}>

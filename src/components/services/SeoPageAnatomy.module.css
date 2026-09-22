@@ -1,0 +1,135 @@
+.anatomy {
+  display: flex;
+  justify-content: center;
+}
+
+.pageMock {
+  width: 100%;
+  max-width: 640px;
+  padding: 22px 26px 26px;
+  border: 1px solid var(--lineStrong);
+  border-radius: 18px;
+  background: linear-gradient(150deg, rgba(29, 24, 46, 0.9), rgba(11, 13, 22, 0.97));
+}
+
+.pageChrome {
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.zone {
+  position: relative;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--line);
+}
+.zone:last-child {
+  padding-bottom: 4px;
+  border-bottom: 0;
+}
+
+.badge {
+  position: absolute;
+  top: -1px;
+  right: 0;
+  padding: 5px 11px;
+  border: 1px solid rgba(197, 177, 248, 0.5);
+  border-radius: 999px;
+  background: #14111f;
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.03em;
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition-delay: calc(var(--zi) * 220ms + 120ms);
+}
+.revealed .badge {
+  opacity: 1;
+  transform: none;
+}
+
+.eyebrow {
+  margin: 20px 0 0;
+  color: var(--accent);
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.pageTitle {
+  margin: 8px 0 0;
+  color: #f5f2fa;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.pageLead {
+  margin: 10px 0 0;
+  color: #b5aec6;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.specs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.specs span {
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: #d7d2e4;
+  font-size: 12px;
+}
+.specHint {
+  margin: 12px 0 0;
+  color: #a49dbb;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.actionRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid var(--lineStrong);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #1a1526;
+  font-size: 12px;
+  font-weight: 600;
+}
+.actionHint {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+@media (max-width: 760px) {
+  .badge {
+    position: static;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .pageTitle {
+    margin-top: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badge {
+    transition: none;
+  }
+}

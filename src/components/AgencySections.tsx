@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ActionArrow } from "./ActionArrow";
 import { cases, services, steps, team } from "@/lib/content";
 import { FooterContactForm } from "./FooterContactForm";
+import { FooterFrame } from "./FooterFrame";
 import styles from "./Agency.module.css";
 
 export function AgencyHero() {
@@ -34,7 +35,7 @@ export function AgencyProcess({ overview = false }: { overview?: boolean }) {
 }
 
 export function TeamSection({ overview = false }: { overview?: boolean }) {
-  return <section id="team" className={styles.section} aria-labelledby="team-title"><div className={styles.container}><div className={styles.sectionHead}><div><p className={styles.eyebrow}>Люди за проектом</p><h2 id="team-title" aria-label="Небольшая команда. Прямой контакт.">Небольшая команда.<br /><em>Прямой контакт.</em></h2></div>{!overview && <Link className={styles.textLink} href="/about">Об агентстве <span aria-hidden="true">↗</span></Link>}</div><p className={styles.mobileSwipeHint} id="team-scroll-hint">Листайте команду <span aria-hidden="true">→</span></p><div className={styles.teamGrid} role="region" aria-label="Команда агентства" aria-describedby="team-scroll-hint" tabIndex={0}>{team.map(person => <article className={styles.person} key={person.name}><div className={styles.portrait}><Image src={person.image} alt={`Временный AI-портрет: ${person.name}, вымышленный персонаж`} width={1122} height={1402} sizes="(max-width: 600px) 90vw, 30vw" /><span>Демо-профиль</span></div><h3>{person.name}</h3><p>{person.role}</p></article>)}</div></div></section>;
+  return <section id="team" className={styles.section} aria-labelledby="team-title"><div className={styles.container}><div className={styles.sectionHead}><div><p className={styles.eyebrow}>Люди за проектом</p><h2 id="team-title" aria-label="Небольшая команда. Прямой контакт.">Небольшая команда.<br /><em>Прямой контакт.</em></h2></div>{!overview && <Link className={styles.textLink} href="/about">Об ABBiO <span aria-hidden="true">↗</span></Link>}</div><p className={styles.mobileSwipeHint} id="team-scroll-hint">Листайте команду <span aria-hidden="true">→</span></p><div className={styles.teamGrid} role="region" aria-label="Команда агентства" aria-describedby="team-scroll-hint" tabIndex={0}>{team.map(person => <article className={styles.person} key={person.name}><div className={styles.portrait}><Image src={person.image} alt={`Временный AI-портрет: ${person.name}, вымышленный персонаж`} width={1122} height={1402} sizes="(max-width: 600px) 90vw, 30vw" /><span>Демо-профиль</span></div><h3>{person.name}</h3><p>{person.role}</p></article>)}</div></div></section>;
 }
 
 export function ArticlesSection() {
@@ -42,5 +43,5 @@ export function ArticlesSection() {
 }
 
 export function AgencyFooter() {
-  return <footer id="contacts" className={styles.footer}><div className={styles.container}><div className={styles.contactGrid}><div><p className={styles.eyebrow}>Начнём с разговора</p><h2 aria-label="Есть задача? Давайте обсудим.">Есть задача?<br /><em>Давайте обсудим.</em></h2><p className={styles.contactDescription}>Оставьте контакты и пару слов о том, что хотите изменить.</p></div><div className={styles.contactDetails}><FooterContactForm /></div></div><div className={styles.footerBottom}><Link href="/" className={styles.footerBrand} aria-label="ABB.IO — на главную">ABB<span>.IO</span></Link><div className={styles.footerScope}><span>Независимое агентство</span><strong>Дизайн · Сайты · Маркетинг</strong></div><a className={styles.footerTop} href="#main"><span>Наверх</span><i aria-hidden="true">↑</i></a></div></div></footer>;
+  return <FooterFrame className={styles.footer} compactClassName={styles.footerCompact} containerClassName={styles.container} contact={<div className={styles.contactGrid}><div><p className={styles.eyebrow}>Начнём с разговора</p><h2 aria-label="Есть задача? Давайте обсудим.">Есть задача?<br /><em>Давайте обсудим.</em></h2><p className={styles.contactDescription}>Оставьте контакты и пару слов о том, что хотите изменить.</p></div><div className={styles.contactDetails}><FooterContactForm /></div></div>}><div className={styles.footerBottom}><Link href="/" className={styles.footerBrand} aria-label="ABBiO — на главную"><span className={styles.footerBrandWordmark} aria-hidden="true"><span className={styles.footerBrandCore}>ABB</span><span className={styles.footerBrandI}>i</span><span className={styles.footerBrandO}>O</span></span></Link><div className={styles.footerScope}><span>Независимое агентство</span><strong>Дизайн · Сайты · Маркетинг</strong></div><a className={styles.footerTop} href="#main"><span>Наверх</span><i aria-hidden="true">↑</i></a></div></FooterFrame>;
 }

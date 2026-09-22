@@ -1,5 +1,8 @@
-import { AgencyProcess } from "@/components/AgencySections";
-import { PageIntro } from "@/components/PageIntro";
-import styles from "@/components/Agency.module.css";
+import { ProcessHero } from "@/components/process/ProcessHero";
+import { ProcessExplorer } from "@/components/process/ProcessExplorer";
+import { ProcessTransparency } from "@/components/process/ProcessTransparency";
+import { ProcessStart } from "@/components/process/ProcessStart";
+import { ProcessCases } from "@/components/process/ProcessCases";
+import { ProcessFinal } from "@/components/process/ProcessFinal";
 export const metadata = { title: "Как работаем", description: "От первого разговора до запуска: задача, согласование, разработка и передача результата." };
-export default function Page() { return <main id="main"><PageIntro title="Понятно, что делаем. Понятно, что дальше." label="Как работаем" description="Обсуждаем решения напрямую и показываем работу поэтапно, чтобы результат не стал неожиданностью." /><AgencyProcess overview /><section className={styles.detailSection}><div className={styles.container}><div className={styles.detailGrid}><div><h2>Что нужно для старта</h2><p>Расскажите о бизнесе и задаче. Если есть сайт, примеры, материалы или ограничения — возьмём их за основу. Готовое техническое задание не обязательно.</p></div><div><h2>Сколько стоит и сколько займёт</h2><p>Зависит от объёма, интеграций и готовности материалов. Обсудим варианты, затем зафиксируем состав работы и этапы до начала реализации.</p></div></div></div></section></main>; }
+export default function Page() { return <main id="main"><ProcessHero /><ProcessExplorer /><ProcessTransparency /><ProcessStart /><ProcessCases /><ProcessFinal /></main>; }

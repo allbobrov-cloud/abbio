@@ -7,13 +7,23 @@ import styles from "./HomePortfolio.module.css";
 
 export function HomeServices() {
   return <section id="services" className={`${base.section} ${styles.services}`} aria-labelledby="services-title"><div className={base.container}>
-    <div className={base.sectionHead}><div><p className={base.eyebrow}>Три направления</p><h2 id="services-title" aria-label="Что нужно вашему бизнесу?">Что нужно<br /><em>вашему бизнесу?</em></h2></div><p className={base.sectionIntro}>Подключимся к отдельной задаче<br /> или пройдём весь путь вместе.</p></div>
-    <div>{services.map((service, i) => <Link href={`/services/${service.slug}`} key={service.slug} className={styles.service}>
-      <span className={styles.serviceNum}>{service.number}</span><h3>{service.title}</h3>
-      <div className={`${styles.serviceArt} ${styles[service.slug]}`} aria-hidden="true">{i === 0 ? <><i /><i /><i /><b>Aa</b></> : i === 1 ? <><i /><i /><b>www.</b></> : <><i /><i /><i /><i /></>}</div>
+    <div className={base.sectionHead}><div><p className={base.eyebrow}>Пять направлений</p><h2 id="services-title" aria-label="Что нужно вашему бизнесу?">Что нужно<br /><em>вашему бизнесу?</em></h2></div><p className={base.sectionIntro}>Подключимся к отдельной задаче<br /> или пройдём весь путь вместе.</p></div>
+    <div>{services.map((service) => <Link href={`/services/${service.slug}`} key={service.slug} className={styles.service}>
+      <h3>{service.title}</h3>
+      <ServiceArt slug={service.slug} />
       <div className={styles.serviceText}><p>{service.problem}</p><div className={base.tags}>{service.tags.map(tag => <span key={tag}>{tag}</span>)}</div></div><ActionArrow />
     </Link>)}</div>
   </div></section>;
+}
+
+function ServiceArt({ slug }: { slug: string }) {
+  const className = `${styles.serviceArt} ${styles[slug]}`;
+
+  if (slug === "design") return <div className={className} aria-hidden="true"><i /><i /><i /><b>Aa</b></div>;
+  if (slug === "websites") return <div className={className} aria-hidden="true"><i /><i /><b>www.</b></div>;
+  if (slug === "seo") return <div className={className} aria-hidden="true"><i /><i /><i /><b /></div>;
+  if (slug === "yandex-direct") return <div className={className} aria-hidden="true"><i /><i /><i /><b /></div>;
+  return <div className={className} aria-hidden="true"><i /><i /><i /><i /></div>;
 }
 
 const outputs = [
@@ -24,7 +34,7 @@ const outputs = [
 const reportDemoUrl = "https://docs.google.com/spreadsheets/d/1_t_nzlVjj-NE8Lvdqqsz3XC_L0DNfjz0K1nLGFqu1Tk/edit?gid=185043878#gid=185043878";
 
 export function HomeCases() {
-  return <section id="cases" className={`${base.section} ${styles.cases}`} aria-labelledby="cases-title"><div className={base.container}>
+  return <section id="cases" className={base.section} aria-labelledby="cases-title"><div className={base.container}>
     <div className={base.sectionHead}><div><p className={base.eyebrow}>Избранные проекты</p><h2 id="cases-title">Лучше показать.</h2></div><Link href="/cases" className={base.textLink}>Все кейсы <ActionArrow /></Link></div>
     <div className={styles.caseList}>{cases.map((item, i) => <article key={item.slug} className={styles.caseCard} data-theme={item.slug}>
       <div className={styles.caseInfo}><div className={styles.caseMeta}><span>0{i + 1}</span><small>{item.category}</small></div><h3>{item.name}</h3><h4>Задача</h4><p>{item.task}</p><h4>Решение</h4><p>{item.solution}</p><Link className={styles.caseLink} href={`/cases/${item.slug}`}>Подробнее о проекте <ActionArrow /></Link></div>
@@ -54,7 +64,7 @@ export function ReportsPreview() {
 export function ProjectCta() {
   return <section className={styles.projectCta} aria-labelledby="project-cta-title"><div className={base.container}>
     <div className={styles.projectCtaShell}><div className={styles.projectCtaPanel}>
-      <div className={styles.projectCtaArtwork} aria-hidden="true"><Image src="/home/project-cta-orbit-v1.avif" alt="" fill sizes="(max-width: 760px) 100vw, 1200px" /></div>
+      <div className={styles.projectCtaArtwork} aria-hidden="true"><Image src="/home/project-cta-workspace-v2.png" alt="" fill sizes="(max-width: 760px) 100vw, 1200px" /></div>
       <div className={styles.projectCtaMain}><p className={styles.projectCtaLabel}>ПЕРВЫЙ ШАГ</p><h2 id="project-cta-title">Есть задача — найдём точку старта.</h2></div>
       <div className={styles.projectCtaAside}><p>Расскажите, что хотите изменить: сайт, поток обращений или процессы команды. На встрече разберём контекст и определим, с чего логично начать.</p><a href="#contact-dialog" data-contact-dialog className={styles.projectCtaAction}>Обсудить задачу <ActionArrow /></a></div>
     </div></div>

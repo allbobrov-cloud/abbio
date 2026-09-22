@@ -1,0 +1,135 @@
+.page {
+  --fg: #18150f;
+  --muted: #8b8478;
+  --line: rgba(24, 21, 15, 0.13);
+  --surface: #f6f2ea;
+  box-sizing: border-box;
+  padding: 24px 26px 28px;
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--fg);
+}
+.compact {
+  padding: 18px 20px 20px;
+  border-radius: 14px;
+}
+
+.brand {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.title {
+  margin: 12px 0 0;
+  font-size: clamp(20px, 2.1vw, 27px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.compact .title {
+  margin-top: 8px;
+  font-size: 16px;
+}
+.eyebrow {
+  margin: 4px 0 0;
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  margin-top: 16px;
+}
+.compact .filters {
+  margin-top: 12px;
+}
+.filter {
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--fg);
+  font-size: 11px;
+  line-height: 1.3;
+}
+.filterActive {
+  background: var(--fg);
+  border-color: var(--fg);
+  color: var(--surface);
+}
+
+.products {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 20px;
+}
+.product {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.swatch {
+  position: relative;
+  display: flex;
+  aspect-ratio: 3 / 4;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: linear-gradient(160deg, #efeae0, #dfd8c9);
+  color: var(--fg);
+}
+.swatch svg {
+  width: 44%;
+  height: 78%;
+}
+.productName {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+.productMeta {
+  margin: 0;
+  color: var(--muted);
+  font-size: 10.5px;
+}
+.colorDots {
+  display: flex;
+  gap: 5px;
+  margin-top: 2px;
+}
+.colorDots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  border: 1px solid rgba(24, 21, 15, 0.16);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 22px;
+  padding: 11px 18px;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--surface);
+  font-size: 12.5px;
+  font-weight: 600;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+.ctaActive {
+  box-shadow: 0 0 0 4px rgba(24, 21, 15, 0.1);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 420px) {
+  .products {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

@@ -1,0 +1,231 @@
+/* Итог: сайт в центре, пять результатов — небольшие proof-points вокруг него. */
+.section {
+  --lav: #b7a0ef;
+
+  padding: 108px 0 120px;
+  background:
+    radial-gradient(ellipse 50% 46% at 60% 46%, rgba(107, 75, 181, 0.12), transparent 70%),
+    #05070d;
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+.head {
+  margin-bottom: 64px;
+  text-align: center;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.head h2 {
+  margin: 0 auto;
+  max-width: 760px;
+  color: #f2f0f7;
+  font-size: clamp(36px, 4.2vw, 60px);
+  font-weight: 500;
+  letter-spacing: -0.048em;
+  line-height: 1.08;
+}
+.head h2 em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+/* Сцена: координаты 1000 × 560 */
+.stage {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 1000 / 560;
+  margin-inline: auto;
+}
+.lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.link {
+  fill: none;
+  stroke: rgba(196, 178, 244, 0.5);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.site {
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: #0a0a0c;
+  aspect-ratio: 1363 / 654;
+  box-shadow:
+    0 40px 90px rgba(0, 0, 0, 0.55),
+    0 0 120px rgba(150, 118, 235, 0.12);
+}
+.site img {
+  object-fit: cover;
+  object-position: top;
+}
+.mobile {
+  position: absolute;
+  z-index: 2;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 8px;
+  background: #0a0a0c;
+  aspect-ratio: 354 / 570;
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.6);
+}
+.mobile img {
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Пять proof-points — короткие отсылки, не карточки */
+.point {
+  position: absolute;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  max-width: 160px;
+  color: #cdc7db;
+  font-size: max(11px, 1.15cqw);
+  line-height: 1.3;
+}
+.point i {
+  flex: none;
+  color: var(--lav);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.point b {
+  flex: none;
+  color: #fbfaff;
+  font-weight: 500;
+}
+
+.statement {
+  max-width: 480px;
+  margin: 56px auto 0;
+  color: #a39dbb;
+  font-size: 15px;
+  line-height: 1.55;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stage[data-armed="true"] .rev {
+    opacity: 0;
+    transition:
+      opacity 0.7s ease,
+      translate 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .point.rev {
+    translate: 0 8px;
+  }
+  .stage[data-armed="true"] .rev.isIn {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .stage[data-armed="true"] .draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .draw.isIn {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+/* Телефон: сайт, затем пять коротких строк, затем финальные фразы. */
+@media (max-width: 760px) {
+  .section {
+    padding: 72px 0 80px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .head {
+    margin-bottom: 40px;
+    text-align: left;
+  }
+  .head h2 {
+    max-width: none;
+    font-size: clamp(28px, 8vw, 38px);
+  }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    aspect-ratio: auto;
+  }
+  .lines {
+    display: none;
+  }
+  .site {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 100% !important;
+  }
+  .mobile {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    width: 34% !important;
+    align-self: flex-end;
+    margin-top: -14%;
+    margin-right: 6%;
+  }
+  .point {
+    position: relative;
+    left: auto !important;
+    top: auto !important;
+    max-width: none;
+    padding: 10px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+  }
+  .point:first-child {
+    border-top: 0;
+    margin-top: 4px;
+  }
+
+  .statement {
+    margin-top: 36px;
+    text-align: left;
+    font-size: 14px;
+  }
+}

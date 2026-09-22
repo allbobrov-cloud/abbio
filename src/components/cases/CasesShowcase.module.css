@@ -1,0 +1,355 @@
+/* Кейсы: три истории одной системы. Реальные работы — главный материал. */
+.section {
+  --line: rgba(255, 255, 255, 0.1);
+  --lav: #b7a0ef;
+  /* Насколько кадр выходит за контейнер до края окна */
+  --bleed: max(48px, calc((100vw - 1280px) / 2));
+
+  padding: 24px 0 130px;
+  overflow-x: clip;
+  background: #05070d;
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+/* Разделитель между историями — тонкая линия и много воздуха */
+.case {
+  position: relative;
+  padding: 130px 0;
+  border-top: 1px solid var(--line);
+}
+.case:first-of-type {
+  border-top: 0;
+  padding-top: 84px;
+}
+.case:last-of-type {
+  padding-bottom: 40px;
+}
+
+/* Номер проекта — крупный контурный якорь композиции */
+.num {
+  display: block;
+  margin: 0 0 14px -0.04em;
+  color: transparent;
+  font-size: clamp(64px, 7.2vw, 104px);
+  font-variant-numeric: tabular-nums;
+  font-weight: 300;
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  -webkit-text-stroke: 1px rgba(196, 178, 244, 0.6);
+}
+.head h3 {
+  margin: 0;
+  font-size: clamp(32px, 3.9vw, 56px);
+  font-weight: 500;
+  letter-spacing: -0.048em;
+  line-height: 1.04;
+}
+
+/* Детали — строгая таблица на тонких линиях */
+.details {
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+.details > div {
+  padding: 16px 0 18px;
+  border-top: 1px solid var(--line);
+}
+.details dt {
+  margin: 0 0 9px;
+  color: #8a84a0;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+.details dd {
+  margin: 0;
+  color: #d8d3e6;
+  font-size: 15px;
+  line-height: 1.5;
+}
+.details .tags,
+.cRight .tags {
+  color: #fbfaff;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-self: start;
+  gap: 18px;
+  margin-top: 18px;
+  color: #f2f0f7;
+  font-size: 14px;
+  transition: color 0.25s ease;
+}
+.cta:hover,
+.cta:focus-visible {
+  color: var(--lav);
+}
+.cta:focus-visible {
+  outline: 2px solid #d4bfff;
+  outline-offset: 6px;
+}
+
+/* Реальный кадр проекта: крупный, без рамок-макетов; выходит за контейнер */
+.visual {
+  display: block;
+  min-width: 0;
+}
+.frame {
+  position: relative;
+  display: block;
+  aspect-ratio: var(--ar);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #0d0e1a;
+  box-shadow:
+    0 40px 90px rgba(0, 0, 0, 0.55),
+    0 0 140px var(--tint);
+}
+.frame img {
+  object-fit: cover;
+  object-position: var(--pos);
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.6s ease;
+}
+@media (hover: hover) {
+  .visual:hover .frame img,
+  .visual:focus-visible .frame img {
+    transform: scale(1.015);
+    filter: contrast(1.05) brightness(1.03);
+  }
+  .case:has(.visual:hover) .cta {
+    color: var(--lav);
+  }
+  .case:has(.visual:hover) .cta :global(.arrow) {
+    border-color: #cbb7ff;
+    background: rgba(183, 160, 239, 0.18);
+  }
+}
+
+/* 01 — текст слева, кадр справа и за край окна */
+.a {
+  display: grid;
+  grid-template-columns: minmax(0, 0.33fr) minmax(0, 0.67fr);
+  gap: clamp(32px, 4.5vw, 72px);
+  align-items: center;
+}
+.a .visual {
+  margin-right: calc(-1 * var(--bleed));
+}
+.a .frame {
+  border-right: 0;
+  border-radius: 4px 0 0 4px;
+}
+
+/* 02 — кадр слева и за край окна, текст справа и прижат к низу */
+.b {
+  display: grid;
+  grid-template-columns: minmax(0, 0.67fr) minmax(0, 0.33fr);
+  gap: clamp(32px, 4.5vw, 72px);
+  align-items: end;
+}
+.b .visual {
+  order: 1;
+  align-self: start;
+  margin-left: calc(-1 * var(--bleed));
+}
+.b .frame {
+  border-left: 0;
+  border-radius: 0 4px 4px 0;
+}
+.b .copy {
+  order: 2;
+}
+
+/* 03 — кадр от края до края окна, компактный текст над ним */
+.c {
+  display: grid;
+  gap: 64px;
+}
+.c .visual {
+  margin-inline: calc(-1 * var(--bleed));
+}
+.c .frame {
+  border-inline: 0;
+}
+.topRow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.3fr) minmax(0, 0.7fr);
+  gap: clamp(32px, 4.5vw, 72px);
+  align-items: end;
+}
+.cLeft {
+  display: grid;
+  gap: 28px;
+}
+.cLeft .details {
+  max-width: 420px;
+}
+.cRight {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+  gap: clamp(28px, 3.4vw, 48px);
+  margin: 0;
+}
+.cRight > div {
+  padding: 16px 0 0;
+  border-top: 1px solid var(--line);
+}
+.cRight dt {
+  margin: 0 0 9px;
+  color: #8a84a0;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+.cRight dd {
+  margin: 0;
+  color: #d8d3e6;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+/* Однократное появление при входе в экран */
+@media (prefers-reduced-motion: no-preference) {
+  .section[data-armed="true"] .visual[data-reveal] .frame {
+    opacity: 0;
+    clip-path: inset(0 0 14% 0);
+    transition:
+      opacity 0.9s ease,
+      clip-path 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .section[data-armed="true"] .visual[data-in="true"] .frame {
+    opacity: 1;
+    clip-path: inset(0);
+  }
+  .section[data-armed="true"] .copy[data-reveal],
+  .section[data-armed="true"] .topRow[data-reveal] {
+    opacity: 0;
+    translate: 0 18px;
+    transition:
+      opacity 0.8s ease,
+      translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .section[data-armed="true"] .copy[data-in="true"],
+  .section[data-armed="true"] .topRow[data-in="true"] {
+    opacity: 1;
+    translate: 0 0;
+  }
+}
+
+@media (max-width: 1080px) {
+  .section {
+    --bleed: 32px;
+  }
+  .container {
+    width: calc(100% - 64px);
+  }
+  .topRow {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+/* Телефон: номер и название → крупный кадр → Задача → Сделали → Результат → CTA */
+@media (max-width: 760px) {
+  .section {
+    --bleed: 20px;
+
+    padding: 16px 0 72px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .case,
+  .case:first-of-type,
+  .case:last-of-type {
+    padding: 72px 0;
+  }
+  .case:first-of-type {
+    padding-top: 44px;
+  }
+  .a,
+  .b,
+  .c {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 26px;
+  }
+  .a .copy,
+  .b .copy {
+    display: contents;
+  }
+  .topRow {
+    display: contents;
+  }
+  /* Кадр на телефоне — на всю ширину экрана */
+  .a .visual,
+  .b .visual,
+  .c .visual {
+    margin-inline: calc(-1 * var(--bleed));
+  }
+  .a .frame,
+  .b .frame,
+  .c .frame {
+    border-radius: 0;
+    border-inline: 0;
+  }
+  .head {
+    order: 1;
+  }
+  .visual,
+  .b .visual {
+    order: 2;
+    align-self: auto;
+  }
+  .details {
+    order: 3;
+  }
+  /* Кейс 03: порядок Задача → Сделали → Результат → CTA */
+  .c .cLeft,
+  .c .cRight,
+  .c .cLeft .details {
+    display: contents;
+  }
+  .c .cRight > div:nth-child(1) {
+    order: 3;
+  }
+  .c .cLeft .details > div {
+    order: 4;
+  }
+  .c .cRight > div:nth-child(2) {
+    order: 5;
+  }
+  .c .cLeft .details .cta {
+    order: 6;
+    align-self: flex-start;
+  }
+  .frame {
+    aspect-ratio: var(--arm);
+  }
+  .frame img {
+    object-position: var(--posm);
+  }
+  .num {
+    font-size: 64px;
+    margin-bottom: 10px;
+  }
+  .head h3 {
+    font-size: clamp(30px, 8.4vw, 38px);
+  }
+  .cta {
+    margin-top: 6px;
+  }
+}

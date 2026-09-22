@@ -1,0 +1,176 @@
+/* Финал страницы: спокойный выдох. Текст слева, форма справа, без внешней карточки. */
+.section {
+  --line: rgba(255, 255, 255, 0.1);
+  --faint: #7d7692;
+  --lav: #b7a0ef;
+
+  padding: 128px 0 112px;
+  background:
+    radial-gradient(circle at 84% 30%, rgba(107, 75, 181, 0.09), transparent 38%),
+    #05070d;
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.45fr) minmax(0, 0.55fr);
+  gap: clamp(48px, 6vw, 104px);
+  align-items: start;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 26px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.copy h2 {
+  margin: 0;
+  font-size: clamp(34px, 3.3vw, 47px);
+  font-weight: 500;
+  letter-spacing: -0.048em;
+  line-height: 1.05;
+  text-wrap: balance;
+}
+.copy h2 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.description {
+  max-width: 440px;
+  margin: 28px 0 0;
+  color: #a9a5b8;
+  font-size: 16px;
+  line-height: 1.65;
+}
+
+/* Примеры фраз — обычные строки, не карточки. */
+.examples {
+  max-width: 440px;
+  margin-top: 44px;
+}
+.label {
+  margin: 0;
+  color: var(--faint);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
+.examples ul {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+.examples li {
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+  color: #cdc8da;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+}
+
+/* Задача → первый разговор → точка старта */
+.path {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 30px 0 0;
+  color: var(--faint);
+  font-size: 12px;
+}
+.path span:first-child {
+  color: #ddd0ff;
+}
+.path i {
+  color: var(--faint);
+  font-style: normal;
+}
+
+/* Форма — свободная композиция, только тонкая линия слева. */
+.form {
+  padding-left: clamp(32px, 4.4vw, 72px);
+  border-left: 1px solid var(--line);
+}
+
+/* Базовое состояние — финальное; проявление добавляется только при движении. */
+@media (prefers-reduced-motion: no-preference) {
+  .grid[data-armed="true"] .copy,
+  .grid[data-armed="true"] .form {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .grid[data-armed="true"] .isIn {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1080px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .form {
+    padding-left: 0;
+    border-left: 0;
+    padding-top: 40px;
+    border-top: 1px solid var(--line);
+  }
+  .description,
+  .examples {
+    max-width: 560px;
+  }
+}
+@media (max-width: 960px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 72px 0 64px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .copy h2 {
+    font-size: clamp(32px, 9vw, 42px);
+  }
+  .description {
+    margin-top: 20px;
+    font-size: 15px;
+  }
+  .examples {
+    margin-top: 28px;
+  }
+  .path {
+    margin-top: 24px;
+  }
+  .grid {
+    gap: 32px;
+  }
+  .form {
+    padding-top: 30px;
+  }
+}

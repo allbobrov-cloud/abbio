@@ -3,86 +3,38 @@ import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
 import styles from "./ServicesOverviewPage.module.css";
 import { CasePortfolio } from "./CasePortfolio";
+import { ServicesProgressiveSystem } from "./ServicesProgressiveSystem";
+import { ServicesSituationExplorer } from "./ServicesSituationExplorer";
+import { ServicesHeroVisual } from "./ServicesHeroVisual";
 
 const directions = [
   {
     slug: "websites",
     number: "01",
     title: "Сайты",
-    eyebrow: "От выбора до обращения",
-    description: "Разрабатываем лендинги, корпоративные сайты и каталоги: помогаем посетителю выбрать и обратиться.",
-    items: ["Структура и прототип", "Адаптивный дизайн", "Разработка и формы"],
-  },
-  {
-    slug: "marketing",
-    number: "02",
-    title: "Маркетинг",
-    eyebrow: "Привлечение и учёт обращений",
-    description: "Связываем каналы привлечения с CRM и отчётами, чтобы было видно, откуда приходят обращения и что происходит дальше.",
-    items: ["SEO и реклама", "CRM и автоматизация", "Отчётность в согласованном составе"],
+    description: "Создаём путь от первого экрана до обращения.",
+    items: ["Лендинги", "Корпоративные сайты", "Каталоги", "UX/UI", "Разработка"],
+    actionLabel: "Смотреть сайты",
   },
   {
     slug: "design",
-    number: "03",
-    title: "Дизайн",
-    eyebrow: "Ясная подача продукта",
-    description: "Создаём визуальный язык, страницы и материалы, с которыми предложение проще понять и выбрать.",
-    items: ["Визуальная концепция", "Веб-дизайн", "Макеты и презентации"],
-  },
-  {
-    slug: "seo",
-    number: "04",
-    title: "SEO-продвижение",
-    eyebrow: "Органический поиск",
-    description: "Развиваем страницы и техническую основу под поисковый спрос, чтобы сайт мог привлекать обращения без оплаты за каждый переход.",
-    items: [],
-    linkLabel: "Подробнее об SEO",
-  },
-  {
-    slug: "yandex-direct",
-    number: "05",
-    title: "Яндекс Директ",
-    eyebrow: "Контекстная реклама",
-    description: "Запускаем рекламу, связываем объявления со страницами и CRM. Расходы и полученные обращения показываем в понятном отчёте.",
-    items: [],
-    linkLabel: "Подробнее о рекламе",
-  },
-] as const;
-
-const heroDirections = directions.slice(0, 3);
-
-const heroServices = [
-  { slug: "websites", number: "01", label: "Сайты" },
-  { slug: "marketing", number: "02", label: "Маркетинг" },
-  { slug: "design", number: "03", label: "Дизайн" },
-  { slug: "seo", number: "04", label: "SEO" },
-  { slug: "yandex-direct", number: "05", label: "Яндекс Директ" },
-] as const;
-
-const situations = [
-  {
-    number: "01",
-    title: "Предложение сложно объяснить с первого взгляда",
-    text: "Поможем выделить главное и представить продукт в дизайне сайта и других материалах.",
-    href: "/services/design",
-  },
-  {
     number: "02",
-    title: "На сайте трудно найти нужное и обратиться",
-    text: "Пересоберём структуру, страницы и точки обращения под задачи посетителя.",
-    href: "/services/websites",
+    title: "Дизайн",
+    description: "Помогаем понятно и убедительно представить продукт.",
+    items: ["Айдентика", "Web/UI", "Презентации", "Материалы для продаж"],
+    actionLabel: "Смотреть дизайн",
   },
   {
+    slug: "marketing",
     number: "03",
-    title: "Нужно привлекать клиентов и видеть результат",
-    text: "Подберём каналы и свяжем обращения с CRM и отчётностью.",
-    href: "/services/marketing",
-  },
-  {
-    number: "04",
-    title: "Запускаете новый продукт или направление",
-    text: "Можно начать с дизайна, сайта или продвижения — определим, что важнее на старте.",
-    href: "#formats",
+    title: "Маркетинг",
+    description: "Привлекаем спрос и связываем его с результатом.",
+    items: ["SEO", "Яндекс Директ", "Контент", "CRM", "Аналитика"],
+    actionLabel: "Весь маркетинг",
+    secondaryLinks: [
+      { label: "SEO", href: "/services/seo" },
+      { label: "Яндекс Директ", href: "/services/yandex-direct" },
+    ],
   },
 ] as const;
 
@@ -90,53 +42,65 @@ const directionClasses = {
   design: styles.directionDesign,
   websites: styles.directionWebsites,
   marketing: styles.directionMarketing,
-  seo: styles.directionSeo,
-  "yandex-direct": styles.directionDirect,
 };
 
-function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }) {
-  if (slug === "design") {
-    return <div className={styles.designVisual} aria-hidden="true"><span>Aa</span><i /><b /><em /></div>;
-  }
+const marketingIconPaths = {
+  search: "M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14Zm9 16-4.35-4.35",
+  click: "M5 5v8m0-8 5 12 2-5 5-2-12-5Z",
+  message: "M4 6h16v10H8l-4 4V6Z",
+  chart: "M5 19V10m6.5 9V5m6.5 14v-7",
+} as const;
 
+function MarketingIcon({ name }: { name: keyof typeof marketingIconPaths }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+      <path d={marketingIconPaths[name]} />
+    </svg>
+  );
+}
+
+function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }) {
   if (slug === "websites") {
     return (
-      <div className={styles.websiteVisual} aria-hidden="true">
-        <Image
-          src="/services/services-websites-card-v1.png"
-          alt=""
-          fill
-          sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 42vw"
-        />
+      <div className={[styles.capabilityVisual, styles.websitesVisual].join(" ")} aria-hidden="true">
+        <div className={styles.browserFrame}>
+          <div className={styles.browserChrome}><i /><i /><i /><b /></div>
+          <div className={styles.browserPage}>
+            <span /><em /><strong /><div><i /><i /><i /></div>
+          </div>
+        </div>
+        <div className={styles.wsMobile}>
+          <div className={styles.wsMobileNotch} />
+          <div className={styles.wsMobileScreen}><i /><i /><em /></div>
+        </div>
       </div>
     );
   }
 
-  if (slug === "marketing") {
+  if (slug === "design") {
     return (
-      <div className={styles.marketingVisual} aria-hidden="true">
-        <Image
-          src="/services/services-marketing-card-v1.png"
-          alt=""
-          fill
-          sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) 50vw, 58vw"
-        />
+      <div className={[styles.capabilityVisual, styles.designPanel].join(" ")} aria-hidden="true">
+        <div className={styles.designType}>
+          <strong>Aa</strong>
+          <span>Inter<br /><small>Display / Text</small></span>
+        </div>
+        <div className={styles.designMeta}>
+          <div className={styles.designSwatches}><i /><i /><i /><i /></div>
+          <div className={styles.designScale}><i /><i /><i /><i /></div>
+        </div>
+        <div className={styles.designButton}>Button <b>→</b></div>
       </div>
     );
-  }
-
-  if (slug === "seo") {
-    return <div className={styles.seoVisual} aria-hidden="true"><span>Поисковый спрос</span><i /><b /><b /><b /></div>;
   }
 
   return (
-    <div className={styles.directVisual} aria-hidden="true">
-      <Image
-        src="/services/services-yandex-direct-card-v1.png"
-        alt=""
-        fill
-        sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) calc(100vw - 64px), 1280px"
-      />
+    <div className={[styles.capabilityVisual, styles.marketingFunnel].join(" ")} aria-hidden="true">
+      <div className={styles.marketingNodes}>
+        <div className={styles.marketingNode}><MarketingIcon name="search" /><span>Поиск / реклама</span></div>
+        <div className={styles.marketingNode}><MarketingIcon name="click" /><span>Переход</span></div>
+        <div className={styles.marketingNode}><MarketingIcon name="message" /><span>Обращение</span></div>
+        <div className={styles.marketingNode}><MarketingIcon name="chart" /><span>Аналитика</span></div>
+      </div>
     </div>
   );
 }
@@ -163,41 +127,7 @@ export function ServicesOverviewPage() {
               </div>
             </div>
 
-            <div className={styles.heroVisual} aria-label="Пять направлений работы ABB.IO связаны в одну систему">
-              <Image
-                src="/services/services-hero-workmap-v1.png"
-                alt="Рабочая карта с центральной точкой и связанными направлениями"
-                fill
-                priority
-                sizes="(max-width: 1100px) 42vw, 52vw"
-              />
-              <div className={styles.heroVisualLabels}>
-                {heroServices.map((item) => (
-                  <Link key={item.slug} href={`/services/${item.slug}`}>
-                    <span>{item.number}</span>
-                    {item.label}
-                    <ActionArrow />
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <aside className={styles.heroMap} aria-label="Три самостоятельных направления работы ABB.IO">
-              <p>Три направления работы</p>
-              <ul>
-                {heroDirections.map((item) => (
-                  <li key={item.slug}>
-                    <Link href={`/services/${item.slug}`}>
-                      <span>{item.number}</span>
-                      <strong>{item.title}</strong>
-                      <small>{item.eyebrow}</small>
-                      <ActionArrow className={styles.heroMapArrow} />
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <p className={styles.mapNote}>Выберите одну услугу или расскажите о задаче — подскажем, с чего начать.</p>
-            </aside>
+            <ServicesHeroVisual />
           </div>
         </div>
       </section>
@@ -208,7 +138,6 @@ export function ServicesOverviewPage() {
             <p className={styles.sectionIndex}>01 / Направления</p>
             <div>
               <h2 id="directions-title">Что можем сделать для вашего проекта.</h2>
-              <p>Пять услуг: от дизайна и разработки сайта до привлечения клиентов и учёта обращений. Каждую можно заказать отдельно.</p>
             </div>
           </div>
 
@@ -217,7 +146,7 @@ export function ServicesOverviewPage() {
               <article key={item.slug} className={[styles.direction, directionClasses[item.slug]].join(" ")}>
                 <div className={styles.directionMeta}>
                   <span>{item.number}</span>
-                  <p>{item.eyebrow}</p>
+                  <p>{item.title}</p>
                 </div>
                 <div className={styles.directionContent}>
                   <h3>{item.title}</h3>
@@ -225,7 +154,14 @@ export function ServicesOverviewPage() {
                   <ul>
                     {item.items.map((entry) => <li key={entry}>{entry}</li>)}
                   </ul>
-                  <Link href={`/services/${item.slug}`} className={styles.directionLink}>{"linkLabel" in item ? item.linkLabel : "Открыть направление"} <ActionArrow /></Link>
+                  <div className={styles.directionActions}>
+                    <Link href={`/services/${item.slug}`} className={styles.directionLink}>{item.actionLabel} <ActionArrow /></Link>
+                    {"secondaryLinks" in item && (
+                      <div className={styles.directionSecondaryLinks}>
+                        {item.secondaryLinks.map((link) => <Link href={link.href} key={link.href}>{link.label} <span aria-hidden="true">→</span></Link>)}
+                      </div>
+                    )}
+                  </div>
                 </div>
                 <DirectionVisual slug={item.slug} />
               </article>
@@ -234,29 +170,7 @@ export function ServicesOverviewPage() {
         </div>
       </section>
 
-      <section className={styles.situations} aria-labelledby="situations-title">
-        <div className={styles.container}>
-          <div className={styles.sectionHeading}>
-            <p className={styles.sectionIndex}>02 / Ситуации</p>
-            <div>
-              <h2 id="situations-title">С какой задачей вы пришли?</h2>
-              <p>Выберите похожую ситуацию и откройте направление, которое поможет с ней работать.</p>
-            </div>
-          </div>
-          <ol className={styles.situationList}>
-            {situations.map((item) => (
-              <li key={item.number}>
-                <span>{item.number}</span>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </div>
-                <Link href={item.href} aria-label={`Открыть: ${item.title}`}><ActionArrow /></Link>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      <ServicesSituationExplorer />
 
       <section className={styles.finalCta} aria-labelledby="start-title">
         <div className={styles.container}>
@@ -282,35 +196,16 @@ export function ServicesOverviewPage() {
         </div>
       </section>
 
-      <section className={styles.formats} id="formats" aria-labelledby="formats-title">
-        <div className={styles.container}>
-          <div className={styles.formatsLead}>
-            <p className={styles.sectionIndex}>03 / Формат</p>
-            <h2 id="formats-title">Не нужно заказывать всё сразу.</h2>
-          </div>
-          <div className={styles.formatGrid}>
-            <article className={styles.formatSingle}>
-              <p>Отдельная услуга</p>
-              <h3>Решим задачу, которая важна сейчас.</h3>
-              <span>Например, обновим дизайн, разработаем сайт или запустим рекламное направление.</span>
-            </article>
-            <article className={styles.formatLinked}>
-              <p>Несколько услуг</p>
-              <h3>Соединим работы, если одной услуги недостаточно.</h3>
-              <ul aria-label="Пример связанного маршрута">
-                <li>Дизайн</li><li>Сайт</li><li>Маркетинг</li>
-              </ul>
-              <span>Обсудим задачу и предложим последовательность без лишних работ.</span>
-            </article>
-          </div>
-        </div>
-      </section>
+      <ServicesProgressiveSystem />
 
       <CasePortfolio
-        title="Три проекта — три разные задачи."
-        description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."
+        eyebrow="Кейсы"
+        title="Как услуги работают вместе."
+        description="В каждом проекте свой набор задач. Где-то достаточно одного направления, а где-то сайт, дизайн и продвижение работают как одна система."
         slugs={["bogov", "oss", "volhonka"]}
         featuredSlug="bogov"
+        ctaLabel="Смотреть кейс"
+        showServices
       />
     </main>
   );

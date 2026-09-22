@@ -1,0 +1,251 @@
+/* Яндекс Директ: реклама → сайт → понятное предложение. Без непроверенных метрик. */
+.section {
+  --lav: #b7a0ef;
+
+  padding: 92px 0 100px;
+  background: #05070d;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  margin-bottom: 64px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 24px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.head h2 {
+  max-width: 700px;
+  margin: 0;
+  font-size: clamp(33px, 3.4vw, 49px);
+  font-weight: 500;
+  letter-spacing: -0.042em;
+  line-height: 1.05;
+}
+.head h2 em {
+  color: var(--accent);
+  font-style: normal;
+}
+.description {
+  max-width: 340px;
+  margin: 0 0 6px;
+  color: #a5a5b7;
+  font-size: 13px;
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* Сцена: координаты 1000 × 260 */
+.stage {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 1000 / 260;
+}
+
+.tag {
+  position: absolute;
+  top: 42%;
+  color: #a9a3bf;
+  font-size: max(11px, 1.2cqw);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.tagLeft {
+  left: 0;
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.trace {
+  fill: none;
+  stroke: rgba(196, 178, 244, 0.6);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.signal {
+  fill: #efe8ff;
+  filter: drop-shadow(0 0 6px rgba(183, 160, 239, 1));
+}
+
+/* Реальная целевая страница — визуально разделяет «до» и «после» */
+.site {
+  position: absolute;
+  top: 0;
+  left: 30%;
+  z-index: 1;
+  width: 46%;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  background: #0a0a0c;
+  box-shadow:
+    0 30px 60px rgba(0, 0, 0, 0.5),
+    0 0 100px rgba(245, 179, 1, 0.1);
+}
+.site img {
+  object-fit: cover;
+  object-position: top;
+}
+
+/* Короткая последовательность справа — не dashboard, просто три строки */
+.steps {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  translate: 0 -50%;
+}
+.steps li {
+  position: relative;
+  padding-left: 16px;
+  color: #d8d3e6;
+  font-size: max(13px, 1.35cqw);
+  font-weight: 500;
+}
+.steps li::before {
+  position: absolute;
+  top: 0.5em;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(196, 178, 244, 0.7);
+  content: "";
+}
+.steps li:last-child {
+  color: #fbfaff;
+}
+.steps li:last-child::before {
+  background: var(--lav);
+  box-shadow: 0 0 8px rgba(183, 160, 239, 0.9);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .stage[data-armed="true"] .rev {
+    opacity: 0;
+    transition:
+      opacity 0.6s ease,
+      translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .lift {
+    translate: 12px -50%;
+  }
+  .stage[data-armed="true"] .rev.isIn {
+    opacity: 1;
+    translate: 0 0;
+  }
+  .stage[data-armed="true"] .lift.isIn {
+    translate: 0 -50%;
+  }
+  .stage[data-armed="true"] .draw {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage[data-armed="true"] .draw.isIn {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 1080px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+/* Телефон: реклама → сайт → запись, без цифр (запасной сценарий из ТЗ). */
+@media (max-width: 760px) {
+  .section {
+    padding: 64px 0 72px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .head {
+    display: block;
+    margin-bottom: 40px;
+  }
+  .head h2 {
+    font-size: clamp(28px, 7.8vw, 35px);
+  }
+  .description {
+    max-width: none;
+    margin: 16px 0 0;
+    font-size: 14px;
+    text-align: left;
+  }
+  .description br {
+    display: none;
+  }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    aspect-ratio: auto;
+  }
+  .lines {
+    display: none;
+  }
+  .tag {
+    position: relative;
+    top: auto;
+  }
+  .site {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1363 / 654;
+  }
+  .steps {
+    position: relative;
+    top: auto;
+    right: auto;
+    translate: none;
+    text-align: center;
+    justify-items: center;
+  }
+  .steps li {
+    padding-left: 0;
+  }
+  .steps li::before {
+    display: none;
+  }
+}

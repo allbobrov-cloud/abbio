@@ -333,30 +333,6 @@ export function MarketingServicePage() {
         slugs={["bogov", "oss", "volhonka"]}
         featuredSlug="bogov"
       />
-
-      <section className={`${styles.startSection} ${styles.postCasesCta}`} aria-labelledby="start-title">
-        <div className={styles.container}>
-      <div className={`${styles.startPanel} ${ctaStyles.panel}`}>
-        <div className={ctaStyles.image}>
-          <Image
-            src="/services/marketing-cta-project-brief-v1.png"
-            alt=""
-            fill
-            sizes="(max-width: 1040px) 48vw, 760px"
-          />
-        </div>
-        <div className={ctaStyles.content}>
-              <p className={styles.sectionIndex}>Первый разговор</p>
-          <h2 id="start-title">Обсудим задачу и найдём следующий шаг.</h2>
-            </div>
-            <div className={styles.startCopy}>
-          <p>Расскажите, что хотите изменить. Подскажем, с чего начать.</p>
-              <a href="#contact-dialog" data-contact-dialog className={styles.finalAction}>Обсудить маркетинг <ActionArrow /></a>
-              <Link href="/process" className={styles.processLink}>Как строится работа <span aria-hidden="true">→</span></Link>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
   );
 }

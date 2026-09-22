@@ -1,0 +1,239 @@
+.hero {
+  position: relative;
+  padding: 42px 0 48px;
+  background:
+    radial-gradient(circle at 74% 34%, rgba(107, 75, 181, 0.2), transparent 34%),
+    radial-gradient(circle at 8% 84%, rgba(51, 89, 139, 0.12), transparent 28%),
+    #070912;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+}
+.container {
+  width: min(1280px, calc(100% - 96px));
+  margin-inline: auto;
+}
+
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 34px;
+  color: #9f97ae;
+  font-size: 12px;
+}
+.breadcrumb a {
+  transition: color 0.2s ease;
+}
+.breadcrumb a:hover {
+  color: var(--accent);
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(430px, 1.1fr);
+  gap: clamp(44px, 5.4vw, 96px);
+  align-items: center;
+}
+
+.copy {
+  max-width: 560px;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 26px;
+  color: #b2b1c3;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  width: 22px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.hero h1 {
+  margin: 0;
+  font-size: clamp(38px, 4.3vw, 58px);
+  font-weight: 500;
+  letter-spacing: -0.058em;
+  line-height: 1.06;
+  text-wrap: balance;
+}
+.description {
+  max-width: 480px;
+  margin: 26px 0 0;
+  color: #ada7bc;
+  font-size: 17px;
+  line-height: 1.66;
+}
+.action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  min-height: 62px;
+  margin-top: 34px;
+  padding: 10px 11px 10px 24px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #181222;
+  font-size: 14px;
+  font-weight: 700;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+.action:hover {
+  background: #d0bcff;
+  box-shadow: 0 14px 36px rgba(136, 104, 205, 0.24);
+  transform: translateY(-2px);
+}
+.action :global(.arrow) {
+  border-color: rgba(24, 18, 34, 0.22);
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.visual {
+  position: relative;
+  width: 100%;
+  pointer-events: none;
+}
+
+@media (max-width: 1080px) {
+  .stage {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+  .copy {
+    max-width: none;
+  }
+  .description {
+    max-width: 620px;
+  }
+  .visual {
+    max-width: 620px;
+  }
+}
+
+@media (max-width: 960px) {
+  .container {
+    width: calc(100% - 64px);
+  }
+}
+
+@media (max-width: 760px) {
+  .hero {
+    padding: 38px 0 48px;
+  }
+  .container {
+    width: calc(100% - 40px);
+  }
+  .breadcrumb {
+    margin-bottom: 32px;
+  }
+  .breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+  }
+  .stage {
+    gap: 34px;
+  }
+  .eyebrow {
+    margin-bottom: 20px;
+    font-size: 10px;
+  }
+  .hero h1 {
+    font-size: clamp(34px, 9.4vw, 42px);
+    letter-spacing: -0.042em;
+  }
+  .description {
+    margin-top: 20px;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .action {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 340px;
+    min-height: 56px;
+    margin-top: 26px;
+    padding-left: 20px;
+    font-size: 13px;
+  }
+  .visual {
+    max-width: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero h1 {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .action:hover {
+    transform: none;
+  }
+}
+
+/* Первый экран целиком: на невысоких окнах отступы и текст сжимаются. */
+@media (min-width: 1081px) and (max-height: 900px) {
+  .hero {
+    padding: 26px 0 30px;
+  }
+  .breadcrumb {
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    font-size: clamp(38px, min(4.3vw, 6.4vh), 58px);
+  }
+  .description {
+    margin-top: 20px;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  .action {
+    min-height: 56px;
+    margin-top: 26px;
+  }
+}
+
+/* Телефон: hero целиком на одном экране. */
+@media (max-width: 760px) {
+  .hero {
+    padding: 18px 0 24px;
+  }
+  .breadcrumb {
+    margin-bottom: 18px;
+  }
+  .eyebrow {
+    margin-bottom: 14px;
+  }
+  .stage {
+    gap: 22px;
+  }
+  .description {
+    margin-top: 14px;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .action {
+    min-height: 50px;
+    margin-top: 18px;
+  }
+}
+@media (max-width: 760px) and (max-height: 740px) {
+  .description {
+    display: none;
+  }
+  .breadcrumb {
+    display: none;
+  }
+}

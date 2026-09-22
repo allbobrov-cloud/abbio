@@ -5,7 +5,43 @@ import { ContactFormErrors, formatRussianPhone, nationalPhoneDigits } from "@/li
 import { ActionArrow } from "./ActionArrow";
 import styles from "./FooterContactForm.module.css";
 
-export function FooterContactForm() {
+/*
+ * footer — форма в общем футере (без изменений).
+ * task — вариант для страниц, где первым шагом идёт рассказ о задаче:
+ * та же логика и проверки, другие подписи, задача выделена как главное поле.
+ */
+type Variant = "footer" | "task";
+
+const copy = {
+  footer: {
+    prefix: "footer-contact",
+    nameLabel: "ФИО",
+    nameError: "Укажите ФИО, чтобы мы знали, как к вам обратиться.",
+    namePlaceholder: "Иванов Иван Иванович",
+    phoneLabel: "Номер телефона",
+    taskLabel: "Описание задачи",
+    taskPlaceholder: "Например: нужен сайт для нового направления.",
+    taskRows: 3,
+    button: "Отправить заявку",
+    successTitle: "Обращение подготовлено.",
+  },
+  task: {
+    prefix: "task-contact",
+    nameLabel: "Как к вам обращаться",
+    nameError: "Укажите имя, чтобы мы знали, как к вам обратиться.",
+    namePlaceholder: "Ваше имя",
+    phoneLabel: "Телефон",
+    taskLabel: "Коротко расскажите, что хотите изменить",
+    taskPlaceholder: "Например: сайт есть, но обращений мало",
+    taskRows: 5,
+    button: "Обсудить задачу",
+    successTitle: "Задача подготовлена.",
+  },
+} as const;
+
+export function FooterContactForm({ variant = "footer" }: { variant?: Variant }) {
+  const text = copy[variant];
+  const id = text.prefix;
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("+7");
   const [description, setDescription] = useState("");
@@ -24,7 +60,7 @@ export function FooterContactForm() {
     event.preventDefault();
 
     const nextErrors: ContactFormErrors = {};
-    if (!fullName.trim()) nextErrors.fullName = "Укажите ФИО, чтобы мы знали, как к вам обратиться.";
+    if (!fullName.trim()) nextErrors.fullName = text.nameError;
     if (nationalPhoneDigits(phone).length !== 10) nextErrors.phone = "Введите 10 цифр номера после +7.";
 
     setErrors(nextErrors);
@@ -33,13 +69,15 @@ export function FooterContactForm() {
     setSubmitted(true);
   };
 
+  const rootClass = variant === "task" ? ` ${styles.task}` : "";
+
   if (submitted) {
     return (
-      <section className={styles.success} aria-live="polite" aria-labelledby="footer-contact-success-title">
+      <section className={`${styles.success}${rootClass}`} aria-live="polite" aria-labelledby={`${id}-success-title`}>
         <span className={styles.successMark} aria-hidden="true">✓</span>
         <div>
           <p className={styles.eyebrow}>Данные проверены</p>
-          <h3 id="footer-contact-success-title">Обращение подготовлено.</h3>
+          <h3 id={`${id}-success-title`}>{text.successTitle}</h3>
           <p>Приём заявок ещё не подключён, поэтому данные никуда не отправлены и не сохранены.</p>
         </div>
         <button type="button" onClick={resetForm}>Заполнить ещё раз</button>
@@ -48,12 +86,12 @@ export function FooterContactForm() {
   }
 
   return (
-    <section className={styles.formSection} aria-label="Форма обратной связи">
+    <section className={`${styles.formSection}${rootClass}`} aria-label="Форма обратной связи">
       <form className={styles.form} noValidate onSubmit={handleSubmit}>
         <div className={styles.field}>
-          <label htmlFor="footer-contact-full-name">ФИО <span aria-hidden="true">*</span></label>
+          <label htmlFor={`${id}-full-name`}>{text.nameLabel} <span aria-hidden="true">*</span></label>
           <input
-            id="footer-contact-full-name"
+            id={`${id}-full-name`}
             name="fullName"
             type="text"
             autoComplete="name"
@@ -64,16 +102,16 @@ export function FooterContactForm() {
             }}
             aria-required="true"
             aria-invalid={Boolean(errors.fullName)}
-            aria-describedby={errors.fullName ? "footer-contact-full-name-error" : undefined}
-            placeholder="Иванов Иван Иванович"
+            aria-describedby={errors.fullName ? `${id}-full-name-error` : undefined}
+            placeholder={text.namePlaceholder}
           />
-          {errors.fullName && <p className={styles.error} id="footer-contact-full-name-error" role="alert">{errors.fullName}</p>}
+          {errors.fullName && <p className={styles.error} id={`${id}-full-name-error`} role="alert">{errors.fullName}</p>}
         </div>
 
         <div className={styles.field}>
-          <label htmlFor="footer-contact-phone">Номер телефона <span aria-hidden="true">*</span></label>
+          <label htmlFor={`${id}-phone`}>{text.phoneLabel} <span aria-hidden="true">*</span></label>
           <input
-            id="footer-contact-phone"
+            id={`${id}-phone`}
             name="phone"
             type="tel"
             inputMode="numeric"
@@ -85,27 +123,27 @@ export function FooterContactForm() {
             }}
             aria-required="true"
             aria-invalid={Boolean(errors.phone)}
-            aria-describedby={errors.phone ? "footer-contact-phone-error" : "footer-contact-phone-hint"}
+            aria-describedby={errors.phone ? `${id}-phone-error` : `${id}-phone-hint`}
             placeholder="+7 (___) ___-__-__"
           />
-          {!errors.phone && <p className={styles.hint} id="footer-contact-phone-hint">Только цифры, номер России.</p>}
-          {errors.phone && <p className={styles.error} id="footer-contact-phone-error" role="alert">{errors.phone}</p>}
+          {!errors.phone && <p className={styles.hint} id={`${id}-phone-hint`}>Только цифры, номер России.</p>}
+          {errors.phone && <p className={styles.error} id={`${id}-phone-error`} role="alert">{errors.phone}</p>}
         </div>
 
-        <div className={styles.field}>
-          <label htmlFor="footer-contact-description">Описание задачи <span className={styles.optional}>необязательно</span></label>
+        <div className={`${styles.field}${variant === "task" ? ` ${styles.fieldTask}` : ""}`}>
+          <label htmlFor={`${id}-description`}>{text.taskLabel} <span className={styles.optional}>необязательно</span></label>
           <textarea
-            id="footer-contact-description"
+            id={`${id}-description`}
             name="description"
             value={description}
             onChange={event => setDescription(event.target.value)}
-            placeholder="Например: нужен сайт для нового направления."
-            rows={3}
+            placeholder={text.taskPlaceholder}
+            rows={text.taskRows}
           />
         </div>
 
         <div className={styles.formFooter}>
-          <button type="submit">Отправить заявку <ActionArrow /></button>
+          <button type="submit">{text.button} <ActionArrow /></button>
           <p>Поля со звёздочкой обязательны.</p>
         </div>
       </form>
