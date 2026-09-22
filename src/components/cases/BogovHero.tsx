@@ -46,14 +46,17 @@ export function BogovHero() {
                   priority
                 />
               </div>
+              {/* Ассет — снимок телефона с системными панелями; показываем только экран */}
               <div className={styles.mobile}>
-                <Image
-                  src="/cases/bogov-mobile.avif"
-                  alt="Главная страница сайта Мотошколы Владимира Богова, мобильная версия"
-                  fill
-                  sizes="(max-width: 760px) 40vw, 14vw"
-                  priority
-                />
+                <div className={styles.mobileInner}>
+                  <Image
+                    src="/cases/bogov-mobile.avif"
+                    alt="Главная страница сайта Мотошколы Владимира Богова, мобильная версия"
+                    fill
+                    sizes="(max-width: 760px) 40vw, 14vw"
+                    priority
+                  />
+                </div>
               </div>
 
               {/* Единственный proof-элемент — как часть интерфейса кейса */}

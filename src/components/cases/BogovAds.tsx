@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SiteCrop } from "./SiteCrop";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./BogovAds.module.css";
 
@@ -85,14 +85,15 @@ function Stage() {
         )}
       </svg>
 
-      <div className={`${styles.site} ${styles.rev} ${on(1)}`}>
-        <Image
-          src="/cases/bogov-desktop.avif"
-          alt="Целевая страница bogov-team.ru"
-          fill
-          sizes="(max-width: 760px) 92vw, 34vw"
-        />
-      </div>
+      <SiteCrop
+        className={`${styles.site} ${styles.rev} ${on(1)}`}
+        src="/cases/bogov-desktop.avif"
+        width={1361}
+        height={652}
+        alt="Целевая страница bogov-team.ru"
+        area={{ x1: 0.5, y1: 0.14, x2: 1, y2: 0.86 }}
+        sizes="(max-width: 760px) 92vw, 40vw"
+      />
 
       <ol className={`${styles.steps} ${styles.rev} ${styles.lift} ${on(2)}`}>
         <li>Понятное предложение</li>
@@ -109,7 +110,7 @@ export function BogovAds() {
       <div className={styles.container}>
         <header className={styles.head}>
           <div>
-            <p className={styles.eyebrow}>Яндекс Директ</p>
+            <p className={styles.eyebrow}>05 · Яндекс Директ</p>
             <h2 id="ads-title" aria-label="Хороший сайт меняет экономику рекламы.">
               Хороший сайт меняет
               <br />

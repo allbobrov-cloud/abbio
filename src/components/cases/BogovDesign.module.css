@@ -2,7 +2,7 @@
 .section {
   --lav: #b7a0ef;
 
-  padding: 92px 0 104px;
+  padding: 84px 0 84px;
   background: #05070d;
   border-bottom: 1px solid rgba(213, 201, 245, 0.12);
 }
@@ -17,7 +17,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 40px;
-  margin-bottom: 56px;
+  margin-bottom: 46px;
 }
 .eyebrow {
   display: flex;
@@ -61,7 +61,7 @@
 .stage {
   position: relative;
   container-type: inline-size;
-  aspect-ratio: 1000 / 620;
+  aspect-ratio: 1000 / 500;
 }
 
 /* Крупные планы реального интерфейса — разные фрагменты, а не один и тот же кадр */
@@ -77,24 +77,22 @@
     0 0 120px rgba(245, 179, 1, 0.08);
 }
 .cropTop {
-  top: 4.8%;
+  top: 6%;
   left: 34%;
   width: 46%;
-  aspect-ratio: 2.5;
 }
 .cropCta {
-  top: 53.2%;
+  top: 64%;
   left: 43%;
   z-index: 2;
   width: 34%;
-  aspect-ratio: 2.6;
 }
 .mobile {
   position: absolute;
-  top: 14.5%;
+  top: 16%;
   left: 4%;
   z-index: 3;
-  width: 25%;
+  width: 24%;
   /* Исходный ассет — телефон со статус-баром и адресной строкой браузера;
      рамка показывает только вырезанный «чистый» экран (см. .mobileInner). */
   aspect-ratio: 354 / 570;
@@ -169,11 +167,11 @@
   left: 34%;
 }
 .p2 {
-  top: 44%;
-  left: 30.5%;
+  top: 61%;
+  left: 29.5%;
 }
 .p3 {
-  top: 60%;
+  top: 72%;
   left: 78.5%;
 }
 
@@ -272,10 +270,8 @@
   }
   .cropTop {
     order: 3;
-    aspect-ratio: 2.1;
   }
   .cropCta {
     order: 4;
-    aspect-ratio: 2.6;
   }
 }

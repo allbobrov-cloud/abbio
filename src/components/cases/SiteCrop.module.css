@@ -1,0 +1,12 @@
+/* Рамка крупного плана: показывает только заданную область скриншота. */
+.frame {
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0c;
+}
+.inner {
+  position: absolute;
+}
+.inner img {
+  object-fit: fill;
+}

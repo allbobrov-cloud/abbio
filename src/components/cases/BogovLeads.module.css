@@ -66,19 +66,19 @@
 
 .site {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 0;
   z-index: 1;
-  width: 30%;
-  height: 100%;
+  width: 34%;
   overflow: hidden;
+  translate: 0 -50%;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 4px;
   background: #0a0a0c;
 }
-.site img {
-  object-fit: cover;
-  object-position: 10% top;
+.siteCrop {
+  width: 100%;
+  border-radius: 4px;
 }
 .siteFade {
   position: absolute;
@@ -90,7 +90,7 @@
 .entries {
   position: absolute;
   top: 0;
-  left: 30%;
+  left: 34%;
   z-index: 2;
   width: 0;
   height: 100%;
@@ -304,8 +304,9 @@
   }
   .site {
     position: relative;
+    top: auto;
     width: 100%;
-    aspect-ratio: 1363 / 654;
+    translate: none;
   }
   .siteFade {
     background: linear-gradient(180deg, transparent 55%, #05070d 100%);

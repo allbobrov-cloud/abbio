@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
+import { ActionArrow } from "@/components/ActionArrow";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./BogovFinal.module.css";
 
@@ -10,17 +12,17 @@ const useArmingEffect =
 
 /* Пять результатов кейса — короткие отсылки к уже показанным блокам, без повтора деталей. */
 const points = [
-  { key: "site", n: "01", verb: "С нуля", label: "Сайт", x: 140, y: 40 },
-  { key: "mobile", n: "02", verb: "Адаптировали", label: "Desktop + Mobile", x: 40, y: 330 },
-  { key: "leads", n: "03", verb: "Связали", label: "Обращения + источники", x: 860, y: 200 },
-  { key: "seo", n: "04", verb: "Развили", label: "SEO", x: 700, y: 30 },
-  { key: "ads", n: "05", verb: "Усилили", label: "Рекламу", x: 640, y: 470 },
+  { key: "site", n: "01", verb: "С нуля", label: "Сайт", x: 170, y: 22 },
+  { key: "mobile", n: "02", verb: "Адаптировали", label: "Desktop + Mobile", x: 60, y: 300 },
+  { key: "leads", n: "03", verb: "Связали", label: "Обращения + источники", x: 790, y: 175 },
+  { key: "seo", n: "04", verb: "Развили", label: "SEO", x: 690, y: 22 },
+  { key: "ads", n: "05", verb: "Усилили", label: "Рекламу", x: 560, y: 392 },
 ] as const;
 
-const SITE = { x: 300, y: 90, w: 400 };
+const SITE = { x: 310, y: 66, w: 380 };
 const SITE_BOTTOM = Math.round(SITE.y + (SITE.w * 654) / 1363);
 const SITE_CENTER_X = SITE.x + SITE.w / 2;
-const MOBILE = { x: 235, y: SITE_BOTTOM - 40, w: 120 };
+const MOBILE = { x: 246, y: SITE_BOTTOM - 42, w: 116 };
 
 function anchor(point: (typeof points)[number]) {
   const cx = point.x + 60;
@@ -86,7 +88,7 @@ function Stage() {
       className={styles.stage}
       data-armed={armed ? "true" : undefined}
     >
-      <svg className={styles.lines} viewBox="0 0 1000 560" aria-hidden="true">
+      <svg className={styles.lines} viewBox="0 0 1000 470" aria-hidden="true">
         {points.map((point, index) => (
           <path
             key={point.key}
@@ -99,7 +101,7 @@ function Stage() {
 
       <div
         className={`${styles.site} ${styles.rev} ${on(0)}`}
-        style={{ left: `${(SITE.x / 1000) * 100}%`, top: `${(SITE.y / 560) * 100}%`, width: `${(SITE.w / 1000) * 100}%` }}
+        style={{ left: `${(SITE.x / 1000) * 100}%`, top: `${(SITE.y / 470) * 100}%`, width: `${(SITE.w / 1000) * 100}%` }}
       >
         <Image
           src="/cases/bogov-desktop.avif"
@@ -110,7 +112,7 @@ function Stage() {
       </div>
       <div
         className={`${styles.mobile} ${styles.rev} ${on(1)}`}
-        style={{ left: `${(MOBILE.x / 1000) * 100}%`, top: `${(MOBILE.y / 560) * 100}%`, width: `${(MOBILE.w / 1000) * 100}%` }}
+        style={{ left: `${(MOBILE.x / 1000) * 100}%`, top: `${(MOBILE.y / 470) * 100}%`, width: `${(MOBILE.w / 1000) * 100}%` }}
       >
         <Image
           src="/cases/bogov-mobile.avif"
@@ -124,7 +126,7 @@ function Stage() {
         <span
           key={point.key}
           className={`${styles.point} ${styles.rev} ${on(index + 1)}`}
-          style={{ left: `${(point.x / 1000) * 100}%`, top: `${(point.y / 560) * 100}%` }}
+          style={{ left: `${(point.x / 1000) * 100}%`, top: `${(point.y / 470) * 100}%` }}
         >
           <i>{point.n}</i>
           <b>{point.verb}</b>
@@ -135,7 +137,13 @@ function Stage() {
   );
 }
 
-export function BogovFinal() {
+export function BogovFinal({
+  next,
+  service,
+}: {
+  next: { slug: string; name: string };
+  service: string;
+}) {
   return (
     <section id="final" className={styles.section} aria-labelledby="final-title">
       <div className={styles.container}>
@@ -156,6 +164,25 @@ export function BogovFinal() {
         <p className={styles.statement}>
           Он стал частью системы привлечения и обработки обращений.
         </p>
+
+        <div className={styles.actions}>
+          <a
+            className={styles.cta}
+            href="#contact-dialog"
+            data-contact-dialog
+          >
+            Обсудить похожую задачу <ActionArrow />
+          </a>
+          <div className={styles.links}>
+            <Link href={`/cases/${next.slug}`}>
+              Следующий проект: {next.name}
+              <span aria-hidden="true">→</span>
+            </Link>
+            <Link href={`/services/${service}`}>
+              Подробнее об услуге<span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+        </div>
       </div>
     </section>
   );

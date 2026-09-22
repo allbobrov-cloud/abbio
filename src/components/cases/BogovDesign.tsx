@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { SiteCrop } from "./SiteCrop";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./BogovDesign.module.css";
 
@@ -15,7 +16,7 @@ const useArmingEffect =
  * скриншота с отдельным блоком выбора программ в проекте нет).
  */
 const TRACE =
-  "M 565 222 C 500 258, 400 262, 306 298 C 352 336, 392 368, 432 396";
+  "M 570 278 C 500 300, 380 312, 288 320 C 340 332, 392 344, 430 352";
 
 /* 0 desktop · 1 точка 01 · 2 траектория к 02 · 3 траектория к 03 · 4 mobile */
 const FINAL = 4;
@@ -73,20 +74,16 @@ function Stage() {
       data-armed={armed ? "true" : undefined}
     >
       {/* Крупный план первого экрана: как посетитель понимает формат */}
-      <div className={`${styles.crop} ${styles.cropTop} ${styles.rev} ${on(0)}`}>
-        <Image
-          src="/cases/bogov-desktop.avif"
-          alt="Первый экран сайта bogov-team.ru крупным планом"
-          fill
-          sizes="(max-width: 760px) 92vw, 42vw"
-          style={{
-            objectPosition: "17% 34%",
-            transformOrigin: "17% 34%",
-            transform: "scale(1.85)",
-          }}
-          priority
-        />
-      </div>
+      <SiteCrop
+        className={`${styles.crop} ${styles.cropTop} ${styles.rev} ${on(0)}`}
+        src="/cases/bogov-desktop.avif"
+        width={1361}
+        height={652}
+        alt="Первый экран сайта bogov-team.ru крупным планом"
+        area={{ x1: 0.03, y1: 0.12, x2: 0.52, y2: 0.66 }}
+        sizes="(max-width: 760px) 92vw, 42vw"
+        priority
+      />
 
       {/* Мобильный экран — главный объект: выбор формата живёт и на телефоне.
           Ассет — снимок телефона с системными панелями, показываем только экран. */}
@@ -102,22 +99,18 @@ function Stage() {
       </div>
 
       {/* Крупный план точки записи */}
-      <div className={`${styles.crop} ${styles.cropCta} ${styles.rev} ${on(3)}`}>
-        <Image
-          src="/cases/bogov-desktop.avif"
-          alt="Кнопка записи на сайте bogov-team.ru крупным планом"
-          fill
-          sizes="(max-width: 760px) 92vw, 32vw"
-          style={{
-            objectPosition: "13% 86%",
-            transformOrigin: "13% 86%",
-            transform: "scale(2.5)",
-          }}
-        />
-      </div>
+      <SiteCrop
+        className={`${styles.crop} ${styles.cropCta} ${styles.rev} ${on(3)}`}
+        src="/cases/bogov-desktop.avif"
+        width={1361}
+        height={652}
+        alt="Кнопка записи на сайте bogov-team.ru крупным планом"
+        area={{ x1: 0.02, y1: 0.795, x2: 0.33, y2: 0.995 }}
+        sizes="(max-width: 760px) 92vw, 32vw"
+      />
 
       {/* Тонкая траектория: понять формат → выбрать обучение → записаться */}
-      <svg className={styles.lines} viewBox="0 0 1000 620" aria-hidden="true">
+      <svg className={styles.lines} viewBox="0 0 1000 500" aria-hidden="true">
         <path
           className={`${styles.trace} ${styles.draw} ${on(2)}`}
           pathLength={1}
@@ -148,7 +141,7 @@ export function BogovDesign() {
       <div className={styles.container}>
         <header className={styles.head}>
           <div>
-            <p className={styles.eyebrow}>UX / UI</p>
+            <p className={styles.eyebrow}>02 · UX / UI</p>
             <h2 id="design-title" aria-label="Собрали сайт вокруг выбора ученика.">
               Собрали сайт
               <br />

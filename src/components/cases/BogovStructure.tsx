@@ -30,15 +30,15 @@ type Direction = {
 };
 
 const directions: Direction[] = [
-  { key: "courses", name: "Курсы категории А", heading: "Курсы и форматы обучения", x: 0, y: 342, w: 280, aspect: 1.7, drop: 140 },
-  { key: "trial", name: "Пробный урок", heading: "Спокойный первый шаг в обучение", x: 350, y: 372, w: 220, aspect: 1.6, drop: 460 },
-  { key: "city", name: "Городской курс", heading: "Городской курс на мотоцикле", x: 640, y: 346, w: 220, aspect: 1.7, drop: 750 },
-  { key: "skills", name: "Переобучение", heading: "Навыки вождения", x: 220, y: 566, w: 190, aspect: 1.6, drop: 315 },
-  { key: "kids", name: "Детская мотошкола", heading: "Детская мотошкола", x: 485, y: 548, w: 240, aspect: 1.7, drop: 605 },
-  { key: "stunt", name: "Стантрайдинг", heading: "Стантрайдинг", x: 860, y: 578, w: 140, aspect: 1.35, drop: 930 },
+  { key: "courses", name: "Курсы категории А", heading: "Курсы и форматы обучения", x: 0, y: 320, w: 280, aspect: 1.7, drop: 140 },
+  { key: "trial", name: "Пробный урок", heading: "Спокойный первый шаг в обучение", x: 350, y: 335, w: 220, aspect: 1.6, drop: 460 },
+  { key: "city", name: "Городской курс", heading: "Городской курс на мотоцикле", x: 640, y: 324, w: 220, aspect: 1.7, drop: 750 },
+  { key: "skills", name: "Переобучение", heading: "Навыки вождения", x: 210, y: 530, w: 190, aspect: 1.6, drop: 315 },
+  { key: "kids", name: "Детская мотошкола", heading: "Детская мотошкола", x: 480, y: 528, w: 240, aspect: 1.7, drop: 605 },
+  { key: "stunt", name: "Стантрайдинг", heading: "Стантрайдинг", x: 860, y: 540, w: 140, aspect: 1.35, drop: 930 },
 ];
 
-const BUS_Y = 290;
+const BUS_Y = 270;
 const ORIGIN_X = 500;
 
 function branch(dir: Direction) {
@@ -205,7 +205,7 @@ export function BogovStructure() {
       <div className={styles.container}>
         <header className={styles.head}>
           <div>
-            <p className={styles.eyebrow}>Структура</p>
+            <p className={styles.eyebrow}>01 · Структура</p>
             <h2 id="structure-title" aria-label="Одного лендинга здесь было мало.">
               Одного лендинга
               <br />

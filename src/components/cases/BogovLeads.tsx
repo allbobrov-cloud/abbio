@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import { SiteCrop } from "./SiteCrop";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import styles from "./BogovLeads.module.css";
 
@@ -85,13 +85,16 @@ function Stage() {
       className={styles.stage}
       data-armed={armed ? "true" : undefined}
     >
-      {/* Реальный сайт слева, затемняется к системе данных справа */}
+      {/* Крупный план точки записи на реальном сайте; правый край уходит в темноту */}
       <div className={`${styles.site} ${styles.rev} ${on(0)}`}>
-        <Image
+        <SiteCrop
+          className={styles.siteCrop}
           src="/cases/bogov-desktop.avif"
-          alt="Фрагмент сайта bogov-team.ru"
-          fill
-          sizes="(max-width: 760px) 92vw, 34vw"
+          width={1361}
+          height={652}
+          alt="Кнопка записи на сайте bogov-team.ru"
+          area={{ x1: 0.02, y1: 0.6, x2: 0.36, y2: 0.99 }}
+          sizes="(max-width: 760px) 92vw, 30vw"
         />
         <span className={styles.siteFade} aria-hidden="true" />
       </div>
@@ -170,7 +173,7 @@ export function BogovLeads() {
       <div className={styles.container}>
         <header className={styles.head}>
           <div>
-            <p className={styles.eyebrow}>Обращения</p>
+            <p className={styles.eyebrow}>03 · Обращения</p>
             <h2 id="leads-title" aria-label="Заявка не заканчивается кнопкой.">
               Заявка не заканчивается
               <br />

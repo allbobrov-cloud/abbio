@@ -22,9 +22,13 @@ const topQueries = [
   "обучение на категорию а",
 ];
 const otherQueries = [
-  { pos: "11", query: "автошкола категория а" },
-  { pos: "39", query: "категория а" },
+  { pos: 11, query: "автошкола категория а" },
+  { pos: 39, query: "категория а" },
 ];
+
+/* Шкала позиции: 1 — у левого края, 40 — у правого. */
+const SCALE_MAX = 40;
+const mark = (pos: number) => `${((pos - 1) / (SCALE_MAX - 1)) * 100}%`;
 
 const FINAL = 2;
 
@@ -76,23 +80,31 @@ function Stage() {
         <p className={styles.context}>09.09.2026 · Яндекс · Санкт-Петербург</p>
       </div>
 
-      <ol className={`${styles.top} ${styles.rev} ${on(1)}`}>
-        {topQueries.map((query) => (
-          <li key={query}>
-            <b>#1</b>
-            {query}
-          </li>
-        ))}
-      </ol>
+      <div className={styles.list}>
+        <ol className={`${styles.top} ${styles.rev} ${on(1)}`}>
+          {topQueries.map((query) => (
+            <li key={query}>
+              <b>#1</b>
+              <span className={styles.q}>{query}</span>
+              <span className={styles.scale} aria-hidden="true">
+                <i style={{ left: mark(1) }} />
+              </span>
+            </li>
+          ))}
+        </ol>
 
-      <ol className={`${styles.other} ${styles.rev} ${on(2)}`}>
-        {otherQueries.map((item) => (
-          <li key={item.query}>
-            <b>#{item.pos}</b>
-            {item.query}
-          </li>
-        ))}
-      </ol>
+        <ol className={`${styles.other} ${styles.rev} ${on(2)}`}>
+          {otherQueries.map((item) => (
+            <li key={item.query}>
+              <b>#{item.pos}</b>
+              <span className={styles.q}>{item.query}</span>
+              <span className={styles.scale} aria-hidden="true">
+                <i style={{ left: mark(item.pos) }} />
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
     </div>
   );
 }
@@ -103,7 +115,7 @@ export function BogovSeo() {
       <div className={styles.container}>
         <header className={styles.head}>
           <div>
-            <p className={styles.eyebrow}>SEO</p>
+            <p className={styles.eyebrow}>04 · SEO</p>
             <h2 id="seo-title" aria-label="Сделали сайт — и вывели его в поиск.">
               Сделали сайт —
               <br />

@@ -3,7 +3,7 @@
   --lav: #b7a0ef;
   --yellow: #f5b301;
 
-  padding: 92px 0 100px;
+  padding: 84px 0 88px;
   background: #05070d;
   border-bottom: 1px solid rgba(213, 201, 245, 0.12);
 }
@@ -18,7 +18,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 40px;
-  margin-bottom: 56px;
+  margin-bottom: 46px;
 }
 .eyebrow {
   display: flex;
@@ -63,7 +63,7 @@
   position: relative;
   container-type: inline-size;
   aspect-ratio: 1000 / 700;
-  margin-bottom: 64px;
+  margin-bottom: 52px;
 }
 .lines {
   position: absolute;
@@ -116,10 +116,10 @@
   aspect-ratio: 1363 / 654;
   overflow: hidden;
   padding: 7% 7% 6%;
-  border: 1px solid rgba(245, 179, 1, 0.45);
+  border: 1px solid rgba(245, 179, 1, 0.3);
   border-radius: 3px;
   background:
-    radial-gradient(ellipse 60% 90% at 88% 50%, rgba(245, 179, 1, 0.18), transparent 70%),
+    radial-gradient(ellipse 60% 90% at 88% 50%, rgba(245, 179, 1, 0.1), transparent 70%),
     #0a0a0c;
   box-shadow:
     0 30px 70px rgba(0, 0, 0, 0.55),
@@ -127,10 +127,10 @@
 }
 .homeH {
   position: absolute;
-  top: 26%;
+  top: 28%;
   left: 7%;
-  color: var(--yellow);
-  font-size: 9.6cqw;
+  color: #f2f0f7;
+  font-size: 8.2cqw;
   font-weight: 800;
   letter-spacing: -0.015em;
   line-height: 1.02;

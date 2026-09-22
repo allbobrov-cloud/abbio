@@ -100,7 +100,10 @@
   letter-spacing: 0.01em;
 }
 
-/* Второй уровень — подтверждённые #1 */
+/* Второй уровень — подтверждённые #1, каждая строка со шкалой позиции */
+.list {
+  min-width: 0;
+}
 .top {
   display: grid;
   gap: 0;
@@ -108,49 +111,80 @@
   padding: 0;
   list-style: none;
 }
-.top li {
-  display: flex;
-  align-items: baseline;
+.top li,
+.other li {
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) 27%;
+  align-items: center;
   gap: 18px;
-  padding: 13px 0;
+  padding: 12px 0;
   border-top: 1px solid var(--line);
-  color: #f2f0f7;
-  font-size: clamp(16px, 1.7vw, 21px);
-  font-weight: 500;
-  letter-spacing: -0.015em;
 }
-.top li:last-child {
-  border-bottom: 1px solid var(--line);
+.top li {
+  color: #f2f0f7;
 }
 .top b {
-  flex: none;
-  width: 34px;
   color: var(--lav);
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 0.02em;
 }
+.q {
+  font-size: clamp(15px, 1.55vw, 19px);
+  font-weight: 500;
+  letter-spacing: -0.015em;
+}
+.top .q {
+  color: #f2f0f7;
+}
 
-/* Третий уровень — остальные позиции, спокойнее, без красного */
+/* Шкала: 1-я позиция у левого края, дальше — правее */
+.scale {
+  position: relative;
+  display: block;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.scale i {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  border-radius: 50%;
+  background: var(--lav);
+  box-shadow: 0 0 10px rgba(183, 160, 239, 0.8);
+}
+
+/* Третий уровень — остальные позиции: спокойнее, без красного */
 .other {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px 28px;
-  margin: 22px 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
 }
 .other li {
-  display: flex;
-  align-items: baseline;
-  gap: 8px;
+  border-top: 1px solid var(--line);
   color: #8a84a0;
-  font-size: 13px;
+}
+.other li:last-child {
+  border-bottom: 1px solid var(--line);
 }
 .other b {
   color: #a9a3bf;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 600;
+}
+.other .q {
+  color: #a39dbb;
+  font-size: clamp(13px, 1.25vw, 15px);
+  font-weight: 400;
+}
+.other .scale i {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: #8a84a0;
+  box-shadow: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -202,7 +236,22 @@
   .stage {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 30px;
+  }
+  .top li,
+  .other li {
+    grid-template-columns: 34px minmax(0, 1fr);
+    gap: 12px;
+    padding: 11px 0;
+  }
+  .scale {
+    display: none;
+  }
+  .q {
+    font-size: 15px;
+  }
+  .other .q {
+    font-size: 14px;
   }
   .big {
     font-size: clamp(76px, 24vw, 108px);
