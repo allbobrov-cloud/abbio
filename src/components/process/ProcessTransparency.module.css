@@ -432,6 +432,17 @@
 }
 
 /* Шаги истории: крупные, переключают прототип. */
+.stepsGroup {
+  min-width: 0;
+}
+.stepsLabel {
+  margin: 0 0 10px;
+  color: var(--faint);
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.17em;
+  text-transform: uppercase;
+}
 .steps {
   margin: 0;
   padding: 0;

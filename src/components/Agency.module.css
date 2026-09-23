@@ -126,8 +126,11 @@
 .breadcrumb{display:flex;gap:10px;flex-wrap:wrap;color:#9f97ae;font-size:12px;margin-bottom:45px}
 .breadcrumb a:hover{color:var(--accent)}
 .pageHero h1{font-size:clamp(42px,5.5vw,76px);font-weight:500;line-height:1.1;letter-spacing:-3px;margin:0 0 25px;max-width:1000px;text-wrap:balance}
+.pageHero .comingSoon{display:block;margin-bottom:14px}
+.pageHero .textLink{margin-top:30px}
 .pageDescription{font-size:18px;line-height:1.7;max-width:650px;color:#ada7bc;margin:0}
 .detailSection{padding:60px 0 20px}
+.notFoundActions{display:flex;flex-wrap:wrap;align-items:center;gap:16px 32px}
 .detailGrid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-bottom:50px}
 .detailGrid h2{font-size:28px;font-weight:500;margin:0 0 20px;letter-spacing:-.7px}
 .detailGrid p,.detailGrid li{font-size:16px;color:#b1aabc;line-height:1.8}
@@ -136,9 +139,6 @@
 .detailImage{display:block;width:100%;height:auto;border-radius:12px;border:1px solid #ffffff20;margin:35px 0}
 .relatedLink{display:flex;align-items:center;justify-content:space-between;gap:25px;padding:30px;border:1px solid #ffffff25;border-radius:8px;font-size:22px;margin-top:30px;transition:border-color .2s,background .2s}
 .relatedLink:hover{border-color:var(--accent);background:#b7a0ef0a}
-.emptyState{border-block:1px solid #ffffff20;padding:45px 0;margin:45px 0 0;max-width:800px}
-.emptyState h2{font-size:30px;letter-spacing:-1px;font-weight:500}
-.emptyState p{max-width:600px;color:#aaa4b7;font-size:16px;line-height:1.8}
 @media(min-width:1450px){.heroGrid{min-height:760px}.heroVisual{height:540px}.heroWindow{top:85px;height:350px}.heroPhone{width:155px;height:317px}}
 @media(max-width:1150px){.brand small{display:none}.nav{gap:18px}.headerInner{gap:22px}.headerCta{padding:14px}.hero h1{letter-spacing:-3px}.heroGrid{min-height:630px;gap:15px}.heroVisual{height:450px}.heroWindow{height:260px;top:75px}.heroPhone{width:115px;height:235px}.heroStamp{right:4%}.serviceRow{grid-template-columns:35px .9fr 1.5fr 45px;gap:14px}.caseCaption .tags{min-width:90px}.journal{gap:35px}.journal h2{font-size:35px}}
 @media(max-width:960px){.headerInner{height:76px;width:calc(100% - 48px)}.menuButton{display:inline-flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;width:46px;height:46px;padding:0;border:1px solid #ffffff35;border-radius:50%;background:#ffffff06;color:#e9e4f1;cursor:pointer;transition:border-color .2s ease,background .2s ease,transform .2s ease}.menuButton span{display:block;width:16px;height:1px;background:currentColor;transition:transform .24s ease,opacity .2s ease}.menuButton[aria-expanded=true]{border-color:#c7b0f2;background:#b7a0ef19}.menuButton[aria-expanded=true] span:first-child{transform:translateY(6px) rotate(45deg)}.menuButton[aria-expanded=true] span:nth-child(2){opacity:0}.menuButton[aria-expanded=true] span:last-child{transform:translateY(-6px) rotate(-45deg)}.headerCta{margin-left:auto}.nav{display:none;position:absolute;top:76px;left:0;right:0;background:#101019;padding:24px;flex-direction:column;align-items:stretch;gap:0;border-bottom:1px solid #ffffff30;max-height:calc(100dvh - 76px);overflow-y:auto}.nav[data-open=true]{display:flex}.nav a{font-size:18px;padding:17px 8px;border-bottom:1px solid #ffffff15}.nav .mobileContact{display:block;color:var(--accent)}.container{width:calc(100% - 64px)}.hero h1{font-size:58px}.heroGrid{grid-template-columns:1.1fr 1fr;min-height:600px}.heroVisual{height:380px}.heroWindow{height:220px;top:70px}.heroPhone{width:95px;height:194px;bottom:0}.visualCaption{bottom:12px}.heroStamp{font-size:10px;top:5%}.heroDescription{font-size:15px}.section{padding-top:80px}.serviceRow p{font-size:13px}.serviceRow .tags{font-size:9px}.serviceRow h3{font-size:31px}.caseVisual{height:265px;padding:60px 25px 0}.caseCard:first-child .caseVisual{height:380px;padding-inline:12%}.steps{grid-template-columns:1fr 1fr;gap:35px}.stepNumber{margin-bottom:20px}.teamGrid{gap:18px}.person h3{font-size:18px}.journalTopics p{font-size:15px}.contactGrid{gap:30px}.contactDetails{padding-left:25px}.contactDetails .email{font-size:22px}}

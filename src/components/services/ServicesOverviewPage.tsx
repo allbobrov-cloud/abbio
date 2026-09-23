@@ -29,12 +29,24 @@ const directions = [
     number: "03",
     title: "Маркетинг",
     description: "Привлекаем спрос и связываем его с результатом.",
-    items: ["SEO", "Яндекс Директ", "Контент", "CRM", "Аналитика"],
+    items: ["Контент", "CRM", "Аналитика"],
     actionLabel: "Весь маркетинг",
-    secondaryLinks: [
-      { label: "SEO", href: "/services/seo" },
-      { label: "Яндекс Директ", href: "/services/yandex-direct" },
-    ],
+  },
+  {
+    slug: "seo",
+    number: "04",
+    title: "SEO-продвижение",
+    description: "Развиваем сайт под реальный спрос и измеримые обращения.",
+    items: ["Спрос", "Структура", "Измерение"],
+    actionLabel: "Смотреть SEO",
+  },
+  {
+    slug: "yandex-direct",
+    number: "05",
+    title: "Яндекс Директ",
+    description: "Запускаем платный поток обращений с понятным отчётом.",
+    items: ["Контекстная реклама", "CRM", "Отчётность"],
+    actionLabel: "Смотреть Директ",
   },
 ] as const;
 
@@ -42,6 +54,8 @@ const directionClasses = {
   design: styles.directionDesign,
   websites: styles.directionWebsites,
   marketing: styles.directionMarketing,
+  seo: styles.directionSeo,
+  "yandex-direct": styles.directionDirect,
 };
 
 const marketingIconPaths = {
@@ -49,6 +63,9 @@ const marketingIconPaths = {
   click: "M5 5v8m0-8 5 12 2-5 5-2-12-5Z",
   message: "M4 6h16v10H8l-4 4V6Z",
   chart: "M5 19V10m6.5 9V5m6.5 14v-7",
+  layers: "M12 3 3 8l9 5 9-5-9-5Zm-9 8 9 5 9-5M3 16l9 5 9-5",
+  target: "M12 3a9 9 0 1 0 .001 0ZM12 8a4 4 0 1 0 .001 0ZM12 11.2a.8.8 0 1 0 .001 0Z",
+  megaphone: "M3 10v4h4l6 4V6l-6 4H3Zm13-2a4 4 0 0 1 0 8",
 } as const;
 
 function MarketingIcon({ name }: { name: keyof typeof marketingIconPaths }) {
@@ -93,6 +110,30 @@ function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }
     );
   }
 
+  if (slug === "seo") {
+    return (
+      <div className={[styles.capabilityVisual, styles.marketingFunnel].join(" ")} aria-hidden="true">
+        <div className={styles.marketingNodes}>
+          <div className={styles.marketingNode}><MarketingIcon name="search" /><span>Спрос</span></div>
+          <div className={styles.marketingNode}><MarketingIcon name="layers" /><span>Структура</span></div>
+          <div className={styles.marketingNode}><MarketingIcon name="target" /><span>Измерение</span></div>
+        </div>
+      </div>
+    );
+  }
+
+  if (slug === "yandex-direct") {
+    return (
+      <div className={[styles.capabilityVisual, styles.marketingFunnel].join(" ")} aria-hidden="true">
+        <div className={styles.marketingNodes}>
+          <div className={styles.marketingNode}><MarketingIcon name="megaphone" /><span>Контекстная реклама</span></div>
+          <div className={styles.marketingNode}><MarketingIcon name="message" /><span>CRM</span></div>
+          <div className={styles.marketingNode}><MarketingIcon name="chart" /><span>Отчётность</span></div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className={[styles.capabilityVisual, styles.marketingFunnel].join(" ")} aria-hidden="true">
       <div className={styles.marketingNodes}>
@@ -118,7 +159,7 @@ export function ServicesOverviewPage() {
 
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
-              <p className={styles.kicker}>Услуги ABB.IO</p>
+              <p className={styles.kicker}>Услуги ABBiO</p>
               <h1 id="services-title">Сайты, дизайн и продвижение — в одной системе.</h1>
               <p>Работаем над тем, как компания выглядит, объясняет предложение, находится в поиске и получает обращения: сайтами, дизайном, маркетингом, SEO и рекламой в Яндекс Директе.</p>
               <div className={styles.heroActions}>
@@ -127,7 +168,10 @@ export function ServicesOverviewPage() {
               </div>
             </div>
 
-            <ServicesHeroVisual />
+            <div className={styles.heroVisualWrap}>
+              <ServicesHeroVisual />
+              <span className={styles.heroVisualNote}>Схематичный пример</span>
+            </div>
           </div>
         </div>
       </section>
@@ -156,11 +200,6 @@ export function ServicesOverviewPage() {
                   </ul>
                   <div className={styles.directionActions}>
                     <Link href={`/services/${item.slug}`} className={styles.directionLink}>{item.actionLabel} <ActionArrow /></Link>
-                    {"secondaryLinks" in item && (
-                      <div className={styles.directionSecondaryLinks}>
-                        {item.secondaryLinks.map((link) => <Link href={link.href} key={link.href}>{link.label} <span aria-hidden="true">→</span></Link>)}
-                      </div>
-                    )}
                   </div>
                 </div>
                 <DirectionVisual slug={item.slug} />

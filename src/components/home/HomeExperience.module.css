@@ -46,7 +46,7 @@
 .floatingNote strong { font-size: 12px; font-weight: 500; }
 .coordinates { position: absolute; bottom: 4px; left: 0; max-width: 140px; color: #9c8aaf; font-size: 9px; line-height: 1.6; letter-spacing: .5px; }
 .directionButtons { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 25px; }
-.directionButtons button { background: #14121daa; border: 1px solid #bda9db2e; color: #c0b6d0; padding: 14px 11px; border-radius: 6px; display: flex; align-items: center; gap: 9px; font-size: 12px; cursor: pointer; transition: background .2s, border-color .2s; }
+.directionButtons button { background: #14121daa; border: 1px solid #bda9db2e; color: #c0b6d0; padding: 12px 10px; border-radius: 6px; display: flex; align-items: center; gap: 7px; font-size: 11px; cursor: pointer; transition: background .2s, border-color .2s; }
 .directionButtons button>span:first-child { font-size: 9px; opacity: .6; }
 .directionButtons button>span:last-child { margin-left: auto; }
 .directionButtons button[aria-pressed=true] { background: #b7a0ef21; border-color: #b7a0ef; color: #f5edff; }
@@ -54,6 +54,7 @@
 .directionSummary { min-height: 78px; padding-top: 19px; position: relative; }
 .directionSummary strong { font-size: 14px; font-weight: 500; }
 .directionSummary p { font-size: 12px; line-height: 1.6; color: #a69ab8; margin: 7px 0 0; }
+.directionSummary a { display: inline-flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 12px; }
 .tasks { position: relative; background: radial-gradient(ellipse at 90% 55%, #56396923, transparent 65%); }
 .taskLayout { display: grid; grid-template-columns: .85fr 1.3fr; gap: 30px; }
 .taskChoices { display: grid; grid-template-rows: repeat(4, 1fr); gap: 12px; }
@@ -77,7 +78,6 @@
 .taskAnswer h3 { min-height: 70px; }
 .taskAnswer .answerContent>p:first-of-type { min-height: 74px; }
 .taskAnswer .taskResult { font-size: 12px; line-height: 1.6; border-top: 1px solid #baa2d532; padding-top: 16px; color: #d7cbe7; }
-.taskAnswer>a { align-self: center; margin-top: auto; padding-top: 14px; }
 .taskAnswer[data-scenario="1"] { background: radial-gradient(ellipse at 100% 0,#447b9125,transparent 70%),#0f141c; border-color: #779eb044; }
 .taskAnswer[data-scenario="2"] { background: radial-gradient(ellipse at 100% 0,#7d914425,transparent 70%),#121710; border-color: #a3b07744; }
 .taskAnswer[data-scenario="3"] { background: radial-gradient(ellipse at 30% 100%,#79529135,transparent 70%),#14101c; }
@@ -88,7 +88,6 @@
 .answerResult { display: flex; align-items: center; gap: 17px; padding: 17px 18px; background: #b7a0ef09; border: 1px solid #b7a0ef20; border-radius: 7px; }
 .answerResult>span { font-size: 24px; color: #cbb0ed; }
 .answerResult p { font-size: 12px; color: #c6bad6; }
-.taskAnswer>a { margin-top: 14px; }
 .journey { position: relative; margin-top: 0; padding: 104px 0 96px; background: radial-gradient(ellipse at 14% 58%, #5b3b7730, transparent 54%), linear-gradient(145deg, #0c0d17, #100e1a); border-block: 1px solid #b7a0ef15; }
 .journeyBoard { display: grid; grid-template-columns: minmax(250px, .7fr) minmax(0, 1.3fr); grid-template-rows: minmax(360px, auto) auto; overflow: hidden; border: 1px solid #b7a0ef2d; border-radius: 18px; background: #0a0b14; box-shadow: 0 28px 80px #0000002e; }
 .journeyStages { display: flex; flex-direction: column; grid-column: 1; grid-row: 1 / span 2; padding: 18px 28px; background: linear-gradient(180deg, #12111d, #0d0e17); border-right: 1px solid #b7a0ef25; }
@@ -255,9 +254,9 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
 .tasks .taskAnswer .answerMeta { margin-bottom: 10px; }
 .tasks .taskAnswer h3 { min-height: 0; font-size: clamp(23px, 2.4vw, 29px); line-height: 1.15; margin-bottom: 10px; }
 .tasks .taskAnswer .answerContent>p:first-of-type { min-height: 0; font-size: 13px; line-height: 1.55; }
-.tasks .taskAnswer .answerContent > div { height: clamp(112px, 18vh, 175px); margin: clamp(8px, 1.8vh, 16px) 0; }
+.tasks .taskAnswer .taskSteps { margin: clamp(8px, 1.8vh, 16px) 0; }
 .tasks .taskAnswer .taskResult { padding-top: 10px; }
-.tasks .taskAnswer>a { margin-top: auto; padding: 8px 0; }
+.tasks .taskAnswer .taskActions { margin-top: auto; padding-top: 8px; }
 @media (max-width: 960px) {
   section.tasks { --tasks-header-height: 77px; }
 }
@@ -275,9 +274,9 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   .tasks .taskAnswer .answerMeta { margin-bottom: 8px; }
   .tasks .taskAnswer h3 { font-size: clamp(21px, 6.2vw, 26px); line-height: 1.1; margin-bottom: 8px; }
   .tasks .taskAnswer .answerContent>p:first-of-type { font-size: 12px; line-height: 1.5; }
-  .tasks .taskAnswer .answerContent > div { height: clamp(104px, 14vh, 138px); margin: 10px 0; }
+  .tasks .taskAnswer .taskSteps { margin: 10px 0; }
   .tasks .taskAnswer .taskResult { font-size: 11px; line-height: 1.4; padding-top: 9px; }
-  .tasks .taskAnswer>a { font-size: 11px; gap: 18px; margin-top: 6px; padding-block: 3px; }
+  .tasks .taskAnswer .taskActions { font-size: 11px; gap: 8px 18px; margin-top: 6px; padding-top: 3px; }
 }
 @media (max-width: 760px) and (max-height: 700px) {
   section.tasks { padding: 18px 0 10px; }
@@ -291,9 +290,9 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   .tasks .taskAnswer .answerMeta { margin-bottom: 6px; font-size: 8px; }
   .tasks .taskAnswer h3 { font-size: 19px; margin-bottom: 6px; }
   .tasks .taskAnswer .answerContent>p:first-of-type { font-size: 11px; line-height: 1.4; }
-  .tasks .taskAnswer .answerContent > div { display: none; }
+  .tasks .taskAnswer .taskSteps { display: none; }
   .tasks .taskAnswer .taskResult { font-size: 10px; line-height: 1.35; padding-top: 7px; }
-  .tasks .taskAnswer>a { font-size: 10px; margin-top: 6px; padding-block: 4px; }
+  .tasks .taskAnswer .taskActions { font-size: 10px; margin-top: 6px; padding-top: 4px; }
 }
 @media (min-width: 761px) and (max-height: 700px) {
   section.tasks { padding: 24px 0 14px; }
@@ -303,9 +302,9 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   .tasks .taskAnswer .answerMeta { margin-bottom: 6px; }
   .tasks .taskAnswer h3 { font-size: 22px; margin-bottom: 7px; }
   .tasks .taskAnswer .answerContent>p:first-of-type { font-size: 12px; line-height: 1.45; }
-  .tasks .taskAnswer .answerContent > div { display: none; }
+  .tasks .taskAnswer .taskSteps { display: none; }
   .tasks .taskAnswer .taskResult { font-size: 11px; line-height: 1.4; padding-top: 8px; }
-  .tasks .taskAnswer>a { font-size: 11px; margin-top: 6px; padding-block: 4px; }
+  .tasks .taskAnswer .taskActions { font-size: 11px; margin-top: 6px; padding-top: 4px; }
 }
 
 /* Task choices: a quiet control surface with a clear selected state. */
@@ -383,108 +382,31 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   line-height: 1.12;
 }
 .tasks .taskAnswer .answerContent > p:first-of-type { max-width: 650px; color: #c1b5d1; }
-.tasks .taskAnswer .answerContent > .answerImage {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  flex: 1 1 180px;
-  min-height: 138px;
-  width: calc(100% + 36px);
-  height: auto;
-  margin: clamp(10px, 1.8vh, 16px) -18px;
-  border: 1px solid #cab6ee36;
-  border-radius: 14px;
-  background: #0b0b12;
-  box-shadow: 0 14px 34px #04020d4d, inset 0 1px #ffffff12;
-}
-.tasks .answerImage::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(90deg, #0e0d16a6 0%, transparent 24%, transparent 76%, #0c0c14a8 100%), linear-gradient(180deg, #0b091333, transparent 45%, #09091255 100%);
-}
-.tasks .answerImage img { object-fit: cover; object-position: center 52%; transform: scale(1.015); }
+.tasks .taskSteps { display: flex; flex-direction: column; gap: 10px; margin: clamp(14px, 2vh, 20px) 0; padding: 0; list-style: none; }
+.tasks .taskSteps li { display: flex; align-items: center; gap: 12px; color: #d7cbe7; font-size: 13px; line-height: 1.4; }
+.tasks .taskSteps li > span { display: grid; place-items: center; width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%; background: #b7a0ef21; color: #cfb9f2; font-size: 10px; }
 .tasks .taskAnswer[data-scenario="0"] .taskResult { color: #e0d3f1; }
-.tasks .taskAnswer[data-scenario="0"] .answerImage { border-color: #c6a9ef55; box-shadow: 0 14px 34px #04020d4d, 0 0 30px #a985e51c, inset 0 1px #ffffff12; }
-.tasks .taskAnswer[data-scenario="1"] .answerImage { border-color: #7db6d56b; box-shadow: 0 14px 34px #04020d4d, 0 0 30px #5994bd1a, inset 0 1px #ffffff12; }
-.tasks .taskAnswer[data-scenario="1"] .answerImage img { object-position: center 50%; }
-.tasks .taskAnswer[data-scenario="1"] .answerImage::after { background: linear-gradient(90deg, #0a141fa3 0%, transparent 25%, transparent 76%, #071018a8 100%), linear-gradient(180deg, #17263920, transparent 48%, #09121d66 100%); }
-.tasks .taskAnswer[data-scenario="2"] .answerImage { border-color: #dc8da970; box-shadow: 0 14px 34px #04020d4d, 0 0 30px #d7785718, inset 0 1px #ffffff12; }
-.tasks .taskAnswer[data-scenario="2"] .answerImage img { object-position: center 50%; }
-.tasks .taskAnswer[data-scenario="2"] .answerImage::after { background: linear-gradient(90deg, #1d0e17a3 0%, transparent 25%, transparent 76%, #170c18a8 100%), linear-gradient(180deg, #41223a1c, transparent 48%, #120c1666 100%); }
-.tasks .taskAnswer[data-scenario="3"] .answerImage { border-color: #7ec9c28a; box-shadow: 0 14px 34px #04020d4d, 0 0 30px #65c6b31b, inset 0 1px #ffffff12; }
-.tasks .taskAnswer[data-scenario="3"] .answerImage img { object-position: center 50%; }
-.tasks .taskAnswer[data-scenario="3"] .answerImage::after { background: linear-gradient(90deg, #091815a3 0%, transparent 25%, transparent 76%, #081310a8 100%), linear-gradient(180deg, #1b3b381e, transparent 48%, #09131266 100%); }
-
-/* Each answer uses a different visual language: native audit diagram, media board, or type-led process. */
-.tasks .taskAnswer .answerContent > .taskScene {
-  flex: 1 1 0;
-  min-height: 0;
-  height: auto;
-  margin: clamp(10px, 1.8vh, 16px) 0;
-}
 .tasks .taskAnswer[data-scenario="1"] { background: linear-gradient(145deg, #13202a 0%, #10131d 52%, #0d0e16 100%); border-color: #7db6d56b; }
 .tasks .taskAnswer[data-scenario="1"]::before { background: radial-gradient(ellipse at 8% 20%, #5c9bb52b, transparent 45%), radial-gradient(ellipse at 92% 84%, #243f5720, transparent 48%); }
 .tasks .taskAnswer[data-scenario="1"] .answerMeta { color: #a9c6db; }
 .tasks .taskAnswer[data-scenario="1"] .answerMeta > span:first-child::before { color: #8cc8e1; }
+.tasks .taskAnswer[data-scenario="1"] .taskSteps li > span { background: #7db6d530; color: #bfe2f2; }
 .tasks .taskAnswer[data-scenario="2"] .answerMeta { color: #e0b7aa; }
 .tasks .taskAnswer[data-scenario="2"] .answerMeta > span:first-child::before { color: #f0a28d; }
+.tasks .taskAnswer[data-scenario="2"] .taskSteps li > span { background: #dc8da930; color: #f0c2b3; }
 .tasks .taskAnswer[data-scenario="3"] { background: linear-gradient(145deg, #14221f 0%, #11151a 52%, #0d0f14 100%); border-color: #7ec9c28a; }
 .tasks .taskAnswer[data-scenario="3"]::before { background: radial-gradient(ellipse at 90% 18%, #65c6b31c, transparent 45%), radial-gradient(ellipse at 10% 90%, #385c5120, transparent 48%); }
 .tasks .taskAnswer[data-scenario="3"] .answerMeta { color: #b0d8ca; }
 .tasks .taskAnswer[data-scenario="3"] .answerMeta > span:first-child::before { color: #94d6bb; }
-
-.tasks .crmMetricVisual {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  display: flex;
-  flex: 1 1 180px;
-  min-height: 180px;
-  height: auto;
-  flex-direction: column;
-  justify-content: space-between;
-  margin: clamp(10px, 1.8vh, 16px) 0;
-  padding: clamp(18px, 2.6vh, 28px) clamp(18px, 2.4vw, 30px);
-  border-top: 1px solid #8bd0c566;
-  border-bottom: 1px solid #8bd0c566;
-  background: linear-gradient(115deg, #11211f, #11141d 58%, #172622);
-  color: #dcebe5;
-}
-.tasks .crmMetricVisual::before {
-  content: '';
-  position: absolute;
-  z-index: -1;
-  inset: 0;
-  background: repeating-linear-gradient(90deg, transparent 0 84px, #9be2c20b 84px 85px), linear-gradient(135deg, #9be2c20b, transparent 34%);
-  pointer-events: none;
-}
-.tasks .crmMetricHeader { display: flex; justify-content: space-between; align-items: center; gap: 14px; color: #a9cbc0; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; letter-spacing: .13em; }
-.tasks .crmMetricHeader b { color: #9be2c2; font-size: 9px; font-weight: 500; letter-spacing: .16em; }
-.tasks .crmMetricGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; }
-.tasks .crmMetric { display: flex; min-width: 0; min-height: 144px; flex-direction: column; align-items: center; justify-content: center; padding: 0 clamp(8px, 1.4vw, 18px); border-left: 1px solid #8bd0c53b; text-align: center; }
-.tasks .crmMetric:first-child { border-left: 0; }
-.tasks .crmMetric strong { display: block; color: #b9efd5; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: clamp(28px, 3vw, 44px); font-weight: 400; letter-spacing: -.08em; line-height: .95; }
-.tasks .crmMetric small { display: block; max-width: 120px; margin-top: 8px; color: #b4c9c5; font-size: 10px; line-height: 1.4; text-align: center; }
-.tasks .crmTimeline { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: center; gap: 0; color: #dcebe5; font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 10px; letter-spacing: .04em; }
-.tasks .crmTimeline::before { content: ''; position: absolute; z-index: 0; left: 0; right: 0; top: 50%; height: 1px; background: linear-gradient(90deg, #8bd0c544, #8bd0c5aa, #8bd0c544); }
-.tasks .crmTimeline span { position: relative; z-index: 1; justify-self: center; padding-inline: 10px; background: #111b1d; text-align: center; }
-.tasks .crmTimeline i { display: none; }
+.tasks .taskAnswer[data-scenario="3"] .taskSteps li > span { background: #7ec9c230; color: #bdeee0; }
+.tasks .taskActions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: auto; padding-top: 14px; }
+.tasks .taskAnswer > .taskActions { align-self: stretch; }
 
 @media (max-width: 760px) {
   .tasks .taskAnswer h3 { white-space: normal; font-size: clamp(21px, 6.2vw, 26px); letter-spacing: -.7px; }
-  .tasks .taskAnswer .answerContent > .answerImage { width: 100%; margin-inline: 0; min-height: 130px; flex-basis: 150px; border-radius: 11px; }
-  .tasks .taskAnswer .answerContent > .taskScene { min-height: 130px; flex-basis: 150px; margin-inline: 0; }
-  .tasks .crmMetricVisual { min-height: 130px; flex-basis: 150px; margin-inline: 0; padding: 14px; }
-  .tasks .crmMetricHeader { font-size: 8px; }
-  .tasks .crmMetricHeader b { font-size: 8px; }
-  .tasks .crmMetricGrid { gap: 10px; }
-  .tasks .crmMetric { min-height: 0; padding-inline: 6px; }
-  .tasks .crmMetric strong { font-size: clamp(25px, 8vw, 34px); }
-  .tasks .crmMetric small { margin-top: 5px; font-size: 9px; }
-  .tasks .crmTimeline { font-size: 9px; }
-  .tasks .crmTimeline span { padding-inline: 4px; }
+  .tasks .taskSteps { gap: 8px; margin: 12px 0; }
+  .tasks .taskSteps li { font-size: 12px; }
+  .tasks .taskActions { gap: 10px 20px; }
 }
 
 /* Client journey: an open route, deliberately not another framed card surface. */
@@ -724,9 +646,11 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
   .actions > a:first-child { width: 100%; min-height: 52px; }
   .actions > a:last-child { width: max-content; min-height: 44px; }
   .workspace { margin-top: 2px; }
-  .previewStack { height: 248px; margin-top: 6px; }
-  .previewWindow { inset: 14px 4px 30px; }
+  .previewStack { height: 280px; margin-top: 6px; perspective: 700px; }
+  .previewWindow { inset: 14px 4px 30px; transform: rotate(-1.5deg) rotateY(-1deg); }
   .floatingNote { right: 2px; bottom: 0; max-width: 72%; }
+  @keyframes orbitalFieldMobile { from { transform: translate3d(-1%, 1.5%, 0) rotate(-5deg) scale(.98); } to { transform: translate3d(1.5%, -1%, 0) rotate(2.5deg) scale(1.02); } }
+  .orbital { opacity: .6; animation-name: orbitalFieldMobile; }
   .directionButtons { margin-top: 14px; }
   .directionButtons button { min-height: 48px; justify-content: center; }
   .directionSummary { min-height: 70px; padding-top: 15px; }

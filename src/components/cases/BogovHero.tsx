@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import styles from "./BogovHero.module.css";
 
 /*
@@ -16,10 +20,88 @@ const scope = [
   "SEO",
 ];
 
+const toc = [
+  { href: "#structure", label: "Структура" },
+  { href: "#design", label: "UX / UI" },
+  { href: "#leads", label: "Обращения" },
+  { href: "#seo", label: "SEO" },
+  { href: "#ads", label: "Яндекс Директ" },
+  { href: "#final", label: "Итог" },
+];
+
+function ZoomDialog() {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog || !open || dialog.open) return;
+    dialog.showModal();
+  }, [open]);
+
+  const close = () => {
+    dialogRef.current?.close();
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <button
+        ref={triggerRef}
+        type="button"
+        className={styles.zoomButton}
+        onClick={() => setOpen(true)}
+      >
+        Увеличить скриншот
+      </button>
+      <dialog
+        ref={dialogRef}
+        className={styles.zoomDialog}
+        aria-label="Главная страница сайта Мотошколы Владимира Богова в полном размере"
+        onCancel={(event) => {
+          event.preventDefault();
+          close();
+        }}
+        onClose={() => {
+          setOpen(false);
+          triggerRef.current?.focus();
+        }}
+      >
+        <button
+          type="button"
+          className={styles.zoomClose}
+          aria-label="Закрыть увеличенный скриншот"
+          onClick={close}
+        >
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="m6 6 12 12M18 6 6 18" />
+          </svg>
+        </button>
+        <div className={styles.zoomImage}>
+          <Image
+            src="/cases/bogov-desktop.avif"
+            alt="Главная страница сайта Мотошколы Владимира Богова, desktop, полный размер"
+            fill
+            sizes="92vw"
+          />
+        </div>
+      </dialog>
+    </>
+  );
+}
+
 export function BogovHero() {
   return (
     <section className={styles.hero} aria-labelledby="bogov-title">
       <div className={styles.container}>
+        <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
+          <Link href="/">Главная</Link>
+          <span aria-hidden="true">/</span>
+          <Link href="/cases">Кейсы</Link>
+          <span aria-hidden="true">/</span>
+          <span aria-current="page">Мотошкола Владимира Богова</span>
+        </nav>
         <div className={styles.grid}>
           <div className={styles.copy}>
             <p className={styles.eyebrow}>Кейс · Bogov Team</p>
@@ -59,14 +141,7 @@ export function BogovHero() {
                 </div>
               </div>
 
-              {/* Единственный proof-элемент — как часть интерфейса кейса */}
-              <div className={styles.proof} aria-label="SEO: 91% в топ-10, 09.09.2026">
-                <span>SEO</span>
-                <strong>
-                  91%<em> в ТОП-10</em>
-                </strong>
-                <small>09.09.2026</small>
-              </div>
+              <ZoomDialog />
             </div>
           </div>
         </div>
@@ -86,6 +161,14 @@ export function BogovHero() {
           </p>
           <p className={styles.scope}>{scope.join(" · ")}</p>
         </div>
+
+        <nav className={styles.toc} aria-label="Разделы кейса">
+          {toc.map((item) => (
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
+          ))}
+        </nav>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { ScenarioVisual } from "./ScenarioVisual";
 import { ActionArrow } from "../ActionArrow";
@@ -8,9 +9,11 @@ import base from "../Agency.module.css";
 import styles from "./HomeExperience.module.css";
 
 const directions = [
-  { name: "Дизайн", title: "Впечатление, за которым есть смысл.", text: "Помогаем объяснить продукт и сделать бренд узнаваемым.", image: "/home/design-board-v1.avif", project: "Дизайн-доска / AI-концепция", label: "От идеи к макету", output: "Характер вашего бренда" },
-  { name: "Сайты", title: "Удобно выбрать. Легко обратиться.", text: "Продумываем путь посетителя — от первого экрана до заявки.", image: "/cases/volhonka-desktop.avif", project: "Металлобаза Волхонка", label: "Сценарий клиента", output: "От интереса к заявке" },
-  { name: "Маркетинг", title: "Привлечение — только начало.", text: "Соединяем продвижение с аналитикой и работой с обращениями.", image: "/home/marketing-report-v1.avif", project: "Пример отчёта / условные данные", label: "Каналы · обращения · расходы", output: "Решения на основе данных" }
+  { slug: "design", name: "Дизайн", title: "Впечатление, за которым есть смысл.", text: "Помогаем объяснить продукт и сделать бренд узнаваемым.", image: "/home/design-board-v1.avif", project: "Дизайн-доска / AI-концепция", label: "От идеи к макету", output: "Характер вашего бренда", icon: "◈", caseSlug: null },
+  { slug: "websites", name: "Сайты", title: "Удобно выбрать. Легко обратиться.", text: "Продумываем путь посетителя — от первого экрана до заявки.", image: "/cases/volhonka-desktop.avif", project: "Металлобаза Волхонка", label: "Сценарий клиента", output: "От интереса к заявке", icon: "▤", caseSlug: "volhonka" },
+  { slug: "marketing", name: "Маркетинг", title: "Привлечение — только начало.", text: "Соединяем продвижение с аналитикой и работой с обращениями.", image: "/home/marketing-report-v1.avif", project: "Пример отчёта / условные данные", label: "Каналы · обращения · расходы", output: "Решения на основе данных", icon: "▥", caseSlug: null },
+  { slug: "seo", name: "SEO", title: "Поиск — тоже канал обращений.", text: "Развиваем сайт под реальный спрос и связываем страницы с целевыми действиями.", image: "/services/seo-final-search-channel-v2.webp", project: "Пример структуры спроса", label: "Спрос · структура · измерение", output: "Страницы под конкретные запросы", icon: "◎", caseSlug: null },
+  { slug: "yandex-direct", name: "Яндекс Директ", title: "Быстрый запуск потока обращений.", text: "Связываем объявления, посадочные страницы и понятный отчёт.", image: "/services/yandex-direct-campaign-structure-v2.webp", project: "Пример структуры кампании", label: "Реклама · CRM · отчётность", output: "Обращения с понятным источником", icon: "⇄", caseSlug: null }
 ];
 
 function useVisible() {
@@ -42,7 +45,7 @@ export function HomeHero() {
       <div className={base.container}>
         <div className={styles.heroGrid}>
           <div className={styles.heroCopy}>
-            <p className={base.eyebrow}><span className={base.dot} /> Агентство ABB.IO / от идеи до запуска</p>
+            <p className={base.eyebrow}><span className={base.dot} /> Агентство ABBiO / от идеи до запуска</p>
             <h1 id="hero-title" aria-label="Дизайн, сайты и маркетинг. Для бизнеса.">Дизайн, сайты<br />и маркетинг.<br /><em>Для бизнеса.</em></h1>
             <p className={styles.lead}>Помогаем выглядеть убедительно, привлекать клиентов и работать с обращениями.</p>
             <div className={styles.actions}>
@@ -54,14 +57,21 @@ export function HomeHero() {
             <div className={styles.orbital} aria-hidden="true"><span><i /></span><span><i /></span><span><i /></span></div>
             <div className={styles.previewStack}>
               <span className={styles.backPlate} aria-hidden="true" />
-              <div className={styles.previewWindow}>
-                <div className={styles.browserBar}><span aria-hidden="true">● ● ●</span><span>{direction.project}</span></div>
-                <div className={styles.previewImages}><Image key={direction.name} src={direction.image} alt={selected === 1 ? `Пример работы: сайт ${direction.project}` : direction.project} width={1536} height={1024} className={styles.previewImage} data-active="true" loading={selected === 1 ? "eager" : "lazy"} sizes="(max-width: 760px) 90vw, 48vw" /></div>
-              </div>
-              <div className={styles.floatingNote} aria-hidden="true"><span className={styles.noteIcon}>{["◈", "▤", "▥"][selected]}</span><div><small>{direction.label}</small><strong>{direction.output}</strong></div></div>
+              {direction.caseSlug ? (
+                <Link href={`/cases/${direction.caseSlug}`} className={styles.previewWindow} aria-label={`Смотреть кейс: ${direction.project}`}>
+                  <div className={styles.browserBar}><span aria-hidden="true">● ● ●</span><span>{direction.project}</span></div>
+                  <div className={styles.previewImages}><Image key={direction.name} src={direction.image} alt={`Пример работы: сайт ${direction.project}`} width={1536} height={1024} className={styles.previewImage} data-active="true" loading="eager" sizes="(max-width: 760px) 90vw, 48vw" /></div>
+                </Link>
+              ) : (
+                <div className={styles.previewWindow}>
+                  <div className={styles.browserBar}><span aria-hidden="true">● ● ●</span><span>{direction.project}</span></div>
+                  <div className={styles.previewImages}><Image key={direction.name} src={direction.image} alt={direction.project} width={1536} height={1024} className={styles.previewImage} data-active="true" loading="lazy" sizes="(max-width: 760px) 90vw, 48vw" /></div>
+                </div>
+              )}
+              <div className={styles.floatingNote} aria-hidden="true"><span className={styles.noteIcon}>{direction.icon}</span><div><small>{direction.label}</small><strong>{direction.output}</strong></div></div>
             </div>
             <div className={styles.directionButtons} role="group" aria-label="Направления агентства">{directions.map((item, index) => <button key={item.name} type="button" aria-pressed={selected === index} aria-controls="direction-summary" onClick={() => selectDirection(index)}><span>0{index + 1}</span>{item.name}<span aria-hidden="true">{selected === index ? "−" : "+"}</span></button>)}</div>
-            <div className={styles.directionSummary} id="direction-summary" aria-live="polite"><strong>{direction.title}</strong><p>{direction.text}</p></div>
+            <div className={styles.directionSummary} id="direction-summary" aria-live="polite"><strong>{direction.title}</strong><p>{direction.text}</p><Link href={`/services/${direction.slug}`} className={base.textLink}>Подробнее об услуге <ActionArrow /></Link></div>
           </div>
         </div>
       </div>
@@ -70,53 +80,34 @@ export function HomeHero() {
 }
 
 const situations = [
-  { label: "Запускаю новый проект", heading: "Дать идее форму. Подготовить к запуску.", text: "Поможем сформулировать предложение, показать продукт и подготовить первые точки контакта с клиентами.", steps: ["Предложение и структура", "Дизайн и сайт", "Подготовка продвижения"], result: "Понятная точка старта для нового бизнеса или направления.", code: "START", icon: "↗" },
-  { label: "Сайт есть, обращений мало", heading: "Разобраться, где теряются новые сделки.", text: "Проверим путь от первого визита до обращения: предложение, страницы, мобильную версию и источники трафика. Найдём, что мешает довести интерес до сделки.", steps: ["Найти точки потери", "Усилить предложение", "Довести до сделки"], result: "Понятно, что изменить, чтобы сайт приводил больше новых сделок.", code: "WEBSITE", icon: "↗" },
-  { label: "Нужны новые клиенты", heading: "Помочь клиентам найти ваше предложение.", text: "Подбираем страницы и каналы под спрос: SEO, контент и рекламу. Настраиваем учёт источников, чтобы оценивать обращения.", steps: ["Спрос и задачи аудитории", "SEO, контент и реклама", "Аналитика обращений"], result: "Продвижение, которое можно оценивать по понятным данным.", code: "MARKETING", icon: "◎" },
-  { label: "Заявки теряются, много рутины", heading: "Навести порядок после первого обращения.", text: "Связываем формы, звонки и сообщения с CRM. Настраиваем ответственных, уведомления и автоматические действия.", steps: ["Карта текущего процесса", "CRM и интеграции", "Задачи и уведомления"], result: "Видно, откуда пришло обращение и кто работает с ним дальше.", code: "OPERATIONS", icon: "⇄" }
+  { label: "Запускаю новый проект", heading: "Дать идее форму. Подготовить к запуску.", text: "Поможем сформулировать предложение, показать продукт и подготовить первые точки контакта с клиентами.", steps: ["Предложение и структура", "Дизайн и сайт", "Подготовка продвижения"], result: "Понятная точка старта для нового бизнеса или направления.", code: "START", serviceSlug: "design" },
+  { label: "Сайт есть, обращений мало", heading: "Разобраться, где теряются новые сделки.", text: "Проверим путь от первого визита до обращения: предложение, страницы, мобильную версию и источники трафика. Найдём, что мешает довести интерес до сделки.", steps: ["Найти точки потери", "Усилить предложение", "Довести до сделки"], result: "Понятно, что изменить, чтобы сайт приводил больше новых сделок.", code: "WEBSITE", serviceSlug: "websites" },
+  { label: "Нужны новые клиенты", heading: "Помочь клиентам найти ваше предложение.", text: "Подбираем страницы и каналы под спрос: SEO, контент и рекламу. Настраиваем учёт источников, чтобы оценивать обращения.", steps: ["Спрос и задачи аудитории", "SEO, контент и реклама", "Аналитика обращений"], result: "Продвижение, которое можно оценивать по понятным данным.", code: "MARKETING", serviceSlug: "seo" },
+  { label: "Заявки теряются, много рутины", heading: "Навести порядок после первого обращения.", text: "Связываем формы, звонки и сообщения с CRM. Настраиваем ответственных, уведомления и автоматические действия.", steps: ["Карта текущего процесса", "CRM и интеграции", "Задачи и уведомления"], result: "Видно, откуда пришло обращение и кто работает с ним дальше.", code: "OPERATIONS", serviceSlug: "marketing" }
 ];
-
-const taskVisuals = {
-  launch: "/home/launch-concept-workspace-v3.png",
-  reach: "/home/task-reach-workspace-v2.png"
-} as const;
 
 export function TaskExplorer() {
   const [selected, setSelected] = useState(0);
-  const [pointer, setPointer] = useState(true);
   const { ref } = useVisible();
   const situation = situations[selected];
   return (
     <section className={`${base.section} ${styles.tasks}`} id="tasks" aria-labelledby="tasks-title">
       <div className={`${base.container} ${styles.tasksInner}`}>
         <div className={`${base.sectionHead} ${styles.tasksHead}`}><div><p className={base.eyebrow}>С чего начать</p><h2 id="tasks-title" aria-label="Узнаёте свою ситуацию?">Узнаёте<br /><em>свою ситуацию?</em></h2></div><p className={`${base.sectionIntro} ${styles.tasksIntro}`}>Не обязательно знать, какая услуга нужна.<br /> Начнём с того, что хочется изменить.</p></div>
-        <div className={styles.taskLayout} ref={ref} data-motion={pointer}>
-          <div className={styles.taskChoices} role="group" aria-label="Выберите задачу бизнеса">{situations.map((item, index) => <button type="button" key={item.code} aria-pressed={selected === index} aria-controls="task-answer" onClick={(event) => { setPointer(event.detail > 0); setSelected(index); }}><span>0{index + 1}</span><strong>{item.label}<small>{["От идеи к первому запуску", "Найти барьеры на пути клиента", "Выбрать каналы привлечения", "Связать обращения и команду"][index]}</small></strong><span className={styles.choiceMark} aria-hidden="true">{selected === index ? "−" : "+"}</span></button>)}</div>
+        <div className={styles.taskLayout} ref={ref}>
+          <div className={styles.taskChoices} role="group" aria-label="Выберите задачу бизнеса">{situations.map((item, index) => <button type="button" key={item.code} aria-pressed={selected === index} aria-controls="task-answer" onClick={() => setSelected(index)}><span>0{index + 1}</span><strong>{item.label}<small>{["От идеи к первому запуску", "Найти барьеры на пути клиента", "Выбрать каналы привлечения", "Связать обращения и команду"][index]}</small></strong><span className={styles.choiceMark} aria-hidden="true">{selected === index ? "−" : "+"}</span></button>)}</div>
           <div className={styles.taskAnswer} id="task-answer" aria-live="polite" data-scenario={selected}>
             <div className={styles.answerMeta}><span>{["Собираем новый проект", "Находим, где теряются сделки", "Работаем со спросом", "Организуем работу с заявками"][selected]}</span><span aria-hidden="true">0{selected + 1} / 04</span></div>
             <div className={styles.answerContent}>
               <h3>{situation.heading}</h3>
               <p>{situation.text}</p>
-              {selected === 1 ? (
-                <ScenarioVisual kind="audit" animate={pointer} expanded className={styles.taskScene} />
-              ) : selected === 3 ? (
-                <div className={styles.crmMetricVisual} aria-hidden="true">
-                  <div className={styles.crmMetricHeader}><span>CRM / СЦЕНАРИЙ</span><b>ПРИМЕР</b></div>
-                  <div className={styles.crmMetricGrid}>
-                    <div className={styles.crmMetric}><strong>03</strong><small>канала входа</small></div>
-                    <div className={styles.crmMetric}><strong>01</strong><small>маршрут заявки</small></div>
-                    <div className={styles.crmMetric}><strong>→</strong><small>следующий шаг</small></div>
-                  </div>
-                  <div className={styles.crmTimeline}><span>Форма</span><i /><span>CRM</span><i /><span>Ответственный</span></div>
-                </div>
-              ) : (
-                <div className={styles.answerImage} aria-hidden="true">
-                  <Image src={selected === 0 ? taskVisuals.launch : taskVisuals.reach} alt={selected === 0 ? "Декоративная визуализация запуска маркетингового проекта" : "Декоративная визуализация продвижения по каналам"} fill sizes="(max-width: 760px) 95vw, 58vw" />
-                </div>
-              )}
+              <ul className={styles.taskSteps}>{situation.steps.map(step => <li key={step}><span aria-hidden="true">✓</span>{step}</li>)}</ul>
               <p className={styles.taskResult}>{situation.result}</p>
             </div>
-            <a href="#contact-dialog" data-contact-dialog className={base.textLink}>Обсудить такую задачу <ActionArrow /></a>
+            <div className={styles.taskActions}>
+              <a href="#contact-dialog" data-contact-dialog className={base.textLink}>Обсудить такую задачу <ActionArrow /></a>
+              <Link href={`/services/${situation.serviceSlug}`} className={base.textLink}>Смотреть услугу <ActionArrow /></Link>
+            </div>
           </div>
         </div>
       </div>

@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
-import { CasePortfolio } from "./CasePortfolio";
 import { SeoHeroExperience } from "./SeoHeroExperience";
 import { SeoDemandSpace } from "./SeoDemandSpace";
 import { SeoHealthScan } from "./SeoHealthScan";
@@ -82,7 +81,7 @@ export function SeoServicePage() {
       <section className={styles.finalSection} aria-labelledby="seo-contact-title">
         <div className={styles.container}>
           <div className={styles.finalPanel}>
-            <p className={styles.sectionIndex}>Связаться с ABB.IO</p>
+            <p className={styles.sectionIndex}>Связаться с ABBiO</p>
             <h2 id="seo-contact-title">Начнём развивать собственный поисковый канал.</h2>
             <p>Изучим текущий сайт, приоритетные направления и доступные данные, чтобы определить первый этап SEO-продвижения.</p>
             <a href="#contact-dialog" data-contact-dialog className={styles.finalAction}>Обсудить SEO <ActionArrow /></a>
@@ -135,12 +134,28 @@ export function SeoServicePage() {
         </div>
       </section>
 
-      <CasePortfolio
-        title="Три проекта — три разные задачи."
-        description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."
-        slugs={["bogov", "oss", "volhonka"]}
-        featuredSlug="bogov"
-      />
+      <section className={`${styles.section} ${styles.caseSection}`} aria-labelledby="cases-title">
+        <div className={styles.container}>
+          <SectionLead index="07 / Кейс" id="cases-title" title="Реальный результат: Мотошкола Владимира Богова." description="Развили структуру и страницы под поисковый спрос. Ниже — фактические позиции по отслеживаемым запросам, а не прогноз." />
+          <Link href="/cases/bogov" className={styles.seoCaseCard}>
+            <div className={styles.seoCaseStat}>
+              <strong>91%</strong>
+              <span>запросов в ТОП-10</span>
+            </div>
+            <dl className={styles.seoCaseMeta}>
+              <div><dt>Выборка</dt><dd>22 отслеживаемых запроса</dd></div>
+              <div><dt>Регион</dt><dd>Санкт-Петербург, Яндекс</dd></div>
+              <div><dt>Дата</dt><dd>09.09.2026</dd></div>
+            </dl>
+            <span className={styles.seoCaseLink}>Смотреть кейс <ActionArrow /></span>
+          </Link>
+          <div className={styles.seoOtherCases}>
+            <p>Другие проекты</p>
+            <Link href="/cases/oss">ОборонСпецСплав <span aria-hidden="true">↗</span></Link>
+            <Link href="/cases/volhonka">Металлобаза Волхонка <span aria-hidden="true">↗</span></Link>
+          </div>
+        </div>
+      </section>
     </main>
   );
 }

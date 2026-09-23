@@ -187,6 +187,7 @@ export function BogovLeads() {
           </p>
         </header>
 
+        <p className={styles.schemeLabel}>Схема передачи обращения — не вид реальной системы</p>
         <Stage />
       </div>
     </section>

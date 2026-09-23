@@ -98,8 +98,9 @@ export function SeoHeroExperience() {
       ref={rootRef}
       className={styles.stageRoot}
       role="img"
-      aria-label="Поисковый запрос «профильная труба 09г2с купить спб» приводит к релевантной странице каталога и превращается в обращение с сохранённым источником"
+      aria-label="Схематичный пример: поисковый запрос «профильная труба 09г2с купить спб» приводит к релевантной странице каталога и превращается в обращение с сохранённым источником"
     >
+      <span className={styles.demoBadge} aria-hidden="true">Схематичный пример</span>
       <div className={styles.searchBarWrap} aria-hidden="true">
         <p className={styles.eyebrowSmall}>01 / Запрос</p>
         <div className={styles.searchBar}>
@@ -149,7 +150,7 @@ export function SeoHeroExperience() {
         <strong>Профильная труба 09Г2С</strong>
         <dl>
           <div><dt>Источник</dt><dd>Органический поиск</dd></div>
-          <div><dt>Запрос</dt><dd>«{QUERY}»</dd></div>
+          <div><dt>Страница входа</dt><dd>Каталог: профильная труба</dd></div>
         </dl>
         <span className={styles.leadStatus}><i />Новая</span>
       </div>

@@ -1,6 +1,67 @@
 .scan {
+  position: relative;
   display: grid;
   gap: 20px;
+}
+
+.demoBadge {
+  position: absolute;
+  z-index: 5;
+  top: -34px;
+  left: 0;
+  padding: 6px 10px;
+  border: 1px solid rgba(220, 211, 244, 0.28);
+  border-radius: 999px;
+  background: rgba(8, 10, 19, 0.7);
+  backdrop-filter: blur(8px);
+  color: #c7c1d6;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.effects {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.effects li {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #0c0f18;
+}
+.effects strong {
+  display: block;
+  color: #f1eef7;
+  font-size: 13px;
+  font-weight: 600;
+}
+.effects p {
+  margin: 6px 0 0;
+  color: #a49dbb;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.checklistToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-self: start;
+  min-height: 40px;
+  padding: 0 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  color: #ddd9e6;
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.checklistToggle:hover {
+  color: #c8afff;
+  border-color: #c8afff;
 }
 
 .urlBar {
@@ -61,17 +122,9 @@
   padding: 0 18px;
   border-right: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  opacity: 0;
-  transform: translateY(4px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
-  transition-delay: calc(var(--ci) * 90ms);
 }
 .checkItem:nth-child(2n) {
   border-right: 0;
-}
-.checklistActive .checkItem {
-  opacity: 1;
-  transform: none;
 }
 .checkItem i {
   position: relative;
@@ -196,12 +249,14 @@
 @media (min-width: 761px) {
   .scan {
     grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.15fr);
-    grid-template-areas: "url url" "list issue";
-    align-items: stretch;
+    grid-template-areas: "url url" "effects issue" "toggle toggle" "list list";
+    align-items: start;
   }
   .urlBar { grid-area: url; }
+  .effects { grid-area: effects; }
+  .issueCard { grid-area: issue; align-self: stretch; }
+  .checklistToggle { grid-area: toggle; }
   .checklist { grid-area: list; }
-  .issueCard { grid-area: issue; }
 }
 
 @media (max-width: 760px) {

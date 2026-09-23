@@ -1,14 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "./ActionArrow";
-import { cases, services, steps, team } from "@/lib/content";
+import { cases, services, steps } from "@/lib/content";
 import { FooterContactForm } from "./FooterContactForm";
 import { FooterFrame } from "./FooterFrame";
 import styles from "./Agency.module.css";
 
 export function AgencyHero() {
   return <section className={styles.hero} aria-labelledby="hero-title"><div className={styles.container}><div className={styles.heroGrid}>
-    <div className={styles.heroCopy}><p className={styles.eyebrow}><span className={styles.dot} /> Независимое агентство ABB.IO</p><h1 id="hero-title">Ваш бизнес.<br />Заметнее.<br /><em>Убедительнее.</em></h1><p className={styles.heroDescription}>Дизайн, сайты и маркетинг — чтобы вас находили, выбирали и становились клиентами.</p><a className={styles.button} href="#contact-dialog" data-contact-dialog>Обсудить задачу <span aria-hidden="true">↗</span></a></div>
+    <div className={styles.heroCopy}><p className={styles.eyebrow}><span className={styles.dot} /> Независимое агентство ABBiO</p><h1 id="hero-title">Ваш бизнес.<br />Заметнее.<br /><em>Убедительнее.</em></h1><p className={styles.heroDescription}>Дизайн, сайты и маркетинг — чтобы вас находили, выбирали и становились клиентами.</p><a className={styles.button} href="#contact-dialog" data-contact-dialog>Обсудить задачу <span aria-hidden="true">↗</span></a></div>
     <Link href="/cases/bogov" className={styles.heroVisual} aria-label="Посмотреть проект Bogov Team"><div className={styles.heroOrbit} aria-hidden="true" /><div className={styles.heroWindow}><div className={styles.windowBar} aria-hidden="true"><i /><i /><i /><span>bogov team / website</span></div><Image src="/cases/bogov-desktop.avif" alt="Дизайн сайта мотошколы Bogov Team" width={1000} height={750} sizes="(max-width: 760px) 90vw, 48vw" priority /></div><div className={styles.heroPhone}><Image src="/cases/bogov-mobile.avif" alt="Мобильная версия сайта Bogov Team" width={300} height={620} sizes="180px" priority /></div><span className={styles.visualCaption}>Избранный проект <strong>Bogov Team ↗</strong></span><span className={styles.heroStamp} aria-hidden="true">От идеи<br />до запуска.</span></Link>
   </div><div className={styles.heroBottom}><span>Хорошая идея заслуживает хорошего воплощения.</span><a href="#services">Что мы делаем <span aria-hidden="true">↓</span></a></div></div></section>;
 }
@@ -32,10 +32,6 @@ export function AgencyProcess({ overview = false }: { overview?: boolean }) {
     {!overview ? <div className={styles.sectionHead}><div><p className={styles.eyebrow}>Как работаем</p><h2 id="process-title" aria-label="На связи. На каждом этапе.">На связи.<br /><em>На каждом этапе.</em></h2></div><Link className={styles.textLink} href="/process">Подробнее о работе <span aria-hidden="true">↗</span></Link></div> : <h2 id="process-title" className="sr-only">Этапы работы</h2>}
     <ol className={styles.steps}>{steps.map((step, index) => <li className={index === 2 ? styles.stepInProgress : undefined} key={step.title}><span className={styles.stepNumber}>0{index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol>
   </div></section>;
-}
-
-export function TeamSection({ overview = false }: { overview?: boolean }) {
-  return <section id="team" className={styles.section} aria-labelledby="team-title"><div className={styles.container}><div className={styles.sectionHead}><div><p className={styles.eyebrow}>Люди за проектом</p><h2 id="team-title" aria-label="Небольшая команда. Прямой контакт.">Небольшая команда.<br /><em>Прямой контакт.</em></h2></div>{!overview && <Link className={styles.textLink} href="/about">Об ABBiO <span aria-hidden="true">↗</span></Link>}</div><p className={styles.mobileSwipeHint} id="team-scroll-hint">Листайте команду <span aria-hidden="true">→</span></p><div className={styles.teamGrid} role="region" aria-label="Команда агентства" aria-describedby="team-scroll-hint" tabIndex={0}>{team.map(person => <article className={styles.person} key={person.name}><div className={styles.portrait}><Image src={person.image} alt={`Временный AI-портрет: ${person.name}, вымышленный персонаж`} width={1122} height={1402} sizes="(max-width: 600px) 90vw, 30vw" /><span>Демо-профиль</span></div><h3>{person.name}</h3><p>{person.role}</p></article>)}</div></div></section>;
 }
 
 export function ArticlesSection() {

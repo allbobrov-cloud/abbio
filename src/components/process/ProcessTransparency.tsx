@@ -240,7 +240,9 @@ function TransparencyStage() {
         </div>
 
         {/* Шаги истории — переключают прототип */}
-        <ol className={styles.steps}>
+        <div className={styles.stepsGroup}>
+          <p className={styles.stepsLabel}>Пример согласования</p>
+          <ol className={styles.steps}>
           {steps.map((item, index) => {
             const number = index + 1;
             const state =
@@ -271,7 +273,8 @@ function TransparencyStage() {
               </li>
             );
           })}
-        </ol>
+          </ol>
+        </div>
       </div>
     </div>
   );

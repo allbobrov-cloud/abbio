@@ -18,12 +18,6 @@ const metaChips = [
   { label: "Интерес", value: "Корпоративный сайт" },
 ] as const;
 
-const timelineSteps = [
-  { time: "14:32", text: "Обращение создано" },
-  { time: "14:32", text: "Источник сохранён" },
-  { time: "14:33", text: "Назначен менеджер" },
-] as const;
-
 const theses = [
   "Все обращения в одном месте",
   "Источник не теряется",
@@ -159,14 +153,7 @@ export function WebsitesCrmSection() {
                 <span>Новое обращение</span>
                 <time>14:32</time>
               </div>
-              <strong className={styles.crmCompany}>ООО «Альфа»</strong>
-              <span className={styles.crmCompanyNote}>Корпоративный сайт</span>
-              <dl className={styles.crmContact}>
-                <div>
-                  <dt>Контакт</dt>
-                  <dd>Анна Петрова, +7 XXX XXX-XX-XX</dd>
-                </div>
-              </dl>
+              <span className={styles.crmCompanyNote}>Тема: Корпоративный сайт</span>
               <div className={styles.crmStatusRow}>
                 <span>Статус</span>
                 <strong className={reached("assigned") ? styles.crmStatusDone : styles.crmStatusNew}>
@@ -174,14 +161,6 @@ export function WebsitesCrmSection() {
                   {reached("assigned") ? "В работе" : "Новая"}
                 </strong>
               </div>
-              <ul className={styles.crmTimeline}>
-                {timelineSteps.map((step, index) => (
-                  <li key={step.text} data-visible={index === 0 ? reached("card") : reached("assigned")}>
-                    <time>{step.time}</time>
-                    <span>{step.text}</span>
-                  </li>
-                ))}
-              </ul>
             </div>
 
             <div className={styles.crmManager} aria-hidden="true">
@@ -192,6 +171,8 @@ export function WebsitesCrmSection() {
                 {reached("assigned") ? "Получил обращение" : "Ожидает назначения"}
               </em>
             </div>
+
+            <p className={styles.crmDemoLabel}>Пример записи, не реальное обращение</p>
           </div>
         </div>
       </div>

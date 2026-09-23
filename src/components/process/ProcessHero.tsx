@@ -33,6 +33,10 @@ export function ProcessHero() {
 
           <div className={styles.visual}>
             <ProcessProjectState />
+            <p className={styles.visualNote}>
+              Демо справа — 6 шагов производства сайта, частный пример. Ниже —
+              4 этапа общей модели сотрудничества.
+            </p>
           </div>
         </div>
       </div>

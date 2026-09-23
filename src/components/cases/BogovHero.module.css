@@ -121,48 +121,111 @@
   object-position: top;
 }
 
-/* Proof — небольшой элемент интерфейса кейса, не рекламный бейдж */
-.proof {
-  position: absolute;
-  top: 67.5%;
-  left: 2%;
-  z-index: 3;
-  display: grid;
-  gap: 5px;
-  min-width: 15%;
-  padding: 13px 16px 14px;
-  border: 1px solid rgba(196, 178, 244, 0.4);
-  border-left: 2px solid var(--lav);
-  border-radius: 4px;
-  background: rgba(8, 9, 20, 0.94);
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.5);
+/* B05: breadcrumbs matching the other service/case pages. */
+.breadcrumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 28px;
+  color: #9d99ac;
+  font-size: 12px;
+  line-height: 1.5;
 }
-.proof span {
+.breadcrumbs a {
+  transition: color 0.2s ease;
+}
+.breadcrumbs a:hover {
   color: var(--lav);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.17em;
-  text-transform: uppercase;
 }
-.proof strong {
-  color: #fbfaff;
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-.proof strong em {
-  margin-left: 6px;
-  color: #cfc8e2;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 400;
-  letter-spacing: 0;
-}
-.proof small {
-  color: #8a84a0;
+
+/* B03: enlarge button opens the real screenshot in an accessible dialog. */
+.zoomButton {
+  position: absolute;
+  z-index: 3;
+  right: 3%;
+  bottom: 3%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(196, 178, 244, 0.4);
+  border-radius: 999px;
+  background: rgba(8, 9, 20, 0.82);
+  backdrop-filter: blur(6px);
+  color: #e7e2f2;
   font-size: 11px;
-  letter-spacing: 0.04em;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.zoomButton:hover {
+  border-color: var(--lav);
+  color: #fff;
+}
+.zoomDialog {
+  width: min(92vw, 1200px);
+  max-width: 92vw;
+  padding: 0;
+  border: 1px solid rgba(196, 178, 244, 0.3);
+  border-radius: 14px;
+  background: #0a0b12;
+  color: #f3f0f8;
+}
+.zoomDialog::backdrop {
+  background: rgba(4, 5, 10, 0.86);
+}
+.zoomClose {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border: 1px solid rgba(196, 178, 244, 0.4);
+  border-radius: 50%;
+  background: rgba(8, 9, 20, 0.82);
+  color: #f3f0f8;
+}
+.zoomClose svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+}
+.zoomImage {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1361 / 652;
+}
+
+/* B03: compact table of contents right after the hero facts band. */
+.toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 24px;
+}
+.toc a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #c9c4d5;
+  font-size: 12.5px;
+  font-weight: 500;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.toc a:hover {
+  border-color: var(--lav);
+  color: #fff;
 }
 
 /* Нижняя часть: факты одной строкой, сноска и состав работ */
@@ -289,12 +352,21 @@
     left: 64%;
     width: 33%;
   }
-  .proof {
-    top: auto;
-    bottom: 0;
-    left: 0;
-    min-width: 0;
-    padding: 11px 14px 12px;
+  .zoomButton {
+    right: 3%;
+    bottom: 3%;
+    min-height: 34px;
+    padding: 0 12px;
+    font-size: 10px;
+  }
+  .toc {
+    gap: 8px;
+    margin-top: 20px;
+  }
+  .toc a {
+    min-height: 38px;
+    padding: 0 13px;
+    font-size: 12px;
   }
   .facts {
     display: grid;

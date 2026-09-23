@@ -4,6 +4,7 @@
   grid-template-columns: minmax(0, 1fr) minmax(380px, 600px);
   grid-template-areas: "copy visual" "details visual";
   align-items: center;
+  align-content: start;
   gap: clamp(28px, 4vw, 64px);
   min-height: 0;
   flex: 1 1 auto;
@@ -25,10 +26,11 @@
   pointer-events: none;
 }
 
+/* Mobile-first hero: сначала текст и CTA, схема — доказательство после. */
 @media (max-width: 1080px) {
   .stage {
     grid-template-columns: 1fr;
-    grid-template-areas: "copy" "visual" "details";
+    grid-template-areas: "copy" "details" "visual";
     gap: 32px;
   }
   .visual {
@@ -44,6 +46,6 @@
     padding-top: 0;
   }
   .copy { order: 0; max-width: none; }
-  .visual { order: 1; width: 100%; max-width: none; margin: 24px 0; }
-  .details { order: 2; max-width: none; margin-top: 0; }
+  .details { order: 1; max-width: none; margin-top: 0; }
+  .visual { order: 2; width: 100%; max-width: none; margin: 24px 0 0; }
 }

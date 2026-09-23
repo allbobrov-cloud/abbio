@@ -103,6 +103,12 @@
   width: 100%;
   pointer-events: none;
 }
+.visualNote {
+  margin: 14px 0 0;
+  color: #7d7692;
+  font-size: 11.5px;
+  line-height: 1.5;
+}
 
 @media (max-width: 1080px) {
   .stage {

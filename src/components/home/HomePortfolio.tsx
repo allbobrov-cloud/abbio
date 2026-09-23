@@ -41,7 +41,6 @@ export function HomeCases() {
       <div className={styles.outputs}><h4>Что сделано</h4>{outputs[i].map(([title, text]) => <div key={title}><span aria-hidden="true">✓</span><strong>{title}<small>{text}</small></strong></div>)}</div>
       <div className={styles.devices}><div className={styles.monitor}><div className={styles.screen}><Image src={item.image} alt={`${item.name} — версия для компьютера`} width={1363} height={654} sizes="(max-width: 760px) 75vw, 42vw" /></div><i /><b /></div><div className={styles.phone}><Image src={item.mobile} alt={`${item.name} — мобильная версия`} width={354} height={692} sizes="(max-width: 760px) 20vw, 110px" /></div></div>
     </article>)}</div>
-    <p className={styles.evidenceNote}>Показатели эффективности добавим после проверки данных и периода измерения.</p>
   </div></section>;
 }
 
@@ -59,16 +58,6 @@ export function ReportsPreview() {
       </a>
     </div></div>
   </section>;
-}
-
-export function ProjectCta() {
-  return <section className={styles.projectCta} aria-labelledby="project-cta-title"><div className={base.container}>
-    <div className={styles.projectCtaShell}><div className={styles.projectCtaPanel}>
-      <div className={styles.projectCtaArtwork} aria-hidden="true"><Image src="/home/project-cta-workspace-v2.png" alt="" fill sizes="(max-width: 760px) 100vw, 1200px" /></div>
-      <div className={styles.projectCtaMain}><p className={styles.projectCtaLabel}>ПЕРВЫЙ ШАГ</p><h2 id="project-cta-title">Есть задача — найдём точку старта.</h2></div>
-      <div className={styles.projectCtaAside}><p>Расскажите, что хотите изменить: сайт, поток обращений или процессы команды. На встрече разберём контекст и определим, с чего логично начать.</p><a href="#contact-dialog" data-contact-dialog className={styles.projectCtaAction}>Обсудить задачу <ActionArrow /></a></div>
-    </div></div>
-  </div></section>;
 }
 
 export function IndustryFocus() {

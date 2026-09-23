@@ -1,5 +1,5 @@
-import { AgencyProcess, TeamSection } from "@/components/AgencySections";
-import { HomeCases, HomeServices, IndustryFocus, ProjectCta, ReportsPreview } from "@/components/home/HomePortfolio";
+import { AgencyProcess } from "@/components/AgencySections";
+import { HomeCases, HomeServices, IndustryFocus, ReportsPreview } from "@/components/home/HomePortfolio";
 import { HomeHero, TaskExplorer, ClientJourney, WorkFormats } from "@/components/home/HomeExperience";
 import styles from "@/components/home/HomeExperience.module.css";
 
@@ -10,13 +10,11 @@ export default function Home() {
       <TaskExplorer />
       <HomeServices />
       <HomeCases />
-      <ReportsPreview />
-      <ProjectCta />
       <IndustryFocus />
+      <ReportsPreview />
       <ClientJourney />
       <AgencyProcess />
       <WorkFormats />
-      <TeamSection />
     </main>
   );
 }

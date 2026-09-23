@@ -76,7 +76,7 @@ function Stage() {
           91<span>%</span>
         </p>
         <p className={styles.bigLabel}>запросов в ТОП-10</p>
-        <p className={styles.sample}>22 отслеживаемых запроса</p>
+        <p className={styles.sample}>20 из 22 отслеживаемых запросов</p>
         <p className={styles.context}>09.09.2026 · Яндекс · Санкт-Петербург</p>
       </div>
 

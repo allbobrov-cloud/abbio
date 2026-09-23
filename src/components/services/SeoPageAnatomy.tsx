@@ -30,8 +30,9 @@ export function SeoPageAnatomy() {
       ref={rootRef}
       className={[styles.anatomy, revealed ? styles.revealed : ""].join(" ")}
       role="img"
-      aria-label="Страница каталога устроена так, чтобы отвечать на запрос, помогать выбрать и вести к действию"
+      aria-label="Схематичный пример: страница каталога устроена так, чтобы отвечать на запрос, помогать выбрать и вести к действию"
     >
+      <span className={styles.demoBadge} aria-hidden="true">Схематичный пример</span>
       <div className={styles.pageMock} aria-hidden="true">
         <div className={styles.pageChrome}>
           <span>metallobazav.ru/catalog/trubu-profilnye/</span>

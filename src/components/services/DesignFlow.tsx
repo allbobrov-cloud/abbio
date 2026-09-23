@@ -28,7 +28,7 @@ export function DesignFlow() {
 
 
   return <div className={styles.panel} aria-label="Демо-проект ARC 01: пять этапов дизайна">
-    <div className={styles.panelBar}><span>ARC 01 <span aria-hidden="true">/</span> от брифа до запуска</span><span className={styles.swipeHint}>5 этапов · листайте ↔</span></div>
+    <div className={styles.panelBar}><span>ARC 01 <span aria-hidden="true">/</span> от брифа до запуска</span><strong>Демонстрационный концепт</strong><span className={styles.swipeHint}>5 этапов · листайте ↔</span></div>
     <ol className={styles.steps}>
       <li className={styles.step}>
         <StepHeading number="01" name="Идея" title="Что важно объяснить" />

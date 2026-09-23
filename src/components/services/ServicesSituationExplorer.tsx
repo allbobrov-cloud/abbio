@@ -111,7 +111,8 @@ export function ServicesSituationExplorer() {
           <div className={styles.situationNavigation} aria-label="Выберите ситуацию">
             {situations.map((situation, index) => {
               const isActive = index === activeIndex;
-              const panelId = `mobile-situation-panel-${situation.number}`;
+              const mobilePanelId = `mobile-situation-panel-${situation.number}`;
+              const desktopPanelId = `desktop-situation-panel-${situation.number}`;
 
               return (
                 <div className={styles.situationItem} key={situation.number}>
@@ -119,7 +120,7 @@ export function ServicesSituationExplorer() {
                     type="button"
                     className={styles.situationOption}
                     aria-expanded={isActive}
-                    aria-controls={panelId}
+                    aria-controls={`${mobilePanelId} ${desktopPanelId}`}
                     onClick={() => setActiveIndex(index)}
                   >
                     <span>{situation.number}</span>
@@ -127,7 +128,7 @@ export function ServicesSituationExplorer() {
                     <i aria-hidden="true">→</i>
                   </button>
                   {isActive && (
-                    <div className={styles.mobileSituationPanel} id={panelId}>
+                    <div className={styles.mobileSituationPanel} id={mobilePanelId}>
                       <SituationSolution situation={situation} compact />
                     </div>
                   )}

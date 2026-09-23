@@ -18,8 +18,8 @@ const layouts = [
     variant: "a", // текст слева, крупный visual справа, кадр выходит за край
     ratio: 1.5,
     ratioMobile: 1.25,
-    position: "6% 40%",
-    positionMobile: "4% 40%",
+    position: "56% 40%",
+    positionMobile: "78% 38%",
     tint: "rgba(240, 178, 30, 0.13)",
   },
   {
@@ -27,8 +27,8 @@ const layouts = [
     variant: "b", // visual слева, текст справа и прижат вниз
     ratio: 1.9,
     ratioMobile: 1.25,
-    position: "0% 40%",
-    positionMobile: "0% 40%",
+    position: "63% 32%",
+    positionMobile: "63% 32%",
     tint: "rgba(214, 56, 56, 0.13)",
   },
   {
@@ -36,8 +36,8 @@ const layouts = [
     variant: "c", // полноширинный visual, компактный текст сверху
     ratio: 2.4,
     ratioMobile: 1.4,
-    position: "50% 0%",
-    positionMobile: "16% 50%",
+    position: "50% 60%",
+    positionMobile: "38% 60%",
     tint: "rgba(240, 190, 64, 0.12)",
   },
 ] as const;
@@ -136,7 +136,7 @@ export function CasesShowcase() {
               <Field label="Сделали" className={styles.tags}>
                 {project.tags.join(" · ")}
               </Field>
-              <Field label="Результат">{project.summary}</Field>
+              <Field label="Что получилось">{project.summary}</Field>
               <Cta href={href} name={project.name} />
             </dl>
           );
@@ -160,7 +160,7 @@ export function CasesShowcase() {
                     </div>
                     <dl className={styles.cRight}>
                       <Field label="Задача">{project.task}</Field>
-                      <Field label="Результат">{project.summary}</Field>
+                      <Field label="Что получилось">{project.summary}</Field>
                     </dl>
                   </div>
                   {visual}

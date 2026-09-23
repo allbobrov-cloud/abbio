@@ -193,6 +193,10 @@ export function AboutHero() {
             <li key={item}>{item}</li>
           ))}
         </ul>
+        <p className={styles.contactNote}>
+          Канал связи сейчас один — форма «Обсудить задачу». Приём заявок ещё
+          не подключён: данные никуда не отправляются и не сохраняются.
+        </p>
       </div>
     </section>
   );

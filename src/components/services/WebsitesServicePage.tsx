@@ -3,28 +3,44 @@ import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
 import { CasePortfolio } from "./CasePortfolio";
 import { WebsitesCrmSection } from "./WebsitesCrmSection";
+import { WebsitesTechnologySelector } from "./WebsitesTechnologySelector";
 import styles from "./WebsitesServicePage.module.css";
 
 const formats = [
   {
     number: "01",
     title: "Лендинг",
-    text: "Для одного предложения, услуги или запуска. Помогает последовательно объяснить ценность и привести посетителя к заявке.",
     kind: "landing",
+    when: "Одно предложение, услуга или запуск — без нужды в большой структуре.",
+    scenario: "Посетитель читает страницу целиком и приходит к одной заявке.",
+    includes: "Оффер, аргументы и форма — состав блоков под конкретную задачу.",
+    caseSlug: null,
   },
   {
     number: "02",
     title: "Корпоративный сайт",
-    text: "Для компании с несколькими направлениями, услугами или аудиториями. Собирает информацию в понятную структуру и ведёт к нужному разделу или обращению.",
     kind: "corporate",
+    when: "Несколько направлений, услуг или аудиторий, которым нужна общая структура.",
+    scenario: "Посетитель выбирает нужный раздел и уже там ищет, как обратиться.",
+    includes: "Структура разделов, страницы направлений, точки обращения.",
+    caseSlug: "bogov",
   },
   {
     number: "03",
     title: "Каталог",
-    text: "Для сложного ассортимента. Помогает найти категорию или товар, разобраться в характеристиках и отправить предметный запрос менеджеру.",
     kind: "catalog",
+    when: "Большой ассортимент, который нужно фильтровать и сравнивать.",
+    scenario: "Посетитель ищет позицию по параметрам и отправляет предметный запрос.",
+    includes: "Каталог, карточки товара, поиск и фильтры, заявка менеджеру.",
+    caseSlug: "oss",
   },
 ] as const;
+
+const caseNames: Record<string, string> = {
+  bogov: "Мотошкола Владимира Богова",
+  oss: "ОборонСпецСплав",
+  volhonka: "Металлобаза Волхонка",
+};
 
 const creationStages = [
   {
@@ -71,38 +87,6 @@ const formatVisuals = {
   catalog: "/services/websites-format-catalog-smartphones-v1.png",
 } as const;
 
-const platformLogos = {
-  react: "/services/websites-platform-react.svg",
-  bitrix: "/services/websites-platform-1c-bitrix.svg",
-  wordpress: "/services/websites-platform-wordpress.png",
-} as const;
-
-const platforms = [
-  {
-    id: "react",
-    number: "01",
-    title: "React / Next.js",
-    text: "Для индивидуальной логики, высокой скорости работы и интерфейсов, которые развиваются вместе с бизнесом.",
-  },
-  {
-    id: "bitrix",
-    number: "02",
-    title: "1С-Битрикс",
-    text: "Когда сайт должен учитывать существующую среду бизнеса, сложный каталог или согласованные интеграции.",
-  },
-  {
-    id: "wordpress",
-    number: "03",
-    title: "WordPress",
-    text: "Когда команде важно самостоятельно работать с согласованным содержанием сайта и развивать разделы без сложного технического процесса.",
-  },
-] as const satisfies ReadonlyArray<{
-  id: keyof typeof platformLogos;
-  number: string;
-  title: string;
-  text: string;
-}>;
-
 function FormatVisual({ kind }: { kind: (typeof formats)[number]["kind"] }) {
   return (
     <div className={styles.formatImage} aria-hidden="true">
@@ -115,10 +99,6 @@ function FormatVisual({ kind }: { kind: (typeof formats)[number]["kind"] }) {
       />
     </div>
   );
-}
-
-function PlatformLogo({ platform }: { platform: keyof typeof platformLogos }) {
-  return <Image src={platformLogos[platform]} alt="" width={68} height={68} />;
 }
 
 function SectionHeader({
@@ -258,7 +238,30 @@ export function WebsitesServicePage() {
                 <FormatVisual kind={format.kind} />
                 <div className={styles.formatContent}>
                   <h3>{format.title}</h3>
-                  <p>{format.text}</p>
+                  <dl className={styles.formatFields}>
+                    <div>
+                      <dt>Когда подходит</dt>
+                      <dd>{format.when}</dd>
+                    </div>
+                    <div>
+                      <dt>Основной сценарий</dt>
+                      <dd>{format.scenario}</dd>
+                    </div>
+                    <div>
+                      <dt>Что входит в обсуждение</dt>
+                      <dd>{format.includes}</dd>
+                    </div>
+                  </dl>
+                  <div className={styles.formatActions}>
+                    <a href="#contact-dialog" data-contact-dialog className={styles.formatCta}>
+                      Обсудить {format.title.toLowerCase()} <ActionArrow />
+                    </a>
+                    {format.caseSlug && (
+                      <Link href={`/cases/${format.caseSlug}`} className={styles.formatCaseLink}>
+                        Пример: {caseNames[format.caseSlug]} <span aria-hidden="true">↗</span>
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </article>
             ))}
@@ -316,32 +319,11 @@ export function WebsitesServicePage() {
         <div className={styles.container}>
           <SectionHeader
             label="04 / Технология"
-            title="Подбираем технологию под бизнес, содержание и дальнейшее развитие."
-            lead="Платформа должна помогать сайту решать задачу сегодня и не мешать его развитию завтра. Выбираем её после разбора структуры, ассортимента, ролей команды и нужных интеграций."
+            title="Сначала задача и ограничения — платформа раскрывается по выбору."
+            lead="Технология не занимает самостоятельного места в решении. Выбираем её после разбора управления контентом, каталога и нужных интеграций — под конкретную задачу ниже."
             titleId="technology-title"
           />
-          <div className={styles.techMap}>
-            <div className={styles.techCore}>
-              <span>Что должен уметь сайт</span>
-              <strong>Работать сегодня и развиваться дальше.</strong>
-            </div>
-            <div className={styles.techIndex}>
-              {platforms.map((platform) => (
-                <article key={platform.id}>
-                  <div className={styles.techRow}>
-                    <span className={styles.techNumber}>
-                      {platform.number}
-                    </span>
-                    <div className={styles.techIcon} aria-hidden="true">
-                      <PlatformLogo platform={platform.id} />
-                    </div>
-                    <h3>{platform.title}</h3>
-                  </div>
-                  <p>{platform.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
+          <WebsitesTechnologySelector />
           <p className={styles.techNote}>
             Не подбираем платформу ради названия. Подбираем решение под задачу
             сайта.
@@ -351,70 +333,54 @@ export function WebsitesServicePage() {
 
       <WebsitesCrmSection />
 
-      <section className={styles.readiness} aria-labelledby="readiness-title">
+      <section className={styles.handoff} aria-labelledby="handoff-title">
         <div className={styles.container}>
           <SectionHeader
-            label="06 / После запуска"
-            title="После запуска сайт остаётся понятным в работе и готовым к развитию."
-            lead="Передаём команде собранный продукт: адаптивные страницы, доступы, материалы и согласованный порядок поддержки."
-            titleId="readiness-title"
+            label="06 / Передача результата"
+            title="Сайт становится рабочим активом компании."
+            lead="Он принимает трафик, помогает посетителю выбрать и собирает обращения в CRM. Передаём его команде вместе с понятным составом: что входит в поставку, что проверено перед запуском и что подключается отдельно."
+            titleId="handoff-title"
           />
-          <div className={styles.readinessPanel}>
-            <div className={styles.readinessVisual} aria-hidden="true">
+          <div className={styles.handoffPanel}>
+            <div className={styles.handoffVisual} aria-hidden="true">
               <Image
                 src="/services/websites-post-launch-handoff-v2.png"
                 alt=""
                 fill
-                sizes="(max-width: 760px) calc(100vw - 44px), (max-width: 1080px) 52vw, 620px"
+                sizes="(max-width: 760px) calc(100vw - 44px), (max-width: 1080px) 42vw, 560px"
               />
             </div>
-            <div className={styles.readinessContent}>
-              <ul className={styles.readinessList}>
-                <li>
-                  <span>01</span>
-                  <div>
-                    <h3>Готовые страницы</h3>
-                    <p>Согласованный состав и адаптивные состояния.</p>
-                  </div>
-                </li>
-                <li>
-                  <span>02</span>
-                  <div>
-                    <h3>Доступы и материалы</h3>
-                    <p>Всё необходимое для дальнейшей работы команды.</p>
-                  </div>
-                </li>
-                <li>
-                  <span>03</span>
-                  <div>
-                    <h3>Основа для развития</h3>
-                    <p>
-                      Новые страницы, интеграции и SEO можно добавлять по мере
-                      задач.
-                    </p>
-                  </div>
-                </li>
-              </ul>
+            <div className={styles.handoffGroups}>
+              <div className={styles.handoffGroup}>
+                <h3>Что получаете</h3>
+                <ul>
+                  <li>Структура и адаптивные страницы под сценарии выбора</li>
+                  <li>Точки обращения: формы, почта, звонки, чат</li>
+                  <li>Доступы, компоненты и материалы для развития</li>
+                </ul>
+              </div>
+              <div className={styles.handoffGroup}>
+                <h3>Что проверяем перед запуском</h3>
+                <ul>
+                  <li>Сценарии на всех страницах и адаптивные состояния</li>
+                  <li>Подключённые интеграции и передачу обращений в CRM</li>
+                  <li>Скорость, корректность форм и мобильную версию</li>
+                </ul>
+              </div>
+              <div className={styles.handoffGroup}>
+                <h3>Что развивается отдельно</h3>
+                <ul>
+                  <li>
+                    SEO-продвижение — техническая база заложена, спрос и рост
+                    видимости в разделе{" "}
+                    <Link href="/services/seo" className={styles.seoLink}>
+                      «SEO» <ActionArrow />
+                    </Link>
+                  </li>
+                  <li>Поддержка и доработки после запуска — по согласованию</li>
+                </ul>
+              </div>
             </div>
-            <aside className={styles.seoBridge} aria-labelledby="seo-title">
-              <div className={styles.seoHeading}>
-                <p>SEO / Подготовка сайта</p>
-                <h3 id="seo-title">
-                  Закладываем основу для SEO-продвижения.
-                </h3>
-              </div>
-              <div className={styles.seoDetails}>
-                <p>
-                  Учитываем структуру, семантическую разметку, metadata,
-                  мобильную версию, скорость и доступность для индексации. Это
-                  техническая база, а не обещание позиций.
-                </p>
-                <Link href="/services/marketing" className={styles.seoLink}>
-                  SEO-продвижение и работа со спросом — в разделе «Маркетинг».{" "}
-                  <ActionArrow />
-                </Link>
-              </div>
-            </aside>
           </div>
         </div>
       </section>
@@ -453,80 +419,6 @@ export function WebsitesServicePage() {
         </div>
       </section>
 
-      <section
-        className={styles.deliverables}
-        aria-labelledby="deliverables-title"
-      >
-        <div className={styles.container}>
-          <SectionHeader
-            label="08 / Результат проекта"
-            title="Сайт становится рабочим активом компании."
-            lead="Он принимает трафик, помогает посетителю выбрать, собирает обращения и передаёт их команде. После запуска его можно поддерживать, продвигать и развивать."
-            titleId="deliverables-title"
-          />
-          <div className={styles.deliveryMap}>
-            <div className={styles.deliveryCore}>
-              <span>Результат</span>
-              <h3>Цифровой актив</h3>
-              <small>Сайт, встроенный в работу компании</small>
-            </div>
-            <div className={styles.deliveryPages}>
-              <div className={styles.deliveryIcon} aria-hidden="true">
-                <Image
-                  src="/services/websites-delivery-structure-icon-v1.png"
-                  alt=""
-                  fill
-                  sizes="(max-width: 760px) 82px, (max-width: 1280px) 112px, 124px"
-                />
-              </div>
-              <span>01</span>
-              <h3>Структура и страницы</h3>
-              <small>Адаптивный интерфейс и сценарии выбора</small>
-            </div>
-            <div className={styles.deliveryForms}>
-              <div className={styles.deliveryIcon} aria-hidden="true">
-                <Image
-                  src="/services/websites-delivery-contact-icon-v1.png"
-                  alt=""
-                  fill
-                  sizes="(max-width: 760px) 82px, (max-width: 1280px) 112px, 124px"
-                />
-              </div>
-              <span>02</span>
-              <h3>Точки обращения</h3>
-              <small>Формы, почта, звонки и чат</small>
-            </div>
-            <div className={styles.deliveryOperations}>
-              <div className={styles.deliveryIcon} aria-hidden="true">
-                <Image
-                  src="/services/websites-delivery-integration-icon-v1.png"
-                  alt=""
-                  fill
-                  sizes="(max-width: 760px) 82px, (max-width: 1280px) 112px, 124px"
-                />
-              </div>
-              <span>03</span>
-              <h3>Интеграции</h3>
-              <small>Передача обращений в согласованную рабочую среду</small>
-            </div>
-            <div className={styles.deliveryHandoff}>
-              <div className={styles.deliveryIcon} aria-hidden="true">
-                <Image
-                  src="/services/websites-delivery-materials-icon-v1.png"
-                  alt=""
-                  fill
-                  sizes="(max-width: 760px) 82px, (max-width: 1280px) 112px, 124px"
-                />
-              </div>
-              <span>04</span>
-              <h3>Материалы для развития</h3>
-              <small>Доступы, компоненты и база для новых задач</small>
-            </div>
-            <i className={styles.deliveryLineOne} aria-hidden="true" />
-            <i className={styles.deliveryLineTwo} aria-hidden="true" />
-          </div>
-        </div>
-      </section>
       <CasePortfolio
         title="Три проекта — три разные задачи."
         description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."

@@ -14,7 +14,7 @@ type Props = {
   showServices?: boolean;
 };
 
-export function CasePortfolio({ title, description, slugs, featuredSlug, eyebrow = "Кейсы ABB.IO", ctaLabel = "Открыть кейс", showServices = false }: Props) {
+export function CasePortfolio({ title, description, slugs, featuredSlug, eyebrow = "Кейсы ABBiO", ctaLabel = "Открыть кейс", showServices = false }: Props) {
   const items = slugs.map((slug) => cases.find((item) => item.slug === slug)).filter(Boolean);
   return <section className={styles.section} aria-labelledby="portfolio-title"><div className={styles.container}>
     <header className={styles.heading}><p>{eyebrow}</p><h2 id="portfolio-title">{title}</h2><div><span>{description}</span></div></header>

@@ -928,26 +928,28 @@
     display: block;
     padding-top: 37px;
   }
+  /* Текст выше изображения: h1 → описание → CTA, картинка — отдельная область ниже. */
   .heroVisual {
     position: relative;
     inset: auto;
     z-index: 1;
     min-height: clamp(244px, 75vw, 300px);
-    margin: 0;
+    margin: 0 -8px;
     border-radius: 0;
   }
   .heroMedia {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
     position: relative;
-    margin: clamp(26px, calc(13svh - 65px), 46px) -8px 0;
-    overflow: hidden;
+    margin-top: 22px;
+    overflow: visible;
   }
   .heroVisual:after {
     background: linear-gradient(
-      90deg,
-      #080b14b8 0%,
-      #080b1454 22%,
-      transparent 58%
+      180deg,
+      transparent 55%,
+      #080b14d9 100%
     );
   }
   .heroVisual :global(img) {
@@ -962,17 +964,15 @@
     font-size: clamp(45px, 12vw, 57px);
   }
   .heroLead {
-    position: absolute;
-    z-index: 3;
-    right: 20px;
-    bottom: 19px;
-    left: 20px;
-    max-width: 338px;
+    position: static;
+    z-index: auto;
+    order: -1;
+    max-width: none;
     margin: 0;
-    color: #f0edf8;
-    font-size: 14px;
-    line-height: 1.53;
-    text-shadow: 0 2px 18px #050711e8;
+    color: #c1bdce;
+    font-size: 15px;
+    line-height: 1.6;
+    text-shadow: none;
   }
   .heroActions {
     gap: 12px 22px;
@@ -1792,6 +1792,23 @@
 .crmManager em.crmStatusDone i {
   background: #9fe3b8;
   box-shadow: 0 0 8px rgba(159, 227, 184, 0.55);
+}
+.crmDemoLabel {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 5;
+  margin: 0;
+  padding: 6px 10px;
+  border: 1px solid rgba(220, 211, 244, 0.28);
+  border-radius: 999px;
+  background: rgba(8, 10, 19, 0.7);
+  backdrop-filter: blur(8px);
+  color: #c7c1d6;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .crmCardMain {
@@ -3198,5 +3215,223 @@
     min-height: 56px;
     padding-left: 18px;
     font-size: 13px;
+  }
+}
+
+/* W02: three uniform fields per format, so cards are comparable by the same criteria. */
+.formatFields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 18px 0 0;
+}
+.formatFields > div {
+  padding-top: 12px;
+  border-top: 1px solid #d5c9f024;
+}
+.formatFields dt {
+  margin: 0;
+  color: #bca6ef;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.formatFields dd {
+  max-width: 340px;
+  margin: 7px 0 0;
+  color: #c1bdce;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.formatActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 20px;
+  margin-top: 22px;
+}
+.formatCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 40px;
+  padding: 0 4px;
+  border-bottom: 1px solid #ffffff73;
+  color: #f0edf7;
+  font-size: 13px;
+  font-weight: 650;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.formatCta:hover {
+  color: #d9c9ff;
+  border-color: #c9afff;
+}
+.formatCaseLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #a9a2b8;
+  font-size: 12px;
+  transition: color 0.2s ease;
+}
+.formatCaseLink:hover {
+  color: #d9c9ff;
+}
+
+/* W04: task-first platform selector — the stack reveals per chosen scenario. */
+.techScenarios {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.techScenario {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  column-gap: 16px;
+  padding: 20px 22px;
+  border: 1px solid #d5c9f024;
+  border-radius: 12px;
+  background: #10111c;
+  color: #aaa6b9;
+  text-align: left;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.techScenario > span {
+  padding-top: 2px;
+  color: #8f889f;
+  font-size: 10px;
+  font-variant-numeric: tabular-nums;
+}
+.techScenario > strong {
+  grid-column: 2;
+  color: #f1eef7;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.techScenario > p {
+  grid-column: 2;
+  margin: 8px 0 0;
+  color: #aaa6b9;
+  font-size: 12px;
+  line-height: 1.5;
+}
+.techScenario:hover {
+  border-color: #b7a0ef77;
+  color: #e3ddf0;
+}
+.techScenario[aria-pressed="true"] {
+  border-color: #b7a0ef;
+  background: linear-gradient(120deg, #b7a0ef29, #b7a0ef0d);
+  box-shadow: inset 3px 0 #b7a0ef;
+}
+.techScenario[aria-pressed="true"] > strong {
+  color: #faf7ff;
+}
+.techPlatformPanel {
+  margin-top: 18px;
+  padding: 28px 30px;
+  border: 1px solid #d5c9f038;
+  border-radius: 14px;
+  background: radial-gradient(circle at 88% 12%, #7c5cc233, transparent 40%), #12111d;
+}
+.techPlatformLabel {
+  margin: 0;
+  color: #bca6ef;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.techPlatformPanel h3 {
+  margin: 12px 0 0;
+  color: #f5f2fb;
+  font-size: clamp(22px, 2.2vw, 30px);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+.techPlatformPanel p {
+  max-width: 520px;
+  margin: 12px 0 0;
+  color: #b3afbf;
+  font-size: 14px;
+  line-height: 1.65;
+}
+.techPlatformPanel .techIcon {
+  margin-bottom: 6px;
+}
+
+/* W03: one handoff block — что получаете / что проверяем / что развивается отдельно. */
+.handoff {
+  padding: 118px 0;
+  background: linear-gradient(180deg, #05070d, #0b0b16 76%, #05070d);
+}
+.handoffPanel {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) minmax(0, 1.15fr);
+  gap: 54px;
+  align-items: start;
+}
+.handoffVisual {
+  position: relative;
+  min-height: 420px;
+  overflow: hidden;
+  border: 1px solid #d5c9f038;
+  border-radius: 16px;
+  background: #10111c;
+  box-shadow: 0 24px 50px #0005;
+}
+.handoffVisual :global(img) {
+  object-fit: cover;
+  object-position: center;
+}
+.handoffGroups {
+  display: grid;
+  gap: 28px;
+}
+.handoffGroup h3 {
+  margin: 0 0 14px;
+  color: #f1eef7;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+.handoffGroup ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.handoffGroup li {
+  padding-top: 12px;
+  border-top: 1px solid #d5c9f024;
+  color: #c1bdce;
+  font-size: 13px;
+  line-height: 1.55;
+}
+.handoffGroup .seoLink {
+  min-height: 0;
+  margin-top: 4px;
+}
+@media (max-width: 1080px) {
+  .handoffPanel {
+    grid-template-columns: 1fr;
+  }
+  .handoffVisual {
+    min-height: 320px;
+  }
+}
+@media (max-width: 760px) {
+  .handoff {
+    padding: 74px 0;
+  }
+  .handoffVisual {
+    min-height: 220px;
+  }
+  .handoffGroups {
+    gap: 22px;
   }
 }

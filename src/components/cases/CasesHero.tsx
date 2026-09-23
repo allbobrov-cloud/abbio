@@ -14,21 +14,21 @@ const useArmingEffect =
 const composition = [
   {
     slug: "bogov",
-    position: "14% 46%",
-    origin: "14% 46%",
-    scale: 1.02,
+    position: "66% 40%",
+    origin: "66% 40%",
+    scale: 1.3,
   },
   {
     slug: "oss",
-    position: "0% 40%",
-    origin: "0% 44%",
-    scale: 1,
+    position: "63% 34%",
+    origin: "63% 34%",
+    scale: 1.15,
   },
   {
     slug: "volhonka",
-    position: "22% 92%",
-    origin: "22% 92%",
-    scale: 1.5,
+    position: "50% 58%",
+    origin: "50% 58%",
+    scale: 1.2,
   },
 ] as const;
 
@@ -144,21 +144,26 @@ export function CasesHero() {
           <div className={styles.copy}>
             <p className={styles.eyebrow}>Кейсы</p>
             <h1 id="cases-title">
-              Не показываем
-              <br />
-              работы.
+              Не портфолио.
               <br />
               <em>
-                Показываем,
+                Что сделали
                 <br />
-                что изменили.
+                и как это работает.
               </em>
             </h1>
-            <p className={styles.line2}>Задача → решение → результат.</p>
+            <p className={styles.line2}>Задача → решение → что получилось.</p>
           </div>
           <div className={styles.visual}>
             <Collage />
           </div>
+          <nav className={styles.mobileAnchors} aria-label="Все кейсы">
+            {cases.map((project, index) => (
+              <Link key={project.slug} href={`/cases/${project.slug}`}>
+                <span>0{index + 1}</span>{project.name}
+              </Link>
+            ))}
+          </nav>
         </div>
       </div>
     </section>

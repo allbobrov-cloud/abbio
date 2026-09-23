@@ -200,12 +200,8 @@ export function ProcessProjectState() {
             <p className={styles.requestText}>
               Посмотреть главную страницу и оставить комментарии
             </p>
-            <span className={styles.requestControl}>
-              Открыть макет
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M3 8h9M8.5 4.5 12 8l-3.5 3.5" />
-              </svg>
-            </span>
+            <span className={styles.requestControl}>Открыть макет</span>
+            <p className={styles.requestHint}>Иллюстрация, не активная кнопка</p>
           </div>
         </div>
 

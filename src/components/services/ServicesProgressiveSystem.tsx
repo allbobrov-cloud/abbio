@@ -7,31 +7,14 @@ type Stage = {
   number: string;
   title: string;
   summary: string;
-  detail: "site" | "attraction" | "crm" | "analytics";
 };
 
 const stages: Stage[] = [
-  { number: "01", title: "Сайт", summary: "Создаём основу", detail: "site" },
-  { number: "02", title: "Привлечение", summary: "Приводим спрос", detail: "attraction" },
-  { number: "03", title: "CRM", summary: "Не теряем обращения", detail: "crm" },
-  { number: "04", title: "Аналитика", summary: "Понимаем результат", detail: "analytics" },
+  { number: "01", title: "Сайт", summary: "Создаём основу" },
+  { number: "02", title: "Привлечение", summary: "Приводим спрос" },
+  { number: "03", title: "CRM", summary: "Не теряем обращения" },
+  { number: "04", title: "Аналитика", summary: "Понимаем результат" },
 ];
-
-function StageDetail({ detail }: Pick<Stage, "detail">) {
-  if (detail === "site") {
-    return <div className={styles.evolutionSiteDetail}><span>Структура</span><i>→</i><span>Предложение</span><i>→</i><span>Обращение</span></div>;
-  }
-
-  if (detail === "attraction") {
-    return <div className={styles.evolutionAttractionDetail}><span>SEO</span><i>+</i><span>Яндекс Директ</span></div>;
-  }
-
-  if (detail === "crm") {
-    return <div className={styles.evolutionCrmDetail}><span>Новая заявка</span><i>→</i><strong>В работе</strong></div>;
-  }
-
-  return <div className={styles.evolutionAnalyticsDetail}><span>Обращения</span><span>Стоимость</span><span>Источник</span></div>;
-}
 
 export function ServicesProgressiveSystem() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -92,7 +75,6 @@ export function ServicesProgressiveSystem() {
                   <span className={styles.evolutionNumber}>{stage.number}</span>
                   <strong>{stage.title}</strong>
                   <small>{stage.summary}</small>
-                  <StageDetail detail={stage.detail} />
                   <em>Можно начать здесь</em>
                 </button>
                 {index < stages.length - 1 && (

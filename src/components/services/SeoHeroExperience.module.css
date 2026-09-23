@@ -6,6 +6,23 @@
   width: 100%;
 }
 
+.demoBadge {
+  position: absolute;
+  z-index: 5;
+  top: -6px;
+  left: 0;
+  padding: 6px 10px;
+  border: 1px solid rgba(220, 211, 244, 0.28);
+  border-radius: 999px;
+  background: rgba(8, 10, 19, 0.7);
+  backdrop-filter: blur(8px);
+  color: #c7c1d6;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .eyebrowSmall {
   margin: 0 0 10px;
   color: var(--accent);
