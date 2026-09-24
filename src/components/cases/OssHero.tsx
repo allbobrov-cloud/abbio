@@ -8,7 +8,14 @@ import styles from "./OssHero.module.css";
  * Цифры (35 направлений, 25–30 тыс. пользователей) переданы владельцем и
  * помечены как требующие уточнения перед публикацией.
  */
-const toc = ["Каталог", "Точки входа", "UX / UI", "География", "SEO", "Итог"];
+const toc = [
+  { label: "Каталог", href: "#catalog" },
+  { label: "Точки входа", href: "#entry-points" },
+  { label: "UX / UI", href: "#ux-ui" },
+  { label: "География", href: "#geography" },
+  { label: "SEO", href: "#seo" },
+  { label: "Итог", href: "#result" },
+];
 
 export function OssHero() {
   return (
@@ -94,11 +101,13 @@ export function OssHero() {
           </p>
         </div>
 
-        <ul className={styles.toc} aria-label="Разделы кейса">
+        <nav className={styles.toc} aria-label="Разделы кейса">
           {toc.map((item) => (
-            <li key={item}>{item}</li>
+            <a key={item.href} href={item.href}>
+              {item.label}
+            </a>
           ))}
-        </ul>
+        </nav>
 
         <div className={styles.visual}>
           <Image

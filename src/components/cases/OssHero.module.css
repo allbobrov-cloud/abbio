@@ -194,12 +194,19 @@
   gap: 8px 22px;
   max-width: 34%;
   margin: 0;
-  padding: 0;
-  list-style: none;
-  color: #6c677f;
   font-size: 12px;
   font-weight: 500;
   animation: ossRise 0.7s 0.9s ease both;
+}
+.toc a {
+  display: inline-block;
+  padding-block: 6px;
+  color: #8d879f;
+  transition: color 0.2s ease;
+}
+.toc a:hover,
+.toc a:focus-visible {
+  color: #fbfaff;
 }
 
 /* Готовое изображение: без рамки и карточки, только мягкая тень */
