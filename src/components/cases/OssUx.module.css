@@ -1,0 +1,380 @@
+/* 03 · UX / UI: внутри сложно, снаружи понятно. Кинематографичный красно-бордовый свет за монитором. */
+.section {
+  --lav: #b7a0ef;
+  --red: #ff3a52;
+
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 3.5vw;
+  background: #05060b;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.1);
+}
+.bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 50% 60% at 72% 52%, rgba(150, 20, 42, 0.3), rgba(100, 14, 34, 0.14) 48%, transparent 78%),
+    radial-gradient(ellipse 40% 26% at 74% 100%, rgba(200, 28, 54, 0.22), transparent 76%),
+    radial-gradient(ellipse 30% 30% at 100% 10%, rgba(130, 18, 40, 0.16), transparent 76%),
+    radial-gradient(ellipse 16% 34% at 100% 68%, rgba(255, 50, 74, 0.16), transparent 76%),
+    linear-gradient(180deg, #05060b 0%, #08060b 60%, #0b060a 100%);
+}
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: min(100%, calc((100svh - 30px) * 1.5));
+  max-width: 1800px;
+  aspect-ratio: 1536 / 1024;
+  margin-inline: auto;
+}
+/* Ambient за объектом и около стола — не по контуру изображения */
+.glow {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 30% 36% at 66% 42%, rgba(220, 34, 60, 0.22), rgba(150, 20, 42, 0.08) 55%, transparent 78%),
+    radial-gradient(ellipse 38% 12% at 70% 88%, rgba(255, 48, 72, 0.22), transparent 76%);
+}
+
+.copy {
+  position: absolute;
+  z-index: 3;
+  top: 8.6%;
+  left: 3.4%;
+  width: 30%;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin: 0 0 2.2cqw;
+  color: var(--lav);
+  font-size: clamp(11px, 0.95cqw, 16px);
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.eyebrow::after {
+  width: 6cqw;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.18);
+  content: "";
+}
+.copy h2 {
+  margin: 0;
+  color: #fbfaff;
+  font-size: clamp(28px, 3.3cqw, 66px);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.12;
+}
+.description {
+  max-width: 25em;
+  margin: 2cqw 0 0;
+  color: #b9b4c9;
+  font-size: clamp(13px, 1.28cqw, 24px);
+  line-height: 1.55;
+}
+
+/* Три шага */
+.steps {
+  position: absolute;
+  z-index: 3;
+  top: 50.5%;
+  left: 3.4%;
+  width: 26%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2.2cqw;
+  min-height: 7cqw;
+  color: #9c98ad;
+  font-size: clamp(11px, 1.04cqw, 19px);
+  line-height: 1.5;
+}
+.step + .step::before {
+  position: absolute;
+  bottom: 50%;
+  left: 1.75cqw;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, rgba(120, 118, 140, 0.5), rgba(120, 118, 140, 0.5));
+  content: "";
+}
+.step.on + .step::before {
+  background: linear-gradient(180deg, rgba(255, 58, 82, 0.8), rgba(120, 118, 140, 0.5));
+}
+.step i {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3.5cqw;
+  min-width: 36px;
+  height: 3.5cqw;
+  min-height: 36px;
+  border: 2px solid rgba(150, 148, 170, 0.5);
+  border-radius: 50%;
+  background: #08080f;
+  color: #d0cbe0;
+  font-size: clamp(13px, 1.3cqw, 22px);
+  font-style: normal;
+  font-weight: 500;
+}
+.step.on i {
+  border-color: var(--red);
+  color: var(--red);
+  box-shadow: 0 0 18px rgba(255, 58, 82, 0.45), inset 0 0 12px rgba(255, 58, 82, 0.22);
+}
+.step b {
+  display: block;
+  color: #fbfaff;
+  font-size: clamp(14px, 1.4cqw, 26px);
+  font-weight: 600;
+  line-height: 1.25;
+}
+.step:not(.on) b {
+  color: #e6e3f0;
+}
+
+.accent {
+  position: absolute;
+  z-index: 3;
+  top: 86%;
+  left: 3.4%;
+  width: 26%;
+  margin: 0;
+  padding-top: 1.6cqw;
+  font-size: clamp(18px, 1.55cqw, 30px);
+  line-height: 1.3;
+}
+.accent::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 15cqw;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.16);
+  content: "";
+}
+.accent span {
+  display: block;
+  color: #b4b0c2;
+}
+.accent em {
+  display: block;
+  color: var(--red);
+  font-style: normal;
+  font-weight: 700;
+  text-shadow: 0 0 18px rgba(255, 58, 82, 0.3);
+}
+
+/* Главный visual: единый asset без рамки */
+.visual {
+  position: absolute;
+  z-index: 2;
+  top: 21.4%;
+  left: 23.2%;
+  width: 76.8%;
+  aspect-ratio: 1536 / 1024;
+  filter: drop-shadow(0 24px 44px rgba(0, 0, 0, 0.5));
+}
+.visual img {
+  object-fit: contain;
+}
+
+/* Callout */
+.lines {
+  position: absolute;
+  z-index: 4;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.callLine path {
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1.4;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 3px rgba(255, 58, 82, 0.6));
+  transition: stroke-dashoffset 0.8s ease 1.1s;
+}
+.callLine circle {
+  fill: #ff4a60;
+  filter: drop-shadow(0 0 6px rgba(255, 58, 82, 0.95));
+  transition: opacity 0.4s ease 1.6s;
+}
+.callout {
+  position: absolute;
+  z-index: 5;
+  top: var(--y);
+  left: var(--x);
+  width: var(--w);
+  padding: 0.95cqw 1.1cqw;
+  border: 1px solid rgba(255, 70, 90, 0.4);
+  border-radius: 0.7cqw;
+  background: rgba(8, 6, 10, 0.86);
+  box-shadow: 0 0 22px rgba(255, 50, 76, 0.14);
+  color: #b4b0c2;
+  font-size: clamp(9.5px, 0.85cqw, 15px);
+  line-height: 1.45;
+}
+.callout b {
+  display: block;
+  margin-bottom: 0.2cqw;
+  color: #fff;
+  font-size: clamp(11px, 1.15cqw, 21px);
+  font-weight: 600;
+}
+.notes {
+  display: none;
+}
+
+/* Появление */
+.rev {
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.stage[data-armed="true"] .rev {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.stage[data-armed="true"] .visualRev {
+  transform: translateX(30px) scale(0.98);
+  transition-delay: 0.2s;
+}
+.stage[data-armed="true"] .d2 {
+  transition-delay: 0.9s;
+}
+.stage[data-armed="true"] .callout {
+  transition-delay: 1s;
+}
+.stage[data-armed="true"] .callLine path {
+  stroke-dashoffset: 1;
+}
+.stage[data-armed="true"] .callLine circle {
+  opacity: 0;
+}
+.stage[data-armed="true"].seen .rev {
+  opacity: 1;
+  transform: none;
+}
+.stage[data-armed="true"].seen .callLine path {
+  stroke-dashoffset: 0;
+}
+.stage[data-armed="true"].seen .callLine circle {
+  opacity: 1;
+}
+
+/* Планшет и телефон: колонка; подписи — списком под монитором */
+@media (max-width: 1180px) {
+  .section { padding-bottom: 0; }
+  .stage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 760px;
+    aspect-ratio: auto;
+    padding: 72px 5% 56px;
+  }
+  .glow {
+    background:
+      radial-gradient(ellipse 80% 24% at 50% 50%, rgba(220, 34, 60, 0.22), transparent 76%),
+      radial-gradient(ellipse 60% 10% at 50% 70%, rgba(255, 48, 72, 0.16), transparent 76%);
+  }
+  .lines,
+  .callout {
+    display: none;
+  }
+  .copy,
+  .steps,
+  .accent,
+  .visual {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+  }
+  .eyebrow { margin-bottom: 22px; }
+  .eyebrow::after { width: 60px; }
+  .copy h2 { font-size: clamp(32px, 7vw, 54px); }
+  .copy h2 br { display: none; }
+  .description { margin-top: 18px; max-width: 34em; font-size: 16px; }
+
+  .steps { margin-top: 36px; }
+  .step { min-height: 92px; gap: 20px; font-size: 14px; }
+  .step i { width: 46px; height: 46px; font-size: 16px; }
+  .step + .step::before { left: 22px; }
+  .step b { font-size: 18px; }
+
+  .visual {
+    margin: 28px 0 0 -14%;
+    width: 128%;
+  }
+  .notes {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 20px 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .notes li {
+    position: relative;
+    padding-left: 22px;
+    color: #a7a2b9;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .notes li::before {
+    position: absolute;
+    top: 0.5em;
+    left: 0;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 10px rgba(255, 58, 82, 0.8);
+    content: "";
+  }
+  .notes b {
+    display: block;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .copy { order: 0; }
+  .steps { order: 1; }
+  .visual { order: 2; }
+  .notes { order: 3; }
+  .accent {
+    order: 4;
+    margin-top: 44px;
+    padding-top: 26px;
+    font-size: clamp(22px, 5.4vw, 32px);
+  }
+  .accent::before { width: 90px; }
+}
+
+@media (max-width: 760px) {
+  .stage { padding: 56px 20px 48px; }
+  .visual { margin-left: -18%; width: 136%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev,
+  .callLine path,
+  .callLine circle { transition: none; }
+}
