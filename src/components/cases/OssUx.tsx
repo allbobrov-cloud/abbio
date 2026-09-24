@@ -10,7 +10,7 @@ const useArmingEffect =
 
 /*
  * Композиция в сетке 1536 × 1024. Монитор — готовый replaceable asset:
- * public/cases/oss-ux-monitor.webp (1536 × 1024, RGBA). Callout позиционируются
+ * public/cases/oss-ux-monitor.avif (1536 × 1024, RGBA). Callout позиционируются
  * относительно этой же сетки, поэтому при замене файла того же формата
  * достаточно поправить координаты точек ниже.
  */
@@ -134,7 +134,7 @@ export function OssUx() {
 
         <div className={`${styles.visual} ${styles.rev} ${styles.visualRev}`}>
           <Image
-            src="/cases/oss-ux-monitor.webp"
+            src="/cases/oss-ux-monitor.avif"
             alt="Каталог ОборонСпецСплав на мониторе: страница арматуры с фильтрами по диаметру, классу и ГОСТ и списком подходящих позиций с ценами"
             fill
             sizes="(max-width: 1180px) 130vw, 77vw"

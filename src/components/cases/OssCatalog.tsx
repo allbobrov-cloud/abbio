@@ -130,7 +130,7 @@ export function OssCatalog() {
           <div ref={visualScrollRef} className={styles.visualScroll} tabIndex={0} aria-label="Схема структуры каталога, можно прокручивать по горизонтали">
             <div className={styles.visual}>
               <Image
-                src="/cases/oss-catalog-structure.webp"
+                src="/cases/oss-catalog-structure.avif"
                 alt="Схема каталога ОборонСпецСплав: раздел «Черный металлопрокат» делится на шесть категорий, активный путь от арматуры через марку А500С, диаметр 12 мм и ГОСТ 34028-2016 ведёт на страницу товара"
                 fill
                 sizes="(max-width: 1180px) 900px, 62vw"

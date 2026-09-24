@@ -102,7 +102,7 @@ export function OssHero() {
 
         <div className={styles.visual}>
           <Image
-            src="/cases/oss-hero-visual.webp"
+            src="/cases/oss-hero-visual.avif"
             alt="Интерфейс сайта ОборонСпецСплав: каталог чёрного металлопроката, карточки арматуры и поиск по марке стали"
             fill
             sizes="(max-width: 1180px) 100vw, 58vw"

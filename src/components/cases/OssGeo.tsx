@@ -10,7 +10,7 @@ const useArmingEffect =
 
 /*
  * Композиция в сетке 1536 × 1024. Центральный visual — готовый replaceable asset
- * public/cases/oss-geo-visual.webp (1536 × 1024, RGBA): переключатель городов
+ * public/cases/oss-geo-visual.avif (1536 × 1024, RGBA): переключатель городов
  * и страница товара. Всё остальное — HTML/SVG.
  * TODO(content): «35 региональных направлений» и список городов сверить с клиентом.
  */
@@ -221,7 +221,7 @@ export function OssGeo() {
 
         <div className={`${styles.visual} ${styles.rev} ${styles.visualRev}`}>
           <Image
-            src="/cases/oss-geo-visual.webp"
+            src="/cases/oss-geo-visual.avif"
             alt="Региональная версия каталога: переключатель городов с активным Краснодаром и страница товара «Лист 12Х18Н10Т» с характеристиками и наличием в Краснодаре"
             fill
             sizes="(max-width: 1180px) 130vw, 58vw"
