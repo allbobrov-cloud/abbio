@@ -1,133 +1,54 @@
-/* Hero кейса Bogov Team: реальный сайт — главный визуал. */
+/* Hero кейса Bogov Team: одна layered-композиция по референсу. */
 .hero {
   --lav: #b7a0ef;
-  --line: rgba(255, 255, 255, 0.1);
 
   position: relative;
-  display: flex;
-  flex-direction: column;
-  min-height: calc(100svh - 90px);
-  padding: 34px 0 26px;
-  overflow-x: clip;
-  background:
-    radial-gradient(circle at 70% 40%, rgba(240, 178, 30, 0.11), transparent 40%),
-    radial-gradient(circle at 8% 90%, rgba(51, 89, 139, 0.1), transparent 30%),
-    #06070f;
+  overflow: hidden;
+  background: #05060b;
   border-bottom: 1px solid rgba(213, 201, 245, 0.12);
-}
-.container {
-  display: flex;
-  flex: 1 1 auto;
-  flex-direction: column;
-  width: min(1280px, calc(100% - 96px));
-  margin-inline: auto;
-}
-.grid {
-  display: grid;
-  flex: 1 1 auto;
-  grid-template-columns: minmax(0, 0.4fr) minmax(0, 0.6fr);
-  gap: clamp(20px, 2.4vw, 44px);
-  align-items: center;
-}
-
-.copy {
-  max-width: 520px;
-}
-.eyebrow {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin: 0 0 26px;
-  color: #b2b1c3;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-.eyebrow::before {
-  width: 22px;
-  height: 1px;
-  background: currentColor;
-  content: "";
-}
-.hero h1 {
-  margin: 0;
-  font-size: clamp(36px, 4.2vw, 60px);
-  font-weight: 500;
-  letter-spacing: -0.055em;
-  line-height: 1.05;
-}
-.hero h1 em {
-  color: var(--accent);
-  font-style: normal;
-}
-.description {
-  max-width: 440px;
-  margin: 26px 0 0;
-  color: #b2adc4;
-  font-size: 17px;
-  line-height: 1.6;
-}
-
-/* Композиция реального сайта: выходит к правому краю окна */
-.visual {
-  min-width: 0;
-  margin-right: calc(-1 * max(48px, (100vw - 1280px) / 2));
 }
 .stage {
   position: relative;
-  aspect-ratio: 1000 / 690;
-  width: max(min(100%, calc((100svh - 300px) * 1.52)), 520px);
-  max-width: 100%;
-}
-.desktop {
-  position: absolute;
-  top: 3%;
-  left: 0;
-  z-index: 1;
-  width: 90%;
-  aspect-ratio: 1363 / 654;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  background: #0d0e1a;
-  box-shadow:
-    0 34px 80px rgba(0, 0, 0, 0.55),
-    0 0 120px rgba(240, 178, 30, 0.1);
-}
-.mobile {
-  position: absolute;
-  top: 27%;
-  left: 73%;
-  z-index: 2;
-  width: 21%;
-  aspect-ratio: 354 / 570;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 10px;
-  background: #0d0e1a;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.65);
-}
-.mobileInner {
-  position: absolute;
-  top: -10.53%;
-  left: 0;
-  width: 100%;
-  aspect-ratio: 354 / 692;
-}
-.desktop img,
-.mobile img {
-  object-fit: cover;
-  object-position: top;
+  container-type: inline-size;
+  width: min(100%, calc((100svh - 90px) * 2.1333));
+  max-width: 2000px;
+  aspect-ratio: 1920 / 900;
+  margin-inline: auto;
 }
 
-/* B05: breadcrumbs matching the other service/case pages. */
+/* 2. BACKGROUND */
+.bg {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 27%;
+  width: 100%;
+  aspect-ratio: 1672 / 941;
+  opacity: 1;
+  filter: brightness(1.05);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 20%, #000 100%),
+    linear-gradient(180deg, #000 70%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 20%, #000 100%),
+    linear-gradient(180deg, #000 70%, transparent 100%);
+  mask-composite: intersect;
+  animation: bogovFade 0.9s ease both;
+}
+.bg img {
+  object-fit: cover;
+}
+
 .breadcrumbs {
+  position: absolute;
+  z-index: 6;
+  top: 26px;
+  left: 5%;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 10px;
-  margin-bottom: 28px;
   color: #9d99ac;
   font-size: 12px;
   line-height: 1.5;
@@ -139,248 +60,406 @@
   color: var(--lav);
 }
 
-/* B03: enlarge button opens the real screenshot in an accessible dialog. */
-.zoomButton {
+/* 3. Текст */
+.copy {
   position: absolute;
-  z-index: 3;
-  right: 3%;
-  bottom: 3%;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 36px;
-  padding: 0 14px;
-  border: 1px solid rgba(196, 178, 244, 0.4);
-  border-radius: 999px;
-  background: rgba(8, 9, 20, 0.82);
-  backdrop-filter: blur(6px);
-  color: #e7e2f2;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  z-index: 4;
+  top: 22%;
+  left: 5%;
+  width: 36%;
+  max-width: 720px;
 }
-.zoomButton:hover {
-  border-color: var(--lav);
-  color: #fff;
-}
-.zoomDialog {
-  width: min(92vw, 1200px);
-  max-width: 92vw;
-  padding: 0;
-  border: 1px solid rgba(196, 178, 244, 0.3);
-  border-radius: 14px;
-  background: #0a0b12;
-  color: #f3f0f8;
-}
-.zoomDialog::backdrop {
-  background: rgba(4, 5, 10, 0.86);
-}
-.zoomClose {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  z-index: 1;
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
-  border: 1px solid rgba(196, 178, 244, 0.4);
-  border-radius: 50%;
-  background: rgba(8, 9, 20, 0.82);
-  color: #f3f0f8;
-}
-.zoomClose svg {
-  width: 16px;
-  height: 16px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.7;
-  stroke-linecap: round;
-}
-.zoomImage {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1361 / 652;
-}
-
-/* B03: compact table of contents right after the hero facts band. */
-.toc {
+.eyebrow {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 24px;
-}
-.toc a {
-  display: inline-flex;
   align-items: center;
-  min-height: 40px;
-  padding: 0 16px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  color: #c9c4d5;
-  font-size: 12.5px;
+  gap: 12px;
+  margin: 0 0 26px;
+  color: #b2b1c3;
+  font-size: 12px;
   font-weight: 500;
-  transition: border-color 0.2s ease, color 0.2s ease;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
 }
-.toc a:hover {
-  border-color: var(--lav);
-  color: #fff;
+.eyebrow::before {
+  width: 40px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.copy h1 {
+  margin: 0;
+  color: #fbfaff;
+  font-size: clamp(42px, 3.55cqw, 76px);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  line-height: 1.02;
+  animation: bogovRise 0.8s 0.15s ease both;
+}
+.copy h1 em {
+  color: var(--lav);
+  font-style: normal;
+}
+.description {
+  max-width: 430px;
+  margin: 30px 0 0;
+  color: #b9b4c9;
+  font-size: clamp(16px, 1.2cqw, 21px);
+  line-height: 1.55;
 }
 
-/* Нижняя часть: факты одной строкой, сноска и состав работ */
-.band {
-  margin-top: 26px;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
-}
 .facts {
+  position: absolute;
+  z-index: 4;
+  top: 71%;
+  left: 5%;
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px 0;
+  gap: 40px;
   margin: 0;
   padding: 0;
   list-style: none;
+  animation: bogovRise 0.7s 1.5s ease both;
 }
 .facts li {
-  padding-right: 32px;
-  color: #d8d3e6;
-  font-size: 12.5px;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: #a39dbb;
+  font-size: 14px;
+  line-height: 1.35;
+}
+.facts li + li {
+  padding-left: 40px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+.facts svg {
+  width: 34px;
+  height: 34px;
+  flex: none;
+  fill: none;
+  stroke: var(--lav);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.facts b {
+  display: block;
+  color: #fbfaff;
+  font-size: 13px;
+  font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
 }
-.facts li + li {
-  padding-left: 32px;
-  border-left: 1px solid var(--line);
-}
-.facts .key {
+
+.toc {
+  position: absolute;
+  z-index: 4;
+  bottom: 6%;
+  left: 5%;
   display: flex;
-  align-items: baseline;
-  gap: 12px;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  max-width: 30%;
+  animation: bogovRise 0.7s 1.5s ease both;
 }
-.facts .key b {
-  color: #fbfaff;
-  font-size: 32px;
+.toc a {
+  color: #6c677f;
+  font-size: 12px;
   font-weight: 500;
-  letter-spacing: -0.04em;
-  line-height: 1;
+  transition: color 0.2s ease;
 }
-.note {
-  margin: 10px 0 0;
-  color: #7d7692;
-  font-size: 11.5px;
-  letter-spacing: 0.01em;
-}
-.scope {
-  margin: 14px 0 0;
-  color: #a39dbb;
-  font-size: 13px;
-  letter-spacing: 0.01em;
+.toc a:hover {
+  color: #fff;
 }
 
-@media (max-width: 1080px) {
-  .hero {
-    min-height: 0;
-    padding-top: 44px;
-  }
-  .container {
-    width: calc(100% - 64px);
-  }
-  .grid {
-    grid-template-columns: 1fr;
-    gap: 40px;
+.visual {
+  display: contents;
+}
+
+/* 4. MONITOR — корпус в CSS, внутри экран с сайтом */
+.monitor {
+  --frame: #15161b;
+
+  position: absolute;
+  z-index: 2;
+  top: 31.5%;
+  left: 34%;
+  width: 44%;
+  transform: perspective(2200px) rotateY(6deg) rotateX(1.5deg);
+  transform-origin: 40% 40%;
+  animation: bogovMonitor 0.9s 0.35s ease both;
+}
+.monitorScreen {
+  position: relative;
+  aspect-ratio: 1672 / 941;
+  overflow: hidden;
+  border: 6px solid var(--frame);
+  border-bottom-width: 0;
+  border-radius: 11px 11px 0 0;
+  background: #0b0b10;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.07),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    0 40px 90px rgba(0, 0, 0, 0.65);
+}
+.monitorScreen img {
+  object-fit: cover;
+}
+.monitorChin {
+  height: 2.4%;
+  min-height: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 0;
+  border-radius: 0 0 11px 11px;
+  background: linear-gradient(180deg, #1c1d23, #121318);
+}
+.monitorNeck {
+  width: 11%;
+  height: clamp(36px, 4.6cqw, 92px);
+  margin: 0 auto;
+  clip-path: polygon(12% 0, 88% 0, 100% 100%, 0 100%);
+  background: linear-gradient(90deg, #1b1c22, #3a3b43 45%, #202126);
+}
+.monitorBase {
+  width: 28%;
+  height: 9px;
+  margin: -1px auto 0;
+  border-radius: 40% 40% 999px 999px / 100% 100% 100% 100%;
+  background: linear-gradient(180deg, #4a4b54, #1c1d22);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset;
+}
+.monitorShadow {
+  position: absolute;
+  z-index: -1;
+  right: 6%;
+  bottom: -14px;
+  left: 6%;
+  height: 26px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.75), transparent 70%);
+  filter: blur(6px);
+}
+
+/* 5. PHONE — стоит перед монитором */
+.phone {
+  position: absolute;
+  z-index: 3;
+  top: 40%;
+  left: 70.5%;
+  width: 11.5%;
+  transform: rotate(-3deg);
+  animation: bogovPhone 0.9s 0.7s ease both;
+}
+.phoneFrame {
+  position: relative;
+  padding: 7px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  background: linear-gradient(160deg, #24252c, #0a0a0d 40%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05),
+    -26px 30px 60px rgba(0, 0, 0, 0.75),
+    0 6px 14px rgba(0, 0, 0, 0.6);
+}
+.phoneScreen {
+  position: relative;
+  aspect-ratio: 852 / 1846;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #0b0b10;
+}
+.phoneScreen img {
+  object-fit: cover;
+  object-position: top;
+}
+.phoneIsland {
+  position: absolute;
+  top: 13px;
+  left: 50%;
+  width: 22%;
+  height: 8px;
+  border-radius: 999px;
+  background: #050506;
+  transform: translateX(-50%);
+}
+
+/* 6. 91% */
+.result {
+  position: absolute;
+  z-index: 5;
+  top: 5%;
+  left: 80%;
+  animation: bogovRise 0.9s 1.1s ease both;
+}
+.big {
+  margin: 0;
+  color: var(--lav);
+  font-size: clamp(64px, 5.6cqw, 118px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+}
+.bigLabel {
+  margin: 8px 0 0;
+  color: #fbfaff;
+  font-size: clamp(14px, 1.1cqw, 22px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.bigNote {
+  margin: 8px 0 0;
+  color: #9a95ae;
+  font-size: clamp(12px, 0.9cqw, 17px);
+  line-height: 1.5;
+}
+.trace {
+  position: absolute;
+  top: 4%;
+  right: 100%;
+  width: 4.5cqw;
+  min-width: 56px;
+  max-width: 96px;
+  margin-right: 10px;
+  fill: none;
+  stroke: var(--lav);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.8;
+}
+
+@keyframes bogovFade {
+  from { opacity: 0; }
+}
+@keyframes bogovRise {
+  from { opacity: 0; transform: translateY(14px); }
+}
+@keyframes bogovMonitor {
+  from { opacity: 0; transform: perspective(2200px) rotateY(6deg) rotateX(1.5deg) translateX(40px); }
+}
+@keyframes bogovPhone {
+  from { opacity: 0; transform: rotate(-3deg) translateY(30px); }
+}
+
+/* Планшет: overlap уменьшен, desktop крупно, mobile ниже */
+@media (max-width: 1180px) {
+  .stage {
+    width: 100%;
+    aspect-ratio: auto;
+    height: 860px;
   }
   .copy {
-    max-width: none;
+    width: 42%;
   }
-  .hero h1 {
-    font-size: clamp(36px, 7.6vw, 60px);
+  .monitor {
+    top: 36%;
+    left: 24%;
+    width: 62%;
   }
-  .visual {
-    margin-right: calc(-32px);
+  .phone {
+    top: 52%;
+    left: 74%;
+    width: 15%;
   }
-  .stage {
-    width: min(100%, 760px);
+  .result {
+    left: 66%;
+    top: 5%;
+  }
+  .toc {
+    max-width: 36%;
   }
 }
 
-/* Телефон: реальный сайт крупно, без уменьшенного desktop-коллажа. */
+/* Телефон: последовательная история, без desktop-коллажа */
 @media (max-width: 760px) {
-  .hero {
-    padding: 30px 0 40px;
-  }
-  .container {
-    width: calc(100% - 40px);
-  }
-  .grid {
-    gap: 32px;
-  }
-  .eyebrow {
-    margin-bottom: 18px;
-    font-size: 10px;
-  }
-  .hero h1 {
-    font-size: clamp(32px, 9.2vw, 42px);
-    letter-spacing: -0.045em;
-  }
-  .hero h1 br {
-    display: none;
-  }
-  .description {
-    margin-top: 18px;
-    font-size: 16px;
-  }
-  .visual {
-    margin-right: 0;
-  }
   .stage {
+    display: flex;
+    flex-direction: column;
     width: 100%;
-    aspect-ratio: 1000 / 1120;
+    aspect-ratio: auto;
+    height: auto;
+    padding: 76px 20px 40px;
   }
-  .desktop {
+  .bg {
     top: 0;
-    width: 100%;
-    aspect-ratio: 1.5;
+    left: 10%;
+    width: 120%;
+    opacity: 0.28;
   }
-  .desktop img {
-    object-position: 8% top;
+  .breadcrumbs {
+    top: 20px;
+    left: 20px;
+    right: 20px;
   }
-  .mobile {
-    top: 46%;
-    left: 64%;
-    width: 33%;
-  }
-  .zoomButton {
-    right: 3%;
-    bottom: 3%;
-    min-height: 34px;
-    padding: 0 12px;
-    font-size: 10px;
-  }
+  .copy,
+  .facts,
   .toc {
-    gap: 8px;
-    margin-top: 20px;
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: none;
   }
-  .toc a {
-    min-height: 38px;
-    padding: 0 13px;
-    font-size: 12px;
+  .copy { order: 1; }
+  .visual {
+    position: relative;
+    display: block;
+    order: 2;
+    width: 100%;
+    height: clamp(500px, calc(148vw - 18px), 1120px);
+    margin-top: 28px;
+  }
+  .monitor {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transform: none;
+  }
+  .phone {
+    position: absolute;
+    top: 42%;
+    right: 4%;
+    left: auto;
+    width: 40%;
+    margin: 0;
+    transform: rotate(-3deg);
+  }
+  .result {
+    position: absolute;
+    z-index: 5;
+    top: 57%;
+    left: 2%;
+    width: 52%;
+    animation: bogovRise 0.9s 1.1s ease both;
   }
   .facts {
+    order: 3;
     display: grid;
-    gap: 14px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 28px;
   }
-  .facts li,
+  .facts li { min-width: 0; gap: 8px; font-size: clamp(10px, 3.1cqw, 13px); }
+  .facts svg { width: 24px; height: 24px; }
+  .facts b { font-size: clamp(10px, 2.8cqw, 12px); letter-spacing: 0.08em; }
+  .toc { order: 4; margin-top: 28px; }
   .facts li + li {
-    padding: 0;
-    border: 0;
+    padding-left: 0;
+    border-left: 0;
   }
-  .note {
-    margin-top: 14px;
-  }
-  .band {
-    margin-top: 40px;
+  .eyebrow { margin-bottom: 18px; font-size: 10px; }
+  .copy h1 { font-size: clamp(34px, 9.6cqw, 44px); }
+  .description { margin-top: 18px; font-size: 16px; }
+  .big { font-size: clamp(64px, 22cqw, 96px); }
+  .bigLabel { margin-top: 7px; font-size: clamp(12px, 3.5cqw, 16px); letter-spacing: 0.04em; line-height: 1.25; }
+  .bigNote { margin-top: 10px; font-size: clamp(11px, 3.1cqw, 14px); line-height: 1.5; }
+  .trace { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg, .copy h1, .facts, .toc, .monitor, .phone, .result {
+    animation: none;
   }
 }

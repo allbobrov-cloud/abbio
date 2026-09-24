@@ -11,9 +11,7 @@ import styles from "./HomeExperience.module.css";
 const directions = [
   { slug: "design", name: "Дизайн", title: "Впечатление, за которым есть смысл.", text: "Помогаем объяснить продукт и сделать бренд узнаваемым.", image: "/home/design-board-v1.avif", project: "Дизайн-доска / AI-концепция", label: "От идеи к макету", output: "Характер вашего бренда", icon: "◈", caseSlug: null },
   { slug: "websites", name: "Сайты", title: "Удобно выбрать. Легко обратиться.", text: "Продумываем путь посетителя — от первого экрана до заявки.", image: "/cases/volhonka-desktop.avif", project: "Металлобаза Волхонка", label: "Сценарий клиента", output: "От интереса к заявке", icon: "▤", caseSlug: "volhonka" },
-  { slug: "marketing", name: "Маркетинг", title: "Привлечение — только начало.", text: "Соединяем продвижение с аналитикой и работой с обращениями.", image: "/home/marketing-report-v1.avif", project: "Пример отчёта / условные данные", label: "Каналы · обращения · расходы", output: "Решения на основе данных", icon: "▥", caseSlug: null },
-  { slug: "seo", name: "SEO", title: "Поиск — тоже канал обращений.", text: "Развиваем сайт под реальный спрос и связываем страницы с целевыми действиями.", image: "/services/seo-final-search-channel-v2.webp", project: "Пример структуры спроса", label: "Спрос · структура · измерение", output: "Страницы под конкретные запросы", icon: "◎", caseSlug: null },
-  { slug: "yandex-direct", name: "Яндекс Директ", title: "Быстрый запуск потока обращений.", text: "Связываем объявления, посадочные страницы и понятный отчёт.", image: "/services/yandex-direct-campaign-structure-v2.webp", project: "Пример структуры кампании", label: "Реклама · CRM · отчётность", output: "Обращения с понятным источником", icon: "⇄", caseSlug: null }
+  { slug: "marketing", name: "Маркетинг", title: "Привлечение — только начало.", text: "Соединяем продвижение с аналитикой и работой с обращениями.", image: "/home/marketing-report-v1.avif", project: "Пример отчёта / условные данные", label: "Каналы · обращения · расходы", output: "Решения на основе данных", icon: "▥", caseSlug: null }
 ];
 
 function useVisible() {
@@ -86,22 +84,44 @@ const situations = [
   { label: "Заявки теряются, много рутины", heading: "Навести порядок после первого обращения.", text: "Связываем формы, звонки и сообщения с CRM. Настраиваем ответственных, уведомления и автоматические действия.", steps: ["Карта текущего процесса", "CRM и интеграции", "Задачи и уведомления"], result: "Видно, откуда пришло обращение и кто работает с ним дальше.", code: "OPERATIONS", serviceSlug: "marketing" }
 ];
 
+const taskVisuals = {
+  launch: "/home/launch-concept-workspace-v3.png",
+  reach: "/home/task-reach-workspace-v2.png"
+} as const;
+
 export function TaskExplorer() {
   const [selected, setSelected] = useState(0);
+  const [pointer, setPointer] = useState(true);
   const { ref } = useVisible();
   const situation = situations[selected];
   return (
     <section className={`${base.section} ${styles.tasks}`} id="tasks" aria-labelledby="tasks-title">
       <div className={`${base.container} ${styles.tasksInner}`}>
         <div className={`${base.sectionHead} ${styles.tasksHead}`}><div><p className={base.eyebrow}>С чего начать</p><h2 id="tasks-title" aria-label="Узнаёте свою ситуацию?">Узнаёте<br /><em>свою ситуацию?</em></h2></div><p className={`${base.sectionIntro} ${styles.tasksIntro}`}>Не обязательно знать, какая услуга нужна.<br /> Начнём с того, что хочется изменить.</p></div>
-        <div className={styles.taskLayout} ref={ref}>
-          <div className={styles.taskChoices} role="group" aria-label="Выберите задачу бизнеса">{situations.map((item, index) => <button type="button" key={item.code} aria-pressed={selected === index} aria-controls="task-answer" onClick={() => setSelected(index)}><span>0{index + 1}</span><strong>{item.label}<small>{["От идеи к первому запуску", "Найти барьеры на пути клиента", "Выбрать каналы привлечения", "Связать обращения и команду"][index]}</small></strong><span className={styles.choiceMark} aria-hidden="true">{selected === index ? "−" : "+"}</span></button>)}</div>
+        <div className={styles.taskLayout} ref={ref} data-motion={pointer}>
+          <div className={styles.taskChoices} role="group" aria-label="Выберите задачу бизнеса">{situations.map((item, index) => <button type="button" key={item.code} aria-pressed={selected === index} aria-controls="task-answer" onClick={() => { setPointer(true); setSelected(index); }}><span>0{index + 1}</span><strong>{item.label}<small>{["От идеи к первому запуску", "Найти барьеры на пути клиента", "Выбрать каналы привлечения", "Связать обращения и команду"][index]}</small></strong><span className={styles.choiceMark} aria-hidden="true">{selected === index ? "−" : "+"}</span></button>)}</div>
           <div className={styles.taskAnswer} id="task-answer" aria-live="polite" data-scenario={selected}>
             <div className={styles.answerMeta}><span>{["Собираем новый проект", "Находим, где теряются сделки", "Работаем со спросом", "Организуем работу с заявками"][selected]}</span><span aria-hidden="true">0{selected + 1} / 04</span></div>
             <div className={styles.answerContent}>
               <h3>{situation.heading}</h3>
               <p>{situation.text}</p>
-              <ul className={styles.taskSteps}>{situation.steps.map(step => <li key={step}><span aria-hidden="true">✓</span>{step}</li>)}</ul>
+              {selected === 1 ? (
+                <ScenarioVisual kind="audit" animate={pointer} expanded className={styles.taskScene} />
+              ) : selected === 3 ? (
+                <div className={styles.crmMetricVisual} aria-hidden="true">
+                  <div className={styles.crmMetricHeader}><span>CRM / СЦЕНАРИЙ</span><b>ПРИМЕР</b></div>
+                  <div className={styles.crmMetricGrid}>
+                    <div className={styles.crmMetric}><strong>03</strong><small>канала входа</small></div>
+                    <div className={styles.crmMetric}><strong>01</strong><small>маршрут заявки</small></div>
+                    <div className={styles.crmMetric}><strong>→</strong><small>следующий шаг</small></div>
+                  </div>
+                  <div className={styles.crmTimeline}><span>Форма</span><i /><span>CRM</span><i /><span>Ответственный</span></div>
+                </div>
+              ) : (
+                <div className={styles.answerImage} aria-hidden="true">
+                  <Image src={selected === 0 ? taskVisuals.launch : taskVisuals.reach} alt="" fill sizes="(max-width: 760px) 95vw, 58vw" />
+                </div>
+              )}
               <p className={styles.taskResult}>{situation.result}</p>
             </div>
             <div className={styles.taskActions}>

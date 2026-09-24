@@ -139,11 +139,11 @@ export function SeoServicePage() {
           <SectionLead index="07 / Кейс" id="cases-title" title="Реальный результат: Мотошкола Владимира Богова." description="Развили структуру и страницы под поисковый спрос. Ниже — фактические позиции по отслеживаемым запросам, а не прогноз." />
           <Link href="/cases/bogov" className={styles.seoCaseCard}>
             <div className={styles.seoCaseStat}>
-              <strong>91%</strong>
+              <strong>94%</strong>
               <span>запросов в ТОП-10</span>
             </div>
             <dl className={styles.seoCaseMeta}>
-              <div><dt>Выборка</dt><dd>22 отслеживаемых запроса</dd></div>
+              <div><dt>Выборка</dt><dd>91 из 97 отслеживаемых запросов</dd></div>
               <div><dt>Регион</dt><dd>Санкт-Петербург, Яндекс</dd></div>
               <div><dt>Дата</dt><dd>09.09.2026</dd></div>
             </dl>

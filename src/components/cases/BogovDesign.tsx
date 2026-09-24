@@ -1,8 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { SiteCrop } from "./SiteCrop";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./BogovDesign.module.css";
 
 // Состояние появления выставляется до первой отрисовки, иначе финал успевает мигнуть.
@@ -10,27 +9,54 @@ const useArmingEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /*
- * Путь ученика отмечен на реальных экранах сайта:
- * 01 и 03 — заголовок и кнопка «Записаться» на реальном desktop-скриншоте,
- * 02 — реальные плитки выбора формата на мобильном экране (десктопного
- * скриншота с отдельным блоком выбора программ в проекте нет).
+ * Композиция по референсу в сетке 1536 × 1024.
+ * LAPTOP и PHONE — готовые ассеты (RGBA), интерфейс внутри не перерисовывается.
  */
-const TRACE =
-  "M 570 278 C 500 300, 380 312, 288 320 C 340 332, 392 344, 430 352";
+const W = 1536;
+const H = 1024;
 
-/* 0 desktop · 1 точка 01 · 2 траектория к 02 · 3 траектория к 03 · 4 mobile */
+const pctX = (v: number) => `${(v / W) * 100}%`;
+const pctY = (v: number) => `${(v / H) * 100}%`;
+
+/* 0 ноутбук · 1 «01» · 2 «02» · 3 телефон · 4 «03» */
 const FINAL = 4;
-const SEQUENCE = [
-  { phase: 0, at: 0 },
-  { phase: 1, at: 500 },
-  { phase: 2, at: 950 },
-  { phase: 3, at: 1500 },
-  { phase: 4, at: 2000 },
-];
+
+const notes = [
+  {
+    key: "one",
+    n: "01",
+    title: "Понять формат",
+    text: "Сразу понятно, чему учим и для кого.",
+    x: 268,
+    y: 330,
+    path: "M 310 348 C 400 336, 490 372, 566 430",
+    dot: [566, 430],
+  },
+  {
+    key: "two",
+    n: "02",
+    title: "Выбрать обучение",
+    text: "Направления под разные цели.",
+    x: 232,
+    y: 640,
+    path: "M 274 656 C 360 660, 450 646, 540 634",
+    dot: [540, 634],
+  },
+  {
+    key: "three",
+    n: "03",
+    title: "Записаться",
+    text: "Короткий путь до обращения.",
+    x: 1392,
+    y: 748,
+    path: "M 1394 772 C 1376 810, 1362 850, 1338 884",
+    dot: [1338, 884],
+  },
+] as const;
 
 function Stage() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState(FINAL);
+  const [step, setStep] = useState(FINAL);
   const [armed, setArmed] = useState(false);
 
   useArmingEffect(() => {
@@ -43,7 +69,7 @@ function Stage() {
     }
 
     setArmed(true);
-    setPhase(-1);
+    setStep(-1);
 
     let timers: number[] = [];
     const observer = new IntersectionObserver(
@@ -52,8 +78,8 @@ function Stage() {
           return;
         }
         observer.disconnect();
-        timers = SEQUENCE.map((item) =>
-          window.setTimeout(() => setPhase(item.phase), item.at)
+        timers = [0, 550, 1050, 1550, 2050].map((at, i) =>
+          window.setTimeout(() => setStep(i), at)
         );
       },
       { threshold: 0.25 }
@@ -65,7 +91,8 @@ function Stage() {
     };
   }, []);
 
-  const on = (from: number) => (phase >= from ? styles.isIn : "");
+  const on = (from: number) => (step >= from ? styles.isIn : "");
+  const noteStep = { one: 1, two: 2, three: 4 } as const;
 
   return (
     <div
@@ -73,60 +100,79 @@ function Stage() {
       className={styles.stage}
       data-armed={armed ? "true" : undefined}
     >
-      {/* Крупный план первого экрана: как посетитель понимает формат */}
-      <SiteCrop
-        className={`${styles.crop} ${styles.cropTop} ${styles.rev} ${on(0)}`}
-        src="/cases/bogov-desktop.avif"
-        width={1361}
-        height={652}
-        alt="Первый экран сайта bogov-team.ru крупным планом"
-        area={{ x1: 0.03, y1: 0.12, x2: 0.52, y2: 0.66 }}
-        sizes="(max-width: 760px) 92vw, 42vw"
-        priority
-      />
+      <header className={styles.head}>
+        <p className={styles.eyebrow}>02 · UX / UI</p>
+        <h2 id="design-title">
+          Собрали сайт
+          <br />
+          <em>вокруг выбора ученика.</em>
+        </h2>
+      </header>
 
-      {/* Мобильный экран — главный объект: выбор формата живёт и на телефоне.
-          Ассет — снимок телефона с системными панелями, показываем только экран. */}
-      <div className={`${styles.mobile} ${styles.rev} ${styles.lift} ${on(4)}`}>
-        <div className={styles.mobileInner}>
-          <Image
-            src="/cases/bogov-mobile.avif"
-            alt="Мобильный экран сайта bogov-team.ru с выбором формата обучения"
-            fill
-            sizes="(max-width: 760px) 70vw, 28vw"
-          />
-        </div>
+      <div className={styles.glow} aria-hidden="true" />
+
+      <div className={`${styles.laptop} ${styles.rev} ${on(0)}`}>
+        <Image
+          src="/cases/bogov-ux-laptop.webp"
+          alt="Сайт Мотошколы Владимира Богова на ноутбуке: первый экран и блок «Направления обучения»"
+          fill
+          sizes="(max-width: 900px) 100vw, 80vw"
+          priority
+        />
       </div>
 
-      {/* Крупный план точки записи */}
-      <SiteCrop
-        className={`${styles.crop} ${styles.cropCta} ${styles.rev} ${on(3)}`}
-        src="/cases/bogov-desktop.avif"
-        width={1361}
-        height={652}
-        alt="Кнопка записи на сайте bogov-team.ru крупным планом"
-        area={{ x1: 0.02, y1: 0.795, x2: 0.33, y2: 0.995 }}
-        sizes="(max-width: 760px) 92vw, 32vw"
-      />
-
-      {/* Тонкая траектория: понять формат → выбрать обучение → записаться */}
-      <svg className={styles.lines} viewBox="0 0 1000 500" aria-hidden="true">
-        <path
-          className={`${styles.trace} ${styles.draw} ${on(2)}`}
-          pathLength={1}
-          d={TRACE}
+      <div className={`${styles.phone} ${styles.rev} ${on(3)}`}>
+        <Image
+          src="/cases/bogov-ux-phone.webp"
+          alt="Сайт Мотошколы Владимира Богова на телефоне: форма записи на обучение"
+          fill
+          sizes="(max-width: 900px) 70vw, 26vw"
+          priority
         />
+      </div>
+
+      <svg className={styles.lines} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
+        {notes.map((note) => (
+          <g key={note.key}>
+            <path
+              className={`${styles.link} ${on(noteStep[note.key])}`}
+              pathLength={1}
+              d={note.path}
+            />
+            <circle
+              className={`${styles.dot} ${on(noteStep[note.key])}`}
+              cx={note.dot[0]}
+              cy={note.dot[1]}
+              r="3.5"
+            />
+          </g>
+        ))}
       </svg>
 
-      <span className={`${styles.point} ${styles.p1} ${styles.rev} ${on(1)}`}>
-        <i>01</i>Понять формат
-      </span>
-      <span className={`${styles.point} ${styles.p2} ${styles.rev} ${on(2)}`}>
-        <i>02</i>Выбрать обучение
-      </span>
-      <span className={`${styles.point} ${styles.p3} ${styles.rev} ${on(3)}`}>
-        <i>03</i>Записаться
-      </span>
+      {notes.map((note) => (
+        <div
+          key={note.key}
+          className={`${styles.note} ${styles[note.key]} ${styles.rev} ${on(noteStep[note.key])}`}
+          style={
+            {
+              "--x": pctX(note.x),
+              "--y": pctY(note.y),
+            } as CSSProperties
+          }
+        >
+          <i>{note.n}</i>
+          <h3>{note.title}</h3>
+          <p>{note.text}</p>
+        </div>
+      ))}
+
+      <p className={`${styles.foot} ${styles.rev} ${on(FINAL)}`}>
+        <span>Понять</span>
+        <i aria-hidden="true" />
+        <span>Выбрать</span>
+        <i aria-hidden="true" />
+        <span>Записаться</span>
+      </p>
     </div>
   );
 }
@@ -139,21 +185,6 @@ export function BogovDesign() {
       aria-labelledby="design-title"
     >
       <div className={styles.container}>
-        <header className={styles.head}>
-          <div>
-            <p className={styles.eyebrow}>02 · UX / UI</p>
-            <h2 id="design-title" aria-label="Собрали сайт вокруг выбора ученика.">
-              Собрали сайт
-              <br />
-              <em>вокруг выбора ученика.</em>
-            </h2>
-          </div>
-          <p className={styles.description}>
-            Помогаем понять формат, выбрать обучение{" "}
-            <br />и перейти к записи.
-          </p>
-        </header>
-
         <Stage />
       </div>
     </section>

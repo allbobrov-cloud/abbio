@@ -2,51 +2,33 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ActionArrow } from "@/components/ActionArrow";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./BogovFinal.module.css";
 
 // Состояние появления выставляется до первой отрисовки, иначе финал успевает мигнуть.
 const useArmingEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
 
-/* Пять результатов кейса — короткие отсылки к уже показанным блокам, без повтора деталей. */
-const points = [
-  { key: "site", n: "01", verb: "С нуля", label: "Сайт", x: 170, y: 22 },
-  { key: "mobile", n: "02", verb: "Адаптировали", label: "Desktop + Mobile", x: 60, y: 300 },
-  { key: "leads", n: "03", verb: "Связали", label: "Обращения + источники", x: 790, y: 175 },
-  { key: "seo", n: "04", verb: "Развили", label: "SEO", x: 690, y: 22 },
-  { key: "ads", n: "05", verb: "Усилили", label: "Рекламу", x: 560, y: 392 },
-] as const;
+/*
+ * Композиция по референсу в сетке 1600 × 1110.
+ * LAPTOP и PHONE — готовые RGBA-ассеты; итог собирает историю кейса,
+ * новых данных здесь нет: 94% и 91 из 97 — из блока «SEO».
+ */
+const W = 1600;
+const H = 1110;
 
-const SITE = { x: 310, y: 66, w: 380 };
-const SITE_BOTTOM = Math.round(SITE.y + (SITE.w * 654) / 1363);
-const SITE_CENTER_X = SITE.x + SITE.w / 2;
-const MOBILE = { x: 246, y: SITE_BOTTOM - 42, w: 116 };
+const pctX = (v: number) => `${(v / W) * 100}%`;
+const pctY = (v: number) => `${(v / H) * 100}%`;
 
-function anchor(point: (typeof points)[number]) {
-  const cx = point.x + 60;
-  const cy = point.y + 10;
-  const tx = point.x < SITE.x ? SITE.x : point.x > SITE.x + SITE.w ? SITE.x + SITE.w : SITE_CENTER_X;
-  const ty = point.y < SITE.y ? SITE.y : point.y > SITE_BOTTOM ? SITE_BOTTOM : (SITE.y + SITE_BOTTOM) / 2;
-  return `M ${cx} ${cy} Q ${(cx + tx) / 2} ${(cy + ty) / 2} ${tx} ${ty}`;
-}
+const box = (x: number, y: number, w: number) =>
+  ({ "--x": pctX(x), "--y": pctY(y), "--w": pctX(w) }) as CSSProperties;
 
-/* 0 сайт · 1 desktop+mobile · 2 обращения · 3 seo · 4 реклама · 5 система целиком · 6 итог */
-const FINAL = 6;
-const SEQUENCE = [
-  { phase: 0, at: 0 },
-  { phase: 1, at: 450 },
-  { phase: 2, at: 850 },
-  { phase: 3, at: 1250 },
-  { phase: 4, at: 1650 },
-  { phase: 5, at: 2050 },
-  { phase: 6, at: 2500 },
-];
+/* 0 H2 · 1 ноутбук и свечение · 2 телефон · 3 — · 4 «01/02» · 5 «03–05» · 6 фраза · 7 CTA */
+const FINAL = 7;
 
-function Stage() {
+function Stage({ next }: { next: { slug: string; name: string } }) {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState(FINAL);
+  const [step, setStep] = useState(FINAL);
   const [armed, setArmed] = useState(false);
 
   useArmingEffect(() => {
@@ -58,7 +40,7 @@ function Stage() {
       return;
     }
     setArmed(true);
-    setPhase(-1);
+    setStep(-1);
 
     let timers: number[] = [];
     const observer = new IntersectionObserver(
@@ -67,11 +49,11 @@ function Stage() {
           return;
         }
         observer.disconnect();
-        timers = SEQUENCE.map((item) =>
-          window.setTimeout(() => setPhase(item.phase), item.at)
+        timers = [0, 400, 850, 1250, 1900, 2500, 3000, 3400].map((at, i) =>
+          window.setTimeout(() => setStep(i), at)
         );
       },
-      { threshold: 0.2 }
+      { threshold: 0.25 }
     );
     observer.observe(root);
     return () => {
@@ -80,7 +62,7 @@ function Stage() {
     };
   }, []);
 
-  const on = (from: number) => (phase >= from ? styles.isIn : "");
+  const on = (from: number) => (step >= from ? styles.isIn : "");
 
   return (
     <div
@@ -88,101 +70,206 @@ function Stage() {
       className={styles.stage}
       data-armed={armed ? "true" : undefined}
     >
-      <svg className={styles.lines} viewBox="0 0 1000 470" aria-hidden="true">
-        {points.map((point, index) => (
-          <path
-            key={point.key}
-            className={`${styles.link} ${styles.draw} ${on(index + 1)}`}
-            pathLength={1}
-            d={anchor(point)}
+      <div className={`${styles.glow} ${styles.rev} ${on(1)}`} aria-hidden="true">
+        <span className={styles.glowWide} />
+        <span className={styles.glowCore} />
+        <span className={styles.glowFloor} />
+      </div>
+
+      <header className={`${styles.head} ${styles.rev} ${on(0)}`}>
+        <p className={styles.eyebrow}>Итог</p>
+        <h2 id="final-title">
+          Сайт перестал быть
+          {" "}
+          <br />
+          <em>
+            просто страницей
+            {" "}
+            <br />
+            мотошколы.
+          </em>
+        </h2>
+      </header>
+
+      <div className={styles.devices}>
+        <div className={`${styles.laptop} ${styles.rev} ${on(1)}`} style={box(380, 247, 930)}>
+          <Image
+            src="/cases/bogov-final-laptop.webp"
+            alt="Сайт Мотошколы Владимира Богова на ноутбуке"
+            fill
+            sizes="(max-width: 900px) 110vw, 54vw"
           />
-        ))}
-      </svg>
-
-      <div
-        className={`${styles.site} ${styles.rev} ${on(0)}`}
-        style={{ left: `${(SITE.x / 1000) * 100}%`, top: `${(SITE.y / 470) * 100}%`, width: `${(SITE.w / 1000) * 100}%` }}
-      >
-        <Image
-          src="/cases/bogov-desktop.avif"
-          alt="Сайт bogov-team.ru"
-          fill
-          sizes="(max-width: 760px) 92vw, 40vw"
-        />
-      </div>
-      <div
-        className={`${styles.mobile} ${styles.rev} ${on(1)}`}
-        style={{ left: `${(MOBILE.x / 1000) * 100}%`, top: `${(MOBILE.y / 470) * 100}%`, width: `${(MOBILE.w / 1000) * 100}%` }}
-      >
-        <Image
-          src="/cases/bogov-mobile.avif"
-          alt="Мобильная версия сайта bogov-team.ru"
-          fill
-          sizes="14vw"
-        />
+        </div>
+        <div className={`${styles.phone} ${styles.rev} ${on(2)}`} style={box(262, 355, 340)}>
+          <Image
+            src="/cases/bogov-final-phone.webp"
+            alt="Мобильная версия сайта Мотошколы Владимира Богова"
+            fill
+            sizes="(max-width: 900px) 40vw, 20vw"
+          />
+        </div>
       </div>
 
-      {points.map((point, index) => (
-        <span
-          key={point.key}
-          className={`${styles.point} ${styles.rev} ${on(index + 1)}`}
-          style={{ left: `${(point.x / 1000) * 100}%`, top: `${(point.y / 470) * 100}%` }}
-        >
-          <i>{point.n}</i>
-          <b>{point.verb}</b>
-          {point.label}
-        </span>
-      ))}
+      <section className={`${styles.point} ${styles.p1} ${styles.rev} ${on(4)}`} style={box(40, 225, 230)}>
+        <p className={styles.title}>
+          <b>01</b>
+          <span>Создали</span>
+        </p>
+        <p className={styles.text}>
+          Сайт с нуля
+          {" "}
+          <br />
+          под задачи бизнеса.
+        </p>
+        <div className={`${styles.mini} ${styles.wire}`}>
+          <svg viewBox="0 0 64 44" aria-hidden="true">
+            <rect x="1" y="1" width="62" height="42" rx="3" />
+            <path d="M1 9h62M1 9l62 34M63 9 1 43" />
+          </svg>
+          <span>
+            Структура
+            <br />
+            Дизайн
+            <br />
+            Контент
+            <br />
+            Запись на обучение
+          </span>
+        </div>
+      </section>
+
+      <section className={`${styles.point} ${styles.p2} ${styles.rev} ${on(4)}`} style={box(40, 600, 262)}>
+        <p className={styles.title}>
+          <b>02</b>
+          <span>Адаптировали</span>
+        </p>
+        <p className={styles.text}>Desktop + Mobile</p>
+        <div className={`${styles.mini} ${styles.devicesMini}`}>
+          <span>
+            <svg viewBox="0 0 32 28" aria-hidden="true">
+              <rect x="2" y="2" width="28" height="18" rx="2" />
+              <path d="M11 26h10M16 20v6" />
+            </svg>
+            Desktop
+          </span>
+          <span>
+            <svg viewBox="0 0 20 28" aria-hidden="true">
+              <rect x="2" y="1" width="16" height="26" rx="3" />
+              <path d="M8 23h4" />
+            </svg>
+            Mobile
+          </span>
+        </div>
+      </section>
+
+      <section className={`${styles.point} ${styles.p3} ${styles.rev} ${on(5)}`} style={box(1300, 415, 240)}>
+        <p className={styles.title}>
+          <b>03</b>
+          <span>Связали</span>
+        </p>
+        <p className={styles.text}>
+          Обращения + источники
+          {" "}
+          <br />
+          в единую систему.
+        </p>
+        <div className={`${styles.mini} ${styles.signal}`}>
+          <span className={styles.channels}>Форма · Звонок · Мессенджер</span>
+          <span className={styles.arrow} aria-hidden="true">
+            →
+          </span>
+          <span className={styles.state}>
+            <i aria-hidden="true" />В работе
+          </span>
+        </div>
+      </section>
+
+      <section className={`${styles.point} ${styles.p4} ${styles.rev} ${on(5)}`} style={box(1300, 190, 240)}>
+        <p className={styles.title}>
+          <b>04</b>
+          <span>Вывели в поиск</span>
+        </p>
+        <p className={styles.big}>
+          94<span>%</span>
+          <em>
+            запросов
+            {" "}
+            <br />в ТОП-10
+          </em>
+        </p>
+        <div className={`${styles.mini} ${styles.stat}`}>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 20v-6M10 20V9M16 20V4M21 20H2" />
+          </svg>
+          <span>
+            <b>91 из 97</b>
+            отслеживаемых запросов
+          </span>
+        </div>
+      </section>
+
+      <section className={`${styles.point} ${styles.p5} ${styles.rev} ${on(5)}`} style={box(1300, 655, 240)}>
+        <p className={styles.title}>
+          <b>05</b>
+          <span>Настроили связку</span>
+        </p>
+        <p className={styles.text}>Директ → страница курса</p>
+        <div className={`${styles.mini} ${styles.chain}`}>
+          <span className={styles.mark}>
+            <Image src="/cases/yandex-mark.png" alt="" width={90} height={90} />
+          </span>
+          <span>
+            Запрос
+            <br />→ Объявление
+            <br />→ Страница курса
+          </span>
+        </div>
+      </section>
+
+      <p className={`${styles.statement} ${styles.rev} ${on(6)}`}>
+        Сайт связал выбор обучения, обращения,
+        {" "}
+        <br />
+        поиск и рекламу в одну систему.
+      </p>
+
+      <div className={`${styles.cta} ${styles.rev} ${on(7)}`}>
+        <a className={styles.button} href="#contact-dialog" data-contact-dialog>
+          Обсудить похожую задачу
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </a>
+        <Link className={styles.next} href={`/cases/${next.slug}`}>
+          Следующий кейс: {next.name}
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </Link>
+      </div>
+
+      <p className={`${styles.credit} ${styles.rev} ${on(7)}`}>
+        <span>ABBiO</span>
+        <i aria-hidden="true">×</i>
+        <span>Bogov Team</span>
+      </p>
+      <p className={`${styles.tagline} ${styles.rev} ${on(7)}`}>
+        Сайты, которые работают
+      </p>
     </div>
   );
 }
 
 export function BogovFinal({
   next,
-  service,
 }: {
   next: { slug: string; name: string };
-  service: string;
+  service?: string;
 }) {
   return (
     <section id="final" className={styles.section} aria-labelledby="final-title">
       <div className={styles.container}>
-        <header className={styles.head}>
-          <p className={styles.eyebrow}>Итог</p>
-          <h2
-            id="final-title"
-            aria-label="Сайт перестал быть просто страницей мотошколы."
-          >
-            Сайт перестал быть
-            <br />
-            <em>просто страницей мотошколы.</em>
-          </h2>
-        </header>
-
-        <Stage />
-
-        <p className={styles.statement}>
-          Он стал частью системы привлечения и обработки обращений.
-        </p>
-
-        <div className={styles.actions}>
-          <a
-            className={styles.cta}
-            href="#contact-dialog"
-            data-contact-dialog
-          >
-            Обсудить похожую задачу <ActionArrow />
-          </a>
-          <div className={styles.links}>
-            <Link href={`/cases/${next.slug}`}>
-              Следующий проект: {next.name}
-              <span aria-hidden="true">→</span>
-            </Link>
-            <Link href={`/services/${service}`}>
-              Подробнее об услуге<span aria-hidden="true">↗</span>
-            </Link>
-          </div>
-        </div>
+        <Stage next={next} />
       </div>
     </section>
   );

@@ -1,244 +1,399 @@
-/* Яндекс Директ: реклама → сайт → понятное предложение. Без непроверенных метрик. */
+/* «05 · Яндекс Директ»: запрос → объявление → страница курса по диагонали. */
 .section {
-  --lav: #b7a0ef;
+  --yellow: #f6c21a;
+  --lav: #a993f0;
 
-  padding: 92px 0 100px;
-  background: #05070d;
-  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+  position: relative;
+  overflow: hidden;
+  padding: 30px 0;
+  background: #05060b;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.1);
 }
 .container {
-  width: min(1280px, calc(100% - 96px));
+  width: min(1672px, 100%);
   margin-inline: auto;
+}
+.stage {
+  container-type: inline-size;
+  position: relative;
+  width: min(100%, calc((100svh - 100px) * 1.7768));
+  margin-inline: auto;
+  aspect-ratio: 1672 / 941;
 }
 
 .head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 40px;
-  margin-bottom: 64px;
+  position: absolute;
+  z-index: 4;
+  top: 5.4%;
+  left: 5.4%;
 }
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 0 0 24px;
-  color: #b2b1c3;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  gap: 14px;
+  margin: 0 0 1.7cqw;
+  color: #a09bb6;
+  font-size: clamp(11px, 0.8cqw, 14px);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 .eyebrow::before {
-  width: 22px;
+  width: 26px;
   height: 1px;
   background: currentColor;
   content: "";
 }
 .head h2 {
-  max-width: 700px;
   margin: 0;
-  font-size: clamp(33px, 3.4vw, 49px);
-  font-weight: 500;
-  letter-spacing: -0.042em;
-  line-height: 1.05;
+  color: #fbfaff;
+  font-size: clamp(30px, 3cqw, 60px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
 }
 .head h2 em {
-  color: var(--accent);
+  color: var(--lav);
   font-style: normal;
 }
-.description {
-  max-width: 340px;
-  margin: 0 0 6px;
-  color: #a5a5b7;
-  font-size: 13px;
-  line-height: 1.6;
-  text-align: right;
-}
-
-/* Сцена: координаты 1000 × 260 */
-.stage {
-  position: relative;
-  container-type: inline-size;
-  aspect-ratio: 1000 / 260;
-}
-
-.tag {
+.intro {
   position: absolute;
-  top: 42%;
-  color: #a9a3bf;
-  font-size: max(11px, 1.2cqw);
-  font-weight: 500;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-.tagLeft {
-  left: 0;
+  z-index: 4;
+  top: 13.8%;
+  left: 79.3%;
+  margin: 0;
+  color: #a7a2b9;
+  font-size: clamp(13px, 1cqw, 18px);
+  line-height: 1.6;
 }
 
 .lines {
   position: absolute;
+  z-index: 3;
   inset: 0;
-  z-index: 0;
   width: 100%;
   height: 100%;
   overflow: visible;
   pointer-events: none;
 }
-.trace {
+.link {
   fill: none;
-  stroke: rgba(196, 178, 244, 0.6);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
+  stroke: var(--lav);
+  stroke-width: 1.2;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0.8;
+  filter: drop-shadow(0 0 3px rgba(169, 147, 240, 0.7));
+  transition: stroke-dashoffset 0.7s ease;
 }
-.signal {
-  fill: #efe8ff;
-  filter: drop-shadow(0 0 6px rgba(183, 160, 239, 1));
-}
-
-/* Реальная целевая страница — визуально разделяет «до» и «после» */
-.site {
-  position: absolute;
-  top: 2%;
-  left: 30%;
-  z-index: 1;
-  width: 42%;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 4px;
-  background: #0a0a0c;
-  box-shadow:
-    0 30px 60px rgba(0, 0, 0, 0.5),
-    0 0 100px rgba(245, 179, 1, 0.1);
+.dot {
+  fill: #cfc3ff;
+  filter: drop-shadow(0 0 4px rgba(169, 147, 240, 0.9));
+  transition: opacity 0.4s ease;
 }
 
-/* Короткая последовательность справа — не dashboard, просто три строки */
-.steps {
+.step {
   position: absolute;
-  top: 50%;
-  right: 0;
-  display: grid;
-  gap: 10px;
+  z-index: 4;
+  top: var(--y);
+  left: var(--x);
+  width: var(--w);
+}
+.stepHead {
+  padding-left: 1.2cqw;
+}
+.stepHead p:first-child {
+  display: flex;
+  align-items: baseline;
+  gap: 0.9cqw;
   margin: 0;
-  padding: 0;
-  list-style: none;
-  translate: 0 -50%;
 }
-.steps li {
-  position: relative;
-  padding-left: 16px;
-  color: #d8d3e6;
-  font-size: max(13px, 1.35cqw);
-  font-weight: 500;
+.stepHead b {
+  color: var(--lav);
+  font-size: clamp(18px, 1.75cqw, 32px);
+  font-weight: 400;
 }
-.steps li::before {
-  position: absolute;
-  top: 0.5em;
-  left: 0;
-  width: 6px;
-  height: 6px;
+.stepHead span {
+  color: #d8d3ea;
+  font-size: clamp(10px, 0.82cqw, 15px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.text {
+  margin: 0.8cqw 0 0;
+  color: #a7a2b9;
+  font-size: clamp(12px, 1cqw, 18px);
+  line-height: 1.42;
+}
+.s1 .stepHead,
+.s2 .stepHead {
+  min-height: 5.4cqw;
+}
+.s2 .stepHead {
+  padding-left: 0;
+}
+.s3 .stepHead {
+  padding-left: 0.3cqw;
+}
+
+/* 01 · поисковая строка */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  height: 3.5cqw;
+  min-height: 42px;
+  margin-top: 1.7cqw;
+  padding: 0 1.4cqw 0 0.9cqw;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.03);
+}
+.mark {
+  display: inline-block;
+  flex: 0 0 auto;
+  width: 2.15cqw;
+  min-width: 26px;
+  height: 2.15cqw;
+  min-height: 26px;
+  overflow: hidden;
   border-radius: 50%;
-  background: rgba(196, 178, 244, 0.7);
+  line-height: 0;
+}
+.mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.query {
+  flex: 1;
+  min-width: 0;
+  color: #fbfaff;
+  font-size: clamp(12px, 1cqw, 19px);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.query i {
+  display: inline-block;
+  width: 1px;
+  height: 1.1em;
+  margin-left: 2px;
+  background: var(--lav);
+  vertical-align: text-bottom;
+}
+.search svg {
+  width: 1.6cqw;
+  min-width: 18px;
+  height: 1.6cqw;
+  min-height: 18px;
+  fill: none;
+  stroke: #d8d3ea;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+}
+
+/* 02 · объявление */
+.ad {
+  margin-top: 1.7cqw;
+  padding: 1.15cqw;
+  border: 1px solid rgba(169, 147, 240, 0.4);
+  border-radius: 1.1cqw;
+  background: linear-gradient(160deg, rgba(34, 29, 62, 0.75), rgba(14, 13, 28, 0.85));
+  box-shadow: 0 0 28px rgba(128, 110, 210, 0.12);
+}
+.tag {
+  display: inline-block;
+  padding: 0.2cqw 0.6cqw;
+  border-radius: 0.4cqw;
+  background: rgba(255, 255, 255, 0.08);
+  color: #b9b4cb;
+  font-size: clamp(9px, 0.72cqw, 13px);
+}
+.ad h3 {
+  margin: 1cqw 0 0;
+  color: #b7a4f6;
+  font-size: clamp(12px, 1.02cqw, 19px);
+  font-weight: 700;
+  line-height: 1.28;
+}
+.ad p {
+  margin: 0.7cqw 0 0;
+  color: #d8d3ea;
+  font-size: clamp(10.5px, 0.84cqw, 15px);
+  line-height: 1.42;
+}
+.url {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  margin-top: 0.8cqw;
+  color: #d8d3ea;
+  font-size: clamp(10.5px, 0.88cqw, 15px);
+}
+.url i {
+  width: 1.05cqw;
+  min-width: 12px;
+  height: 1.05cqw;
+  min-height: 12px;
+  border: 1.5px solid var(--yellow);
+  border-radius: 0.25cqw;
+}
+.go {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6cqw;
+  margin-top: 1cqw;
+  padding: 0.65cqw 1.4cqw;
+  border-radius: 0.6cqw;
+  background: #b7a4f6;
+  color: #150f2b;
+  font-size: clamp(12px, 1cqw, 18px);
+  font-weight: 600;
+}
+
+/* 03 · страница курса (готовое изображение, только тонкая рамка) */
+.page {
+  position: relative;
+  width: 100%;
+  margin-top: 1cqw;
+  aspect-ratio: 1536 / 1024;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.1cqw;
+  background: #05060b;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+.page img {
+  object-fit: cover;
+}
+
+.foot {
+  position: absolute;
+  z-index: 4;
+  bottom: 5.4%;
+  left: 4.4%;
+  display: flex;
+  align-items: center;
+  gap: 1.6cqw;
+  margin: 0;
+  color: #77728c;
+  font-size: clamp(9.5px, 0.75cqw, 13px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.foot::before {
+  width: 2.2cqw;
+  height: 1px;
+  background: var(--yellow);
   content: "";
 }
-.steps li:last-child {
-  color: #fbfaff;
-}
-.steps li:last-child::before {
-  background: var(--lav);
-  box-shadow: 0 0 8px rgba(183, 160, 239, 0.9);
+.foot i {
+  width: 1.8cqw;
+  height: 1px;
+  background: #77728c;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .stage[data-armed="true"] .rev {
-    opacity: 0;
-    transition:
-      opacity 0.6s ease,
-      translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .stage[data-armed="true"] .lift {
-    translate: 12px -50%;
-  }
-  .stage[data-armed="true"] .rev.isIn {
-    opacity: 1;
-    translate: 0 0;
-  }
-  .stage[data-armed="true"] .lift.isIn {
-    translate: 0 -50%;
-  }
-  .stage[data-armed="true"] .draw {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    transition: stroke-dashoffset 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .stage[data-armed="true"] .draw.isIn {
-    stroke-dashoffset: 0;
-  }
+/* Появление: только когда состояние «вооружено» */
+.rev {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stage[data-armed="true"] .rev:not(.isIn) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.stage[data-armed="true"] .link:not(.isIn) {
+  stroke-dashoffset: 1;
+}
+.stage[data-armed="true"] .dot:not(.isIn) {
+  opacity: 0;
 }
 
-@media (max-width: 1080px) {
-  .container {
-    width: calc(100% - 64px);
-  }
-}
-
-/* Телефон: реклама → сайт → запись, без цифр (запасной сценарий из ТЗ). */
-@media (max-width: 760px) {
+/* Телефон: строго вертикальная цепочка */
+@media (max-width: 900px) {
   .section {
-    padding: 64px 0 72px;
+    padding: 44px 0 40px;
   }
   .container {
     width: calc(100% - 40px);
   }
-  .head {
-    display: block;
-    margin-bottom: 40px;
-  }
-  .head h2 {
-    font-size: clamp(28px, 7.8vw, 35px);
-  }
-  .description {
-    max-width: none;
-    margin: 16px 0 0;
-    font-size: 14px;
-    text-align: left;
-  }
-  .description br {
-    display: none;
-  }
-
   .stage {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 22px;
+    width: 100%;
     aspect-ratio: auto;
+  }
+  .head,
+  .intro,
+  .step,
+  .foot {
+    position: relative;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    width: 100%;
   }
   .lines {
     display: none;
   }
-  .tag {
-    position: relative;
-    top: auto;
+  .head h2 { font-size: clamp(30px, 8.6vw, 40px); }
+  .eyebrow { margin-bottom: 20px; font-size: 11px; }
+  .intro { margin-top: 16px; font-size: 15px; }
+  .step { margin-top: 44px; }
+  .step + .step::before,
+  .s1::before {
+    position: absolute;
+    bottom: 100%;
+    left: 14px;
+    width: 1px;
+    height: 44px;
+    background: var(--lav);
+    opacity: 0.75;
+    content: "";
   }
-  .site {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 100%;
+  .stepHead,
+  .s3 .stepHead { padding-left: 0; }
+  .s1 .stepHead,
+  .s2 .stepHead { min-height: 0; }
+  .stepHead b { font-size: 24px; }
+  .stepHead span { font-size: 12px; }
+  .text { margin-top: 8px; font-size: 14px; }
+  .text br { display: none; }
+  .search { height: 50px; margin-top: 18px; padding: 0 16px 0 10px; gap: 12px; }
+  .mark { width: 30px; height: 30px; }
+  .query { font-size: 15px; }
+  .search svg { width: 20px; height: 20px; }
+  .ad { margin-top: 18px; padding: 18px; border-radius: 14px; }
+  .tag { font-size: 11px; }
+  .ad h3 { margin-top: 12px; font-size: 17px; }
+  .ad h3 br,
+  .ad p br { display: none; }
+  .ad p { margin-top: 10px; font-size: 14px; }
+  .url { margin-top: 12px; font-size: 14px; }
+  .url i { width: 14px; height: 14px; }
+  .go { margin-top: 16px; padding: 11px 22px; font-size: 14px; border-radius: 8px; }
+  .page { margin-top: 18px; border-radius: 12px; }
+  .foot { flex-wrap: wrap; gap: 8px 14px; margin-top: 40px; font-size: 10px; }
+  .foot::before { width: 30px; }
+  .foot i { width: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev, .link, .dot {
+    transition: none;
   }
-  .steps {
-    position: relative;
-    top: auto;
-    right: auto;
-    translate: none;
+}
+
+/* Телефон: отступы в px — cqw на узкой сцене схлопываются до 2–3px */
+@media (max-width: 900px) {
+  .head h2 em br { display: none; }
+  .stepHead p:first-child { gap: 10px; }
+  .url { gap: 8px; }
+  .go { gap: 8px; }
+  .foot {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 14px;
     text-align: center;
-    justify-items: center;
   }
-  .steps li {
-    padding-left: 0;
-  }
-  .steps li::before {
-    display: none;
-  }
+  .foot::before { display: none; }
+  .foot i { display: none; }
 }

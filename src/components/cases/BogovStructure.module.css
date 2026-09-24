@@ -1,74 +1,100 @@
-/* Структура сайта Bogov Team: ABBiO — оболочка, жёлто-чёрное — содержимое проекта. */
+/* «01 · Структура»: схема сайта 3 + 2 по референсу. */
 .section {
-  --lav: #b7a0ef;
-  --yellow: #f5b301;
+  --yellow: #f6c21a;
+  --lav: #9d93e0;
 
-  padding: 84px 0 88px;
-  background: #05070d;
-  border-bottom: 1px solid rgba(213, 201, 245, 0.12);
+  position: relative;
+  overflow: hidden;
+  padding: 40px 0 30px;
+  background: #05060b;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.1);
+}
+.bg {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 64%;
+  opacity: 0.34;
+  filter: saturate(0.85);
+  -webkit-mask-image:
+    linear-gradient(90deg, transparent 0%, #000 34%),
+    linear-gradient(180deg, #000 65%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(90deg, transparent 0%, #000 34%),
+    linear-gradient(180deg, #000 65%, transparent 100%);
+  mask-composite: intersect;
+}
+.bg img {
+  object-fit: cover;
+  object-position: 100% 0;
 }
 .container {
-  width: min(1280px, calc(100% - 96px));
+  position: relative;
+  z-index: 1;
+  width: min(1536px, 100%);
   margin-inline: auto;
 }
 
-/* Общий паттерн заголовка секции: H2 слева, пояснение справа. */
+.stage {
+  container-type: inline-size;
+  position: relative;
+  width: min(100%, calc((100svh - 160px) * 1.5));
+  margin-inline: auto;
+  aspect-ratio: 1536 / 1024;
+}
+
+/* Шапка блока */
 .head {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 40px;
-  margin-bottom: 46px;
+  position: absolute;
+  z-index: 3;
+  top: 7.4%;
+  left: 5.5%;
+  width: 34%;
 }
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 10px;
-  margin: 0 0 24px;
-  color: #b2b1c3;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.15em;
+  gap: 14px;
+  margin: 0 0 3.2cqw;
+  color: #a09bb6;
+  font-size: clamp(11px, 0.82cqw, 13px);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 .eyebrow::before {
-  width: 22px;
+  width: 26px;
   height: 1px;
   background: currentColor;
   content: "";
 }
 .head h2 {
-  max-width: 700px;
   margin: 0;
-  font-size: clamp(33px, 3.4vw, 49px);
-  font-weight: 500;
-  letter-spacing: -0.042em;
-  line-height: 1.05;
+  color: #fbfaff;
+  font-size: clamp(34px, 3.2cqw, 62px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
 }
 .head h2 em {
-  color: var(--accent);
+  color: var(--yellow);
   font-style: normal;
 }
 .description {
-  max-width: 420px;
-  margin: 0 0 6px;
-  color: #a5a5b7;
-  font-size: 13px;
-  line-height: 1.6;
-  text-align: right;
+  max-width: 24em;
+  margin: 2cqw 0 0;
+  color: #b3aec4;
+  font-size: clamp(14px, 1.08cqw, 19px);
+  line-height: 1.55;
 }
 
-/* Сцена: координаты 1000 × 700 */
-.stage {
-  position: relative;
-  container-type: inline-size;
-  aspect-ratio: 1000 / 700;
-  margin-bottom: 52px;
-}
+/* Линии */
 .lines {
   position: absolute;
+  z-index: 1;
   inset: 0;
-  z-index: 0;
   width: 100%;
   height: 100%;
   overflow: visible;
@@ -76,289 +102,352 @@
 }
 .link {
   fill: none;
-  stroke: rgba(196, 178, 244, 0.6);
-  stroke-width: 1;
-  vector-effect: non-scaling-stroke;
-  transition: stroke 0.4s ease;
+  stroke: #8f86d8;
+  stroke-width: 1.6;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  opacity: 0.85;
+  transition: stroke-dashoffset 0.6s ease;
 }
 .dot {
-  fill: #05070d;
-  stroke: rgba(226, 214, 255, 0.9);
-  stroke-width: 1.3;
+  fill: #05060b;
+  stroke: var(--yellow);
+  stroke-width: 2;
+  transition: opacity 0.4s ease;
 }
 
-/* Node — фрагмент страницы сайта и подпись рядом */
-.node {
+/* Центральная карточка */
+.main {
   position: absolute;
-  z-index: 1;
-  transition: opacity 0.5s ease;
-}
-.home {
   z-index: 2;
-}
-.pv {
-  position: relative;
-  display: block;
+  top: var(--y);
+  left: var(--x);
+  width: var(--w);
+  height: var(--h);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 3px;
-  background: #0a0a0c;
-  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.55);
-  transition:
-    filter 0.5s ease,
-    border-color 0.5s ease;
+  border: 1px solid rgba(246, 194, 26, 0.45);
+  border-radius: 12px;
+  background: #0a0a0d;
 }
-/* Главная в карте — не скриншот, а узел той же системы, но крупнее и ярче */
-.pvHome {
-  position: relative;
-  container-type: inline-size;
-  display: block;
-  aspect-ratio: 1363 / 654;
-  overflow: hidden;
-  padding: 7% 7% 6%;
-  border: 1px solid rgba(245, 179, 1, 0.3);
-  border-radius: 3px;
-  background:
-    radial-gradient(ellipse 60% 90% at 88% 50%, rgba(245, 179, 1, 0.1), transparent 70%),
-    #0a0a0c;
-  box-shadow:
-    0 30px 70px rgba(0, 0, 0, 0.55),
-    0 0 110px rgba(245, 179, 1, 0.14);
-}
-.homeH {
+.mainBg {
   position: absolute;
-  top: 28%;
-  left: 7%;
-  color: #f2f0f7;
-  font-size: 8.2cqw;
-  font-weight: 800;
-  letter-spacing: -0.015em;
-  line-height: 1.02;
+  inset: 0;
+  transform: scale(1.5);
+  transform-origin: 0% 38%;
+}
+.mainBg img {
+  object-fit: cover;
+}
+.mainShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 6, 10, 0.94) 0%, rgba(5, 6, 10, 0.78) 48%, rgba(5, 6, 10, 0.2) 100%),
+    linear-gradient(0deg, rgba(5, 6, 10, 0.55), transparent 50%);
+}
+.mainBody {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 8%;
+}
+.mainTag {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 1cqw;
+  color: var(--yellow);
+  font-size: clamp(9px, 0.7cqw, 12px);
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
 }
-.homeCta {
-  position: absolute;
-  bottom: 11%;
-  left: 7%;
-  padding: 2.4% 5%;
+.mainTag::before {
+  width: 18px;
+  height: 1px;
+  background: currentColor;
+  content: "";
+}
+.mainTitle {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(16px, 1.95cqw, 34px);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+.mainTitle em {
+  color: var(--yellow);
+  font-style: normal;
+}
+.mainText {
+  margin: 1cqw 0 0;
+  color: #d9d5e4;
+  font-size: clamp(10.5px, 0.85cqw, 15px);
+  line-height: 1.5;
+}
+.mainCta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  margin-top: 1.5cqw;
+  padding: 0.65cqw 1.3cqw;
   border-radius: 999px;
   background: var(--yellow);
-  color: #12100a;
-  font-size: 4.4cqw;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-.pv {
-  container-type: inline-size;
-  aspect-ratio: var(--aspect);
-  padding: 9% 8%;
-  background:
-    radial-gradient(ellipse 70% 80% at 85% 40%, rgba(245, 179, 1, 0.13), transparent 70%),
-    #0a0a0c;
-}
-.bars {
-  position: absolute;
-  top: 9%;
-  left: 8%;
-  display: flex;
-  gap: 4%;
-  width: 60%;
-}
-.bars i {
-  flex: 1 1 0;
-  height: 2px;
-  border-radius: 2px;
-  background: rgba(255, 255, 255, 0.16);
-}
-.h {
-  position: absolute;
-  right: 8%;
-  bottom: 12%;
-  left: 8%;
-  color: var(--yellow);
-  font-size: max(11px, 8.4cqw);
-  font-weight: 800;
-  letter-spacing: -0.01em;
-  line-height: 1.02;
-  text-transform: uppercase;
-  text-wrap: balance;
+  color: #16120a;
+  font-size: clamp(10px, 0.82cqw, 14px);
+  font-weight: 600;
 }
 
-.cap {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin: 12px 0 0;
-  font-size: max(12px, 1.3cqw);
+/* Пять карточек */
+.card {
+  position: absolute;
+  z-index: 2;
+  top: var(--y);
+  left: var(--x);
+  width: var(--w);
+  height: var(--h);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 11px;
+  background: #0b0b0f;
+  transition: border-color 0.25s ease;
 }
-.cap span {
-  color: var(--lav);
-  font-size: 0.82em;
-  font-weight: 600;
-  letter-spacing: 0.16em;
+.cardBg {
+  position: absolute;
+  inset: 0;
+  transition: transform 0.5s ease, filter 0.3s ease;
+}
+.cardBg img {
+  object-fit: cover;
+  object-position: var(--pos);
+}
+.cardShade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(5, 6, 10, 0.92) 0%, rgba(5, 6, 10, 0.7) 42%, rgba(5, 6, 10, 0.05) 100%),
+    linear-gradient(0deg, rgba(5, 6, 10, 0.4), transparent 55%);
+}
+.cardBody {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 7%;
+}
+.num {
+  margin-bottom: 0.8cqw;
+  color: var(--yellow);
+  font-size: clamp(11px, 1.05cqw, 18px);
+  font-weight: 700;
+}
+.cardBody h3 {
+  max-width: 14em;
+  margin: 0;
+  color: #fff;
+  font-size: clamp(11px, 0.98cqw, 17px);
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  line-height: 1.22;
   text-transform: uppercase;
 }
-.cap strong {
-  color: #f2f0f7;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+.cardBody p {
+  max-width: 19em;
+  margin: 0.7cqw 0 0;
+  color: #cbc7d6;
+  font-size: clamp(10px, 0.86cqw, 15px);
+  line-height: 1.4;
 }
-.home .cap strong {
-  font-size: 1.15em;
+.arrow {
+  position: absolute;
+  right: 4.5%;
+  bottom: 12%;
+  display: grid;
+  place-items: center;
+  width: 2.75cqw;
+  height: 2.75cqw;
+  min-width: 26px;
+  min-height: 26px;
+  border: 1px solid rgba(246, 194, 26, 0.75);
+  border-radius: 50%;
+  background: rgba(8, 8, 10, 0.55);
+  color: var(--yellow);
+  font-size: clamp(12px, 1.1cqw, 18px);
+  transition: transform 0.25s ease;
+}
+@media (hover: hover) {
+  .card:hover {
+    border-color: rgba(246, 194, 26, 0.55);
+  }
+  .card:hover .cardBg {
+    transform: scale(1.03);
+    filter: brightness(1.12);
+  }
+  .card:hover .arrow {
+    transform: translateX(4px);
+  }
 }
 
 .foot {
   position: absolute;
-  top: calc(100% + 28px);
-  left: 0;
+  z-index: 3;
+  bottom: 4.6%;
+  left: 5.5%;
   display: flex;
-  flex-wrap: wrap;
-  gap: 4px 10px;
+  align-items: center;
+  gap: 1.6cqw;
   margin: 0;
-  color: #c4bed4;
-  font-size: 14px;
-  letter-spacing: 0.005em;
+  color: #77728c;
+  font-size: clamp(9.5px, 0.75cqw, 13px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.foot::before {
+  width: 2.2cqw;
+  height: 1px;
+  background: var(--yellow);
+  content: "";
 }
 .foot i {
-  color: var(--lav);
-  font-style: normal;
+  width: 1.2cqw;
+  height: 1px;
+  background: #77728c;
 }
 
-/* Hover: направление выделяется вместе со своей связью, остальные приглушены */
-@media (hover: hover) {
-  .stage:has(.dir:hover) .node:not(:hover) {
-    opacity: 0.5;
-  }
-  .dir:hover .pv {
-    border-color: rgba(183, 160, 239, 0.7);
-    filter: contrast(1.08) brightness(1.05);
-  }
-  .stage:has(.n-courses:hover) .c-courses .link,
-  .stage:has(.n-trial:hover) .c-trial .link,
-  .stage:has(.n-city:hover) .c-city .link,
-  .stage:has(.n-skills:hover) .c-skills .link,
-  .stage:has(.n-kids:hover) .c-kids .link,
-  .stage:has(.n-stunt:hover) .c-stunt .link {
-    stroke: #e2d6ff;
-  }
+/* Появление: только когда состояние «вооружено» (без reduced-motion) */
+.rev {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.stage[data-armed="true"] .rev:not(.isIn) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.stage[data-armed="true"] .link:not(.isIn) {
+  stroke-dashoffset: 1;
+}
+.stage[data-armed="true"] .dot:not(.isIn) {
+  opacity: 0;
 }
 
-/* Раскрытие от главной: один раз, только при движении. */
-@media (prefers-reduced-motion: no-preference) {
-  .stage[data-armed="true"] .rev {
-    opacity: 0;
-    transition:
-      opacity 0.6s ease,
-      translate 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .stage[data-armed="true"] .node.rev {
-    translate: 0 14px;
-  }
-  .stage[data-armed="true"] .rev.isIn {
-    opacity: 1;
-    translate: 0 0;
-  }
-  .stage[data-armed="true"] .draw {
-    stroke-dasharray: 1;
-    stroke-dashoffset: 1;
-    transition: stroke-dashoffset 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .stage[data-armed="true"] .draw.isIn {
-    stroke-dashoffset: 0;
-  }
-}
-
-@media (max-width: 1080px) {
-  .container {
-    width: calc(100% - 64px);
-  }
-}
-
-/* Телефон: вертикальная карта — главная, затем три пары направлений на общей линии. */
-@media (max-width: 760px) {
+/* Телефон / узкий экран: последовательная история */
+@media (max-width: 900px) {
   .section {
-    padding: 64px 0 72px;
+    padding: 44px 0 40px;
+  }
+  .bg {
+    width: 100%;
+    opacity: 0.22;
   }
   .container {
     width: calc(100% - 40px);
   }
-  .head {
-    display: block;
-    margin-bottom: 36px;
+  .stage {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    aspect-ratio: auto;
+  }
+  .head,
+  .main,
+  .foot {
+    position: relative;
+    top: auto;
+    left: auto;
+    bottom: auto;
+    width: 100%;
   }
   .head h2 {
-    font-size: clamp(28px, 7.8vw, 35px);
+    font-size: clamp(32px, 9vw, 42px);
+  }
+  .eyebrow {
+    margin-bottom: 20px;
+    font-size: 11px;
   }
   .description {
-    max-width: none;
-    margin: 16px 0 0;
-    font-size: 14px;
-    text-align: left;
-  }
-  .description br {
-    display: none;
-  }
-
-  .stage {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 34px 14px;
-    aspect-ratio: auto;
-    margin-bottom: 0;
-    padding-left: 20px;
-  }
-  .stage::before {
-    position: absolute;
-    top: 6px;
-    bottom: 40px;
-    left: 4px;
-    width: 1px;
-    background: linear-gradient(
-      180deg,
-      rgba(210, 194, 250, 0.9),
-      rgba(196, 178, 244, 0.25)
-    );
-    content: "";
+    margin-top: 16px;
+    font-size: 15px;
   }
   .lines {
     display: none;
   }
-  .node,
-  .dir {
-    position: relative;
-    inset: auto;
-    width: auto !important;
-    left: auto !important;
-    top: auto !important;
+  .main {
+    height: auto;
+    min-height: 250px;
+    margin-top: 32px;
   }
-  .node::before {
+  .mainTitle { font-size: 24px; }
+  .mainText { font-size: 13px; }
+  .mainTag { font-size: 10px; }
+  .mainCta { font-size: 13px; padding: 10px 18px; margin-top: 18px; }
+  .cards {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 26px;
+    padding-left: 22px;
+  }
+  .cards::before {
     position: absolute;
-    top: 6px;
-    left: -20px;
-    width: 9px;
-    height: 9px;
-    border: 1px solid rgba(226, 214, 255, 0.9);
-    border-radius: 50%;
-    background: #05070d;
+    top: -26px;
+    bottom: 40px;
+    left: 5px;
+    width: 1px;
+    background: #8f86d8;
     content: "";
   }
-  .home {
-    grid-column: 1 / -1;
+  .card {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: 100%;
+    height: 170px;
   }
-  .dir:nth-of-type(even)::before {
-    display: none;
+  .card::before {
+    position: absolute;
+    z-index: 3;
+    top: 50%;
+    left: -22px;
+    width: 9px;
+    height: 9px;
+    border: 2px solid var(--yellow);
+    border-radius: 50%;
+    background: #05060b;
+    content: "";
+    transform: translate(0, -50%);
   }
-  .pv {
-    aspect-ratio: 1.15;
-  }
-  .cap {
-    font-size: 13px;
-  }
+  .num { font-size: 14px; margin-bottom: 8px; }
+  .cardBody h3 { font-size: 14px; }
+  .cardBody p { margin-top: 8px; font-size: 12.5px; }
+  .arrow { display: none; }
   .foot {
-    position: static;
-    grid-column: 1 / -1;
-    margin-top: 6px;
-    font-size: 13.5px;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    margin-top: 30px;
+    font-size: 10px;
   }
+  .foot::before { display: none; }
+  .foot i { width: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev, .link, .dot, .cardBg, .arrow {
+    transition: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .foot {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    text-align: center;
+  }
+  .foot i { display: none; }
 }

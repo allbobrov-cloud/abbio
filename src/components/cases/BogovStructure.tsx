@@ -9,50 +9,42 @@ const useArmingEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /*
- * Реальная структура bogov-team.ru (меню и главная страница):
- * названия — пункты меню, заголовок во фрагменте — H1 соответствующей страницы.
- * Скриншотов подстраниц в проекте нет, поэтому их фрагменты собраны из реальных
- * заголовков в стиле сайта; для главной используется настоящий скриншот.
- * Когда появятся скриншоты — задайте поле image, и он заменит фрагмент.
+ * Схема 3 + 2 по референсу. Координаты — в сетке 1536 × 1024.
+ * Названия и описания направлений взяты из ТЗ владельца.
  */
-type Direction = {
+const W = 1536;
+const H = 1024;
+
+type Card = {
   key: string;
-  name: string;
-  heading: string;
-  image?: string;
-  /* положение и размер на сцене 1000 × 700 */
+  n: string;
+  title: string;
+  text: string;
+  image: string;
+  pos: string;
   x: number;
   y: number;
   w: number;
-  aspect: number;
-  /* x ответвления от общей шины */
-  drop: number;
+  h: number;
 };
 
-const directions: Direction[] = [
-  { key: "courses", name: "Курсы категории А", heading: "Курсы и форматы обучения", x: 0, y: 320, w: 280, aspect: 1.7, drop: 140 },
-  { key: "trial", name: "Пробный урок", heading: "Спокойный первый шаг в обучение", x: 350, y: 335, w: 220, aspect: 1.6, drop: 460 },
-  { key: "city", name: "Городской курс", heading: "Городской курс на мотоцикле", x: 640, y: 324, w: 220, aspect: 1.7, drop: 750 },
-  { key: "skills", name: "Переобучение", heading: "Навыки вождения", x: 210, y: 530, w: 190, aspect: 1.6, drop: 315 },
-  { key: "kids", name: "Детская мотошкола", heading: "Детская мотошкола", x: 480, y: 528, w: 240, aspect: 1.7, drop: 605 },
-  { key: "stunt", name: "Стантрайдинг", heading: "Стантрайдинг", x: 860, y: 540, w: 140, aspect: 1.35, drop: 930 },
+const cards: Card[] = [
+  { key: "courses", n: "01", title: "Курсы и форматы обучения", text: "Категория А и дополнительные форматы.", image: "/cases/bogov-structure-courses.webp", pos: "72% 55%", x: 161, y: 506, w: 382, h: 165 },
+  { key: "first", n: "02", title: "Спокойный первый шаг в обучение", text: "Пробный урок и знакомство с мотоциклом.", image: "/cases/bogov-structure-first.webp", pos: "62% 55%", x: 615, y: 506, w: 343, h: 165 },
+  { key: "city", n: "03", title: "Городской курс на мотоцикле", text: "Реальные условия. Уверенная езда по городу.", image: "/cases/bogov-structure-city.webp", pos: "70% 50%", x: 1033, y: 506, w: 349, h: 165 },
+  { key: "skills", n: "04", title: "Навыки вождения", text: "Переобучение и совершенствование навыков.", image: "/cases/bogov-structure-skills.webp", pos: "72% 45%", x: 352, y: 714, w: 407, h: 171 },
+  { key: "kids", n: "05", title: "Детская мотошкола", text: "Безопасный старт для юных райдеров.", image: "/cases/bogov-structure-kids.webp", pos: "62% 50%", x: 818, y: 714, w: 365, h: 171 },
 ];
 
-const BUS_Y = 270;
-const ORIGIN_X = 500;
+const MAIN = { x: 544, y: 178, w: 511, h: 247 };
+const BUS_Y = 461;
+const CX = MAIN.x + MAIN.w / 2;
 
-function branch(dir: Direction) {
-  const dx = dir.drop;
-  const r = 12;
-  const step = dx < ORIGIN_X ? dx + r : dx - r;
-  return `M ${ORIGIN_X} ${BUS_Y} H ${step} Q ${dx} ${BUS_Y} ${dx} ${BUS_Y + r} V ${dir.y}`;
-}
-
-const HOME = { x: 280, y: 0, w: 440, aspect: 1363 / 654 };
-const HOME_BOTTOM = Math.round(HOME.y + HOME.w / HOME.aspect);
-
-/* 0 главная · 1 шина · 2..7 направления · 8 итоговая строка */
+/* 0 главная · 1 ствол · 2 шина · 3..7 карточки · 8 подпись */
 const FINAL = 8;
+
+const pctX = (v: number) => `${(v / W) * 100}%`;
+const pctY = (v: number) => `${(v / H) * 100}%`;
 
 function Stage() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -79,10 +71,10 @@ function Stage() {
         }
         observer.disconnect();
         timers = Array.from({ length: FINAL }, (_, i) =>
-          window.setTimeout(() => setStep(i + 1), 500 + i * 420)
+          window.setTimeout(() => setStep(i + 1), 350 + i * 380)
         );
       },
-      { threshold: 0.25 }
+      { threshold: 0.2 }
     );
     observer.observe(root);
     return () => {
@@ -92,7 +84,13 @@ function Stage() {
   }, []);
 
   const on = (from: number) => (step >= from ? styles.isIn : "");
-  const pct = (value: number, of: number) => `${(value / of) * 100}%`;
+
+  const link = (d: string, from: number) => (
+    <path className={`${styles.link} ${on(from)}`} pathLength={1} d={d} />
+  );
+  const dot = (cx: number, cy: number, from: number) => (
+    <circle className={`${styles.dot} ${on(from)}`} cx={cx} cy={cy} r="5" />
+  );
 
   return (
     <div
@@ -100,96 +98,118 @@ function Stage() {
       className={styles.stage}
       data-armed={armed ? "true" : undefined}
     >
-      {/* Тонкие связи: главная → шина → направления */}
-      <svg className={styles.lines} viewBox="0 0 1000 700" aria-hidden="true">
-        <path
-          className={`${styles.link} ${styles.draw} ${on(1)}`}
-          pathLength={1}
-          d={`M ${ORIGIN_X} ${HOME_BOTTOM} V ${BUS_Y}`}
-        />
-        {directions.map((dir, index) => (
-          <g key={dir.key} className={styles[`c-${dir.key}`]}>
-            <path
-              className={`${styles.link} ${styles.branch} ${styles.draw} ${on(index + 2)}`}
-              pathLength={1}
-              d={branch(dir)}
-            />
-            <circle
-              className={`${styles.dot} ${styles.rev} ${on(index + 2)}`}
-              cx={dir.drop}
-              cy={dir.y}
-              r="3.2"
-            />
-          </g>
-        ))}
-        <circle className={styles.dot} cx={ORIGIN_X} cy={BUS_Y} r="3.2" />
+      <header className={styles.head}>
+        <p className={styles.eyebrow}>01 · Структура</p>
+        <h2 id="structure-title">
+          Вся мотошкола
+          <br />
+          <em>в одной системе.</em>
+        </h2>
+        <p className={styles.description}>
+          Разные направления обучения, единый сайт и понятная структура. Каждый
+          раздел решает свою задачу и ведёт к записи на обучение.
+        </p>
+      </header>
+
+      <svg
+        className={styles.lines}
+        viewBox={`0 0 ${W} ${H}`}
+        aria-hidden="true"
+      >
+        {link(`M ${CX} ${MAIN.y + MAIN.h} V ${BUS_Y}`, 1)}
+        {link(`M ${CX} ${BUS_Y} H 347 Q 335 ${BUS_Y} 335 ${BUS_Y + 12} V 495`, 2)}
+        {link(`M ${CX} ${BUS_Y} H 1200 Q 1212 ${BUS_Y} 1212 ${BUS_Y + 12} V 495`, 2)}
+        {link(`M ${CX} ${BUS_Y} V 495`, 2)}
+        {link(`M 579 ${BUS_Y} V 703`, 6)}
+        {link(`M 994 ${BUS_Y} V 703`, 7)}
+        {dot(CX, BUS_Y, 2)}
+        {dot(335, 495, 3)}
+        {dot(CX, 495, 4)}
+        {dot(1212, 495, 5)}
+        {dot(579, 703, 6)}
+        {dot(994, 703, 7)}
       </svg>
 
-      {/* Главная — самый крупный node карты. Реальные заголовок и кнопка сайта. */}
       <div
-        className={`${styles.home} ${styles.rev} ${on(0)} ${styles.node}`}
-        style={{
-          left: pct(HOME.x, 1000),
-          top: pct(HOME.y, 700),
-          width: pct(HOME.w, 1000),
-        }}
+        className={`${styles.main} ${styles.rev} ${on(0)}`}
+        style={
+          {
+            "--x": pctX(MAIN.x),
+            "--y": pctY(MAIN.y),
+            "--w": pctX(MAIN.w),
+            "--h": pctY(MAIN.h),
+          } as CSSProperties
+        }
       >
-        <div className={styles.pvHome}>
-          <span className={styles.bars} aria-hidden="true">
-            <i />
-            <i />
-            <i />
-          </span>
-          <span className={styles.homeH}>
+        <div className={styles.mainBg} aria-hidden="true">
+          <Image
+            src="/cases/bogov-structure-main.webp"
+            alt=""
+            fill
+            sizes="(max-width: 760px) 100vw, 36vw"
+          />
+        </div>
+        <span className={styles.mainShade} aria-hidden="true" />
+        <div className={styles.mainBody}>
+          <p className={styles.mainTag}>Bogov Team</p>
+          <p className={styles.mainTitle}>
             Мотошкола
             <br />
-            Владимира Богова
-          </span>
-          <span className={styles.homeCta} aria-hidden="true">
-            Записаться
+            <em>Владимира Богова</em>
+          </p>
+          <p className={styles.mainText}>
+            Навыки. Дисциплина. Свобода.
+            <br />
+            На дороге и в жизни.
+          </p>
+          <span className={styles.mainCta}>
+            Записаться <b aria-hidden="true">→</b>
           </span>
         </div>
-        <p className={styles.cap}>
-          <span>Bogov Team</span>
-          <strong>Главная</strong>
-        </p>
       </div>
 
-      {directions.map((dir, index) => (
-        <div
-          key={dir.key}
-          className={`${styles.node} ${styles.dir} ${styles[`n-${dir.key}`]} ${styles.rev} ${on(index + 2)}`}
-          style={
-            {
-              left: pct(dir.x, 1000),
-              top: pct(dir.y, 700),
-              width: pct(dir.w, 1000),
-              "--aspect": dir.aspect,
-            } as CSSProperties
-          }
-        >
-          <div className={styles.pv}>
-            {dir.image ? (
-              <Image src={dir.image} alt="" fill sizes="30vw" />
-            ) : (
-              <>
-                <span className={styles.bars} aria-hidden="true">
-                  <i />
-                  <i />
-                  <i />
-                </span>
-                <span className={styles.h}>{dir.heading}</span>
-              </>
-            )}
-          </div>
-          <p className={styles.cap}>
-            <strong>{dir.name}</strong>
-          </p>
-        </div>
-      ))}
+      <div className={styles.cards}>
+        {cards.map((card, index) => (
+          <article
+            key={card.key}
+            className={`${styles.card} ${styles.rev} ${on(index + 3)}`}
+            style={
+              {
+                "--x": pctX(card.x),
+                "--y": pctY(card.y),
+                "--w": pctX(card.w),
+                "--h": pctY(card.h),
+                "--pos": card.pos,
+              } as CSSProperties
+            }
+          >
+            <div className={styles.cardBg} aria-hidden="true">
+              <Image
+                src={card.image}
+                alt=""
+                fill
+                sizes="(max-width: 760px) 100vw, 26vw"
+              />
+            </div>
+            <span className={styles.cardShade} aria-hidden="true" />
+            <div className={styles.cardBody}>
+              <span className={styles.num}>{card.n}</span>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </div>
+            <span className={styles.arrow} aria-hidden="true">
+              →
+            </span>
+          </article>
+        ))}
+      </div>
 
       <p className={`${styles.foot} ${styles.rev} ${on(FINAL)}`}>
-        Разные задачи ученика <i>→</i> своя страница <i>→</i> один сайт
+        <span>Разные задачи ученика</span>
+        <i aria-hidden="true" />
+        <span>Свои страницы</span>
+        <i aria-hidden="true" />
+        <span>Один сайт</span>
       </p>
     </div>
   );
@@ -202,22 +222,15 @@ export function BogovStructure() {
       className={styles.section}
       aria-labelledby="structure-title"
     >
+      <div className={styles.bg} aria-hidden="true">
+        <Image
+          src="/cases/bogov-structure-bg.webp"
+          alt=""
+          fill
+          sizes="70vw"
+        />
+      </div>
       <div className={styles.container}>
-        <header className={styles.head}>
-          <div>
-            <p className={styles.eyebrow}>01 · Структура</p>
-            <h2 id="structure-title" aria-label="Одного лендинга здесь было мало.">
-              Одного лендинга
-              <br />
-              <em>здесь было мало.</em>
-            </h2>
-          </div>
-          <p className={styles.description}>
-            Разные программы требуют разных сценариев выбора{" "}
-            <br />— собрали их в одну структуру сайта.
-          </p>
-        </header>
-
         <Stage />
       </div>
     </section>

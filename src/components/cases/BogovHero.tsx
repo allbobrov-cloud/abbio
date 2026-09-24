@@ -1,25 +1,12 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
 import styles from "./BogovHero.module.css";
 
 /*
- * Hero кейса Bogov Team.
- * Показатели, дата и выборка взяты из ТЗ владельца (в данных проекта их нет),
- * состав работ — только направления, подтверждённые описанием и данными кейса.
+ * Hero кейса Bogov Team — цельная layered-обложка.
+ * Показатель 94% (91 из 97), дата и выборка взяты из ТЗ владельца (в данных проекта их нет).
+ * Изображения desktop/mobile/background — готовые ассеты, не перерисовываются.
  */
-const facts = ["Сайт с нуля", "Desktop + Mobile"];
-const scope = [
-  "Структура",
-  "Дизайн",
-  "Разработка",
-  "Адаптив",
-  "Аналитика",
-  "SEO",
-];
-
 const toc = [
   { href: "#structure", label: "Структура" },
   { href: "#design", label: "UX / UI" },
@@ -29,72 +16,20 @@ const toc = [
   { href: "#final", label: "Итог" },
 ];
 
-function ZoomDialog() {
-  const dialogRef = useRef<HTMLDialogElement>(null);
-  const triggerRef = useRef<HTMLButtonElement>(null);
-  const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog || !open || dialog.open) return;
-    dialog.showModal();
-  }, [open]);
-
-  const close = () => {
-    dialogRef.current?.close();
-    setOpen(false);
-  };
-
-  return (
-    <>
-      <button
-        ref={triggerRef}
-        type="button"
-        className={styles.zoomButton}
-        onClick={() => setOpen(true)}
-      >
-        Увеличить скриншот
-      </button>
-      <dialog
-        ref={dialogRef}
-        className={styles.zoomDialog}
-        aria-label="Главная страница сайта Мотошколы Владимира Богова в полном размере"
-        onCancel={(event) => {
-          event.preventDefault();
-          close();
-        }}
-        onClose={() => {
-          setOpen(false);
-          triggerRef.current?.focus();
-        }}
-      >
-        <button
-          type="button"
-          className={styles.zoomClose}
-          aria-label="Закрыть увеличенный скриншот"
-          onClick={close}
-        >
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <path d="m6 6 12 12M18 6 6 18" />
-          </svg>
-        </button>
-        <div className={styles.zoomImage}>
-          <Image
-            src="/cases/bogov-desktop.avif"
-            alt="Главная страница сайта Мотошколы Владимира Богова, desktop, полный размер"
-            fill
-            sizes="92vw"
-          />
-        </div>
-      </dialog>
-    </>
-  );
-}
-
 export function BogovHero() {
   return (
     <section className={styles.hero} aria-labelledby="bogov-title">
-      <div className={styles.container}>
+      <div className={styles.stage}>
+        <div className={styles.bg} aria-hidden="true">
+          <Image
+            src="/cases/bogov-hero-bg.webp"
+            alt=""
+            fill
+            sizes="(max-width: 760px) 100vw, 90vw"
+            priority
+          />
+        </div>
+
         <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
           <Link href="/">Главная</Link>
           <span aria-hidden="true">/</span>
@@ -102,65 +37,46 @@ export function BogovHero() {
           <span aria-hidden="true">/</span>
           <span aria-current="page">Мотошкола Владимира Богова</span>
         </nav>
-        <div className={styles.grid}>
-          <div className={styles.copy}>
-            <p className={styles.eyebrow}>Кейс · Bogov Team</p>
-            <h1 id="bogov-title">
-              Сайт, который стал
-              <br />
-              <em>каналом привлечения.</em>
-            </h1>
-            <p className={styles.description}>
-              Спроектировали и разработали сайт с нуля, связали обращения с
-              источниками и развили органический поиск.
-            </p>
-          </div>
 
-          {/* Реальный сайт: desktop сзади, mobile впереди */}
-          <div className={styles.visual}>
-            <div className={styles.stage}>
-              <div className={styles.desktop}>
-                <Image
-                  src="/cases/bogov-desktop.avif"
-                  alt="Главная страница сайта Мотошколы Владимира Богова, desktop"
-                  fill
-                  sizes="(max-width: 760px) 92vw, 52vw"
-                  priority
-                />
-              </div>
-              {/* Ассет — снимок телефона с системными панелями; показываем только экран */}
-              <div className={styles.mobile}>
-                <div className={styles.mobileInner}>
-                  <Image
-                    src="/cases/bogov-mobile.avif"
-                    alt="Главная страница сайта Мотошколы Владимира Богова, мобильная версия"
-                    fill
-                    sizes="(max-width: 760px) 40vw, 14vw"
-                    priority
-                  />
-                </div>
-              </div>
-
-              <ZoomDialog />
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.band}>
-          <ul className={styles.facts}>
-            {facts.map((fact) => (
-              <li key={fact}>{fact}</li>
-            ))}
-            <li className={styles.key}>
-              <b>91%</b>
-              <span>запросов в ТОП-10*</span>
-            </li>
-          </ul>
-          <p className={styles.note}>
-            *22 отслеживаемых запроса · Яндекс · Санкт-Петербург · 09.09.2026
+        <div className={styles.copy}>
+          <p className={styles.eyebrow}>Кейс · Bogov Team</p>
+          <h1 id="bogov-title">
+            Сайт, который стал
+            <br />
+            <em>каналом</em>
+            <br />
+            <em>привлечения.</em>
+          </h1>
+          <p className={styles.description}>
+            Спроектировали и разработали сайт с нуля, связали обращения с
+            источниками и развили органический поиск.
           </p>
-          <p className={styles.scope}>{scope.join(" · ")}</p>
         </div>
+
+        <ul className={styles.facts}>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m12 3 9 4.5-9 4.5-9-4.5L12 3Z" />
+              <path d="m3 12 9 4.5 9-4.5" />
+              <path d="m3 16.5 9 4.5 9-4.5" />
+            </svg>
+            <span>
+              <b>С нуля</b>
+              Сайт
+            </span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="5" width="13" height="10" rx="1.5" />
+              <path d="M7 19h5" />
+              <rect x="15" y="9" width="6" height="11" rx="1.5" />
+            </svg>
+            <span>
+              <b>Адаптив</b>
+              Desktop + Mobile
+            </span>
+          </li>
+        </ul>
 
         <nav className={styles.toc} aria-label="Разделы кейса">
           {toc.map((item) => (
@@ -169,6 +85,55 @@ export function BogovHero() {
             </a>
           ))}
         </nav>
+
+        <div className={styles.visual}>
+          {/* Монитор собран в CSS; ассет — содержимое экрана */}
+          <div className={styles.monitor}>
+            <div className={styles.monitorScreen}>
+              <Image
+                src="/cases/bogov-hero-desktop.webp"
+                alt="Главная страница сайта Мотошколы Владимира Богова, desktop-версия"
+                fill
+                sizes="(max-width: 760px) 100vw, 48vw"
+                priority
+              />
+            </div>
+            <div className={styles.monitorChin} aria-hidden="true" />
+            <div className={styles.monitorNeck} aria-hidden="true" />
+            <div className={styles.monitorBase} aria-hidden="true" />
+            <div className={styles.monitorShadow} aria-hidden="true" />
+          </div>
+
+          {/* Смартфон собран в CSS; ассет — содержимое экрана */}
+          <div className={styles.phone}>
+            <div className={styles.phoneFrame}>
+              <div className={styles.phoneScreen}>
+                <Image
+                  src="/cases/bogov-hero-mobile.webp"
+                  alt="Главная страница сайта Мотошколы Владимира Богова, мобильная версия"
+                  fill
+                  sizes="(max-width: 760px) 60vw, 14vw"
+                  priority
+                />
+              </div>
+              <span className={styles.phoneIsland} aria-hidden="true" />
+            </div>
+          </div>
+
+          <div className={styles.result}>
+            <svg className={styles.trace} viewBox="0 0 110 90" aria-hidden="true">
+              <path d="M4 84C12 50 44 20 100 14" />
+              <path d="m90 6 10 8-11 7" />
+            </svg>
+            <p className={styles.big}>94%</p>
+            <p className={styles.bigLabel}>Запросов в топ-10</p>
+            <p className={styles.bigNote}>
+              91 из 97 запросов · Яндекс · Санкт-Петербург
+              <br />
+              09.09.2026
+            </p>
+          </div>
+        </div>
       </div>
     </section>
   );

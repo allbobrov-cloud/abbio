@@ -1,7 +1,7 @@
 "use client";
 
-import { SiteCrop } from "./SiteCrop";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import Image from "next/image";
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./BogovAds.module.css";
 
 // Состояние появления выставляется до первой отрисовки, иначе финал успевает мигнуть.
@@ -9,24 +9,29 @@ const useArmingEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /*
- * Подтверждённых цифр по рекламе (расход, стоимость обращения, конверсия)
- * в данных проекта нет, поэтому сравнение «до / после» не строим —
- * используем запасной сценарий: реклама → сайт → понятное предложение.
+ * Композиция по референсу в сетке 1672 × 941.
+ * COURSE_PAGE — готовое изображение, аннотации на нём уже есть.
+ * Текст объявления и запроса — из ТЗ владельца; метрик рекламы не показываем.
  */
-const TRACE = "M 40 130 C 160 130, 220 130, 300 130 C 560 130, 640 130, 760 130";
+const W = 1672;
+const H = 941;
 
-const FINAL = 3;
-const SEQUENCE = [
-  { phase: 0, at: 0 },
-  { phase: 1, at: 550 },
-  { phase: 2, at: 1050 },
-  { phase: 3, at: 1500 },
-];
+const pctX = (v: number) => `${(v / W) * 100}%`;
+const pctY = (v: number) => `${(v / H) * 100}%`;
+
+const box = (x: number, y: number, w: number) =>
+  ({ "--x": pctX(x), "--y": pctY(y), "--w": pctX(w) }) as CSSProperties;
+
+const QUERY = "обучение на категорию а спб";
+
+/* 0 строка · 1 запрос · 2 линия · 3 объявление · 4 линия · 5 страница */
+const FINAL = 5;
 
 function Stage() {
   const rootRef = useRef<HTMLDivElement>(null);
-  const [phase, setPhase] = useState(FINAL);
+  const [step, setStep] = useState(FINAL);
   const [armed, setArmed] = useState(false);
+  const [typed, setTyped] = useState(QUERY.length);
 
   useArmingEffect(() => {
     const root = rootRef.current;
@@ -37,30 +42,44 @@ function Stage() {
       return;
     }
     setArmed(true);
-    setPhase(-1);
+    setStep(-1);
+    setTyped(0);
 
-    let timers: number[] = [];
+    const timers: number[] = [];
+    let typing = 0;
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry?.isIntersecting) {
           return;
         }
         observer.disconnect();
-        timers = SEQUENCE.map((item) =>
-          window.setTimeout(() => setPhase(item.phase), item.at)
+        [0, 500, 1550, 2100, 2900, 3400].forEach((ms, i) =>
+          timers.push(window.setTimeout(() => setStep(i), ms))
+        );
+        timers.push(
+          window.setTimeout(() => {
+            let n = 0;
+            typing = window.setInterval(() => {
+              n += 1;
+              setTyped(n);
+              if (n >= QUERY.length) {
+                window.clearInterval(typing);
+              }
+            }, 32);
+          }, 550)
         );
       },
-      { threshold: 0.3 }
+      { threshold: 0.25 }
     );
     observer.observe(root);
     return () => {
       observer.disconnect();
       timers.forEach((timer) => window.clearTimeout(timer));
+      window.clearInterval(typing);
     };
   }, []);
 
-  const on = (from: number) => (phase >= from ? styles.isIn : "");
-  const signal = armed && phase >= 1 && phase < 2;
+  const on = (from: number) => (step >= from ? styles.isIn : "");
 
   return (
     <div
@@ -68,38 +87,143 @@ function Stage() {
       className={styles.stage}
       data-armed={armed ? "true" : undefined}
     >
-      <span className={`${styles.tag} ${styles.tagLeft} ${styles.rev} ${on(0)}`}>
-        Рекламный трафик
-      </span>
+      <header className={styles.head}>
+        <p className={styles.eyebrow}>05 · Яндекс Директ</p>
+        <h2 id="ads-title">
+          Реклама ведёт
+          {" "}
+          <br />
+          <em>
+            на страницу курса, а не на
+            {" "}
+            <br />
+            главную.
+          </em>
+        </h2>
+      </header>
 
-      <svg className={styles.lines} viewBox="0 0 1000 260" aria-hidden="true">
+      <p className={styles.intro}>
+        Запрос, объявление и страница
+        {" "}
+        <br />
+        продолжают одну потребность.
+      </p>
+
+      <svg className={styles.lines} viewBox={`0 0 ${W} ${H}`} aria-hidden="true">
         <path
-          className={`${styles.trace} ${styles.draw} ${on(1)}`}
+          className={`${styles.link} ${on(2)}`}
           pathLength={1}
-          d={TRACE}
+          d="M 448 503 C 486 503, 470 558, 509 558"
         />
-        {signal && (
-          <circle className={styles.signal} r="4">
-            <animateMotion dur="1s" fill="freeze" path={TRACE} />
-          </circle>
-        )}
+        <circle className={`${styles.dot} ${on(2)}`} cx="448" cy="503" r="3.5" />
+        <circle className={`${styles.dot} ${on(3)}`} cx="509" cy="558" r="3.5" />
+        <path
+          className={`${styles.link} ${on(4)}`}
+          pathLength={1}
+          d="M 828 515 C 866 515, 858 558, 898 558"
+        />
+        <circle className={`${styles.dot} ${on(4)}`} cx="828" cy="515" r="3.5" />
+        <circle className={`${styles.dot} ${on(5)}`} cx="898" cy="558" r="3.5" />
       </svg>
 
-      <SiteCrop
-        className={`${styles.site} ${styles.rev} ${on(1)}`}
-        src="/cases/bogov-desktop.avif"
-        width={1361}
-        height={652}
-        alt="Целевая страница bogov-team.ru"
-        area={{ x1: 0.5, y1: 0.14, x2: 1, y2: 0.86 }}
-        sizes="(max-width: 760px) 92vw, 40vw"
-      />
+      <section className={`${styles.step} ${styles.s1}`} style={box(75, 362, 373)}>
+        <div className={`${styles.stepHead} ${styles.rev} ${on(0)}`}>
+          <p>
+            <b>01</b>
+            <span>Запрос</span>
+          </p>
+          <p className={styles.text}>
+            Человек ищет конкретный
+            {" "}
+            <br />
+            курс, а не просто
+            {" "}
+            <br />
+            мотошколу.
+          </p>
+        </div>
+        <div className={`${styles.search} ${styles.rev} ${on(0)}`}>
+          <span className={styles.mark}>
+            <Image src="/cases/yandex-mark.png" alt="" width={90} height={90} />
+          </span>
+          <span className={styles.query}>
+            {QUERY.slice(0, typed)}
+            <i aria-hidden="true" />
+          </span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="10.5" cy="10.5" r="6.5" />
+            <path d="m15.5 15.5 5 5" />
+          </svg>
+        </div>
+      </section>
 
-      <ol className={`${styles.steps} ${styles.rev} ${styles.lift} ${on(2)}`}>
-        <li>Понятное предложение</li>
-        <li>Программы</li>
-        <li>Запись</li>
-      </ol>
+      <section className={`${styles.step} ${styles.s2}`} style={box(509, 362, 319)}>
+        <div className={`${styles.stepHead} ${styles.rev} ${on(3)}`}>
+          <p>
+            <b>02</b>
+            <span>Объявление</span>
+          </p>
+          <p className={styles.text}>
+            Показываем конкретное
+            {" "}
+            <br />
+            предложение под запрос.
+          </p>
+        </div>
+        <article className={`${styles.ad} ${styles.rev} ${on(3)}`}>
+          <span className={styles.tag}>Реклама</span>
+          <h3>
+            Обучение на категорию А —
+            {" "}
+            <br />
+            мотошкола Bogov Team
+          </h3>
+          <p>
+            Практика в городе и на площадке.
+            {" "}
+            <br />
+            Подготовка к экзамену. Запись онлайн.
+          </p>
+          <span className={styles.url}>
+            <i aria-hidden="true" />
+            bogov-team.ru/category-a
+          </span>
+          <span className={styles.go}>
+            Перейти <b aria-hidden="true">→</b>
+          </span>
+        </article>
+      </section>
+
+      <section className={`${styles.step} ${styles.s3}`} style={box(900, 282, 690)}>
+        <div className={`${styles.stepHead} ${styles.rev} ${on(5)}`}>
+          <p>
+            <b>03</b>
+            <span>Страница курса</span>
+          </p>
+          <p className={styles.text}>
+            Пользователь сразу попадает
+            {" "}
+            <br />
+            на нужную страницу.
+          </p>
+        </div>
+        <div className={`${styles.page} ${styles.rev} ${on(5)}`}>
+          <Image
+            src="/cases/bogov-ads-course.webp"
+            alt="Страница курса «Категория А» на сайте Мотошколы Владимира Богова"
+            fill
+            sizes="(max-width: 900px) 100vw, 42vw"
+          />
+        </div>
+      </section>
+
+      <p className={`${styles.foot} ${styles.rev} ${on(FINAL)}`}>
+        <span>Рекламный трафик</span>
+        <i aria-hidden="true" />
+        <span>Конкретные люди</span>
+        <i aria-hidden="true" />
+        <span>Релевантная страница</span>
+      </p>
     </div>
   );
 }
@@ -108,22 +232,6 @@ export function BogovAds() {
   return (
     <section id="ads" className={styles.section} aria-labelledby="ads-title">
       <div className={styles.container}>
-        <header className={styles.head}>
-          <div>
-            <p className={styles.eyebrow}>05 · Яндекс Директ</p>
-            <h2 id="ads-title" aria-label="Реклама ведёт на страницу конкретного курса.">
-              Реклама ведёт
-              <br />
-              <em>на страницу курса, а не на главную.</em>
-            </h2>
-          </div>
-          <p className={styles.description}>
-            Объявление и посадочная страница говорят{" "}
-            <br />
-            об одном и том же — не расходятся по смыслу.
-          </p>
-        </header>
-
         <Stage />
       </div>
     </section>
