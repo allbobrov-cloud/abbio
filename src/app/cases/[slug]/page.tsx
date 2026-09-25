@@ -17,6 +17,13 @@ import { OssHero } from "@/components/cases/OssHero";
 import { OssResult } from "@/components/cases/OssResult";
 import { OssSeo } from "@/components/cases/OssSeo";
 import { OssUx } from "@/components/cases/OssUx";
+import { VolhonkaBrand } from "@/components/cases/VolhonkaBrand";
+import { VolhonkaHero } from "@/components/cases/VolhonkaHero";
+import { VolhonkaLive } from "@/components/cases/VolhonkaLive";
+import { VolhonkaLeads } from "@/components/cases/VolhonkaLeads";
+import { VolhonkaResult } from "@/components/cases/VolhonkaResult";
+import { VolhonkaSeo } from "@/components/cases/VolhonkaSeo";
+import { VolhonkaSite } from "@/components/cases/VolhonkaSite";
 import styles from "@/components/Agency.module.css";
 export function generateStaticParams() { return cases.map(({ slug }) => ({ slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const project = cases.find(item => item.slug === slug); return { title: project?.name || "Проект не найден", description: project?.summary }; }
@@ -27,6 +34,9 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const next = cases[(cases.indexOf(project) + 1) % cases.length];
   if (project.slug === "bogov") {
     return <main id="main"><BogovHero /><BogovStructure /><BogovDesign /><BogovLeads /><BogovSeo /><BogovAds /><BogovFinal next={{ slug: next.slug, name: next.name }} service={project.service} /></main>;
+  }
+  if (project.slug === "volhonka") {
+    return <main id="main"><VolhonkaHero /><VolhonkaBrand /><VolhonkaSite /><VolhonkaLive /><VolhonkaSeo /><VolhonkaLeads /><VolhonkaResult /></main>;
   }
   if (project.slug === "oss") {
     return <main id="main"><OssHero /><OssCatalog /><OssEntryPoints /><OssUx /><OssGeo /><OssSeo /><OssResult /></main>;

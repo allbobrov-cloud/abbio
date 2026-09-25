@@ -1,0 +1,498 @@
+/* 05 · Трафик → лиды: одна горизонтальная история, много воздуха, жёлтый растёт слева направо. */
+.section {
+  --gold: #f0c04a;
+
+  position: relative;
+  overflow: hidden;
+  background: #050608;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.1);
+}
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 2000px;
+  aspect-ratio: 1774 / 887;
+  margin-inline: auto;
+}
+/* Спокойный фон: глубокая тёмная база и одно большое тёплое свечение у «Обращения» */
+.glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 44% 56% at 84% 52%, rgba(245, 180, 30, 0.2) 0%, rgba(245, 180, 30, 0.09) 40%, transparent 74%),
+    radial-gradient(ellipse 60% 44% at 62% 50%, rgba(240, 170, 40, 0.06) 0%, transparent 74%),
+    radial-gradient(ellipse 60% 70% at 30% 44%, rgba(24, 30, 62, 0.34) 0%, transparent 76%),
+    radial-gradient(ellipse 26% 32% at 6% 8%, rgba(110, 80, 255, 0.12) 0%, transparent 74%);
+}
+.glow::after {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 92% at 50% 46%, transparent 62%, rgba(3, 4, 6, 0.4) 100%);
+  content: "";
+}
+
+.copy {
+  position: absolute;
+  z-index: 3;
+  top: 6.4%;
+  left: 5.3%;
+  width: 60%;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 1.6cqw;
+  color: #b2b1c3;
+  font-size: clamp(11px, 1.15cqw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.eyebrow b {
+  color: #7c6bff;
+  font-weight: 700;
+}
+.copy h2 {
+  margin: 0;
+  color: #fbfaff;
+  font-size: clamp(30px, 3.2cqw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+.copy h2 em {
+  color: var(--gold);
+  font-style: normal;
+}
+.description {
+  max-width: 46em;
+  margin: 1.3cqw 0 0;
+  color: #bdb8cc;
+  font-size: clamp(13px, 1.2cqw, 23px);
+  line-height: 1.5;
+}
+
+/* Цепочка: слева направо спокойное → яркое */
+.chain {
+  position: absolute;
+  z-index: 3;
+  top: 36.6%;
+  left: 4.9%;
+  width: 91.4%;
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.step {
+  display: grid;
+  grid-template-rows: 15.4cqw auto;
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+  flex: none;
+  color: #9c98ad;
+  font-size: clamp(10px, 1cqw, 19px);
+  line-height: 1.45;
+}
+.step .box {
+  align-self: center;
+}
+.step h3 {
+  margin: 1.5cqw 0 0 0.6cqw;
+  color: #fbfaff;
+  font-size: clamp(15px, 1.7cqw, 33px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.step > p {
+  margin: 0.5cqw 0 0 0.6cqw;
+  color: #8d89a0;
+  font-size: clamp(10px, 0.95cqw, 18px);
+}
+.s1 { width: 19%; }
+.s2 { width: 21.4%; }
+.s3 { width: 21%; }
+.s4 { width: 22%; }
+.s4 h3 { color: #ffe9a8; }
+
+/* Соединения: тонкая линия через центр этапов + стрелка, цвет накаляется */
+.arrow {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  align-self: flex-start;
+  height: 15.4cqw;
+  padding: 0 0.4cqw;
+}
+.arrow i {
+  flex: 1;
+  height: 2px;
+  border-radius: 2px;
+}
+.arrow svg {
+  width: 0.9cqw;
+  min-width: 9px;
+  height: 0.9cqw;
+  margin-left: -1px;
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.t1 i { background: linear-gradient(90deg, rgba(120, 120, 135, 0.55), rgba(190, 190, 205, 0.7)); }
+.t1 svg { stroke: rgba(190, 190, 205, 0.85); }
+.t2 i { background: linear-gradient(90deg, rgba(190, 190, 205, 0.7), rgba(214, 178, 84, 0.75)); }
+.t2 svg { stroke: rgba(214, 178, 84, 0.9); }
+.t3 i { background: linear-gradient(90deg, rgba(214, 178, 84, 0.75), #f5c43c); box-shadow: 0 0 10px rgba(245, 190, 50, 0.5); }
+.t3 svg { stroke: #f5c43c; filter: drop-shadow(0 0 4px rgba(245, 190, 50, 0.7)); }
+
+/* Общая глубина тёмных элементов */
+.box {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.1cqw;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012));
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* 1. Поиск — самый спокойный: только строка запроса */
+.search {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 10.6cqw;
+  padding: 1.6cqw;
+  border-color: rgba(255, 255, 255, 0.06);
+  box-shadow: none;
+}
+.yandex {
+  display: block;
+  width: auto;
+  align-self: flex-start;
+  height: 2.5cqw;
+  margin: 0 0 1.5cqw;
+}
+.field {
+  display: flex;
+  align-items: stretch;
+  height: 3.5cqw;
+  min-height: 34px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0.8cqw;
+  background: rgba(10, 10, 14, 0.75);
+  color: #f2f0fa;
+  font-size: clamp(8px, 0.82cqw, 16px);
+  white-space: nowrap;
+}
+.field > span:first-child {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 0;
+  padding: 0 0.9cqw;
+  overflow: hidden;
+}
+.fbtn {
+  display: grid;
+  place-items: center;
+  width: 3.5cqw;
+  min-width: 34px;
+  border-left: 1px solid rgba(255, 255, 255, 0.2);
+}
+.fbtn svg {
+  width: 1.5cqw;
+  min-width: 15px;
+  height: 1.5cqw;
+  fill: none;
+  stroke: #e6e2f0;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+}
+
+/* 2. Страница — светлый фрагмент реального сайта */
+.page {
+  overflow: hidden;
+  height: 14.8cqw;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1.1cqw;
+  background: #f7f5ef;
+  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.5), 0 0 40px rgba(255, 244, 222, 0.08);
+  color: #15151a;
+}
+.url {
+  display: flex;
+  align-items: center;
+  gap: 0.6cqw;
+  padding: 0.7cqw 1.1cqw;
+  background: #1d1d22;
+  color: #b3b0bd;
+  font-size: clamp(7px, 0.75cqw, 14px);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.url svg {
+  width: 0.9cqw;
+  min-width: 8px;
+  height: 0.9cqw;
+  flex: none;
+  fill: none;
+  stroke: #b3b0bd;
+  stroke-width: 2;
+}
+.pageBody {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9cqw;
+  padding: 1cqw 1.2cqw 1.2cqw;
+}
+.photo {
+  position: relative;
+  width: 100%;
+  height: 6.4cqw;
+  overflow: hidden;
+  border-radius: 0.6cqw;
+  background: #1c1e24;
+}
+.photo img {
+  object-fit: cover;
+  object-position: 30% 56%;
+}
+.pageText {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 0.4cqw 0.9cqw;
+  min-width: 0;
+}
+.pageText b {
+  color: #15151a;
+  font-size: clamp(9px, 0.9cqw, 18px);
+  line-height: 1.2;
+}
+.pageText i {
+  display: none;
+}
+.pageText em {
+  grid-row: 1 / 3;
+  grid-column: 2;
+  padding: 0.6cqw 0.9cqw;
+  border-radius: 0.5cqw;
+  background: #f5c331;
+  color: #201800;
+  font-size: clamp(6px, 0.66cqw, 12px);
+  font-style: normal;
+  font-weight: 700;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* 3. Действие — фокус на крупной жёлтой CTA */
+.action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5cqw;
+  height: 11cqw;
+  padding: 1.4cqw;
+  border-color: rgba(240, 192, 74, 0.22);
+  background: linear-gradient(145deg, rgba(60, 46, 10, 0.4), rgba(14, 12, 6, 0.7));
+}
+.cta {
+  width: 100%;
+  padding: 1.8cqw 1cqw;
+  border-radius: 0.9cqw;
+  background: linear-gradient(180deg, #ffd24d, #f0b820);
+  box-shadow: 0 10px 34px rgba(245, 180, 30, 0.34), 0 0 0 5px rgba(245, 190, 50, 0.1);
+  color: #201800;
+  font-size: clamp(10px, 1.08cqw, 21px);
+  font-weight: 800;
+  text-align: center;
+  white-space: nowrap;
+}
+.alt {
+  display: flex;
+  gap: 1.8cqw;
+  color: #77738a;
+  font-size: clamp(8px, 0.74cqw, 14px);
+}
+.alt span {
+  display: flex;
+  align-items: center;
+  gap: 0.4cqw;
+}
+.alt svg {
+  width: 1.1cqw;
+  min-width: 10px;
+  height: 1.1cqw;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* 4. Обращение — кульминация: крупнее, светится из темноты */
+.lead {
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  height: 13cqw;
+  padding: 0 1.8cqw;
+  border-color: rgba(245, 194, 64, 0.9);
+  border-radius: 1.3cqw;
+  background: linear-gradient(140deg, rgba(74, 56, 14, 0.72), rgba(20, 15, 5, 0.86) 62%);
+  box-shadow: 0 0 60px rgba(245, 180, 30, 0.34), 0 0 14px rgba(245, 190, 50, 0.4), inset 0 0 30px rgba(245, 190, 50, 0.1);
+  color: #d6ceb8;
+  font-size: clamp(10px, 1.05cqw, 20px);
+  line-height: 1.45;
+}
+.user {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 5.4cqw;
+  height: 5.4cqw;
+  border: 1.6px solid var(--gold);
+  border-radius: 50%;
+  background: rgba(245, 190, 50, 0.06);
+}
+.user svg {
+  width: 3cqw;
+  height: 3cqw;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.leadText b {
+  display: block;
+  margin-bottom: 0.4cqw;
+  color: #fff;
+  font-size: clamp(13px, 1.6cqw, 30px);
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.final {
+  position: absolute;
+  z-index: 3;
+  top: 85.2%;
+  left: 5.3%;
+  width: 60%;
+  margin: 0;
+  padding-top: 1.5cqw;
+  font-size: clamp(14px, 1.5cqw, 29px);
+  line-height: 1.4;
+}
+.final::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.6cqw;
+  min-width: 40px;
+  max-width: 48px;
+  height: 2px;
+  background: var(--gold);
+  content: "";
+}
+.final span {
+  display: block;
+  color: #e6e2f0;
+}
+.final em {
+  display: block;
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Появление: этапы по очереди, «Обращение» коротко вспыхивает */
+.rev {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stage[data-armed="true"] .rev {
+  opacity: 0;
+  transform: translateY(14px);
+}
+.stage[data-armed="true"] .d5 { transition-delay: 1.5s; }
+.stage[data-armed="true"].seen .rev {
+  opacity: 1;
+  transform: none;
+}
+@keyframes leadFlash {
+  0% { box-shadow: 0 0 36px rgba(245, 180, 30, 0.28), inset 0 0 24px rgba(245, 180, 30, 0.06); }
+  40% { box-shadow: 0 0 64px rgba(245, 180, 30, 0.5), inset 0 0 30px rgba(245, 180, 30, 0.14); }
+  100% { box-shadow: 0 0 36px rgba(245, 180, 30, 0.28), inset 0 0 24px rgba(245, 180, 30, 0.06); }
+}
+.stage[data-armed="true"].seen .lead {
+  animation: leadFlash 1.6s ease 1.3s 1;
+}
+
+/* Планшет: чуть тесно, но цепочка остаётся горизонтальной */
+@media (max-width: 1100px) and (min-width: 901px) {
+  .step h3 { font-size: 14px; }
+}
+
+/* Телефон: цепочка вертикально */
+@media (max-width: 900px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    padding: 64px 5% 56px;
+  }
+  .glow {
+    background:
+      radial-gradient(ellipse 90% 24% at 60% 70%, rgba(245, 180, 30, 0.16), transparent 76%),
+      radial-gradient(ellipse 80% 30% at 30% 30%, rgba(24, 30, 62, 0.4), transparent 76%);
+  }
+  .copy, .chain, .final { position: relative; top: auto; left: auto; width: 100%; }
+  .eyebrow { margin-bottom: 20px; font-size: 12px; }
+  .copy h2 { font-size: clamp(32px, 9vw, 48px); }
+  .copy h2 br { display: none; }
+  .description { margin-top: 18px; font-size: 16px; }
+
+  .chain { flex-direction: column; align-items: stretch; margin-top: 36px; }
+  .step, .s1, .s2, .s3, .s4 { display: block; width: 100%; font-size: 14px; }
+  .step h3 { margin: 16px 0 0; font-size: 20px; }
+  .step > p { margin: 6px 0 0; font-size: 14px; }
+  .step > p br { display: none; }
+  .arrow { flex: none; align-self: flex-start; width: 26px; height: 48px; margin: 12px 0 12px 22px; padding: 0; flex-direction: column; }
+  .arrow i { width: 2px; height: auto; flex: 1; }
+  .arrow svg { width: 12px; height: 12px; margin: -2px 0 0; transform: rotate(90deg); }
+  .box, .search, .page, .action, .lead { height: auto; border-radius: 14px; }
+  .search { padding: 20px; }
+  .yandex { height: 34px; margin-bottom: 16px; }
+  .field { height: 48px; }
+  .fbtn { width: 48px; }
+  .field { font-size: 15px; border-radius: 10px; }
+  .fbtn svg { width: 20px; height: 20px; }
+  .url { padding: 10px 14px; font-size: 11px; }
+  .pageBody { gap: 12px; padding: 14px; }
+  .photo { height: 110px; border-radius: 8px; }
+  .pageText { gap: 8px 12px; }
+  .pageText b { font-size: 15px; }
+  .pageText em { padding: 10px 14px; font-size: 12px; border-radius: 6px; }
+  .action { padding: 20px; gap: 16px; }
+  .cta { padding: 15px; font-size: 16px; border-radius: 10px; }
+  .alt { gap: 26px; font-size: 14px; }
+  .alt svg { width: 18px; height: 18px; }
+  .lead { padding: 22px 20px; gap: 18px; font-size: 14px; }
+  .user { width: 56px; height: 56px; }
+  .user svg { width: 30px; height: 30px; }
+  .leadText b { font-size: 19px; margin-bottom: 4px; }
+  .lead br { display: none; }
+  .final { margin-top: 44px; padding-top: 24px; font-size: clamp(17px, 4.6vw, 24px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev { transition: none; }
+  .lead { animation: none !important; }
+}

@@ -1,0 +1,239 @@
+/* 04 · SEO: строгая компоновка, тёплое золотое свечение за визуалом. */
+.section {
+  --gold: #f0c04a;
+
+  position: relative;
+  overflow: hidden;
+  background: #050608;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.1);
+}
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 2000px;
+  aspect-ratio: 1774 / 887;
+  margin-inline: auto;
+}
+/* Фон «ночной поиск»: глубокий тёмно-синий, жёлтый свет как от поисковой строки за визуалом,
+   зелёно-бирюзовое дыхание снизу (рост), фиолетовое у заголовка. Отличается от секций 02 и 03. */
+.glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    /* яркое тёплое ядро за окном Яндекса */
+    radial-gradient(ellipse 30% 40% at 74% 30%, rgba(255, 214, 90, 0.3) 0%, rgba(255, 190, 40, 0.12) 46%, transparent 76%),
+    /* большой золотой ореол за всем визуалом */
+    radial-gradient(ellipse 54% 66% at 72% 46%, rgba(245, 180, 30, 0.2) 0%, rgba(230, 150, 30, 0.08) 44%, transparent 76%),
+    /* бирюзово-зелёный отсвет под графиком роста */
+    radial-gradient(ellipse 34% 30% at 82% 92%, rgba(40, 190, 160, 0.2) 0%, transparent 76%),
+    /* глубокий сине-синий фон-«небо» в центре */
+    radial-gradient(ellipse 70% 80% at 46% 50%, rgba(28, 44, 110, 0.32) 0%, rgba(20, 30, 84, 0.12) 52%, transparent 78%),
+    /* фиолетовое свечение у заголовка */
+    radial-gradient(ellipse 34% 44% at 8% 12%, rgba(120, 88, 255, 0.24) 0%, rgba(100, 70, 255, 0.08) 46%, transparent 76%),
+    /* холодная тень слева снизу */
+    radial-gradient(ellipse 34% 34% at 0% 100%, rgba(40, 60, 160, 0.16) 0%, transparent 76%);
+}
+/* Виньетка */
+.glow::after {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 92% at 52% 46%, transparent 60%, rgba(3, 4, 6, 0.42) 100%);
+  content: "";
+}
+
+.copy {
+  position: absolute;
+  z-index: 3;
+  top: 7.4%;
+  left: 5.2%;
+  width: 40%;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 1.9cqw;
+  color: #b2b1c3;
+  font-size: clamp(11px, 1.15cqw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.eyebrow b {
+  color: #7c6bff;
+  font-weight: 700;
+}
+.copy h2 {
+  margin: 0;
+  color: #fbfaff;
+  font-size: clamp(30px, 3.2cqw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  white-space: nowrap;
+}
+.copy h2 em {
+  color: var(--gold);
+  font-style: normal;
+}
+.description {
+  max-width: 27em;
+  margin: 1.6cqw 0 0;
+  color: #bdb8cc;
+  font-size: clamp(13px, 1.2cqw, 23px);
+  line-height: 1.5;
+}
+
+.works {
+  position: absolute;
+  z-index: 3;
+  top: 56.4%;
+  left: 5.2%;
+  width: 40%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.9cqw 1.6cqw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.works li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1cqw;
+  color: #9c98ad;
+  font-size: clamp(10px, 0.9cqw, 17px);
+  line-height: 1.45;
+}
+.ic {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3.5cqw;
+  min-width: 40px;
+  height: 3.5cqw;
+  min-height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.8cqw;
+  background: rgba(255, 255, 255, 0.035);
+}
+.ic svg {
+  width: 1.9cqw;
+  min-width: 20px;
+  height: 1.9cqw;
+  min-height: 20px;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.works b {
+  display: block;
+  margin-bottom: 0.3cqw;
+  color: #fff;
+  font-size: clamp(11px, 1.02cqw, 19px);
+  font-weight: 700;
+}
+
+/* Готовый PNG: без рамки, немного выходит вправо */
+.visual {
+  position: absolute;
+  z-index: 2;
+  top: 13.5%;
+  left: 47.6%;
+  width: 53%;
+  aspect-ratio: 1536 / 1024;
+  filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.3));
+}
+.visual img {
+  object-fit: contain;
+}
+
+.final {
+  position: absolute;
+  z-index: 3;
+  top: 84%;
+  left: 5.2%;
+  width: 60%;
+  margin: 0;
+  padding-top: 1.5cqw;
+  font-size: clamp(14px, 1.5cqw, 29px);
+  line-height: 1.4;
+}
+.final::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.6cqw;
+  min-width: 40px;
+  max-width: 48px;
+  height: 2px;
+  background: var(--gold);
+  content: "";
+}
+.final span {
+  display: block;
+  color: #e6e2f0;
+}
+.final em {
+  display: block;
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.rev {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stage[data-armed="true"] .rev {
+  opacity: 0;
+  transform: translateY(15px);
+}
+.stage[data-armed="true"] .visualRev {
+  transform: translateX(25px) scale(0.985);
+  transition-delay: 0.2s;
+}
+.stage[data-armed="true"] .d5 { transition-delay: 0.9s; }
+.stage[data-armed="true"].seen .rev {
+  opacity: 1;
+  transform: none;
+}
+
+/* Планшет и телефон: заголовок → PNG → направления → вывод */
+@media (max-width: 900px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    padding: 64px 5% 56px;
+  }
+  .glow {
+    background:
+      radial-gradient(ellipse 90% 26% at 60% 34%, rgba(245, 180, 30, 0.24), transparent 76%),
+      radial-gradient(ellipse 80% 22% at 90% 96%, rgba(40, 190, 160, 0.16), transparent 76%),
+      radial-gradient(ellipse 80% 30% at 20% 50%, rgba(28, 44, 110, 0.3), transparent 76%),
+      radial-gradient(ellipse 60% 16% at 10% 4%, rgba(120, 88, 255, 0.2), transparent 74%);
+  }
+  .copy, .works, .final, .visual { position: relative; top: auto; left: auto; width: 100%; }
+  .copy { order: 0; }
+  .visual { order: 1; margin-top: 30px; }
+  .works { order: 2; }
+  .final { order: 3; }
+  .eyebrow { margin-bottom: 20px; font-size: 12px; }
+  .copy h2 { font-size: clamp(32px, 9vw, 48px); white-space: normal; }
+  .copy h2 br { display: none; }
+  .description { margin-top: 18px; max-width: 34em; font-size: 16px; }
+  .works { grid-template-columns: 1fr; gap: 24px; margin-top: 34px; }
+  .works li { gap: 14px; font-size: 14px; }
+  .ic { width: 46px; height: 46px; border-radius: 12px; }
+  .ic svg { width: 22px; height: 22px; }
+  .works b { font-size: 16px; margin-bottom: 4px; }
+  .final { margin-top: 40px; padding-top: 24px; font-size: clamp(17px, 4.6vw, 24px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev { transition: none; }
+}

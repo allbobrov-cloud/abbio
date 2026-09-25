@@ -1,0 +1,235 @@
+/* 06 · Результат: одна типографическая формула, много воздуха, мягкий свет за «Обращениями». */
+.section {
+  --gold: #f5c531;
+
+  position: relative;
+  overflow: hidden;
+  background: #050608;
+}
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 2000px;
+  aspect-ratio: 1774 / 887;
+  margin-inline: auto;
+}
+.glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 34% 50% at 79% 58%, rgba(245, 180, 30, 0.3) 0%, rgba(245, 180, 30, 0.12) 36%, rgba(245, 180, 30, 0.03) 62%, transparent 82%),
+    radial-gradient(ellipse 60% 70% at 40% 50%, rgba(22, 28, 58, 0.34) 0%, transparent 76%),
+    radial-gradient(ellipse 30% 36% at 8% 8%, rgba(100, 70, 255, 0.11) 0%, transparent 74%);
+}
+.glow::after {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 92% 94% at 50% 48%, transparent 64%, rgba(3, 4, 6, 0.42) 100%);
+  content: "";
+}
+
+.copy {
+  position: absolute;
+  z-index: 3;
+  top: 9.4%;
+  left: 5.8%;
+  width: 62%;
+}
+.eyebrow {
+  margin: 0 0 1.2cqw;
+  color: #b2b1c3;
+  font-size: clamp(11px, 1.15cqw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.eyebrow b {
+  color: #7c6bff;
+  font-weight: 700;
+}
+.copy h2 {
+  margin: 0;
+  color: #fbfaff;
+  font-size: clamp(30px, 3.2cqw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+.copy h2 em {
+  color: var(--gold);
+  font-style: normal;
+}
+.description {
+  max-width: 44em;
+  margin: 1.7cqw 0 0;
+  color: #bdb8cc;
+  font-size: clamp(13px, 1.2cqw, 23px);
+  line-height: 1.5;
+}
+
+/* Формула */
+.formula {
+  position: absolute;
+  z-index: 3;
+  top: 51.6%;
+  left: 5.8%;
+  width: 89.4%;
+  display: flex;
+  align-items: flex-start;
+}
+.word {
+  flex: none;
+}
+.word strong {
+  display: block;
+  font-size: clamp(26px, 5.3cqw, 104px);
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-transform: uppercase;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.word span {
+  display: block;
+  margin-top: 0.8cqw;
+  font-size: clamp(10px, 1.6cqw, 30px);
+  line-height: 1.2;
+}
+.w1 strong { background-image: linear-gradient(180deg, #8f939b 0%, #4c4f57 100%); }
+.w1 span { color: #7c7f88; }
+.w2 strong { background-image: linear-gradient(180deg, #a9adb5 0%, #5c6068 100%); }
+.w2 span { color: #8a8d96; }
+.w3 { margin-left: 0; }
+.w3 strong {
+  font-size: clamp(28px, 5.7cqw, 112px);
+  background-image: linear-gradient(180deg, #ffe58a 0%, #f5c531 55%, #efb61c 100%);
+  filter: drop-shadow(0 0 26px rgba(245, 180, 30, 0.22));
+}
+.w3 span { color: #f4f0e2; }
+
+.arrow {
+  display: block;
+  flex: 1;
+  align-self: flex-start;
+  height: 3cqw;
+  margin-top: 2.6cqw;
+  padding: 0 1.6cqw;
+  color: #5b5e66;
+}
+.arrow svg {
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  overflow: visible;
+}
+.arrow.gold {
+  color: #d7ac34;
+}
+
+.final {
+  position: absolute;
+  z-index: 3;
+  top: 79.6%;
+  left: 5.8%;
+  width: 60%;
+  margin: 0;
+  padding-top: 1.7cqw;
+  font-size: clamp(14px, 1.5cqw, 29px);
+  line-height: 1.4;
+}
+.final::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 3.1cqw;
+  min-width: 40px;
+  max-width: 56px;
+  height: 3px;
+  background: var(--gold);
+  content: "";
+}
+.final span {
+  display: block;
+  color: #e6e2f0;
+}
+.final em {
+  display: block;
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Появление: слева направо, без бесконечной анимации */
+.rev {
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.stage[data-armed="true"] .rev {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.stage[data-armed="true"] .w1 { transition-delay: 0.35s; }
+.stage[data-armed="true"] .w2 { transition-delay: 0.7s; }
+.stage[data-armed="true"] .w3 { transition-delay: 1.05s; }
+.stage[data-armed="true"] .d4 { transition-delay: 1.5s; }
+.stage[data-armed="true"] .arrow { transition-delay: 0.5s; }
+.stage[data-armed="true"] .arrow.gold { transition-delay: 0.9s; }
+.stage[data-armed="true"].seen .rev {
+  opacity: 1;
+  transform: none;
+}
+@keyframes resFlash {
+  0% { filter: drop-shadow(0 0 26px rgba(245, 180, 30, 0.22)); }
+  45% { filter: drop-shadow(0 0 44px rgba(245, 180, 30, 0.45)); }
+  100% { filter: drop-shadow(0 0 26px rgba(245, 180, 30, 0.22)); }
+}
+.stage[data-armed="true"].seen .w3 strong {
+  animation: resFlash 1.8s ease 1.2s 1;
+}
+
+/* Планшет: формула всё ещё в одну строку, чуть компактнее */
+@media (max-width: 900px) and (min-width: 641px) {
+  .description { max-width: 34em; }
+}
+
+/* Телефон: формула вертикально, стрелки вниз */
+@media (max-width: 640px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    padding: 64px 5% 72px;
+  }
+  .glow {
+    background:
+      radial-gradient(ellipse 90% 26% at 70% 62%, rgba(245, 180, 30, 0.26), transparent 76%),
+      radial-gradient(ellipse 80% 30% at 30% 30%, rgba(22, 28, 58, 0.34), transparent 76%),
+      radial-gradient(ellipse 60% 14% at 10% 4%, rgba(100, 70, 255, 0.14), transparent 74%);
+  }
+  .copy, .formula, .final { position: relative; top: auto; left: auto; width: 100%; }
+  .eyebrow { margin-bottom: 18px; font-size: 12px; }
+  .copy h2 { font-size: clamp(32px, 9vw, 48px); }
+  .copy h2 br { display: none; }
+  .description { margin-top: 18px; font-size: 16px; }
+  .formula { flex-direction: column; margin-top: 40px; }
+  .word { width: 100%; }
+  .word strong { font-size: clamp(46px, 14vw, 84px); }
+  .w3 strong { font-size: clamp(38px, 11.6vw, 80px); }
+  .word span { margin-top: 6px; font-size: 18px; }
+  .arrow { flex: none; width: 44px; height: 30px; margin: 20px 0 20px 22px; padding: 0; transform: rotate(90deg); transform-origin: center; }
+  .final { margin-top: 52px; padding-top: 24px; font-size: clamp(18px, 5vw, 26px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev { transition: none; }
+  .w3 strong { animation: none !important; }
+}

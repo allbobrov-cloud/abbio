@@ -1,0 +1,241 @@
+/* 03 · Живой сайт: продолжение «Коммерческого сайта», но с другой мыслью — сайт развивается после запуска. */
+.section {
+  --gold: #f0c04a;
+
+  position: relative;
+  overflow: hidden;
+  background: #050608;
+  border-bottom: 1px solid rgba(213, 201, 245, 0.1);
+}
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 2000px;
+  aspect-ratio: 1774 / 887;
+  margin-inline: auto;
+}
+/* Фон «рассвет»: холодная бирюза сверху, золотой восход из правого нижнего угла, индиго и бордовая дымка слева,
+   два диагональных светлых луча. Не повторяет янтарный ореол предыдущей секции. */
+.glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    /* два мягких диагональных луча */
+    linear-gradient(116deg, transparent 20%, rgba(120, 180, 255, 0.09) 34%, rgba(255, 240, 210, 0.13) 44%, rgba(120, 180, 255, 0.05) 54%, transparent 66%),
+    linear-gradient(122deg, transparent 52%, rgba(255, 210, 150, 0.06) 62%, rgba(255, 230, 190, 0.09) 68%, transparent 80%),
+    /* яркое холодное свечение сверху над интерфейсом */
+    radial-gradient(ellipse 56% 52% at 72% -6%, rgba(60, 170, 220, 0.48) 0%, rgba(44, 120, 200, 0.22) 40%, rgba(30, 80, 170, 0.06) 66%, transparent 82%),
+    /* золотой восход из правого нижнего угла */
+    radial-gradient(ellipse 52% 58% at 104% 108%, rgba(255, 184, 36, 0.52) 0%, rgba(240, 140, 28, 0.24) 40%, rgba(200, 100, 30, 0.07) 66%, transparent 82%),
+    /* тёплое пятно у нижнего края интерфейса */
+    radial-gradient(ellipse 26% 12% at 70% 96%, rgba(255, 176, 50, 0.16) 0%, transparent 76%),
+    /* индиго слева снизу и бордовая дымка над ним */
+    radial-gradient(ellipse 44% 48% at -6% 102%, rgba(64, 52, 170, 0.34) 0%, rgba(50, 40, 140, 0.1) 52%, transparent 78%),
+    radial-gradient(ellipse 30% 26% at 6% 74%, rgba(150, 40, 90, 0.14) 0%, transparent 74%),
+    /* фиолетовое дыхание у заголовка */
+    radial-gradient(ellipse 34% 40% at 10% 6%, rgba(120, 90, 255, 0.16) 0%, transparent 74%);
+}
+/* Виньетка по краям, чтобы свет держался в центре */
+.glow::after {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 90% 92% at 50% 46%, transparent 62%, rgba(3, 4, 6, 0.4) 100%);
+  content: "";
+}
+
+.copy {
+  position: absolute;
+  z-index: 3;
+  top: 6.4%;
+  left: 3.5%;
+  width: 36%;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 1.9cqw;
+  color: #b2b1c3;
+  font-size: clamp(11px, 1.15cqw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.eyebrow b {
+  color: #7c6bff;
+  font-weight: 700;
+}
+.copy h2 {
+  margin: 0;
+  color: #fbfaff;
+  font-size: clamp(30px, 3.2cqw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+.copy h2 em {
+  color: var(--gold);
+  font-style: normal;
+}
+.description {
+  max-width: 28em;
+  margin: 1.6cqw 0 0;
+  color: #bdb8cc;
+  font-size: clamp(13px, 1.2cqw, 23px);
+  line-height: 1.5;
+}
+
+/* Четыре направления: сетка 2 × 2 на общем фоне */
+.works {
+  position: absolute;
+  z-index: 3;
+  top: 59.6%;
+  left: 3.5%;
+  width: 36%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.9cqw 1.4cqw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.works li {
+  display: flex;
+  align-items: flex-start;
+  gap: 1cqw;
+  color: #9c98ad;
+  font-size: clamp(10px, 0.9cqw, 17px);
+  line-height: 1.45;
+}
+.ic {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3.4cqw;
+  min-width: 40px;
+  height: 3.4cqw;
+  min-height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.8cqw;
+  background: rgba(255, 255, 255, 0.03);
+}
+.ic svg {
+  width: 1.8cqw;
+  min-width: 20px;
+  height: 1.8cqw;
+  min-height: 20px;
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.works b {
+  display: block;
+  margin-bottom: 0.3cqw;
+  color: #fff;
+  font-size: clamp(11px, 1.02cqw, 19px);
+  font-weight: 700;
+}
+
+/* Готовый PNG: без рамки, чуть выходит вправо */
+.visual {
+  position: absolute;
+  z-index: 2;
+  top: 4%;
+  left: 38.8%;
+  width: 59.6%;
+  aspect-ratio: 1437 / 1095;
+  filter: drop-shadow(0 24px 50px rgba(0, 0, 0, 0.3));
+}
+.visual img {
+  object-fit: contain;
+}
+
+.final {
+  position: absolute;
+  z-index: 3;
+  top: 85.4%;
+  left: 3.5%;
+  width: 60%;
+  margin: 0;
+  padding-top: 1.5cqw;
+  font-size: clamp(14px, 1.5cqw, 29px);
+  line-height: 1.4;
+}
+.final::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 2.6cqw;
+  min-width: 40px;
+  max-width: 48px;
+  height: 2px;
+  background: var(--gold);
+  content: "";
+}
+.final span {
+  display: block;
+  color: #e6e2f0;
+}
+.final em {
+  display: block;
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* Появление ≤ 1.3 с */
+.rev {
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stage[data-armed="true"] .rev {
+  opacity: 0;
+  transform: translateY(15px);
+}
+.stage[data-armed="true"] .visualRev {
+  transform: translateX(25px) scale(0.985);
+  transition-delay: 0.2s;
+}
+.stage[data-armed="true"] .d5 { transition-delay: 0.9s; }
+.stage[data-armed="true"].seen .rev {
+  opacity: 1;
+  transform: none;
+}
+
+/* Планшет и телефон: заголовок → PNG → направления → вывод */
+@media (max-width: 900px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    padding: 64px 5% 56px;
+  }
+  .glow {
+    background:
+      radial-gradient(ellipse 100% 28% at 70% 0%, rgba(60, 170, 220, 0.34), transparent 76%),
+      radial-gradient(ellipse 90% 24% at 100% 100%, rgba(255, 184, 36, 0.32), transparent 76%),
+      radial-gradient(ellipse 70% 20% at 0% 72%, rgba(64, 52, 170, 0.24), transparent 76%);
+  }
+  .copy, .works, .final, .visual { position: relative; top: auto; left: auto; width: 100%; }
+  .copy { order: 0; }
+  .visual { order: 1; margin-top: 30px; }
+  .works { order: 2; }
+  .final { order: 3; }
+  .eyebrow { margin-bottom: 20px; font-size: 12px; }
+  .copy h2 { font-size: clamp(32px, 9vw, 48px); }
+  .copy h2 br { display: none; }
+  .description { margin-top: 18px; max-width: 34em; font-size: 16px; }
+  .works { grid-template-columns: 1fr; gap: 24px; margin-top: 34px; }
+  .works li { gap: 14px; font-size: 14px; }
+  .ic { width: 46px; height: 46px; border-radius: 12px; }
+  .ic svg { width: 22px; height: 22px; }
+  .works b { font-size: 16px; margin-bottom: 4px; }
+  .final { margin-top: 40px; padding-top: 24px; font-size: clamp(17px, 4.6vw, 24px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev { transition: none; }
+}
