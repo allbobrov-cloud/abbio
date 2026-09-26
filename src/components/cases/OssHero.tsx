@@ -92,13 +92,10 @@ export function OssHero() {
               </svg>
               <span>
                 <b>25–30 тыс.</b>
-                пользователей в месяц*
+                пользователей в месяц
               </span>
             </li>
           </ul>
-          <p className={styles.note}>
-            * Точные показатели уточняются перед публикацией кейса
-          </p>
         </div>
 
         <nav className={styles.toc} aria-label="Разделы кейса">

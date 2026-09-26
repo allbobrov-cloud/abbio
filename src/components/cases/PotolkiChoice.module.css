@@ -1,0 +1,454 @@
+/* 02 · Выбор решения: тёмная атмосферная секция на фото интерьера, точки выбора поверх, готовая карточка справа. */
+.section {
+  --red: #e8383c;
+
+  position: relative;
+  overflow: hidden;
+  background: #05090e;
+  color: var(--foreground);
+}
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 2000px;
+  aspect-ratio: 3 / 2;
+  margin-inline: auto;
+}
+.bg {
+  position: absolute;
+  inset: 0;
+}
+.bg img {
+  object-fit: cover;
+  object-position: center;
+}
+.shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(5, 10, 14, 0.97) 0%, rgba(5, 10, 14, 0.9) 24%, rgba(5, 10, 14, 0.48) 48%, rgba(5, 10, 14, 0.16) 72%, rgba(5, 10, 14, 0.3) 100%),
+    linear-gradient(0deg, rgba(5, 10, 14, 0.5) 0%, rgba(5, 10, 14, 0.25) 14%, transparent 30%);
+}
+
+/* Левая колонка */
+.head {
+  position: absolute;
+  z-index: 3;
+  top: 8.6%;
+  left: 4.7%;
+  width: 29%;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  margin: 0 0 2.1cqw;
+  color: #a7adba;
+  font-size: clamp(10px, 0.85cqw, 15px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.eyebrow b { color: var(--red); font-weight: 700; }
+.eyebrow i {
+  width: 6cqw;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.28);
+}
+.head h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(30px, 3.45cqw, 66px);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.03;
+  white-space: nowrap;
+}
+.head h2 em { color: var(--red); font-style: normal; }
+.description {
+  max-width: 21em;
+  margin: 1.7cqw 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: clamp(14px, 1.28cqw, 24px);
+  line-height: 1.5;
+}
+
+.nav {
+  position: absolute;
+  z-index: 3;
+  top: 44.2%;
+  left: 4.7%;
+  width: 21.4%;
+}
+.nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45cqw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 1.3cqw;
+  height: clamp(50px, 3.85cqw, 72px);
+  padding: 0 1.4cqw 0 0.55cqw;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 13px;
+  background: rgba(12, 17, 22, 0.58);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: #fff;
+}
+.ico {
+  display: grid;
+  width: 2.9cqw;
+  height: 2.9cqw;
+  min-width: 34px;
+  min-height: 34px;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+}
+.ico svg {
+  width: 52%;
+  height: 52%;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.on {
+  border-color: rgba(232, 56, 60, 0.4);
+}
+.on .ico {
+  background: rgba(232, 56, 60, 0.14);
+  box-shadow: inset 0 0 0 1px rgba(232, 56, 60, 0.35);
+}
+.on .ico svg { stroke: #ff6a6d; }
+.name {
+  flex: 1;
+  font-size: clamp(12px, 1cqw, 18px);
+  font-weight: 600;
+}
+.arrow {
+  width: 1.9cqw;
+  min-width: 18px;
+  height: auto;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.catalog {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  margin: 1.5cqw 0 0 0.3cqw;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: clamp(11px, 0.9cqw, 16px);
+}
+.catalog .arrow { width: 1.3cqw; min-width: 14px; }
+
+/* Точки выбора на интерьере: --rx/--ry — кольцо, --len/--ang — линия, --tx/--ty — цель на фото (всё в cqw) */
+.annos {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.anno {
+  position: absolute;
+  left: calc(var(--rx) * 1cqw);
+  top: calc(var(--ry) * 1cqw);
+  width: 0;
+  height: 0;
+}
+.ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: clamp(14px, 1.25cqw, 20px);
+  height: clamp(14px, 1.25cqw, 20px);
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  background: rgba(15, 15, 18, 0.45);
+  box-shadow: 0 0 14px rgba(232, 56, 60, 0.35);
+  transform: translate(-50%, -50%);
+}
+.ring i {
+  width: 52%;
+  height: 52%;
+  border-radius: 50%;
+  background: var(--red);
+}
+.line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(var(--len) * 1cqw);
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.45), rgba(232, 56, 60, 0.75));
+  transform: rotate(calc(var(--ang) * 1deg));
+  transform-origin: 0 50%;
+}
+.target {
+  position: absolute;
+  top: calc(var(--ty) * 1cqw);
+  left: calc(var(--tx) * 1cqw);
+  width: clamp(7px, 0.6cqw, 10px);
+  height: clamp(7px, 0.6cqw, 10px);
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 3px rgba(232, 56, 60, 0.25), 0 0 12px rgba(232, 56, 60, 0.7);
+  transform: translate(-50%, -50%);
+}
+.card {
+  position: absolute;
+  top: 0;
+  left: 0.9cqw;
+  display: flex;
+  min-width: 13.5cqw;
+  flex-direction: column;
+  gap: 0.35cqw;
+  padding: 0.8cqw 1.3cqw 0.85cqw 1.2cqw;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 14px;
+  background: rgba(18, 18, 20, 0.78);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  transform: translateY(-50%);
+  white-space: nowrap;
+}
+.aLabel {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: clamp(8px, 0.68cqw, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.aValue {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.6cqw;
+  color: #fff;
+  font-size: clamp(11px, 1.02cqw, 18px);
+  font-weight: 600;
+}
+.aValue .arrow { width: 1.3cqw; min-width: 14px; stroke: rgba(255, 255, 255, 0.9); }
+/* 01 · помещение (диван) */
+.a1 { --rx: 27.5; --ry: 47; --len: 8.75; --ang: 121; --tx: -4.5; --ty: 7.5; }
+/* 02 · потолок (ровная поверхность) */
+.a2 { --rx: 45.5; --ry: 10.5; --len: 9.55; --ang: 133; --tx: -6.5; --ty: 7; }
+/* 03 · освещение (трековые светильники справа): карточка слева от кольца */
+.a3 { --rx: 80; --ry: 5.5; --len: 6.9; --ang: 68; --tx: 2.6; --ty: 6.4; }
+.a3 .card {
+  right: 0.9cqw;
+  left: auto;
+}
+
+/* Готовая карточка справа */
+.ui {
+  position: absolute;
+  z-index: 3;
+  top: 14.5%;
+  right: 1.2%;
+  width: 24.6cqw;
+}
+.ui img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 24px 45px rgba(0, 0, 0, 0.35));
+}
+.ui::before {
+  position: absolute;
+  inset: 8% -6%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 50%, rgba(232, 56, 60, 0.18), transparent 65%);
+  content: "";
+}
+
+/* Финальная область */
+.final {
+  position: absolute;
+  z-index: 3;
+  right: 3.6%;
+  bottom: 4.5%;
+  left: 3.6%;
+  display: flex;
+  align-items: center;
+  gap: 2.2cqw;
+  overflow: hidden;
+  padding: 1.5cqw 2.2cqw;
+  /* Тёмное «жидкое стекло»: размытие фона, световая кромка и мягкий блик */
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: clamp(18px, 1.8cqw, 28px);
+  background:
+    linear-gradient(90deg, rgba(6, 8, 12, 0.82) 0%, rgba(8, 10, 14, 0.6) 26%, rgba(12, 14, 18, 0.22) 52%, rgba(255, 255, 255, 0.05) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%),
+    rgba(30, 33, 40, 0.2);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05),
+    inset 1px 0 0 rgba(255, 255, 255, 0.08),
+    0 20px 50px rgba(0, 0, 0, 0.25);
+  -webkit-backdrop-filter: blur(22px) saturate(160%) brightness(1.15);
+  backdrop-filter: blur(22px) saturate(160%) brightness(1.15);
+}
+.final::after {
+  position: absolute;
+  top: 0;
+  right: 8%;
+  left: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  content: "";
+  pointer-events: none;
+}
+.finalIcon {
+  display: grid;
+  width: 5.2cqw;
+  height: 5.2cqw;
+  flex: none;
+  place-items: center;
+  border: 1px solid rgba(232, 56, 60, 0.3);
+  border-radius: 16px;
+  background: rgba(232, 56, 60, 0.1);
+}
+.finalIcon svg {
+  width: 46%;
+  height: 46%;
+  fill: none;
+  stroke: #ff6a6d;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.final p {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(20px, 2.1cqw, 40px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+}
+.final p em { display: block; color: var(--red); font-style: normal; }
+.final .note {
+  margin-left: auto;
+  padding-left: 2.6cqw;
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: clamp(11px, 0.95cqw, 17px);
+  font-weight: 400;
+  letter-spacing: 0;
+  line-height: 1.6;
+}
+
+/* Появление: заголовок → навигация → точки 01/02/03 → карточка → финал */
+.rev {
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stage[data-armed="true"] .rev { opacity: 0; transform: translateY(14px); }
+.stage[data-armed="true"] .anno.rev { transform: translateX(-10px); }
+.stage[data-armed="true"] .ui.rev { transform: translateX(22px); }
+.stage[data-armed="true"].seen .rev { opacity: 1; transform: none; }
+.stage[data-armed="true"] .head { transition-delay: 0s; }
+.stage[data-armed="true"] .n1 { transition-delay: 0.3s; }
+.stage[data-armed="true"] .n2 { transition-delay: 0.4s; }
+.stage[data-armed="true"] .n3 { transition-delay: 0.5s; }
+.stage[data-armed="true"] .n4 { transition-delay: 0.6s; }
+.stage[data-armed="true"] .catalog { transition-delay: 0.7s; }
+.stage[data-armed="true"] .a1 { transition-delay: 0.9s; }
+.stage[data-armed="true"] .a2 { transition-delay: 1.02s; }
+.stage[data-armed="true"] .a3 { transition-delay: 1.14s; }
+.stage[data-armed="true"] .ui { transition-delay: 1.4s; }
+.stage[data-armed="true"] .final { transition-delay: 1.7s; }
+
+/* Hover: только на устройствах с курсором */
+@media (hover: hover) {
+  .stage .item {
+    transition: opacity 0.8s ease, transform 0.8s ease, translate 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .stage .item:hover {
+    translate: 4px 0;
+    border-color: rgba(232, 56, 60, 0.45);
+    background: rgba(20, 24, 30, 0.7);
+  }
+}
+
+@media (max-width: 1000px) {
+  .description { font-size: clamp(12px, 1.2cqw, 18px); }
+}
+
+/* Mobile: блок собирается вертикально, фото — обычный image-блок, точки выбора — компактный список */
+@media (max-width: 860px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    container-type: normal;
+    padding: 44px 20px 36px;
+  }
+  .shade { display: none; }
+  .head, .nav, .annos, .ui, .final { position: relative; inset: auto; width: 100%; }
+  .head { order: 1; }
+  .bg {
+    position: relative;
+    order: 2;
+    inset: auto;
+    aspect-ratio: 4 / 3;
+    margin-top: 26px;
+    overflow: hidden;
+    border-radius: 16px;
+  }
+  .annos { order: 3; display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+  .ui { order: 4; width: min(100%, 360px); margin: 26px auto 0; }
+  .nav { order: 5; margin-top: 28px; }
+  .final { order: 6; margin-top: 32px; flex-direction: column; align-items: flex-start; gap: 16px; padding: 22px 20px; }
+  .eyebrow { font-size: 11px; margin-bottom: 20px; }
+  .eyebrow i { width: 44px; }
+  .head h2 { font-size: clamp(30px, 8.6vw, 44px); }
+  .description { max-width: none; margin-top: 16px; font-size: 16px; }
+  .item { height: 56px; gap: 14px; padding-left: 8px; }
+  .ico { width: 40px; height: 40px; }
+  .name { font-size: 15px; }
+  .catalog { margin-top: 16px; font-size: 13px; }
+
+  .anno { position: static; width: auto; height: auto; }
+  .ring, .line, .target { display: none; }
+  .card {
+    position: static;
+    min-width: 0;
+    transform: none;
+    padding: 12px 16px;
+    gap: 5px;
+  }
+  .a3 .card { right: auto; }
+  .aLabel { font-size: 10px; }
+  .aValue { font-size: 15px; }
+  .ui::before { display: none; }
+  .finalIcon { width: 52px; height: 52px; }
+  .final p { font-size: clamp(22px, 6.4vw, 28px); }
+  .final .note { margin-left: 0; padding-left: 0; border-left: 0; font-size: 13px; }
+  .final .note br { display: none; }
+  .arrow { min-width: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev { transition: none; }
+}
+
+/* Мобильные: мелкие подписи не меньше 11 px */
+@media (max-width: 860px) {
+  .aLabel { font-size: 11px; }
+}

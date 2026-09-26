@@ -1,0 +1,379 @@
+/* Hero «Потолки Всем»: тёмная база ABBiO, фото интерьера справа, UI-композиция поверх. Красный клиента — только акцент. */
+.hero {
+  --client-red: #ee5560;
+
+  position: relative;
+  overflow: hidden;
+  background: #05090e;
+  border-bottom: 1px solid #b7a0ef1a;
+  color: var(--foreground);
+}
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 2000px;
+  min-height: clamp(700px, calc(100svh - 105px), 960px);
+  aspect-ratio: 1774 / 887;
+  margin-inline: auto;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+}
+.bg img {
+  object-fit: cover;
+  object-position: right center;
+}
+/* Слева темнее для текста; правая часть остаётся светлой, интерьер читается */
+.shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(5, 9, 14, 0.98) 0%, rgba(5, 9, 14, 0.9) 28%, rgba(5, 9, 14, 0.58) 52%, rgba(5, 9, 14, 0.18) 78%, rgba(5, 9, 14, 0.08) 100%),
+    linear-gradient(0deg, rgba(5, 9, 14, 0.7) 0%, transparent 18%);
+}
+
+.copy {
+  position: absolute;
+  z-index: 3;
+  top: 6.5%;
+  left: 6.2%;
+  width: 46%;
+}
+.label {
+  margin: 0;
+  color: #9aa1b0;
+  font-size: clamp(10px, 0.85cqw, 15px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.label b {
+  color: var(--client-red);
+  font-weight: 700;
+}
+.client {
+  margin: 1.5cqw 0 1.9cqw;
+  line-height: 0;
+}
+.client img {
+  display: block;
+  width: auto;
+  height: clamp(40px, 3.6cqw, 66px);
+}
+.copy h1 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(32px, 3.5cqw, 68px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1.08;
+  white-space: nowrap;
+}
+.copy h1 em {
+  background: linear-gradient(90deg, #f0b8b5 0%, #ee5560 55%, #e04a5a 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-style: normal;
+}
+.description {
+  max-width: 31em;
+  margin: 1.5cqw 0 0;
+  color: #b3b8c4;
+  font-size: clamp(14px, 1.1cqw, 21px);
+  line-height: 1.55;
+}
+
+/* Три принципа */
+.principles {
+  display: flex;
+  gap: 2.6cqw;
+  margin: 2.4cqw 0 0;
+  padding: 0;
+  list-style: none;
+}
+.principles li {
+  display: flex;
+  flex-direction: column;
+  gap: 1cqw;
+  min-width: 0;
+}
+.icon {
+  display: grid;
+  width: clamp(44px, 3.3cqw, 58px);
+  height: clamp(44px, 3.3cqw, 58px);
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+  background: #b7a0ef14;
+}
+.icon svg {
+  width: 48%;
+  height: 48%;
+  fill: none;
+  stroke: #e6dcff;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.txt {
+  color: #8f96a5;
+  font-size: clamp(11px, 0.85cqw, 15px);
+  line-height: 1.4;
+}
+.txt b {
+  display: block;
+  margin-bottom: 0.4em;
+  color: #eef0f6;
+  font-size: clamp(10px, 0.82cqw, 14px);
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  line-height: 1.35;
+  text-transform: uppercase;
+}
+
+/* Поисковый спрос: часть правой композиции, тянется к карточке «Реальный объект» */
+.lead {
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.leadLabel {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  margin: 0 0 0.9cqw;
+  color: #a9afbd;
+  font-size: clamp(10px, 0.8cqw, 13px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7);
+}
+.leadLabel i {
+  width: 0.55em;
+  height: 0.55em;
+  border-radius: 50%;
+  background: var(--client-red);
+}
+.search {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1cqw;
+  height: clamp(52px, 4.1cqw, 62px);
+  padding: 0 1.6cqw;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  background: rgba(15, 16, 21, 0.78);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.2);
+  color: #eef0f6;
+  font-size: clamp(12px, 1cqw, 17px);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+.search svg {
+  width: 1.45em;
+  height: 1.45em;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.search span { flex: 1; white-space: nowrap; }
+.search svg:last-child { width: 1.8em; color: var(--client-red); }
+/* Короткая связь с карточкой: вертикальная линия и красная точка */
+.link {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: clamp(24px, 2cqw, 32px);
+  margin-left: 40%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.25), rgba(235, 45, 55, 0.55));
+}
+.link::after {
+  position: absolute;
+  bottom: -3px;
+  left: -3px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--client-red);
+  box-shadow: 0 0 0 4px rgba(238, 85, 96, 0.2);
+  content: "";
+}
+.leadDesk {
+  position: absolute;
+  bottom: 83%;
+  left: -14%;
+  width: 21cqw;
+}
+.leadMobile { display: none; }
+
+/* UI-композиция */
+.ui {
+  position: absolute;
+  z-index: 3;
+  right: 4.4%;
+  bottom: 7%;
+  width: 36cqw;
+}
+.ui img,
+.uiMobile img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 26px 44px rgba(0, 0, 0, 0.4));
+}
+.uiMobile { display: none; }
+
+.note {
+  position: absolute;
+  z-index: 3;
+  top: 7.4%;
+  right: 3.6%;
+  margin: 0;
+  padding-bottom: 1cqw;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  color: #9aa1b0;
+  font-size: clamp(8px, 0.62cqw, 12px);
+  letter-spacing: 0.16em;
+  line-height: 1.9;
+  text-transform: uppercase;
+}
+
+/* Подпись ABBiO × Потолки Всем */
+.sign {
+  position: absolute;
+  z-index: 3;
+  bottom: 5%;
+  left: 6.2%;
+  display: flex;
+  align-items: center;
+  gap: 1.1cqw;
+  margin: 0;
+  color: #b3b8c4;
+  font-size: clamp(11px, 0.85cqw, 15px);
+  letter-spacing: 0.06em;
+}
+.sign i {
+  width: 4cqw;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.28);
+}
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.03em;
+  color: #f4eff9;
+  font-size: 1.45em;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  font-variant-ligatures: none;
+}
+.wordI {
+  color: var(--accent);
+  text-shadow: 0 0 0.48em #b7a0ef52;
+}
+.signLogo {
+  display: block;
+  width: auto;
+  height: clamp(20px, 1.9cqw, 34px);
+}
+.sign em {
+  color: var(--client-red);
+  font-style: normal;
+}
+
+/* Появление: последовательно, без постоянного движения */
+.r1 { animation: pvRise 0.7s 0.1s ease both; }
+.r2 { animation: pvRise 0.8s 0.25s ease both; }
+.r3 { animation: pvRise 0.8s 0.45s ease both; }
+.r4 { animation: pvRise 0.8s 0.65s ease both; }
+.r5 { animation: pvRise 0.8s 0.85s ease both; }
+.r6 { animation: pvRiseUi 0.9s 1.05s ease both; }
+@keyframes pvRise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pvRiseUi {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 1100px) {
+  .note { display: none; }
+  .copy { width: 50%; }
+}
+
+@media (max-width: 860px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    min-height: 0;
+    padding: 40px 20px 36px;
+    container-type: normal;
+  }
+  .bg img { object-position: 68% center; }
+  .shade {
+    background:
+      linear-gradient(180deg, rgba(5, 9, 14, 0.86) 0%, rgba(5, 9, 14, 0.78) 55%, rgba(5, 9, 14, 0.94) 100%);
+  }
+  .copy {
+    position: relative;
+    inset: auto;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+  .label { font-size: 11px; }
+  .client { margin: 18px 0 22px; }
+  .client img { height: 44px; }
+  .signLogo { height: 22px; }
+  .copy h1 { font-size: clamp(30px, 9vw, 46px); }
+  .description { max-width: none; margin-top: 18px; font-size: 16px; }
+  .ui, .note { display: none; }
+  .leadMobile {
+    position: relative;
+    display: flex;
+    width: 100%;
+    margin-top: 26px;
+  }
+  .leadLabel { font-size: 11px; margin-bottom: 10px; }
+  .search { height: 54px; padding: 0 20px; font-size: 15px; }
+  .link { height: 26px; margin-left: 32px; }
+  .uiMobile {
+    display: block;
+    width: min(100%, 420px);
+    margin: 26px auto 0;
+  }
+  .principles {
+    order: 2;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 32px;
+  }
+  .principles li { flex-direction: row; align-items: center; gap: 16px; }
+  .icon { width: 48px; height: 48px; flex: none; }
+  .txt { font-size: 13px; }
+  .txt b { font-size: 12px; }
+  .sign {
+    position: relative;
+    inset: auto;
+    margin-top: 30px;
+    font-size: 12px;
+  }
+  .sign i { width: 28px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .r1, .r2, .r3, .r4, .r5, .r6 { animation: none; }
+}

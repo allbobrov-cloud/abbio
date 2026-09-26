@@ -18,7 +18,7 @@ const STATS = [
   {
     key: "traffic",
     value: TRAFFIC,
-    label: "пользователей в месяц*",
+    label: "пользователей в месяц",
     caption: ["Органический поиск"],
   },
   {
@@ -67,7 +67,7 @@ const parts = [
   {
     key: "seo",
     title: "SEO",
-    text: [TRAFFIC, "пользователей / мес.*"],
+    text: [TRAFFIC, "пользователей / мес."],
     icon: "M10.5 4a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM15.5 15.5l5 5",
     x: 1196, y: 352, w: 275, h: 105,
   },
@@ -255,10 +255,6 @@ export function OssResult() {
             </div>
           ))}
         </div>
-        <p className={`${styles.note} ${styles.rev} ${styles.d4}`}>
-          * Точные показатели уточняются перед публикацией кейса
-        </p>
-
         <p className={`${styles.final} ${styles.rev} ${styles.d5}`}>
           Сложность осталась внутри системы.
           <br />

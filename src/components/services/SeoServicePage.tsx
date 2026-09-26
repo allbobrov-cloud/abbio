@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
+import { CasePortfolio } from "./CasePortfolio";
 import { SeoHeroExperience } from "./SeoHeroExperience";
 import { SeoDemandSpace } from "./SeoDemandSpace";
 import { SeoHealthScan } from "./SeoHealthScan";
@@ -134,28 +135,12 @@ export function SeoServicePage() {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.caseSection}`} aria-labelledby="cases-title">
-        <div className={styles.container}>
-          <SectionLead index="07 / Кейс" id="cases-title" title="Реальный результат: Мотошкола Владимира Богова." description="Развили структуру и страницы под поисковый спрос. Ниже — фактические позиции по отслеживаемым запросам, а не прогноз." />
-          <Link href="/cases/bogov" className={styles.seoCaseCard}>
-            <div className={styles.seoCaseStat}>
-              <strong>94%</strong>
-              <span>запросов в ТОП-10</span>
-            </div>
-            <dl className={styles.seoCaseMeta}>
-              <div><dt>Выборка</dt><dd>91 из 97 отслеживаемых запросов</dd></div>
-              <div><dt>Регион</dt><dd>Санкт-Петербург, Яндекс</dd></div>
-              <div><dt>Дата</dt><dd>09.09.2026</dd></div>
-            </dl>
-            <span className={styles.seoCaseLink}>Смотреть кейс <ActionArrow /></span>
-          </Link>
-          <div className={styles.seoOtherCases}>
-            <p>Другие проекты</p>
-            <Link href="/cases/oss">ОборонСпецСплав <span aria-hidden="true">↗</span></Link>
-            <Link href="/cases/volhonka">Металлобаза Волхонка <span aria-hidden="true">↗</span></Link>
-          </div>
-        </div>
-      </section>
+      <CasePortfolio
+        title="Три проекта — три разные задачи."
+        description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."
+        slugs={["bogov", "oss", "volhonka"]}
+        featuredSlug="bogov"
+      />
     </main>
   );
 }

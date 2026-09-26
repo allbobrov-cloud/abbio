@@ -6,12 +6,6 @@ import styles from "./SeoHealthScan.module.css";
 const PAGE_URL = "metallobazav.ru/catalog/trubu-profilnye/";
 const DUPLICATE_PARAM = "?sort=price";
 
-const effects = [
-  { term: "Индексация", plain: "Страницы доступны поиску, а не спрятаны от него." },
-  { term: "Canonical и дубли", plain: "Нет конкурирующих версий одной страницы." },
-  { term: "Скорость и мобильная версия", plain: "Пользователю удобно на любом экране." },
-];
-
 const checks = [
   "Индексация",
   "Адреса страниц",
@@ -31,7 +25,6 @@ export function SeoHealthScan() {
   const rootRef = useRef<HTMLDivElement>(null);
   const [stage, setStage] = useState<Stage>("idle");
   const [started, setStarted] = useState(false);
-  const [checklistOpen, setChecklistOpen] = useState(false);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -74,9 +67,12 @@ export function SeoHealthScan() {
   const isResolved = reached("resolved");
 
   return (
-    <div ref={rootRef} className={styles.scan}>
-      <span className={styles.demoBadge} aria-hidden="true">Схематичный пример</span>
-
+    <div
+      ref={rootRef}
+      className={styles.scan}
+      role="img"
+      aria-label="Сканирование технической основы страницы: найден дубль адреса с параметром сортировки, настроен canonical, дубль устранён"
+    >
       <div className={styles.urlBar}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" aria-hidden="true">
           <circle cx="11" cy="11" r="6.5" />
@@ -85,14 +81,15 @@ export function SeoHealthScan() {
         <span>{PAGE_URL}</span>
       </div>
 
-      <ul className={styles.effects} aria-label="Что это даёт бизнесу">
-        {effects.map((effect) => (
-          <li key={effect.term}>
-            <strong>{effect.term}</strong>
-            <p>{effect.plain}</p>
-          </li>
+      <div className={[styles.checklist, reached("scan") ? styles.checklistActive : ""].join(" ")} aria-hidden="true">
+        <div className={[styles.scanLine, reached("scan") && !isResolved ? styles.scanLineActive : ""].join(" ")} />
+        {checks.map((c, i) => (
+          <div className={styles.checkItem} style={{ "--ci": i } as React.CSSProperties} key={c}>
+            <i aria-hidden="true" />
+            <span>{c}</span>
+          </div>
         ))}
-      </ul>
+      </div>
 
       <div
         className={[
@@ -100,8 +97,7 @@ export function SeoHealthScan() {
           reached("issue") ? styles.issueVisible : "",
           isResolved ? styles.issueResolved : "",
         ].join(" ")}
-        role="img"
-        aria-label="Найден дубль страницы с параметром сортировки, настроен canonical, дубль устранён"
+        aria-hidden="true"
       >
         <p className={styles.issueLabel}>{isResolved ? "Дубль устранён" : "Найден дубль страницы"}</p>
         <p className={styles.issueExplain}>Без canonical поисковик мог посчитать адрес с сортировкой отдельной страницей и не понять, какую версию показывать в выдаче.</p>
@@ -113,27 +109,6 @@ export function SeoHealthScan() {
           {isResolved ? "Canonical указывает на основной адрес" : "Настраиваем canonical…"}
         </p>
       </div>
-
-      <button
-        type="button"
-        className={styles.checklistToggle}
-        aria-expanded={checklistOpen}
-        aria-controls="seo-technical-checklist"
-        onClick={() => setChecklistOpen((value) => !value)}
-      >
-        {checklistOpen ? "Скрыть" : "Что проверяем"} <i aria-hidden="true">{checklistOpen ? "−" : "+"}</i>
-      </button>
-
-      {checklistOpen && (
-        <div className={styles.checklist} id="seo-technical-checklist" aria-label="Полный технический список проверок">
-          {checks.map((c) => (
-            <div className={styles.checkItem} key={c}>
-              <i aria-hidden="true" />
-              <span>{c}</span>
-            </div>
-          ))}
-        </div>
-      )}
     </div>
   );
 }

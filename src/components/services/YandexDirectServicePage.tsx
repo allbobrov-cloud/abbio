@@ -47,27 +47,14 @@ export function YandexDirectServicePage() {
       <SectionLead index="02 / Места показа" id="placements-title" title="Выбираем места показа под задачу, а не подключаем всё подряд." description="Поиск, Рекламную сеть Яндекса и другие доступные форматы рассматриваем отдельно. Для каждого направления определяем аудиторию, предложение и подходящую страницу." />
       <div className={styles.placementLanes}>
         <article className={styles.searchLane}>
+          <div className={styles.searchVisual} aria-hidden="true"><Image src="/services/yandex-direct-search-query-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), 500px" /></div>
           <header><span>01</span><strong>Поиск</strong></header>
-          <div className={styles.searchMock} aria-hidden="true">
-            <div className={styles.searchBarMini}>
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><circle cx="11" cy="11" r="6.5" /><path d="M20 20l-4.3-4.3" /></svg>
-              <span>профильная труба 09г2с купить</span>
-            </div>
-            <div className={styles.searchResultAd}>
-              <b>Реклама</b>
-              <strong>Профильная труба 09Г2С — купить в СПб</strong>
-              <small>metallobazav.ru</small>
-            </div>
-          </div>
-          <div className={styles.searchCopy}><p>Человек уже сформулировал запрос — он ищет конкретное решение.</p><small>Объявление отвечает на этот запрос и ведёт на страницу с этим товаром.</small></div>
+          <div className={styles.searchCopy}><p>Сформированный вопрос, который человек задаёт в поиске.</p><small>Объявление отвечает на запрос и ведёт к подходящей странице.</small></div>
         </article>
         <article className={styles.networkLane}>
+          <div className={styles.networkVisual} aria-hidden="true"><Image src="/services/yandex-direct-network-banner-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), 650px" /></div>
           <header><span>02</span><strong>Рекламная сеть Яндекса</strong></header>
-          <div className={styles.networkMock} aria-hidden="true">
-            <div className={styles.networkArticle}><i /><i /><i /></div>
-            <div className={styles.networkBannerSlot}><span>Баннер РСЯ</span></div>
-          </div>
-          <p>Человек ещё не искал товар, но по интересам похож на тех, кому он нужен.</p>
+          <p>Отдельная работа с аудиторией и подачей.</p>
         </article>
         <article className={styles.optionalLane}><header><span>03</span><strong>Другие форматы</strong></header><p>Рассматриваем только при соответствии задаче.</p><div className={styles.optionalSignal} aria-hidden="true"><i/><i/><i/></div></article>
       </div>
@@ -86,21 +73,13 @@ export function YandexDirectServicePage() {
         <div className={styles.campaignVisual} aria-hidden="true">
           <Image src="/services/yandex-direct-campaign-structure-v2.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 620px" />
         </div>
-        <div className={styles.campaignRoot}><span>Кампания</span><strong>Металлопрокат</strong></div>
-        <div className={styles.campaignBranches}>
-          <div className={styles.campaignBranchMain}>
-            <div className={styles.campaignBranchHead}><span>Ветка по предложению</span><strong>Профильная труба 09Г2С</strong></div>
-            <ul className={styles.campaignParams}>
-              <li><span>География</span><b>Санкт-Петербург</b></li>
-              <li><span>Расписание</span><b>Рабочие часы отдела продаж</b></li>
-              <li><span>Бюджет</span><b>Дневной лимит по ветке</b></li>
-            </ul>
-          </div>
-          <ul className={styles.campaignBranchList} aria-label="Другие ветки той же кампании">
-            <li><span>Ветка</span>Арматура А500С</li>
-            <li><span>Ветка</span>Листовой металл</li>
-          </ul>
+        <div className={styles.campaignRoot}><span>Задача</span><strong>Структура запуска</strong></div>
+        <div className={styles.campaignColumns}>
+          <article><span>Направление 01</span><strong>Предложение</strong><small>свои объявления</small></article>
+          <article><span>Направление 02</span><strong>География</strong><small>свои условия</small></article>
+          <article><span>Направление 03</span><strong>Характер спроса</strong><small>свой сценарий</small></article>
         </div>
+        <div className={styles.budgetLine}><span>Бюджет</span><i/><span>Расписание</span><i/><span>Правила показов</span></div>
       </div>
     </div></section>
 
@@ -115,21 +94,15 @@ export function YandexDirectServicePage() {
         <header className={styles.reportHeader}><div><span>Пример среза отчёта</span><strong>Период: 30 дней</strong></div><small>демонстрационные данные</small></header>
         <div className={styles.reportGrid}>
           <article className={styles.reportSpend}><span>Расходы</span><strong>147 800 <em>₽</em></strong><p>За выбранный период</p></article>
-          <article className={styles.reportSpend}><span>Обращения</span><strong>38</strong><p>Формы, звонки и чаты</p></article>
-          <article className={styles.reportSpend}><span>Стоимость обращения</span><strong>3 889 <em>₽</em></strong><p>Расходы / обращения</p></article>
+          <div className={styles.reportVisual} aria-hidden="true"><Image src="/services/yandex-direct-report-calibration-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1080px) 52vw, 700px" /></div>
+          <div className={styles.reportSignals}>
+            <article><span>Обращения</span><strong>38</strong><small>формы, звонки и чаты</small></article>
+            <article><span>Стоимость обращения</span><strong>3 889 <em>₽</em></strong><small>расходы / обращения</small></article>
+          </div>
+          <aside className={styles.reportCrm}><span>CRM</span><strong>24</strong><p>обращения переданы<br/>с источником</p><small>пример качества данных</small></aside>
         </div>
-        <div className={styles.reportTable} aria-hidden="true">
-          <div className={styles.reportTableRow} data-head><span>Источник</span><span>Обращения</span><span>Расходы</span></div>
-          <div className={styles.reportTableRow}><span>Поиск</span><span>21</span><span>81 400 ₽</span></div>
-          <div className={styles.reportTableRow}><span>РСЯ</span><span>17</span><span>66 400 ₽</span></div>
-        </div>
-        <div className={styles.reportAttribution}><strong>24 из 38</strong><p>обращений переданы в CRM с источником — полнота атрибуции, не качество лидов</p></div>
-        <footer>
-          <p>Пример визуализации. Значения не являются данными клиента.</p>
-          <a href={reportDemoUrl} target="_blank" rel="noopener noreferrer" className={styles.reportBoardLink} aria-label="Открыть демо-отчёт в Google Sheets, новая вкладка">Открыть демо-отчёт <ActionArrow /></a>
-        </footer>
+        <footer><p>Пример визуализации. Значения не являются данными клиента.</p><span>Сделки и выручка добавляются при корректной передаче из CRM.</span></footer>
       </div>
-      <p className={styles.disclaimer}>Фактическое количество и стоимость обращений зависят от предложения, бюджета, конкуренции, посадочной страницы и работы с полученными обращениями.</p>
     </div></section>
 
     <section className={styles.section} aria-labelledby="management-title"><div className={styles.container}>
@@ -144,7 +117,12 @@ export function YandexDirectServicePage() {
         </ol>
         <div className={styles.managementVisual} aria-hidden="true"><Image src="/services/yandex-direct-management-loop-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 720px" /></div>
       </div>
-      <p className={styles.managementExample}><span>Пример решения</span>Стоимость обращения с РСЯ выросла — сузили аудиторию по интересам и обновили баннеры под то же предложение.</p>
+    </div></section>
+
+    <section className={`${styles.section} ${styles.resultSection}`} aria-labelledby="direct-result-title"><div className={styles.container}>
+      <SectionLead index="08 / Результат" id="direct-result-title" title="Обращения появляются быстрее, а результат виден в отчёте." description="Яндекс Директ помогает быстро запустить платный поток обращений и проверить спрос. Понятный отчёт показывает расходы, количество обращений и доступные данные об их дальнейшем движении." />
+      <div className={styles.resultPanel}><div><span>Запуск</span><strong>Платный поток обращений</strong><small>зависит от условий задачи</small></div><i aria-hidden="true"/><div><span>Контроль</span><strong>Понятный отчёт</strong><small>расходы · обращения · движение</small><a className={styles.resultReportLink} href={reportDemoUrl} target="_blank" rel="noopener noreferrer" aria-label="Открыть демо-отчёт в Google Sheets, новая вкладка">Открыть демо-отчёт <ActionArrow /></a></div></div>
+      <p className={styles.disclaimer}>Фактическое количество и стоимость обращений зависят от предложения, бюджета, конкуренции, посадочной страницы и работы с полученными обращениями.</p>
     </div></section>
 
     <section className={`${styles.section} ${styles.relatedSection}`} aria-labelledby="related-title"><div className={styles.container}>

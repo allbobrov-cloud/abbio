@@ -310,16 +310,6 @@
   line-height: 1.7;
   text-transform: uppercase;
 }
-.note {
-  position: absolute;
-  z-index: 3;
-  top: 83.6%;
-  left: 3.5%;
-  margin: 0;
-  color: #55516a;
-  font-size: clamp(8px, 0.72cqw, 13px);
-}
-
 .final {
   position: absolute;
   z-index: 3;
@@ -395,7 +385,6 @@
   .node,
   .flow,
   .stats,
-  .note,
   .final {
     position: relative;
     top: auto;
@@ -407,8 +396,7 @@
   .part { order: 2; }
   .flow { order: 3; }
   .stats { order: 4; }
-  .note { order: 5; }
-  .final { order: 6; }
+  .final { order: 5; }
 
   .eyebrow { margin-bottom: 22px; }
   .eyebrow::after { width: 60px; }
@@ -436,7 +424,6 @@
   .node,
   .flow,
   .stats,
-  .note,
   .final {
     grid-column: 1 / -1;
   }
@@ -511,7 +498,6 @@
   .big { gap: 16px; }
   .big strong { line-height: 1; }
   .capt { margin-top: 10px; font-size: 11px; }
-  .note { margin-top: 4px; font-size: 12px; }
   .final {
     margin-top: 34px;
     padding-top: 26px;

@@ -116,8 +116,7 @@ function Stage() {
           src="/cases/bogov-ux-laptop.webp"
           alt="Сайт Мотошколы Владимира Богова на ноутбуке: первый экран и блок «Направления обучения»"
           fill
-          sizes="(max-width: 900px) 100vw, 80vw"
-          priority
+          sizes="(max-width: 900px) 100vw, 66vw"
         />
       </div>
 
@@ -127,7 +126,6 @@ function Stage() {
           alt="Сайт Мотошколы Владимира Богова на телефоне: форма записи на обучение"
           fill
           sizes="(max-width: 900px) 70vw, 26vw"
-          priority
         />
       </div>
 

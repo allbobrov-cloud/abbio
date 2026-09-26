@@ -1,0 +1,452 @@
+/* 06 · Бизнес-результат: тёмная типографическая секция — цепочка Поиск → Сайт → Обращение → Договор, главная цифра и цель. */
+.section {
+  --red: #e8383c;
+
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 78% 10%, rgba(232, 56, 60, 0.1), transparent 42%),
+    radial-gradient(ellipse at 15% 100%, rgba(232, 56, 60, 0.04), transparent 40%),
+    linear-gradient(180deg, #070912 0%, #05070d 100%);
+  color: var(--foreground);
+}
+.stage {
+  width: min(1440px, calc(100% - 96px));
+  margin-inline: auto;
+  padding: clamp(44px, 4.6vw, 80px) 0 clamp(34px, 3.2vw, 56px);
+}
+
+/* Заголовок */
+.head { max-width: 62%; }
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.1em;
+  margin: 0 0 clamp(20px, 2.2vw, 36px);
+  color: #a7adba;
+  font-size: clamp(10px, 0.85vw, 14px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.eyebrow b { color: var(--red); font-weight: 700; font-size: 1.3em; letter-spacing: 0; }
+.eyebrow i {
+  width: 3.4em;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.28);
+}
+.head h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(34px, 3.7vw, 66px);
+  font-weight: 780;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+  white-space: nowrap;
+}
+.head h2 em { color: var(--red); font-style: normal; }
+.description {
+  max-width: 30em;
+  margin: clamp(16px, 1.6vw, 26px) 0 0;
+  color: rgba(255, 255, 255, 0.66);
+  font-size: clamp(14px, 1.15vw, 20px);
+  line-height: 1.5;
+}
+
+/* Цепочка */
+.chain {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1.06fr);
+  align-items: stretch;
+  margin-top: clamp(28px, 3vw, 52px);
+}
+.step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(8px, 0.8vw, 12px);
+  min-width: 0;
+  min-height: clamp(150px, 12.4vw, 200px);
+  padding: clamp(16px, 1.5vw, 24px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: clamp(14px, 1.3vw, 18px);
+  background: rgba(255, 255, 255, 0.025);
+}
+.ico {
+  display: grid;
+  width: clamp(38px, 3.1vw, 50px);
+  height: clamp(38px, 3.1vw, 50px);
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+}
+.ico svg,
+.searchBar svg {
+  fill: none;
+  stroke: #fff;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.ico svg { width: 50%; height: 50%; }
+.step h3 {
+  margin: clamp(2px, 0.3vw, 6px) 0 0;
+  color: #fff;
+  font-size: clamp(13px, 1.1vw, 19px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.sub {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: clamp(11px, 0.9vw, 15px);
+  line-height: 1.4;
+}
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+  width: 100%;
+  margin: auto 0 0;
+  padding: 0.7em 1em;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.04);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(10px, 0.82vw, 14px);
+  white-space: nowrap;
+}
+.searchBar svg { width: 1.3em; height: 1.3em; flex: none; stroke-width: 1.8; }
+.cta {
+  margin: auto 0 0;
+  padding: 0.55em 1.1em;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
+  font-size: clamp(10px, 0.82vw, 14px);
+  font-weight: 600;
+}
+.step:not(.deal) .sub { margin-bottom: auto; }
+.s2 .sub { margin-bottom: 0; }
+
+/* Договор — кульминация цепочки */
+.deal {
+  border-color: rgba(232, 56, 60, 0.55);
+  background: linear-gradient(135deg, rgba(232, 56, 60, 0.1), rgba(232, 56, 60, 0.025));
+  box-shadow: 0 0 44px rgba(232, 56, 60, 0.2);
+  transform: scale(1.04);
+  transform-origin: right center;
+}
+.deal .ico {
+  border-color: rgba(232, 56, 60, 0.4);
+  background: rgba(232, 56, 60, 0.14);
+}
+.deal .ico svg { stroke: #ff6a6d; }
+.deal h3 { color: var(--red); font-size: clamp(15px, 1.35vw, 23px); }
+
+/* Стрелки между этапами */
+.link {
+  display: grid;
+  place-items: center;
+  width: clamp(28px, 3vw, 54px);
+  color: rgba(255, 255, 255, 0.4);
+}
+.link svg {
+  width: 45%;
+  min-width: 18px;
+  height: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Результат → цель */
+.metrics {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 0.7fr) minmax(0, 0.8fr);
+  align-items: center;
+  column-gap: clamp(20px, 3vw, 56px);
+  margin-top: clamp(28px, 3vw, 52px);
+  padding: clamp(22px, 2.4vw, 42px) 0;
+  border-block: 1px solid rgba(255, 255, 255, 0.1);
+}
+.result {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.2vw, 40px);
+  min-width: 0;
+}
+.big {
+  margin: 0;
+  background: linear-gradient(180deg, #ff5a5d 0%, #e8383c 55%, #c92a2e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  font-size: clamp(76px, 10vw, 172px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  white-space: nowrap;
+}
+.rText { min-width: 0; }
+.rMain {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(20px, 2.1vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.rSub {
+  margin: 0.6em 0 0;
+  color: rgba(255, 255, 255, 0.52);
+  font-size: clamp(12px, 1vw, 17px);
+}
+
+/* Направление «сейчас → цель», без процентов */
+.path {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 0.9vw, 14px);
+  min-width: 0;
+  color: rgba(255, 255, 255, 0.45);
+  font-size: clamp(9px, 0.72vw, 12px);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+.pLabel { flex: none; }
+.pLine {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-width: 30px;
+}
+.now {
+  width: clamp(12px, 0.95vw, 16px);
+  height: clamp(12px, 0.95vw, 16px);
+  flex: none;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 4px rgba(232, 56, 60, 0.2), 0 0 14px rgba(232, 56, 60, 0.6);
+}
+.dash {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(232, 56, 60, 0.7), rgba(255, 255, 255, 0.35));
+}
+.goalDot {
+  width: clamp(12px, 0.95vw, 16px);
+  height: clamp(12px, 0.95vw, 16px);
+  flex: none;
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+}
+
+.goal {
+  justify-self: end;
+  min-width: clamp(170px, 15vw, 250px);
+  padding: clamp(14px, 1.4vw, 22px) clamp(18px, 1.8vw, 30px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.015);
+}
+.gLabel {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: clamp(9px, 0.72vw, 12px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.gNum {
+  margin: 0.15em 0 0;
+  color: rgba(255, 255, 255, 0.86);
+  font-size: clamp(50px, 5.4vw, 92px);
+  font-weight: 750;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+.gSub {
+  margin: 0.4em 0 0;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: clamp(10px, 0.82vw, 14px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+/* Финал */
+.final {
+  display: flex;
+  align-items: center;
+  gap: clamp(18px, 2.4vw, 40px);
+  padding-top: clamp(22px, 2.2vw, 38px);
+}
+.thesis {
+  position: relative;
+  margin: 0;
+  padding-left: clamp(16px, 1.6vw, 26px);
+  color: #fff;
+  font-size: clamp(19px, 2vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+}
+.thesis::before {
+  position: absolute;
+  top: 0.12em;
+  bottom: 0.12em;
+  left: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--red);
+  content: "";
+}
+.thesis em { display: block; color: var(--red); font-style: normal; }
+.note {
+  margin: 0 0 0 auto;
+  padding-left: clamp(18px, 2.4vw, 40px);
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: clamp(11px, 0.92vw, 15px);
+  line-height: 1.6;
+}
+
+/* Появление: label → заголовок → 4 этапа по очереди → результат → цель → финал */
+.rev {
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stage[data-armed="true"] .rev { opacity: 0; transform: translateY(14px); }
+.stage[data-armed="true"] .deal.rev { transform: translateY(14px) scale(1.04); }
+.stage[data-armed="true"].seen .rev { opacity: 1; transform: none; }
+.stage[data-armed="true"].seen .deal.rev { transform: scale(1.04); }
+.stage[data-armed="true"] .head { transition-delay: 0s; }
+.stage[data-armed="true"] .s1 { transition-delay: 0.45s; }
+.stage[data-armed="true"] .s2 { transition-delay: 0.6s; }
+.stage[data-armed="true"] .s3 { transition-delay: 0.75s; }
+.stage[data-armed="true"] .s4 { transition-delay: 0.9s; }
+.stage[data-armed="true"] .link { transition-delay: 0.6s; }
+.stage[data-armed="true"] .result { transition-delay: 1.15s; }
+.stage[data-armed="true"] .path { transition-delay: 1.3s; }
+.stage[data-armed="true"] .goal { transition-delay: 1.45s; }
+.stage[data-armed="true"] .final { transition-delay: 1.7s; }
+
+@media (max-width: 1100px) {
+  .stage { width: calc(100% - 64px); }
+  .head { max-width: none; }
+  .chain { grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); row-gap: 14px; }
+  .chain .link:nth-of-type(2) { display: none; }
+  .deal { transform: none; }
+  .stage[data-armed="true"] .deal.rev { transform: translateY(14px); }
+  .stage[data-armed="true"].seen .deal.rev { transform: none; }
+  .metrics { grid-template-columns: 1fr; row-gap: 22px; }
+  .goal { justify-self: start; }
+}
+
+/* Mobile: цепочка вертикально, стрелки вниз */
+@media (max-width: 860px) {
+  .stage { width: calc(100% - 40px); padding: 44px 0 36px; }
+  .head h2 { font-size: clamp(28px, 8vw, 42px); white-space: normal; }
+  .description { font-size: 16px; }
+  .big { font-size: clamp(80px, 26vw, 120px); }
+  .chain { display: flex; flex-direction: column; gap: 0; }
+  .chain .link:nth-of-type(2) { display: grid; }
+  .link { width: 100%; height: 34px; }
+  .link svg { width: 24px; transform: rotate(90deg); }
+  .step { min-height: 0; }
+  .searchBar { margin-top: 6px; }
+  .cta { margin-top: 6px; }
+  .step:not(.deal) .sub { margin-bottom: 0; }
+  .deal { transform: none; }
+  .result { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .path { justify-content: center; }
+  .final { flex-direction: column; align-items: flex-start; gap: 18px; }
+  .thesis { font-size: clamp(20px, 5.8vw, 26px); }
+  .note { margin: 0; padding-left: 0; border-left: 0; font-size: 13px; }
+  .note br { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev { transition: none; }
+}
+
+/* Мобильные: мелкие подписи не меньше 11 px */
+@media (max-width: 860px) {
+  .eyebrow { font-size: 11px; }
+  .searchBar, .cta { font-size: 12px; }
+  .path { font-size: 11px; }
+}
+
+/* Mobile: всё по центру, цепочка карточек, главный результат в светящейся панели */
+@media (max-width: 860px) {
+  .head { text-align: center; }
+  .eyebrow { justify-content: center; }
+  .head h2 { font-size: clamp(30px, 8.6vw, 44px); }
+  .description { margin-inline: auto; }
+
+  .chain { align-items: stretch; margin-top: 30px; }
+  .step {
+    align-items: center;
+    padding: 22px 20px 20px;
+    text-align: center;
+    border-radius: 20px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  .ico { width: 52px; height: 52px; border-radius: 16px; }
+  .step h3 { margin-top: 4px; font-size: 15px; }
+  .sub { font-size: 14px; }
+  .sub br { display: none; }
+  .searchBar { width: auto; min-width: 70%; justify-content: center; margin-top: 8px; padding: 0.8em 1.2em; }
+  .cta { margin-top: 8px; padding: 0.7em 1.4em; }
+  .deal { padding: 26px 20px 24px; box-shadow: 0 0 50px rgba(232, 56, 60, 0.22); }
+  .deal h3 { font-size: 18px; }
+  .link { height: 38px; color: rgba(255, 255, 255, 0.5); }
+  .link svg { width: 22px; }
+
+  .metrics {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    margin-top: 32px;
+    padding: 30px 20px;
+    border: 1px solid rgba(232, 56, 60, 0.22);
+    border-radius: 24px;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(232, 56, 60, 0.16), transparent 70%),
+      rgba(255, 255, 255, 0.02);
+    text-align: center;
+  }
+  .result { flex-direction: column; align-items: center; gap: 12px; }
+  .big { font-size: clamp(88px, 28vw, 128px); }
+  .rMain { font-size: 22px; }
+  .rSub { font-size: 14px; }
+  .path { width: 100%; justify-content: center; gap: 12px; }
+  .pLine { flex: 0 1 180px; }
+  .goal {
+    justify-self: auto;
+    width: 100%;
+    max-width: 260px;
+    min-width: 0;
+    padding: 18px 20px;
+    text-align: center;
+  }
+  .gNum { font-size: 64px; }
+
+  .final { align-items: center; gap: 14px; margin-top: 8px; text-align: center; }
+  .thesis { padding-left: 0; padding-top: 22px; }
+  .thesis::before {
+    top: 0;
+    right: auto;
+    bottom: auto;
+    left: 50%;
+    width: 44px;
+    height: 3px;
+    transform: translateX(-50%);
+  }
+  .note { text-align: center; }
+}

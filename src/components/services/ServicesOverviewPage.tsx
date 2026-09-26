@@ -170,7 +170,6 @@ export function ServicesOverviewPage() {
 
             <div className={styles.heroVisualWrap}>
               <ServicesHeroVisual />
-              <span className={styles.heroVisualNote}>Схематичный пример</span>
             </div>
           </div>
         </div>

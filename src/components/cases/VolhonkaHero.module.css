@@ -221,6 +221,20 @@
   to { opacity: 1; transform: none; }
 }
 
+/* Десктоп: Hero всегда во весь экран под шапкой (шапка 90px), при любом соотношении сторон */
+@media (min-width: 1181px) {
+  .hero {
+    min-height: calc(100svh - 90px);
+  }
+  .stage {
+    width: 100%;
+    max-width: 2200px;
+    height: calc(100svh - 90px);
+    min-height: 600px;
+    aspect-ratio: auto;
+  }
+}
+
 @media (max-width: 1180px) {
   .stage {
     display: flex;

@@ -1,0 +1,321 @@
+/* 04 · SEO-архитектура: тёмная секция, запросы слева → страница-mockup справа. Красный клиента — акцент. */
+.section {
+  --red: #e8383c;
+
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 72% 30%, rgba(232, 56, 60, 0.09), transparent 45%),
+    radial-gradient(ellipse at 60% 75%, rgba(232, 56, 60, 0.04), transparent 50%),
+    linear-gradient(180deg, #070912 0%, #05070d 100%);
+  color: var(--foreground);
+}
+.stage {
+  width: min(1440px, calc(100% - 96px));
+  margin-inline: auto;
+  padding: clamp(40px, 4.2vw, 72px) 0 clamp(32px, 3vw, 54px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.32fr) minmax(0, 0.68fr);
+  column-gap: clamp(20px, 2.6vw, 48px);
+  align-items: start;
+}
+.left { min-width: 0; }
+
+/* Текст */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1.1em;
+  margin: 0 0 clamp(20px, 2.2vw, 36px);
+  color: #a7adba;
+  font-size: clamp(10px, 0.85vw, 14px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.eyebrow b { color: var(--red); font-weight: 700; }
+.eyebrow i {
+  width: 4em;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.28);
+}
+.head h2 {
+  margin: 0;
+  color: #fff;
+  font-size: clamp(32px, 2.95vw, 56px);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  white-space: nowrap;
+}
+.head h2 em { color: var(--red); font-style: normal; }
+.description {
+  margin: clamp(16px, 1.6vw, 26px) 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: clamp(13px, 1.05vw, 18px);
+  line-height: 1.5;
+}
+
+/* Что ищут: поисковые подсказки */
+.qTitle {
+  margin: clamp(22px, 2.2vw, 36px) 0 clamp(12px, 1.1vw, 18px);
+  color: #fff;
+  font-size: clamp(16px, 1.3vw, 22px);
+  font-weight: 600;
+}
+.queries ul {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 0.55vw, 9px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.q {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1vw, 16px);
+  min-height: clamp(46px, 3.7vw, 58px);
+  padding: 0 clamp(12px, 1.2vw, 20px);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.025);
+  color: rgba(255, 255, 255, 0.82);
+  font-size: clamp(12px, 0.95vw, 16px);
+  transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.6s ease, background 0.6s ease, box-shadow 0.6s ease;
+}
+.q span { flex: 1; min-width: 0; }
+.qIcon {
+  width: 1.5em;
+  height: 1.5em;
+  flex: none;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.5);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.arrow {
+  width: 1.7em;
+  height: auto;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.active {
+  border-color: rgba(232, 56, 60, 0.7);
+  background: linear-gradient(90deg, rgba(232, 56, 60, 0.08), rgba(232, 56, 60, 0.015));
+  box-shadow: 0 0 24px rgba(232, 56, 60, 0.16);
+  color: #fff;
+  font-weight: 600;
+}
+.active .qIcon { stroke: #ff6a6d; }
+
+/* Browser mockup: обрезаем поля PNG до рамки браузера и добавляем нижнюю кромку (нижний ряд разделов выводим кодом ниже) */
+.right { min-width: 0; }
+.tagline {
+  margin: 0 0 clamp(10px, 1vw, 16px);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: clamp(9px, 0.72vw, 12px);
+  letter-spacing: 0.18em;
+  line-height: 1.7;
+  text-align: right;
+  text-transform: uppercase;
+}
+.browser {
+  overflow: hidden;
+  aspect-ratio: 1405 / 819;
+  border-bottom: 1px solid #2e3539;
+  border-radius: clamp(14px, 1.55vw, 24px);
+  background: #0a1015;
+  filter: drop-shadow(0 30px 70px rgba(0, 0, 0, 0.3));
+}
+.browser img {
+  display: block;
+  width: 109.32%;
+  max-width: none;
+  height: auto;
+  margin-left: -4.7%;
+  margin-top: -3.06%;
+}
+
+/* Категории структуры */
+.cats {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(8px, 0.9vw, 14px);
+  margin: clamp(26px, 2.8vw, 46px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.cats li {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  height: clamp(50px, 4.2vw, 64px);
+  padding: 0 clamp(16px, 1.7vw, 28px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: clamp(10px, 0.8vw, 13px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.3s ease, background-color 0.3s ease;
+}
+.cats svg {
+  width: 1.9em;
+  height: 1.9em;
+  flex: none;
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.85);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Финальная строка */
+.final {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 32px);
+  margin-top: clamp(26px, 2.8vw, 46px);
+  padding-top: clamp(20px, 2vw, 34px);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+.finalIcon {
+  display: grid;
+  width: clamp(48px, 4.6vw, 72px);
+  height: clamp(48px, 4.6vw, 72px);
+  flex: none;
+  place-items: center;
+  border: 1px solid rgba(232, 56, 60, 0.3);
+  border-radius: 18px;
+  background: rgba(232, 56, 60, 0.1);
+}
+.finalIcon svg {
+  width: 46%;
+  height: 46%;
+  fill: none;
+  stroke: #ff6a6d;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.thesis {
+  position: relative;
+  margin: 0;
+  padding-left: clamp(16px, 1.6vw, 26px);
+  color: #fff;
+  font-size: clamp(19px, 1.95vw, 32px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+}
+.thesis::before {
+  position: absolute;
+  top: 0.12em;
+  bottom: 0.12em;
+  left: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--red);
+  content: "";
+}
+.thesis em { display: block; color: var(--red); font-style: normal; }
+.note {
+  margin: 0 0 0 auto;
+  padding-left: clamp(18px, 2.4vw, 40px);
+  border-left: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(255, 255, 255, 0.55);
+  font-size: clamp(11px, 0.92vw, 15px);
+  line-height: 1.6;
+}
+
+/* Появление: текст → запросы сверху вниз → mockup → категории → финал; активный запрос подсвечивается после появления */
+.rev {
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stage[data-armed="true"] .rev { opacity: 0; transform: translateY(14px); }
+.stage[data-armed="true"] .slide { transform: translateX(28px); }
+.stage[data-armed="true"].seen .rev { opacity: 1; transform: none; }
+.stage[data-armed="true"] .head { transition-delay: 0s; }
+.stage[data-armed="true"] .qTitle { transition-delay: 0.3s; }
+.stage[data-armed="true"] .q1 { transition-delay: 0.4s; }
+.stage[data-armed="true"] .q2 { transition-delay: 0.48s; }
+.stage[data-armed="true"] .q3 { transition-delay: 0.56s; }
+.stage[data-armed="true"] .q4 { transition-delay: 0.64s; }
+.stage[data-armed="true"] .q5 { transition-delay: 0.72s; }
+.stage[data-armed="true"] .q6 { transition-delay: 0.8s; }
+.stage[data-armed="true"] .right { transition-delay: 0.9s; }
+.stage[data-armed="true"] .cats { transition-delay: 1.3s; }
+.stage[data-armed="true"] .final { transition-delay: 1.5s; }
+.stage .q {
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.6s ease, background 0.6s ease, box-shadow 0.6s ease;
+}
+/* активный запрос загорается уже после того, как всё появилось */
+.stage[data-armed="true"] .active {
+  border-color: rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.025);
+  box-shadow: none;
+}
+.stage[data-armed="true"].seen .active {
+  border-color: rgba(232, 56, 60, 0.7);
+  background: linear-gradient(90deg, rgba(232, 56, 60, 0.08), rgba(232, 56, 60, 0.015));
+  box-shadow: 0 0 24px rgba(232, 56, 60, 0.16);
+  transition-delay: 0.4s, 0.4s, 1.8s, 1.8s, 1.8s;
+}
+
+/* Hover: только на устройствах с курсором */
+@media (hover: hover) {
+  .stage .q:not(.active):hover {
+    border-color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.05);
+  }
+  .stage .cats li:hover {
+    border-color: rgba(232, 56, 60, 0.4);
+    background: rgba(232, 56, 60, 0.05);
+  }
+}
+
+@media (max-width: 1100px) {
+  .stage { width: calc(100% - 64px); }
+  .grid { grid-template-columns: minmax(0, 0.38fr) minmax(0, 0.62fr); }
+  .head h2 { white-space: normal; }
+  .head h2 br { display: none; }
+  .head h2 em { display: block; }
+}
+
+/* Mobile: один столбец, mockup целиком, категории сеткой 2×3 */
+@media (max-width: 860px) {
+  .stage { width: calc(100% - 40px); padding: 44px 0 36px; }
+  .grid { display: flex; flex-direction: column; align-items: stretch; gap: 26px; }
+  .head h2 { font-size: clamp(30px, 8.6vw, 44px); white-space: nowrap; }
+  .head h2 br { display: inline; }
+  .description { font-size: 16px; }
+  .q { min-height: 52px; font-size: 14px; }
+  .tagline { text-align: left; font-size: 10px; }
+  .tagline br { display: none; }
+  .cats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cats li { height: 56px; padding: 0 14px; font-size: 10px; letter-spacing: 0.1em; }
+  .final { flex-wrap: wrap; gap: 16px; }
+  .thesis { flex: 1 1 200px; font-size: clamp(20px, 5.6vw, 26px); }
+  .note { margin: 0; padding-left: 0; border-left: 0; font-size: 13px; }
+  .note br { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev, .q, .cats li { transition: none; }
+}
+
+/* Мобильные: мелкие подписи не меньше 11 px */
+@media (max-width: 860px) {
+  .eyebrow, .tagline { font-size: 11px; }
+  .cats li { font-size: 11px; }
+}

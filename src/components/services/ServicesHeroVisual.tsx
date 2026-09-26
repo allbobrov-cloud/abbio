@@ -54,7 +54,7 @@ export function ServicesHeroVisual() {
       ref={rootRef}
       className={styles.heroComposition}
       role="img"
-      aria-label="Схематичный пример: дизайн-система превращается в сайт, к нему приходит спрос из SEO и рекламы, а результат фиксируется как новая заявка"
+      aria-label="Дизайн-система превращается в сайт, к нему приходит спрос из SEO и рекламы, а результат фиксируется как новая заявка"
     >
       <svg className={styles.heroRoute} viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         <path className={styles.heroRouteBase} d={HERO_ROUTE_PATH} />

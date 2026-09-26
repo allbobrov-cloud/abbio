@@ -1,0 +1,329 @@
+/* 03 · Реальные объекты: светлый «разворот портфолио» — текст, большая фотография, карточка «Что сделали», ниже похожие объекты. */
+.section {
+  --red: #dd2f30;
+  --ink: #15171c;
+  --graph: #5f6570;
+
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 50% 60% at 52% 34%, rgba(221, 160, 120, 0.1), transparent 70%),
+    linear-gradient(180deg, #faf9f7 0%, #f7f6f3 100%);
+  color: var(--ink);
+}
+.stage {
+  width: min(1440px, calc(100% - 96px));
+  margin-inline: auto;
+  padding: clamp(40px, 4.2vw, 72px) 0 clamp(36px, 3.4vw, 60px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.2404fr) minmax(0, 0.5575fr) minmax(0, 0.202fr);
+  grid-template-areas:
+    "head photo done"
+    "simHead sim sim";
+  column-gap: clamp(16px, 1.8vw, 32px);
+  row-gap: clamp(28px, 3vw, 52px);
+  align-items: start;
+}
+.head { grid-area: head; }
+.photo { grid-area: photo; }
+.done { grid-area: done; }
+.simHead { grid-area: simHead; }
+.sim { grid-area: sim; }
+
+/* Текст */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  margin: 0 0 clamp(22px, 2.4vw, 40px);
+  color: #6b6f78;
+  font-size: clamp(10px, 0.85vw, 14px);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.eyebrow b { color: var(--red); font-weight: 700; }
+.eyebrow i {
+  width: 2.6em;
+  height: 1px;
+  background: rgba(15, 23, 42, 0.22);
+}
+.head h2 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(32px, 3.15vw, 58px);
+  font-weight: 750;
+  letter-spacing: -0.035em;
+  line-height: 1.03;
+  white-space: nowrap;
+}
+.head h2 em { color: var(--red); font-style: normal; }
+.description {
+  margin: clamp(18px, 1.8vw, 30px) 0 0;
+  color: var(--graph);
+  font-size: clamp(13px, 1.02vw, 18px);
+  line-height: 1.55;
+}
+.all {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2em;
+  margin: clamp(18px, 1.8vw, 30px) 0 0;
+  padding: clamp(12px, 1.1vw, 18px) clamp(16px, 1.5vw, 24px);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 8px 20px -10px rgba(20, 30, 40, 0.15);
+  color: var(--ink);
+  font-size: clamp(12px, 0.95vw, 16px);
+  font-weight: 600;
+}
+.arrow {
+  width: 1.7em;
+  height: auto;
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Главная фотография */
+.photo {
+  overflow: hidden;
+  border-radius: clamp(20px, 1.8vw, 28px);
+  box-shadow: 0 24px 60px rgba(30, 35, 40, 0.08);
+}
+.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+/* «Что сделали»: обрезаем прозрачные поля PNG, чтобы карточка стояла вровень с фото сверху и снизу */
+.done {
+  overflow: hidden;
+  aspect-ratio: 891 / 1639;
+}
+.done img {
+  display: block;
+  width: 104.38%;
+  max-width: none;
+  height: auto;
+  margin-left: -2.24%;
+  margin-top: -2.92%;
+}
+.simScroll img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Похожая задача */
+.simHead { align-self: center; }
+.simHead h3 {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(22px, 1.9vw, 34px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.simHead p {
+  margin: 0.7em 0 0;
+  color: var(--graph);
+  font-size: clamp(13px, 1.02vw, 18px);
+  line-height: 1.5;
+}
+.sim {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 28px);
+  min-width: 0;
+}
+/* В PNG вокруг карточек прозрачные поля: обрезаем их, чтобы карточки стояли от левого края фото до правого края «Что сделали» */
+.simScroll {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  aspect-ratio: 1877 / 265;
+}
+.simScroll img {
+  width: 106.55%;
+  max-width: none;
+  margin-left: -3.2%;
+  margin-top: -11.24%;
+}
+.more {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  margin: clamp(14px, 1.4vw, 24px) 0 0;
+  color: var(--graph);
+  font-size: clamp(11px, 0.9vw, 15px);
+}
+.moreBtn {
+  display: grid;
+  width: clamp(38px, 3vw, 50px);
+  height: clamp(38px, 3vw, 50px);
+  place-items: center;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 8px 20px -8px rgba(20, 30, 40, 0.2);
+  color: var(--ink);
+}
+.moreBtn .arrow { width: 45%; }
+
+/* Финал */
+.final {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 28px);
+  margin-top: clamp(28px, 3vw, 52px);
+  padding-top: clamp(20px, 2vw, 34px);
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+}
+.finalIcon {
+  display: grid;
+  width: clamp(48px, 4.6vw, 72px);
+  height: clamp(48px, 4.6vw, 72px);
+  flex: none;
+  place-items: center;
+  border: 1px solid rgba(221, 47, 48, 0.12);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 8px 20px rgba(221, 47, 48, 0.1);
+}
+.finalIcon svg {
+  width: 46%;
+  height: 46%;
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.thesis {
+  position: relative;
+  margin: 0;
+  padding-left: clamp(16px, 1.6vw, 26px);
+  color: var(--ink);
+  font-size: clamp(20px, 2vw, 34px);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.22;
+}
+.thesis::before {
+  position: absolute;
+  top: 0.12em;
+  bottom: 0.12em;
+  left: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--red);
+  content: "";
+}
+.thesis em { display: block; color: var(--red); font-style: normal; }
+.note {
+  margin: 0 0 0 auto;
+  padding-left: clamp(18px, 2.4vw, 40px);
+  border-left: 1px solid rgba(15, 23, 42, 0.14);
+  color: #7b7f88;
+  font-size: clamp(11px, 0.92vw, 15px);
+  line-height: 1.55;
+}
+
+/* Появление: текст → фото (лёгкий scale) → «Что сделали» → похожие → финал */
+.rev {
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stage[data-armed="true"] .rev { opacity: 0; transform: translateY(14px); }
+.stage[data-armed="true"] .pop { transform: translateY(14px) scale(0.985); }
+.stage[data-armed="true"].seen .rev { opacity: 1; transform: none; }
+.stage[data-armed="true"] .head { transition-delay: 0s; }
+.stage[data-armed="true"] .photo { transition-delay: 0.25s; }
+.stage[data-armed="true"] .done { transition-delay: 0.55s; }
+.stage[data-armed="true"] .simHead { transition-delay: 0.85s; }
+.stage[data-armed="true"] .sim { transition-delay: 0.95s; }
+.stage[data-armed="true"] .final { transition-delay: 1.25s; }
+
+/* Hover: только на устройствах с курсором */
+@media (hover: hover) {
+  .stage .all .arrow { transition: translate 0.3s cubic-bezier(0.22, 1, 0.36, 1); }
+  .stage .all { transition: border-color 0.3s ease, box-shadow 0.3s ease; }
+  .stage .all:hover {
+    border-color: rgba(221, 47, 48, 0.3);
+    box-shadow: 0 12px 26px -10px rgba(221, 47, 48, 0.25);
+  }
+  .stage .all:hover .arrow { translate: 5px 0; }
+  .stage .moreBtn { transition: translate 0.3s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease; }
+  .stage .more:hover .moreBtn { translate: 4px 0; border-color: rgba(221, 47, 48, 0.3); }
+}
+
+@media (max-width: 1100px) {
+  .stage { width: calc(100% - 64px); }
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.42fr);
+    grid-template-areas:
+      "head head"
+      "photo done"
+      "simHead simHead"
+      "sim sim";
+  }
+  .head h2 br { display: none; }
+  .head h2 { white-space: normal; }
+  .head h2 em { display: block; }
+  .description { max-width: 34em; font-size: 16px; }
+}
+
+/* Mobile: один столбец; PNG с тремя объектами — в горизонтальной прокрутке */
+@media (max-width: 860px) {
+  .stage { width: calc(100% - 40px); padding: 44px 0 36px; }
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      "head"
+      "photo"
+      "done"
+      "simHead"
+      "sim";
+    row-gap: 28px;
+  }
+  .head h2 { font-size: clamp(30px, 8.6vw, 44px); white-space: nowrap; }
+  .head h2 br { display: inline; }
+  .description { font-size: 16px; }
+  .all { margin-top: 20px; font-size: 14px; }
+  .done { width: min(100%, 320px); margin-inline: auto; }
+  .simHead { padding-top: 0; }
+  .simHead h3 { font-size: 24px; }
+  .simHead p { font-size: 15px; }
+  .sim { flex-direction: column; align-items: stretch; gap: 12px; }
+  .simScroll {
+    overflow: auto hidden;
+    flex: none;
+    aspect-ratio: auto;
+    height: 104px;
+    margin-inline: -20px;
+    padding-inline: 20px;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+  .simScroll img { width: 720px; max-width: none; margin-left: 0; margin-top: -76px; }
+  .more { font-size: 13px; }
+  .moreBtn { width: 44px; height: 44px; }
+  .final { flex-wrap: wrap; gap: 16px; }
+  .thesis { font-size: clamp(20px, 5.6vw, 26px); flex: 1 1 200px; }
+  .note { margin: 0; padding-left: 0; border-left: 0; font-size: 13px; }
+  .note br { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev { transition: none; }
+}
+
+/* Мобильные: мелкие подписи не меньше 11 px */
+@media (max-width: 860px) {
+  .eyebrow { font-size: 11px; }
+}
