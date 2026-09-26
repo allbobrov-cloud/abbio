@@ -1,0 +1,808 @@
+/* 06 · Проект продолжается: живой digital-продукт. Внутри canvas три состояния: готово / в работе / следующее. */
+.section {
+  --red: #f0283c;
+  --ink: #0d1117;
+  --graph: #5d6675;
+
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 42% 55% at 72% 50%, rgba(120, 140, 165, 0.14), transparent 65%),
+    radial-gradient(ellipse 45% 50% at 98% 0%, rgba(190, 202, 217, 0.55), transparent 70%),
+    linear-gradient(110deg, #f6f9fb 0%, #eef3f7 48%, #e6edf3 100%);
+  color: var(--ink);
+}
+.stage {
+  width: 100%;
+  max-width: 1900px;
+  margin-inline: auto;
+  padding: clamp(56px, 5vw, 96px) 5.8% clamp(48px, 4.4vw, 84px);
+}
+
+.main {
+  display: grid;
+  grid-template-columns: 0.66fr 1.34fr;
+  align-items: center;
+  gap: clamp(24px, 3vw, 60px);
+}
+.copy { min-width: 0; }
+.eyebrow {
+  margin: 0 0 clamp(18px, 1.8vw, 34px);
+  color: #4a5262;
+  font-size: clamp(12px, 0.95vw, 18px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.eyebrow b {
+  color: var(--red);
+  font-weight: 700;
+}
+.title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(34px, 3.9vw, 72px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+.title em {
+  display: block;
+  color: var(--red);
+  font-style: normal;
+  white-space: nowrap;
+}
+.description {
+  max-width: 22em;
+  margin: clamp(18px, 1.8vw, 34px) 0 0;
+  color: var(--graph);
+  font-size: clamp(16px, 1.3vw, 24px);
+  line-height: 1.5;
+}
+.note {
+  margin: clamp(20px, 2vw, 38px) 0 0;
+  padding-left: clamp(16px, 1.6vw, 30px);
+  border-left: 1px solid rgba(15, 23, 42, 0.3);
+  color: #6b7381;
+  font-size: clamp(11px, 0.9vw, 17px);
+  letter-spacing: 0.12em;
+  line-height: 1.75;
+  text-transform: uppercase;
+}
+
+/* Визуал: два пустых слоя позади + canvas + маркеры */
+.visual {
+  position: relative;
+  container-type: inline-size;
+  min-width: 0;
+  aspect-ratio: 1.3 / 1;
+}
+.layer {
+  position: absolute;
+  inset: 12% 3% 11% 7%;
+  border: 1px solid rgba(15, 23, 42, 0.025);
+  border-radius: clamp(20px, 2.3cqw, 34px);
+  background: rgba(255, 255, 255, 0.45);
+  rotate: -1deg;
+}
+.layerA { translate: 14px 14px; }
+.layerB { translate: 28px 28px; opacity: 0.85; }
+.canvas {
+  position: absolute;
+  inset: 12% 3% 11% 7%;
+  container-type: inline-size;
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  border-radius: clamp(20px, 2.3cqw, 34px);
+  background: linear-gradient(145deg, #ffffff, #f8fafc);
+  box-shadow: 0 30px 80px rgba(35, 50, 65, 0.1), 0 8px 24px rgba(35, 50, 65, 0.05);
+  rotate: -1deg;
+}
+.canvas > * { position: absolute; }
+.canvas svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Навигация */
+.nav {
+  top: 0;
+  right: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  gap: 3cqw;
+  height: 11%;
+  padding: 0 2.6cqw;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.06);
+  background: rgba(255, 255, 255, 0.85);
+  color: #4a5262;
+  font-size: max(7px, 1.25cqw);
+}
+.brand {
+  display: block;
+  width: 13cqw;
+  height: auto;
+}
+.links {
+  display: flex;
+  gap: 2cqw;
+  white-space: nowrap;
+}
+.linkOn {
+  position: relative;
+  color: var(--ink);
+  font-weight: 700;
+}
+.linkOn::after {
+  position: absolute;
+  right: 0;
+  bottom: -0.9em;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--red);
+  content: "";
+}
+.tools {
+  display: flex;
+  gap: 1.4cqw;
+  margin-left: auto;
+  color: #4a5262;
+}
+.tools svg {
+  width: 1.9cqw;
+  height: 1.9cqw;
+}
+
+/* Боковое меню */
+.side {
+  top: 15%;
+  bottom: 5%;
+  left: 2.6cqw;
+  display: flex;
+  width: 21%;
+  flex-direction: column;
+  gap: 0.3cqw;
+  padding: 1.4cqw 1cqw;
+  border-radius: 1.5cqw;
+  background: #f1f4f8;
+  color: #4a5262;
+  font-size: max(7px, 1.2cqw);
+}
+.side b {
+  margin-bottom: 0.5cqw;
+  padding-left: 0.5em;
+  color: var(--ink);
+  font-size: 1.1em;
+}
+.side > span {
+  padding: 0.6em 0.8em;
+  border-radius: 0.8em;
+  line-height: 1.2;
+}
+.sideOn {
+  background: rgba(240, 40, 60, 0.09);
+  color: var(--ink);
+  font-weight: 700;
+}
+.sideOn::before {
+  display: inline-block;
+  width: 0.55em;
+  height: 0.55em;
+  margin-right: 0.6em;
+  border-radius: 50%;
+  background: var(--red);
+  content: "";
+}
+.status {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7cqw;
+  margin-top: auto;
+  padding: 0.9cqw 1cqw;
+  border-radius: 1cqw;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(35, 50, 65, 0.07);
+}
+.status em {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: #4a5262;
+  font-size: 0.95em;
+  font-style: normal;
+}
+.status em i {
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  background: var(--red);
+}
+.statusTrack {
+  display: block;
+  height: 3px;
+  overflow: hidden;
+  border-radius: 3px;
+  background: rgba(15, 23, 42, 0.09);
+}
+.statusTrack i {
+  display: block;
+  width: 68%;
+  height: 100%;
+  border-radius: 3px;
+  background: linear-gradient(90deg, #d3142a, #ff4a5c);
+  transition: width 1.6s cubic-bezier(0.22, 1, 0.36, 1) 1.6s;
+}
+.stage[data-armed="true"] .statusTrack i { width: 0; }
+.stage[data-armed="true"].seen .statusTrack i { width: 68%; }
+
+/* Хлебные крошки и счётчик */
+.crumbs {
+  top: 14.5%;
+  right: 3%;
+  left: 27.5%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #7a8290;
+  font-size: max(7px, 1.1cqw);
+}
+.crumbs s { margin: 0 0.3em; text-decoration: none; opacity: 0.6; }
+.crumbs b { color: var(--ink); font-weight: 700; }
+.count {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.3em 0.9em;
+  border-radius: 999px;
+  background: #eef1f5;
+  color: #4a5262;
+}
+.count svg {
+  width: 1.2em;
+  height: 1.2em;
+}
+
+/* В РАБОТЕ: новая категория */
+.cat {
+  top: 21%;
+  left: 27.5%;
+  display: flex;
+  width: 37%;
+  height: 25%;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.55cqw;
+  overflow: hidden;
+  padding: 1.3cqw 1.5cqw;
+  border: 1px solid rgba(240, 40, 60, 0.2);
+  border-radius: 1.5cqw;
+  background: linear-gradient(135deg, rgba(240, 40, 60, 0.07), rgba(240, 40, 60, 0.02));
+  font-size: max(7px, 1.15cqw);
+}
+.catLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: var(--red);
+  font-size: 0.8em;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.catLabel i {
+  width: 0.65em;
+  height: 0.65em;
+  border-radius: 50%;
+  background: var(--red);
+}
+.cat strong {
+  position: relative;
+  z-index: 1;
+  max-width: 54%;
+  color: var(--ink);
+  font-size: 1.35em;
+  font-weight: 800;
+  line-height: 1.12;
+}
+.catSub {
+  max-width: 52%;
+  color: #6b7381;
+  font-size: 0.88em;
+  line-height: 1.3;
+}
+.cta {
+  margin-top: 0.4cqw;
+  padding: 0.5em 1.3em;
+  border-radius: 999px;
+  background: var(--red);
+  color: #fff;
+  font-size: 0.92em;
+  font-weight: 700;
+}
+/* Фото фасадных материалов справа в карточке */
+.panels {
+  position: absolute;
+  top: 6%;
+  right: 3%;
+  bottom: 6%;
+  width: 40%;
+}
+.panels img {
+  object-fit: contain;
+  object-position: 50% 100%;
+}
+
+/* ГОТОВО: карточка товара */
+.prod {
+  top: 21%;
+  left: 66%;
+  display: flex;
+  width: 14.5%;
+  height: 25%;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.6cqw;
+  padding: 1cqw;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 1.4cqw;
+  background: #fff;
+  box-shadow: 0 8px 18px -8px rgba(35, 50, 65, 0.16);
+}
+.prodBadge {
+  position: absolute;
+  top: 0.9cqw;
+  left: 0.9cqw;
+  padding: 0.25em 0.7em;
+  border-radius: 5px;
+  background: var(--red);
+  color: #fff;
+  font-size: max(6px, 0.85cqw);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.prodPic {
+  position: relative;
+  height: 58%;
+  margin-bottom: 0.3cqw;
+  border-radius: 1cqw;
+  background: linear-gradient(160deg, #f4f6f9, #e6ebf1);
+}
+.prodPic img {
+  padding: 0.5cqw;
+  object-fit: contain;
+}
+.prodLine {
+  display: block;
+  height: 0.6cqw;
+  border-radius: 999px;
+  background: #d6dde6;
+}
+.prodLine.short { width: 55%; background: #e3e8ee; }
+
+/* СЛЕДУЮЩЕЕ: категория создаётся */
+.next {
+  top: 21%;
+  left: 82%;
+  display: flex;
+  width: 14.5%;
+  height: 25%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5cqw;
+  border: 1.5px dashed rgba(15, 23, 42, 0.22);
+  border-radius: 1.4cqw;
+  color: #6b7381;
+  font-size: max(7px, 1cqw);
+  text-align: center;
+}
+.next strong {
+  color: var(--ink);
+  font-size: 1.05em;
+  font-weight: 700;
+  line-height: 1.15;
+}
+.plusSm {
+  display: grid;
+  width: 3cqw;
+  height: 3cqw;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.1);
+  color: #4a5262;
+}
+.plusSm svg {
+  width: 55%;
+  height: 55%;
+  stroke-width: 2.2;
+}
+
+/* Центр: логотип поменьше + IN PROGRESS + легенда */
+.logo {
+  top: 49.5%;
+  left: calc(27.5% + (69.5% - 30cqw) / 2);
+  display: block;
+  width: 30cqw;
+  height: auto;
+}
+.progress {
+  top: 60.5%;
+  right: 3%;
+  left: 27.5%;
+  margin: 0;
+  color: #7a8290;
+  font-size: max(8px, 1.3cqw);
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-align: center;
+  text-indent: 0.3em;
+  text-transform: uppercase;
+}
+.legend {
+  top: 65.5%;
+  right: 3%;
+  left: 27.5%;
+  display: flex;
+  justify-content: center;
+  gap: 2.4cqw;
+  margin: 0;
+  color: #6b7381;
+  font-size: max(7px, 1.05cqw);
+}
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.legend i {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+}
+.lgOk { background: #2f3742; }
+.lgWork { background: var(--red); }
+.lgNext { border: 1.5px solid #98a1af; }
+
+/* Новый раздел */
+.fresh {
+  top: 72.5%;
+  bottom: 4%;
+  left: 27.5%;
+  display: flex;
+  width: 39%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8cqw;
+  padding: 1cqw 1.6cqw;
+  border: 1.5px dashed rgba(240, 40, 60, 0.4);
+  border-radius: 1.5cqw;
+  background: rgba(240, 40, 60, 0.03);
+}
+.freshTop {
+  display: flex;
+  align-items: center;
+  gap: 1.4cqw;
+}
+.plus {
+  display: grid;
+  width: 3.6cqw;
+  height: 3.6cqw;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 6px 14px rgba(240, 40, 60, 0.2), 0 0 0 1px rgba(240, 40, 60, 0.18);
+  color: var(--red);
+}
+.plus svg {
+  width: 55%;
+  height: 55%;
+  stroke-width: 2.4;
+}
+.freshText {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+}
+.freshText strong {
+  color: var(--ink);
+  font-size: max(9px, 1.5cqw);
+  font-weight: 800;
+}
+.badgeSm {
+  padding: 0.3em 0.8em;
+  border-radius: 6px;
+  background: var(--red);
+  color: #fff;
+  font-size: max(7px, 0.95cqw);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.chips {
+  display: flex;
+  gap: 0.6cqw;
+}
+.chips span {
+  padding: 0.3em 0.9em;
+  border: 1px solid rgba(15, 23, 42, 0.18);
+  border-radius: 999px;
+  color: #4a5262;
+  font-size: max(7px, 1cqw);
+}
+.caption {
+  color: #8a92a0;
+  font-size: max(7px, 0.95cqw);
+}
+
+/* Маркеры NEW: три разных формата */
+.marker {
+  position: absolute;
+  z-index: 2;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  background: #fff;
+  box-shadow: 0 12px 35px rgba(35, 50, 65, 0.1);
+}
+.marker strong {
+  color: var(--ink);
+  font-weight: 800;
+}
+.badge {
+  padding: 0.35em 0.9em;
+  border-radius: 8px;
+  background: var(--red);
+  color: #fff;
+  font-size: clamp(9px, 1.1cqw, 18px);
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.marker::after {
+  position: absolute;
+  width: 0.8cqw;
+  height: 0.8cqw;
+  min-width: 7px;
+  min-height: 7px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 4px rgba(240, 40, 60, 0.14);
+  content: "";
+}
+
+.m1 {
+  top: 2%;
+  left: 9%;
+  display: flex;
+  align-items: center;
+  gap: 1.3cqw;
+  padding: 1.1cqw 2cqw 1.1cqw 1.2cqw;
+  border-radius: 999px;
+}
+.m1 strong { font-size: clamp(12px, 1.85cqw, 30px); }
+.go {
+  color: #4a5262;
+  font-size: clamp(12px, 1.85cqw, 30px);
+}
+.m1::after { bottom: -1.9cqw; left: 3.4cqw; }
+
+.m2 {
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+  padding: 1.3cqw 2cqw 1.3cqw 1.3cqw;
+  border-radius: clamp(14px, 1.9cqw, 26px);
+}
+.iconBox {
+  display: grid;
+  width: 5.2cqw;
+  height: 5.2cqw;
+  flex: none;
+  place-items: center;
+  border-radius: 1.3cqw;
+  background: linear-gradient(145deg, #fff1f2, #ffe1e4);
+  box-shadow: inset 0 0 0 1px rgba(240, 40, 60, 0.14);
+}
+.iconBox svg {
+  width: 55%;
+  height: 55%;
+  fill: none;
+  stroke: #d3142a;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.m2Text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6cqw;
+}
+.m2 strong { font-size: clamp(12px, 1.9cqw, 30px); line-height: 1.12; }
+.m2 small {
+  color: #7a8290;
+  font-size: clamp(9px, 1.15cqw, 19px);
+}
+.m2::after { bottom: -0.9cqw; left: 1.6cqw; }
+
+.m4 {
+  right: -1%;
+  bottom: 0;
+  width: 31%;
+  padding: 1.6cqw 1.9cqw;
+  border-radius: clamp(16px, 2cqw, 28px);
+}
+.m4Head {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+}
+.m4 strong { font-size: clamp(12px, 1.9cqw, 30px); }
+.m4::after { top: -0.9cqw; left: 3cqw; }
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8cqw;
+  margin: 1.3cqw 0 0;
+  padding: 1.2cqw 0 0;
+  border-top: 1px solid rgba(15, 23, 42, 0.08);
+  list-style: none;
+}
+.list li {
+  display: flex;
+  align-items: center;
+  gap: 1cqw;
+  color: #3e4554;
+  font-size: clamp(9px, 1.25cqw, 21px);
+}
+.list svg {
+  width: 2cqw;
+  min-width: 13px;
+  height: auto;
+  flex: none;
+  fill: none;
+  stroke: var(--red);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Появление: текст, слои, canvas, затем маркеры по очереди */
+.up,
+.rev {
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1), transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.stage[data-armed="true"] .up { opacity: 0; transform: translateY(22px); }
+.stage[data-armed="true"] .rev { opacity: 0; transform: translateY(14px); }
+.stage[data-armed="true"].seen .up,
+.stage[data-armed="true"].seen .rev { opacity: 1; transform: none; }
+.stage[data-armed="true"] .eyebrow { transition-delay: 0s; }
+.stage[data-armed="true"] .title { transition-delay: 0.12s; }
+.stage[data-armed="true"] .description { transition-delay: 0.26s; }
+.stage[data-armed="true"] .note { transition-delay: 0.4s; }
+.stage[data-armed="true"] .layerB { transition-delay: 0.4s; }
+.stage[data-armed="true"] .layerA { transition-delay: 0.55s; }
+.stage[data-armed="true"] .canvas { transition-delay: 0.7s; }
+.stage[data-armed="true"] .m1 { transition-delay: 1.4s; }
+.stage[data-armed="true"] .m2 { transition-delay: 1.6s; }
+.stage[data-armed="true"] .m4 { transition-delay: 1.8s; }
+
+/* Hover: только на устройствах с курсором */
+@media (hover: hover) {
+  .stage .marker {
+    transition: opacity 0.9s ease, transform 0.9s ease, translate 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+  }
+  .stage .marker:hover {
+    translate: 0 -6px;
+    box-shadow: 0 24px 48px rgba(35, 50, 65, 0.2);
+  }
+  .stage .fresh,
+  .stage .next {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+  .stage .fresh:hover {
+    border-color: rgba(240, 40, 60, 0.7);
+    background: rgba(240, 40, 60, 0.07);
+  }
+  .stage .next:hover {
+    border-color: rgba(240, 40, 60, 0.5);
+    background: rgba(240, 40, 60, 0.03);
+  }
+  .stage .list li svg {
+    transition: translate 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage .list li:hover svg {
+    translate: 2px 0;
+  }
+}
+
+@media (max-width: 1000px) {
+  .main { grid-template-columns: 0.8fr 1.2fr; gap: 24px; }
+  .note { display: none; }
+}
+
+@media (max-width: 860px) {
+  .main { grid-template-columns: 1fr; gap: 36px; }
+  .description { font-size: 16px; }
+  .note { display: block; margin-top: 22px; font-size: 12px; }
+  .title { font-size: clamp(36px, 10.4vw, 54px); }
+
+  /* Mobile: без плавающих маркеров; «Новый раздел» остаётся внутри canvas */
+  .visual {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    container-type: normal;
+    aspect-ratio: auto;
+  }
+  .layer { display: none; }
+  .canvas {
+    position: relative;
+    inset: auto;
+    grid-column: 1 / -1;
+    aspect-ratio: 0.68 / 1;
+    rotate: 0deg;
+  }
+  .side, .crumbs, .links span:not(.linkOn) { display: none; }
+  .nav { font-size: 3.6cqw; }
+  .brand { width: 26cqw; }
+  .tools svg { width: 4.4cqw; height: 4.4cqw; }
+  .tools { gap: 3cqw; }
+
+  .cat { top: 13%; left: 4%; width: 92%; height: 27%; font-size: 3.7cqw; padding: 3cqw; }
+  .cat strong { max-width: 62%; font-size: 1.4em; }
+  .catSub { max-width: 62%; }
+  .panels { width: 30%; }
+  .prod { top: 42.5%; left: 4%; width: 44%; height: 19%; padding: 2.4cqw; }
+  .prodBadge { font-size: 2.9cqw; top: 2cqw; left: 2cqw; }
+  .prodLine { height: 1.4cqw; }
+  .next { top: 42.5%; left: 52%; width: 44%; height: 19%; font-size: 3.3cqw; gap: 1.2cqw; }
+  .plusSm { width: 7cqw; height: 7cqw; }
+  .logo { left: 22%; top: 65%; width: 56%; }
+  .progress { left: 0; right: 0; top: 74%; font-size: 3.3cqw; }
+  .legend { left: 0; right: 0; top: 79%; font-size: 3cqw; gap: 3cqw; }
+  .fresh { top: 85%; bottom: 3%; left: 4%; width: 92%; padding: 1.6cqw 3cqw; gap: 1.2cqw; }
+  .freshTop { gap: 2.4cqw; }
+  .plus { width: 6cqw; height: 6cqw; }
+  .freshText strong { font-size: 3.7cqw; }
+  .badgeSm { font-size: 2.9cqw; }
+  .chips { gap: 1.4cqw; }
+  .chips span { font-size: 3cqw; }
+  .caption { display: none; }
+
+  .marker {
+    position: relative;
+    inset: auto;
+    width: auto;
+    padding: 14px 16px;
+    right: auto;
+    top: auto;
+    left: auto;
+    bottom: auto;
+  }
+  .marker::after { display: none; }
+  .m1 { grid-column: 1; border-radius: 16px; flex-direction: column; align-items: flex-start; gap: 8px; }
+  .go { display: none; }
+  .m2 { grid-column: 2; border-radius: 16px; }
+  .m2 small { display: none; }
+  .m4 { grid-column: 1 / -1; border-radius: 16px; }
+  .iconBox { width: 40px; height: 40px; border-radius: 10px; }
+  .m1 strong, .m2 strong, .m4 strong { font-size: 16px; }
+  .badge { font-size: 11px; }
+  .list li { font-size: 14px; }
+  .list svg { width: 18px; }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .up, .rev, .statusTrack i { transition: none; }
+}

@@ -22,6 +22,8 @@ const KNOWN_ROUTES = new Set([
   "/services",
   ...services.map((service) => `/services/${service.slug}`),
   ...cases.map((item) => `/cases/${item.slug}`),
+  // Кейс «ПрофЛайн» собран отдельным маршрутом и пока не входит в список cases.
+  "/cases/profline",
 ]);
 
 export function FooterFrame({

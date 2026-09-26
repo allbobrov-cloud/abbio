@@ -1,0 +1,312 @@
+/* 02 · Большой каталог: тёмная секция на фоне-фото, цифры и типографика. Красный — акцент ПрофЛайн. */
+.section {
+  --red: #f0283c;
+
+  position: relative;
+  overflow: hidden;
+  background: #04090e;
+  color: #fff;
+}
+.bg {
+  position: absolute;
+  inset: 0;
+}
+.bg img {
+  object-fit: cover;
+  object-position: 62% 0;
+}
+/* Слева глубже, справа слабее — красное свечение сохраняется */
+.shade {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(4, 9, 14, 0.94) 0%, rgba(4, 9, 14, 0.8) 42%, rgba(4, 9, 14, 0.44) 74%, rgba(4, 9, 14, 0.24) 100%),
+    linear-gradient(180deg, transparent 55%, rgba(4, 9, 14, 0.7) 100%);
+}
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 2000px;
+  aspect-ratio: 1680 / 815;
+  margin-inline: auto;
+}
+
+.copy {
+  position: absolute;
+  z-index: 3;
+  top: 4.7cqw;
+  left: 5.8%;
+  width: 56%;
+}
+.eyebrow {
+  margin: 0 0 2cqw;
+  color: #b6bcc8;
+  font-size: clamp(11px, 1.15cqw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.eyebrow b {
+  color: var(--red);
+  font-weight: 700;
+}
+.copy h2 {
+  margin: 0;
+  color: #fbfaff;
+  font-size: clamp(30px, 3.2cqw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+.copy h2 em {
+  color: var(--red);
+  font-style: normal;
+}
+.description {
+  max-width: 34em;
+  margin: 1.6cqw 0 0;
+  color: #bdb8cc;
+  font-size: clamp(13px, 1.2cqw, 23px);
+  line-height: 1.5;
+}
+
+/* Три метрики */
+.scale {
+  position: absolute;
+  z-index: 3;
+  top: 21.8cqw;
+  left: 5.8%;
+  width: 88.4%;
+  display: flex;
+  align-items: center;
+}
+.scaleItem {
+  display: contents;
+}
+.metric {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 11.6cqw;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.2cqw;
+  background: linear-gradient(145deg, rgba(10, 18, 26, 0.7), rgba(6, 12, 18, 0.5));
+  text-align: center;
+}
+.metric strong {
+  font-size: clamp(30px, 5.2cqw, 104px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.metric > span:last-child {
+  margin-top: 0.7cqw;
+  color: #c9ced8;
+  font-size: clamp(11px, 1.15cqw, 22px);
+}
+.start { flex: 0 0 26.4%; }
+.start strong { background-image: linear-gradient(180deg, #dde2e8 0%, #77828d 100%); }
+.now {
+  flex: 0 0 27.2%;
+  height: 13.4cqw;
+  border-color: rgba(235, 30, 50, 0.45);
+  background: linear-gradient(145deg, rgba(58, 10, 18, 0.66), rgba(10, 10, 16, 0.7));
+  box-shadow: 0 0 60px rgba(235, 30, 50, 0.22), inset 0 0 40px rgba(235, 30, 50, 0.06);
+}
+.now strong {
+  font-size: clamp(34px, 6cqw, 120px);
+  background-image: linear-gradient(180deg, #ff5665 0%, #e5192d 100%);
+}
+.now > span:last-child { color: #fff; }
+.plan {
+  flex: 0 0 26.4%;
+  opacity: 0.86;
+}
+.plan strong { background-image: linear-gradient(180deg, #c4cad2 0%, #6a7580 100%); }
+.badge {
+  position: absolute;
+  top: -1.1cqw;
+  right: 1.3cqw;
+  padding: 0.45cqw 1.3cqw;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.8cqw;
+  background: rgba(8, 14, 20, 0.95);
+  color: #e6e9ef;
+  font-size: clamp(9px, 0.9cqw, 17px);
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.arrow {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  color: #b8bec9;
+}
+.arrow svg {
+  width: 2.5cqw;
+  min-width: 22px;
+  height: auto;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.hotArrow { color: #e5707c; }
+
+/* Архитектура каталога */
+.arch {
+  position: absolute;
+  z-index: 3;
+  top: 38.6cqw;
+  left: 5.8%;
+  width: 88.4%;
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.archItem {
+  display: contents;
+}
+.step {
+  display: flex;
+  flex: 0 0 15.4%;
+  align-items: center;
+  gap: 1.2cqw;
+  height: 5.2cqw;
+  padding: 0 1.5cqw;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.9cqw;
+  background: rgba(8, 15, 22, 0.55);
+  color: #dfe3ea;
+  font-size: clamp(9px, 0.95cqw, 18px);
+  line-height: 1.35;
+  transition: opacity 0.7s ease, transform 0.7s ease, border-color 0.2s ease;
+}
+.archItem:nth-child(3) .step { flex-basis: 19.4%; }
+.archItem:nth-child(5) .step { flex-basis: 17.6%; }
+@media (hover: hover) {
+  .step:hover { border-color: rgba(255, 255, 255, 0.22); }
+}
+.step svg {
+  width: 2.3cqw;
+  min-width: 20px;
+  height: 2.3cqw;
+  flex: none;
+  fill: none;
+  stroke: #cfd5de;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.arch .arrow svg { width: 1.9cqw; opacity: 0.7; }
+
+
+/* Появление */
+.rev {
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.stage[data-armed="true"] .rev {
+  opacity: 0;
+  transform: translateY(16px);
+}
+.stage[data-armed="true"] .d5 { transition-delay: 1.5s; }
+.stage[data-armed="true"].seen .rev {
+  opacity: 1;
+  transform: none;
+}
+.stage[data-armed="true"].seen .plan { opacity: 0.86; }
+
+/* Планшет: чуть компактнее, но горизонтально */
+@media (max-width: 1000px) and (min-width: 761px) {
+  .step { padding: 0 1cqw; gap: 0.8cqw; }
+}
+
+/* Телефон */
+@media (max-width: 760px) {
+  .bg img { object-position: 78% 0; }
+  .shade {
+    background: linear-gradient(180deg, rgba(4, 9, 14, 0.84) 0%, rgba(4, 9, 14, 0.78) 50%, rgba(4, 9, 14, 0.9) 100%);
+  }
+  .stage {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    padding: 64px 5% 60px;
+  }
+  .copy, .scale, .arch { position: relative; top: auto; left: auto; width: 100%; }
+  .eyebrow { margin-bottom: 20px; font-size: 12px; }
+  .copy h2 { font-size: clamp(32px, 9vw, 48px); }
+  .copy h2 br { display: none; }
+  .description { margin-top: 18px; font-size: 16px; }
+
+  .scale { flex-direction: column; align-items: stretch; margin-top: 36px; }
+  .scaleItem { display: flex; flex-direction: column; align-items: stretch; }
+  .metric, .start, .now, .plan { flex: none; height: auto; padding: 26px 16px; border-radius: 18px; }
+  .metric strong { font-size: clamp(44px, 14vw, 72px); }
+  .now strong { font-size: clamp(50px, 16vw, 84px); }
+  .metric > span:last-child { margin-top: 8px; font-size: 15px; }
+  .badge { top: -12px; right: 16px; padding: 6px 14px; font-size: 11px; border-radius: 8px; }
+  .arrow { flex: none; height: 48px; }
+  .arrow svg { width: 32px; transform: rotate(90deg); }
+
+  .arch { flex-direction: column; align-items: stretch; margin-top: 36px; }
+  .archItem { display: flex; flex-direction: column; align-items: stretch; }
+  .step, .archItem:nth-child(3) .step, .archItem:nth-child(5) .step { flex: none; height: 64px; padding: 0 18px; gap: 16px; font-size: 16px; border-radius: 14px; }
+  .step svg { width: 26px; height: 26px; }
+  .step br { display: none; }
+  .arch .arrow { height: 34px; }
+  .arch .arrow svg { width: 24px; }
+}
+
+/* Hover: только на устройствах с курсором и без запрета на анимацию */
+@media (hover: hover) {
+  .stage .metric {
+    transition: opacity 0.7s ease, transform 0.7s ease, translate 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+  }
+  .stage .metric:hover {
+    translate: 0 -8px;
+    border-color: rgba(255, 255, 255, 0.24);
+    box-shadow: 0 24px 50px -14px rgba(0, 0, 0, 0.6);
+  }
+  .stage .now:hover {
+    border-color: rgba(255, 70, 90, 0.75);
+    box-shadow: 0 0 90px rgba(235, 30, 50, 0.4), inset 0 0 40px rgba(235, 30, 50, 0.1);
+  }
+  .stage .metric strong {
+    transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage .metric:hover strong {
+    transform: scale(1.05);
+  }
+  .stage .step {
+    transition: opacity 0.7s ease, transform 0.7s ease, translate 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.3s ease, background-color 0.3s ease;
+  }
+  .stage .step:hover {
+    translate: 0 -4px;
+    border-color: rgba(240, 40, 60, 0.55);
+    background: rgba(40, 12, 18, 0.7);
+  }
+  .stage .step svg {
+    transition: stroke 0.3s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage .step:hover svg {
+    stroke: #ff5665;
+    transform: scale(1.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev, .step { transition: none; }
+}

@@ -1,0 +1,411 @@
+/* 01 · Проект вырос: светлая спокойная секция после тёмного Hero. Красный — только акцент. */
+.section {
+  --red: #d9192a;
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  /* Сетка мягких цветов: розово-красный, персиковый, лавандово-голубой на светлой основе */
+  background:
+    radial-gradient(ellipse 30% 42% at 82% 46%, rgba(240, 52, 66, 0.2) 0%, rgba(240, 52, 66, 0.08) 44%, transparent 76%),
+    radial-gradient(ellipse 26% 34% at 100% 6%, rgba(255, 138, 96, 0.3) 0%, transparent 74%),
+    radial-gradient(ellipse 34% 44% at 96% 100%, rgba(255, 170, 140, 0.26) 0%, transparent 74%),
+    radial-gradient(ellipse 40% 52% at 0% 22%, rgba(120, 146, 232, 0.3) 0%, rgba(120, 146, 232, 0.1) 46%, transparent 76%),
+    radial-gradient(ellipse 34% 38% at 12% 100%, rgba(176, 132, 232, 0.2) 0%, transparent 74%),
+    radial-gradient(ellipse 44% 34% at 38% 8%, rgba(255, 255, 255, 0.95) 0%, transparent 74%),
+    linear-gradient(180deg, #e9ecf6 0%, #f7f8fb 24%, #f6f5f9 100%);
+  color: #14171f;
+}
+/* Диагональные световые полосы: мягкий свет, не линии */
+.section::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(112deg, transparent 30%, rgba(255, 255, 255, 0.55) 38%, transparent 47%),
+    linear-gradient(112deg, transparent 56%, rgba(255, 255, 255, 0.4) 62%, transparent 70%);
+  content: "";
+  pointer-events: none;
+}
+/* Едва заметное зерно, чтобы градиенты не были стерильными, и лёгкая виньетка */
+.section::after {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 90% 90% at 50% 50%, transparent 62%, rgba(90, 100, 140, 0.1) 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.3 0 0 0 0 0.3 0 0 0 0 0.4 0 0 0 0.5 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.06'/%3E%3C/svg%3E");
+  content: "";
+  pointer-events: none;
+}
+.stage {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  max-width: 2000px;
+  aspect-ratio: 1680 / 940;
+  margin-inline: auto;
+}
+
+.copy {
+  position: absolute;
+  z-index: 3;
+  top: 10.2%;
+  left: 4.5%;
+  width: 42%;
+}
+.eyebrow {
+  margin: 0 0 2.2cqw;
+  color: #5b6272;
+  font-size: clamp(11px, 1.15cqw, 22px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.eyebrow b {
+  color: var(--red);
+  font-weight: 700;
+}
+.copy h2 {
+  margin: 0;
+  color: #0e1118;
+  font-size: clamp(30px, 3.2cqw, 64px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+}
+.copy h2 em {
+  color: var(--red);
+  font-style: normal;
+}
+.text {
+  max-width: 28em;
+  margin: 1.7cqw 0 0;
+  color: #444b5a;
+  font-size: clamp(13px, 1.1cqw, 21px);
+  line-height: 1.55;
+}
+.text + .text {
+  margin-top: 1.2cqw;
+}
+
+/* «Было → Стало»: HTML/CSS, фото — отдельные файлы без фильтров */
+.visual {
+  position: absolute;
+  z-index: 2;
+  top: 17%;
+  left: 44.4%;
+  width: 52.6%;
+  display: flex;
+  align-items: center;
+  gap: 1.5cqw;
+}
+.was {
+  display: flex;
+  flex: 0 0 25%;
+  flex-direction: column;
+  padding: 1.5cqw 1.4cqw 1.5cqw;
+  border: 1px solid rgba(15, 23, 42, 0.07);
+  border-radius: 1.4cqw;
+  background: #fbfbfc;
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.06);
+}
+.tagWas {
+  margin: 0 0 1.1cqw;
+  color: #8a91a0;
+  font-size: clamp(11px, 1.15cqw, 22px);
+  font-weight: 500;
+}
+.wasPhoto {
+  position: relative;
+  aspect-ratio: 1 / 0.86;
+  overflow: hidden;
+  border-radius: 0.9cqw;
+  background: #fff;
+}
+.wasPhoto img {
+  object-fit: contain;
+  object-position: 50% 50%;
+  padding: 4%;
+}
+.wasText {
+  margin-top: 1.3cqw;
+}
+.wasText b {
+  display: block;
+  color: #0e1118;
+  font-size: clamp(14px, 1.4cqw, 27px);
+  font-weight: 700;
+}
+.wasText span {
+  display: block;
+  margin-top: 0.2cqw;
+  color: #98a0ae;
+  font-size: clamp(10px, 0.9cqw, 17px);
+}
+.arrow {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3.4cqw;
+  min-width: 34px;
+  height: 3.4cqw;
+  min-height: 34px;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 1cqw;
+  background: #fff;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.06);
+}
+.arrow svg {
+  width: 1.7cqw;
+  min-width: 17px;
+  height: 1.7cqw;
+  fill: none;
+  stroke: #1d222c;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.now {
+  flex: 1;
+  min-width: 0;
+  padding: 1.3cqw 1.3cqw 1.4cqw;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 1.6cqw;
+  background: #fff;
+  box-shadow: 0 14px 40px rgba(15, 23, 42, 0.07);
+}
+.tagNow {
+  display: inline-block;
+  margin: 0 0 1.1cqw;
+  padding: 0.35cqw 1.1cqw;
+  border-radius: 999px;
+  background: rgba(227, 27, 43, 0.08);
+  color: #e31b2b;
+  font-size: clamp(11px, 1.15cqw, 22px);
+  font-weight: 600;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.1cqw;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.grid li {
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 0.9cqw;
+  background: #fff;
+  box-shadow: 0 6px 18px rgba(15, 23, 42, 0.05);
+}
+.tile, .roofing, .sandwich { grid-column: span 2; }
+.facade, .fence { grid-column: span 3; }
+.photo {
+  position: relative;
+  overflow: hidden;
+  background: #e9ebef;
+}
+.tile .photo, .roofing .photo, .sandwich .photo { aspect-ratio: 1.12 / 1; }
+.facade .photo, .fence .photo { aspect-ratio: 1.9 / 1; }
+.photo img {
+  object-fit: cover;
+}
+.tile .photo img { object-position: 50% 55%; }
+.roofing .photo img { object-position: 50% 40%; }
+.sandwich .photo img { object-position: 30% 50%; }
+.facade .photo img { object-position: 50% 45%; }
+.fence .photo img { object-position: 50% 50%; }
+.grid p {
+  display: flex;
+  align-items: center;
+  min-height: 3.6cqw;
+  margin: 0;
+  padding: 0.8cqw 0.9cqw;
+  color: #0e1118;
+  font-size: clamp(10px, 0.98cqw, 19px);
+  font-weight: 600;
+  line-height: 1.25;
+}
+.tile p, .roofing p, .sandwich p { min-height: 4.4cqw; padding-inline: 0.7cqw; font-size: clamp(9px, 0.86cqw, 17px); }
+
+.thesis {
+  position: absolute;
+  z-index: 3;
+  top: 74%;
+  left: 4.5%;
+  margin: 0;
+  padding-left: 1.7cqw;
+  color: #14171f;
+  font-size: clamp(15px, 1.35cqw, 26px);
+  font-weight: 700;
+  line-height: 1.4;
+}
+.thesis::before {
+  position: absolute;
+  top: 0.1em;
+  bottom: 0.1em;
+  left: 0;
+  width: 4px;
+  border-radius: 3px;
+  background: var(--red);
+  content: "";
+}
+
+.points {
+  position: absolute;
+  z-index: 3;
+  right: 4.5%;
+  bottom: 6.2%;
+  left: 4.5%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 2cqw 0 0;
+  border-top: 1px solid rgba(20, 30, 50, 0.08);
+  list-style: none;
+}
+.points li {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 1.3cqw;
+  color: #3e4554;
+  font-size: clamp(11px, 1cqw, 19px);
+  line-height: 1.45;
+}
+.points li + li {
+  margin-left: 2cqw;
+  padding-left: 2cqw;
+  border-left: 1px solid rgba(20, 30, 50, 0.1);
+}
+.ic {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 3.8cqw;
+  min-width: 42px;
+  height: 3.8cqw;
+  min-height: 42px;
+  border-radius: 0.9cqw;
+  background: #eceef2;
+}
+.ic svg {
+  width: 1.9cqw;
+  min-width: 20px;
+  height: 1.9cqw;
+  min-height: 20px;
+  fill: none;
+  stroke: #22262f;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Появление */
+.rev {
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.stage[data-armed="true"] .rev {
+  opacity: 0;
+  transform: translateY(20px);
+}
+.stage[data-armed="true"] .visualRev {
+  transform: translateX(24px);
+  transition-delay: 0.3s;
+}
+.stage[data-armed="true"] .d4 { transition-delay: 0.8s; }
+.stage[data-armed="true"].seen .rev {
+  opacity: 1;
+  transform: none;
+}
+
+/* Планшет и телефон */
+@media (max-width: 900px) {
+  .stage {
+    display: flex;
+    flex-direction: column;
+    aspect-ratio: auto;
+    padding: 72px 5% 64px;
+  }
+  .copy, .visual, .thesis, .points { position: relative; top: auto; left: auto; right: auto; bottom: auto; width: 100%; }
+  .eyebrow { margin-bottom: 20px; font-size: 12px; }
+  .copy h2 { font-size: clamp(32px, 9vw, 48px); }
+  .copy h2 br { display: none; }
+  .text { margin-top: 18px; max-width: 34em; font-size: 16px; }
+  .text + .text { margin-top: 14px; }
+  .visual { flex-direction: column; align-items: stretch; gap: 14px; margin-top: 30px; }
+  .was { flex: none; align-self: center; width: 62%; padding: 16px; border-radius: 18px; text-align: center; }
+  .tagWas, .tagNow { font-size: 13px; }
+  .wasText b { font-size: 18px; }
+  .wasText span { font-size: 13px; }
+  .arrow { width: 44px; height: 44px; border-radius: 12px; align-self: center; }
+  .arrow svg { width: 20px; height: 20px; transform: rotate(90deg); }
+  .now { padding: 16px; border-radius: 20px; }
+  .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .tile, .roofing, .sandwich, .facade, .fence { grid-column: span 1; }
+  .fence { grid-column: 1 / -1; }
+  .tile .photo, .roofing .photo, .sandwich .photo, .facade .photo { aspect-ratio: 1.3 / 1; }
+  .fence .photo { aspect-ratio: 2.2 / 1; }
+  .grid p, .tile p, .roofing p, .sandwich p { min-height: 0; padding: 12px; font-size: 14px; }
+  .thesis { margin-top: 34px; padding-left: 18px; font-size: 18px; }
+  .thesis br { display: none; }
+  .points {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px 16px;
+    margin-top: 40px;
+    padding-top: 28px;
+  }
+  .points li, .points li + li { margin: 0; padding: 0; border: 0; align-items: center; flex-direction: column; gap: 12px; font-size: 14px; text-align: center; }
+  .ic {
+    width: 46px;
+    height: 46px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.58);
+    box-shadow: 0 8px 24px rgba(74, 54, 105, 0.06);
+  }
+  .ic svg { width: 22px; height: 22px; }
+}
+
+/* Hover: только на устройствах с курсором и без запрета на анимацию */
+@media (hover: hover) {
+  .stage .was,
+  .stage .grid li {
+    transition: translate 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease, border-color 0.3s ease;
+  }
+  .stage .was:hover,
+  .stage .grid li:hover {
+    translate: 0 -6px;
+    border-color: rgba(230, 25, 45, 0.28);
+    box-shadow: 0 20px 40px -14px rgba(15, 23, 42, 0.25);
+  }
+  .stage .wasPhoto img,
+  .stage .photo img {
+    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .stage .was:hover .wasPhoto img,
+  .stage .grid li:hover .photo img {
+    transform: scale(1.07);
+  }
+  .stage .ic {
+    transition: translate 0.35s cubic-bezier(0.22, 1, 0.36, 1), background-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .stage .ic svg {
+    transition: stroke 0.3s ease;
+  }
+  .stage .points li:hover .ic {
+    translate: 0 -4px;
+    background: rgba(230, 25, 45, 0.1);
+    box-shadow: 0 10px 20px -8px rgba(230, 25, 45, 0.4);
+  }
+  .stage .points li:hover .ic svg {
+    stroke: #e5192d;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev { transition: none; }
+}
