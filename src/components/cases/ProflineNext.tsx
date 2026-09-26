@@ -115,7 +115,7 @@ export function ProflineNext() {
             <div className={`${styles.canvas} ${styles.rev}`}>
               {/* Навигация: логотип, разделы, поиск / избранное / корзина */}
               <div className={styles.nav} aria-hidden="true">
-                <img className={styles.brand} src="/cases/profline-logo-dark.svg" alt="" width="741" height="152" />
+                <Image className={styles.brand} src="/cases/profline-logo-dark.svg" alt="" width={741} height={152} />
                 <span className={styles.links}>
                   {NAV.map((n, i) => (
                     <span key={n} className={i === 0 ? styles.linkOn : undefined}>
@@ -204,7 +204,7 @@ export function ProflineNext() {
               </div>
 
               {/* Центр: логотип поменьше, IN PROGRESS и легенда состояний */}
-              <img className={styles.logo} src="/cases/profline-logo-dark.svg" alt="ПрофЛайн" width="741" height="152" />
+              <Image className={styles.logo} src="/cases/profline-logo-dark.svg" alt="ПрофЛайн" width={741} height={152} />
               <p className={styles.progress}>In progress</p>
               <p className={styles.legend} aria-hidden="true">
                 <span>

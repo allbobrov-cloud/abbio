@@ -90,12 +90,12 @@ export function ProflineResult() {
             <span className={styles.times} aria-hidden="true">
               ×
             </span>
-            <img
+            <Image
               className={styles.client}
               src="/cases/profline-logo.svg"
               alt="ПрофЛайн"
-              width="741"
-              height="152"
+              width={741}
+              height={152}
             />
           </p>
         </div>
