@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
-import { CasePortfolio } from "./CasePortfolio";
+import { CasesBlock } from "@/components/cases/CasesBlock";
 import { WebsitesCrmSection } from "./WebsitesCrmSection";
 import styles from "./WebsitesServicePage.module.css";
 
@@ -483,11 +483,10 @@ export function WebsitesServicePage() {
         </div>
       </section>
 
-      <CasePortfolio
+      <CasesBlock
         title="Три проекта — три разные задачи."
         description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."
-        slugs={["oss", "bogov", "volhonka"]}
-        featuredSlug="oss"
+        slugs={["oss", "stroybaza-volhonka", "potolki-vsem"]}
       />
     </main>
   );

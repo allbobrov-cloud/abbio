@@ -15,7 +15,6 @@ import { cases, services } from "@/lib/content";
 const PAGES_WITH_OWN_CONTACT = ["/process"];
 const KNOWN_ROUTES = new Set([
   "/",
-  "/about",
   "/articles",
   "/cases",
   "/process",

@@ -1,0 +1,124 @@
+/* Hero «Услуги»: один экран. Слева текст, справа орбита из пяти направлений вокруг задачи клиента. */
+.hero {
+  --lav: #b7a0ef;
+  --line: rgba(221, 211, 246, 0.16);
+  position: relative;
+  overflow: hidden;
+  color: #f6f7fb;
+  background:
+    radial-gradient(ellipse 45% 60% at 74% 48%, rgba(109, 80, 189, 0.22), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 0% 100%, rgba(51, 89, 139, 0.12), transparent 70%),
+    #070912;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100svh - 88px);
+  padding: clamp(20px, 3.4vh, 44px) 0 clamp(28px, 5vh, 56px);
+}
+
+.grid {
+  display: grid;
+  flex: 1;
+  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  gap: clamp(32px, 4vw, 72px);
+  align-items: center;
+  padding-top: clamp(16px, 3vh, 40px);
+}
+
+/* Типографика — по стандарту OssHero */
+.copy h1 { margin: 0; font-size: clamp(38px, min(4vw, 7.6vh), 74px); font-weight: 500; letter-spacing: -0.05em; line-height: 1.04; }
+.copy h1 em { color: var(--lav); font-style: normal; white-space: nowrap; }
+.lead { max-width: 560px; margin: clamp(18px, 3vh, 28px) 0 0; color: #c2becd; font-size: clamp(15px, min(1.15vw, 2.1vh), 18px); line-height: 1.6; text-wrap: pretty; }
+.actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 30px; margin-top: clamp(24px, 4vh, 40px); }
+
+/* Орбита: квадратная сцена, узлы по окружности, в центре задача клиента */
+.orbit {
+  position: relative;
+  justify-self: center;
+  width: min(100%, 640px, calc(100svh - 200px));
+  aspect-ratio: 1;
+}
+.orbit ul { margin: 0; padding: 0; list-style: none; }
+
+.lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.halo { fill: none; stroke: rgba(183, 160, 239, 0.05); stroke-width: 7; }
+.spoke { stroke: var(--line); stroke-width: 0.3; stroke-dasharray: 1 1.4; transition: stroke .3s ease; }
+.ring { fill: none; stroke: rgba(183, 160, 239, 0.28); stroke-width: 0.3; }
+/* Бегущий свет — декоративный акцент hero; по просьбе владельца hero-анимации не отключаются
+   глобальным reduced-motion сбросом (так же было у прежнего визуала). */
+.signal { fill: none; stroke: #d6c3ff; stroke-width: 0.8; stroke-linecap: round; stroke-dasharray: 7 93; filter: drop-shadow(0 0 1.4px rgba(201, 175, 255, 0.95)); animation: travel 9s linear infinite !important; }
+@keyframes travel { to { stroke-dashoffset: -100; } }
+
+.core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-content: center;
+  width: 29%;
+  aspect-ratio: 1;
+  border: 1px solid rgba(201, 175, 255, 0.4);
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, rgba(183, 160, 239, 0.34), rgba(40, 28, 70, 0.9) 70%);
+  box-shadow: 0 0 0 10px rgba(183, 160, 239, 0.05), 0 0 60px rgba(139, 98, 225, 0.45), inset 0 1px rgba(255, 255, 255, 0.2);
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+.core span { color: #c9b8f5; font-size: clamp(9px, 0.75vw, 11px); font-weight: 650; letter-spacing: 0.16em; text-transform: uppercase; }
+.core strong { margin-top: 4px; font-size: clamp(15px, 1.5vw, 22px); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
+
+.orbit li { position: absolute; top: var(--y); left: var(--x); width: 33%; transform: translate(-50%, -50%); }
+.node {
+  display: grid;
+  gap: 4px;
+  padding: clamp(12px, 1.2vw, 16px) clamp(12px, 1.2vw, 18px);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: linear-gradient(150deg, rgba(28, 26, 44, 0.94), rgba(11, 13, 22, 0.94));
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.06), 0 18px 40px rgba(0, 0, 0, 0.35);
+  color: #f6f7fb;
+  backdrop-filter: blur(6px);
+  transition: border-color .3s ease, transform .3s cubic-bezier(.22, 1, .36, 1), box-shadow .3s ease;
+}
+.num { color: var(--lav); font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+.node strong { font-size: clamp(14px, 1.15vw, 19px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; white-space: nowrap; }
+.node small { color: #aaa4ba; font-size: clamp(12px, 0.9vw, 13px); line-height: 1.4; }
+.node:hover, .node:focus-visible {
+  border-color: rgba(201, 175, 255, 0.7);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.08), 0 0 0 4px rgba(183, 160, 239, 0.1), 0 22px 50px rgba(62, 40, 120, 0.5);
+  transform: translateY(-3px);
+}
+.node:focus-visible { outline: 2px solid var(--lav); outline-offset: 3px; }
+
+/* Наведение на направление подсвечивает его связь с центром */
+.orbit:has(li:nth-child(1) .node:hover) .spoke:nth-of-type(1),
+.orbit:has(li:nth-child(2) .node:hover) .spoke:nth-of-type(2),
+.orbit:has(li:nth-child(3) .node:hover) .spoke:nth-of-type(3),
+.orbit:has(li:nth-child(4) .node:hover) .spoke:nth-of-type(4),
+.orbit:has(li:nth-child(5) .node:hover) .spoke:nth-of-type(5) { stroke: rgba(214, 195, 255, 0.9); stroke-dasharray: none; }
+
+/* Планшет: текст сверху, орбита под ним */
+@media (max-width: 1100px) {
+  .inner { min-height: 0; }
+  .grid { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .copy h1 { font-size: clamp(38px, 6.4vw, 64px); }
+  .orbit { width: min(100%, 600px); }
+}
+
+/* Телефон: вместо орбиты — аккуратный список направлений */
+@media (max-width: 640px) {
+  .inner { padding: 23px 0 40px; }
+  .grid { gap: 32px; padding-top: 32px; }
+  .copy h1 { font-size: clamp(32px, 9.4vw, 42px); }
+  .copy h1 br { display: none; }
+  .lead { font-size: 15px; }
+  .actions :global(a:first-child) { width: 100%; justify-content: space-between; }
+  .orbit { width: 100%; aspect-ratio: auto; }
+  .lines, .core { display: none; }
+  .orbit ul { display: grid; gap: 10px; }
+  .orbit li { position: static; width: auto; transform: none; }
+  .node { grid-template-columns: 34px minmax(0, 1fr); column-gap: 10px; backdrop-filter: none; }
+  .num { grid-row: 1 / span 2; padding-top: 4px; }
+}

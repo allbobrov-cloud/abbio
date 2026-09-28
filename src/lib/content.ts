@@ -12,9 +12,25 @@ export const cases = [
   { slug: "volhonka", name: "Металлобаза Волхонка", category: "Металлопрокат / B2B", title: "От поиска металла до заявки на поставку.", summary: "Сайт металлобазы, поисковое продвижение и работа с обращениями в CRM.", image: "/cases/volhonka-desktop.avif", mobile: "/cases/volhonka-mobile.avif", tags: ["Сайт", "SEO", "CRM"], task: "Помочь покупателю выбрать металлопрокат и отправить запрос, а отделу продаж — не потерять обращение.", solution: "Объединили каталог, онлайн-заявки и CRM. Организовали учёт обращений из разных каналов и работу с поисковым продвижением.", service: "marketing" },
   { slug: "stroybaza-volhonka", name: "Стройбаза Волхонка", category: "Стройматериалы", title: "Не просто каталог стройматериалов. Система для стройки.", summary: "Материалы, характеристики, расчёты и доставка в одном интерфейсе.", image: "/cases/stroybaza-house.png", mobile: "/cases/stroybaza-house.png", tags: ["Каталог", "Расчёт", "Доставка"], task: "Помочь выбрать материалы для разных этапов стройки и рассчитать потребность.", solution: "Собрали материалы, характеристики, расчёты и доставку в одном интерфейсе.", service: "websites" },
 ];
+// Все кейсы для страницы /cases. Тексты взяты с hero-блоков страниц кейсов, без новых цифр.
+export const caseIndex = [
+  { slug: "bogov", name: "Мотошкола Владимира Богова", category: "Образование · спорт", title: "Сайт, который стал каналом привлечения.", services: ["Дизайн", "Разработка", "SEO", "Яндекс Директ"], cover: "/cases/bogov-hero-desktop.webp", coverFit: "contain", coverPosition: "50% 50%", tint: "#f0b21e" },
+  { slug: "oss", name: "ОборонСпецСплав", category: "Металлопрокат · B2B", title: "Сложный каталог превратили в систему привлечения.", services: ["Сайт", "Каталог", "SEO"], cover: "/cases/oss-hero-visual.avif", coverFit: "contain", coverPosition: "50% 50%", tint: "#d63838" },
+  { slug: "volhonka", name: "Металлобаза Волхонка", category: "Металлопрокат · Санкт-Петербург", title: "Из металлобазы — в заметный digital-бренд.", services: ["Сайт", "SEO", "CRM"], cover: "/cases/volhonka-hero-visual.avif", coverFit: "contain", coverPosition: "50% 50%", tint: "#f0be40" },
+  { slug: "profline", name: "ПрофЛайн", category: "Кровельные и фасадные материалы", title: "Из сайта о профнастиле — в большой каталог материалов.", services: ["Сайт", "SEO", "Аналитика"], cover: "/cases/profline-hero.webp", coverFit: "cover", coverPosition: "70% 55%", tint: "#e0342b" },
+  { slug: "potolki-vsem", name: "Потолки Всем", category: "Натяжные потолки", title: "Не лендинг под рекламу. Собственный канал привлечения.", services: ["Многостраничный сайт", "SEO"], cover: "/cases/potolki-hero-bg.avif", coverFit: "cover", coverPosition: "50% 50%", overlay: "/cases/potolki-ui.avif", tint: "#e2383f" },
+  { slug: "stroybaza-volhonka", name: "Стройбаза Волхонка", category: "Стройматериалы", title: "Не просто каталог стройматериалов. Система для стройки.", services: ["Каталог", "Расчёт", "Доставка"], cover: "/cases/stroybaza-materials.png", coverFit: "contain", coverPosition: "50% 50%", tint: "#24a8f4" },
+] as const;
 export const steps = [
   { title: "Разбираемся", text: "Обсуждаем бизнес, клиентов и задачу. Определяем, что важно изменить." },
   { title: "Договариваемся", text: "Фиксируем объём работы, этапы, стоимость и критерии готовности." },
   { title: "Делаем", text: "Показываем промежуточный результат. Обсуждаем решения, вносим правки." },
   { title: "Запускаем", text: "Проверяем, передаём результат и договариваемся о дальнейшем развитии." }
+];
+
+// Демонстрационные профили из прежнего блока; реальные данные команды не подтверждены.
+export const team = [
+  { name: "Алексей Морозов", role: "Продукт и стратегия", image: "/team/product.avif" },
+  { name: "Анна Белова", role: "Дизайн", image: "/team/design.avif" },
+  { name: "Михаил Орлов", role: "Разработка", image: "/team/development.avif" }
 ];

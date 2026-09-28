@@ -1,6 +1,11 @@
-import { AgencyProcess } from "@/components/AgencySections";
-import { HomeCases, HomeServices, IndustryFocus, ReportsPreview } from "@/components/home/HomePortfolio";
-import { HomeHero, TaskExplorer, ClientJourney, WorkFormats } from "@/components/home/HomeExperience";
+import { HomeProcess } from "@/components/home/HomeProcess";
+import { HomeTeam } from "@/components/home/HomeTeam";
+import { CasesBlock } from "@/components/cases/CasesBlock";
+import { IndustryFocus } from "@/components/home/HomePortfolio";
+import { HomeServices } from "@/components/home/HomeServices";
+import { HomeReports } from "@/components/home/HomeReports";
+import { HomeHero } from "@/components/home/HomeHero";
+import { TaskExplorer, ClientJourney, WorkFormats } from "@/components/home/HomeExperience";
 import styles from "@/components/home/HomeExperience.module.css";
 
 export default function Home() {
@@ -9,12 +14,13 @@ export default function Home() {
       <HomeHero />
       <TaskExplorer />
       <HomeServices />
-      <HomeCases />
+      <CasesBlock id="cases" eyebrow="Избранные проекты" title="Лучше показать." slugs={["bogov", "oss", "stroybaza-volhonka"]} />
       <IndustryFocus />
-      <ReportsPreview />
+      <HomeReports />
       <ClientJourney />
-      <AgencyProcess />
+      <HomeProcess />
       <WorkFormats />
+      <HomeTeam />
     </main>
   );
 }

@@ -5,7 +5,7 @@ import styles from "./MarketingServicePage.module.css";
 import deliverablesStyles from "./MarketingDeliverables.module.css";
 import ctaStyles from "./MarketingCta.module.css";
 import heroBlendStyles from "./MarketingHeroBlend.module.css";
-import { CasePortfolio } from "./CasePortfolio";
+import { CasesBlock } from "@/components/cases/CasesBlock";
 
 const reportDemoUrl = "https://docs.google.com/spreadsheets/d/1_t_nzlVjj-NE8Lvdqqsz3XC_L0DNfjz0K1nLGFqu1Tk/edit?gid=185043878#gid=185043878";
 
@@ -326,11 +326,10 @@ export function MarketingServicePage() {
         </div>
       </section>
 
-      <CasePortfolio
+      <CasesBlock
         title="Три проекта — три разные задачи."
         description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."
-        slugs={["bogov", "oss", "volhonka"]}
-        featuredSlug="bogov"
+        slugs={["volhonka", "profline", "bogov"]}
       />
     </main>
   );

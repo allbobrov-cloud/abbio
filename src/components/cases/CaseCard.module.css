@@ -1,0 +1,70 @@
+.card {
+  --line: rgba(255, 255, 255, 0.08);
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 26px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.01));
+  color: #fbfaff;
+  transition: border-color .35s ease, transform .35s cubic-bezier(.22, 1, .36, 1), box-shadow .35s ease;
+}
+.card:hover, .card:focus-visible {
+  border-color: color-mix(in srgb, var(--tint) 55%, transparent);
+  box-shadow: 0 30px 70px -40px color-mix(in srgb, var(--tint) 70%, transparent);
+  transform: translateY(-4px);
+}
+.card:focus-visible { outline: 2px solid #b7a0ef; outline-offset: 3px; }
+
+.cover {
+  position: relative;
+  display: block;
+  flex: none;
+  height: var(--cover-h, clamp(240px, 24vw, 400px));
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 70% 85% at 70% 45%, color-mix(in srgb, var(--tint) 30%, transparent), transparent 72%),
+    #0b0d16;
+}
+.cover::after {
+  position: absolute;
+  inset: auto 0 0;
+  height: 40%;
+  background: linear-gradient(180deg, transparent, rgba(8, 9, 16, 0.55));
+  content: "";
+  pointer-events: none;
+}
+.cover img { object-fit: cover; transition: transform .8s cubic-bezier(.22, 1, .36, 1); }
+.coverContain img { padding: clamp(16px, 2.2vw, 36px); object-fit: contain; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .45)); }
+.card:hover .cover img, .card:focus-visible .cover img { transform: scale(1.04); }
+
+.overlay { position: absolute; z-index: 1; top: 8%; right: 5%; bottom: 8%; width: 40%; filter: drop-shadow(0 24px 40px rgba(0, 0, 0, .55)); }
+.overlay img { object-fit: contain; }
+.card:hover .overlay img, .card:focus-visible .overlay img { transform: translateY(-4px); }
+
+.body { display: flex; flex: 1; flex-direction: column; padding: clamp(20px, 2vw, 32px); }
+.meta { display: flex; align-items: center; gap: 12px; color: #8f89a3; font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+.num { display: inline-flex; flex: none; align-items: center; gap: 8px; color: #fbfaff; }
+.num::after { width: 7px; height: 7px; border-radius: 50%; background: var(--tint); box-shadow: 0 0 12px var(--tint); content: ""; }
+.name { display: block; margin-top: 14px; font-size: clamp(22px, 1.9vw, 32px); font-weight: 600; letter-spacing: -.03em; line-height: 1.1; }
+.title { display: block; margin-top: 8px; color: #b9b4c9; font-size: clamp(15px, 1.1vw, 18px); line-height: 1.45; }
+
+/* --foot-direction: column у родителя ставит теги и кнопку в столбик (одинаково во всех карточках ряда) */
+.foot { display: flex; flex-direction: var(--foot-direction, row); flex-wrap: wrap; align-items: var(--foot-align, center); justify-content: space-between; gap: 14px 20px; margin-top: auto; padding-top: 22px; }
+.services { display: flex; flex-wrap: wrap; gap: 8px; }
+.services span { padding: 6px 12px; border: 1px solid rgba(255, 255, 255, 0.12); border-radius: 999px; color: #d8d2e0; font-size: 13px; line-height: 1.2; }
+.cta { display: inline-flex; align-items: center; gap: 10px; color: #b7a0ef; font-size: 14px; font-weight: 600; white-space: nowrap; }
+.cta > span { transition: transform .25s ease; }
+.card:hover .cta > span, .card:focus-visible .cta > span { transform: translate(3px, -3px); }
+
+@media (max-width: 760px) {
+  .card { border-radius: 22px; }
+  .cover { height: var(--cover-h-mobile, clamp(210px, 58vw, 300px)); }
+}
+
+@media (hover: none) {
+  .card:hover { transform: none; }
+}

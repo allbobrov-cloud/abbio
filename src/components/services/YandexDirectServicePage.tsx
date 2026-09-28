@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
+import { CasesBlock } from "@/components/cases/CasesBlock";
 import { YandexDirectHeroExperience } from "./YandexDirectHeroExperience";
 import { YandexDirectAdPage } from "./YandexDirectAdPage";
 import { YandexDirectCrmSection } from "./YandexDirectCrmSection";
@@ -150,5 +151,10 @@ export function YandexDirectServicePage() {
     </div></section>
 
     <section className={styles.finalSection} aria-labelledby="direct-contact-title"><div className={styles.container}><div className={styles.finalPanel}><p className={styles.sectionIndex}>Связаться с ABBiO</p><h2 id="direct-contact-title">Запустим Яндекс Директ как управляемый канал.</h2><p>Разберём предложение, посадочные страницы, доступный бюджет и текущую передачу обращений, чтобы определить структуру запуска.</p><a href="#contact-dialog" data-contact-dialog className={styles.finalAction}>Обсудить рекламу <ActionArrow/></a><div className={styles.finalVisual} aria-hidden="true"><Image src="/services/yandex-direct-final-launch-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 760px" /></div></div></div></section>
+    <CasesBlock
+      title="Три проекта — три разные задачи."
+      description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."
+      slugs={["bogov", "volhonka", "potolki-vsem"]}
+    />
   </main>;
 }

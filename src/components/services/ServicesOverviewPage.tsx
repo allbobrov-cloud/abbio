@@ -2,10 +2,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
 import styles from "./ServicesOverviewPage.module.css";
-import { CasePortfolio } from "./CasePortfolio";
+import { CasesBlock } from "@/components/cases/CasesBlock";
 import { ServicesProgressiveSystem } from "./ServicesProgressiveSystem";
 import { ServicesSituationExplorer } from "./ServicesSituationExplorer";
-import { ServicesHeroVisual } from "./ServicesHeroVisual";
+import { ServicesHero } from "./ServicesHero";
+import { ServicesFinalCta } from "./ServicesFinalCta";
+import { DirectionsSpotlight } from "./DirectionsSpotlight";
 
 const directions = [
   {
@@ -58,90 +60,78 @@ const directionClasses = {
   "yandex-direct": styles.directionDirect,
 };
 
-const marketingIconPaths = {
-  search: "M11 4a7 7 0 1 1 0 14 7 7 0 0 1 0-14Zm9 16-4.35-4.35",
-  click: "M5 5v8m0-8 5 12 2-5 5-2-12-5Z",
-  message: "M4 6h16v10H8l-4 4V6Z",
-  chart: "M5 19V10m6.5 9V5m6.5 14v-7",
-  layers: "M12 3 3 8l9 5 9-5-9-5Zm-9 8 9 5 9-5M3 16l9 5 9-5",
-  target: "M12 3a9 9 0 1 0 .001 0ZM12 8a4 4 0 1 0 .001 0ZM12 11.2a.8.8 0 1 0 .001 0Z",
-  megaphone: "M3 10v4h4l6 4V6l-6 4H3Zm13-2a4 4 0 0 1 0 8",
-} as const;
-
-function MarketingIcon({ name }: { name: keyof typeof marketingIconPaths }) {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-      <path d={marketingIconPaths[name]} />
-    </svg>
-  );
-}
-
 function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }) {
   if (slug === "websites") {
     return (
       <div className={[styles.capabilityVisual, styles.websitesVisual].join(" ")} aria-hidden="true">
-        <div className={styles.browserFrame}>
-          <div className={styles.browserChrome}><i /><i /><i /><b /></div>
-          <div className={styles.browserPage}>
-            <span /><em /><strong /><div><i /><i /><i /></div>
-          </div>
-        </div>
-        <div className={styles.wsMobile}>
-          <div className={styles.wsMobileNotch} />
-          <div className={styles.wsMobileScreen}><i /><i /><em /></div>
-        </div>
+        <Image
+          className={styles.websitesArtwork}
+          src="/services/websites-journey.png"
+          alt=""
+          width={1212}
+          height={1297}
+          loading="eager"
+          sizes="(max-width: 760px) 80vw, (max-width: 1100px) 22vw, 24vw"
+        />
       </div>
     );
   }
 
   if (slug === "design") {
     return (
-      <div className={[styles.capabilityVisual, styles.designPanel].join(" ")} aria-hidden="true">
-        <div className={styles.designType}>
-          <strong>Aa</strong>
-          <span>Inter<br /><small>Display / Text</small></span>
-        </div>
-        <div className={styles.designMeta}>
-          <div className={styles.designSwatches}><i /><i /><i /><i /></div>
-          <div className={styles.designScale}><i /><i /><i /><i /></div>
-        </div>
-        <div className={styles.designButton}>Button <b>→</b></div>
+      <div className={[styles.capabilityVisual, styles.designArtworkVisual].join(" ")} aria-hidden="true">
+        <Image
+          className={styles.designArtwork}
+          src="/services/design-journey.png"
+          alt=""
+          width={1277}
+          height={1231}
+          sizes="(max-width: 760px) 80vw, (max-width: 1100px) 16vw, 18vw"
+        />
       </div>
     );
   }
 
   if (slug === "seo") {
     return (
-      <div className={[styles.capabilityVisual, styles.marketingFunnel].join(" ")} aria-hidden="true">
-        <div className={styles.marketingNodes}>
-          <div className={styles.marketingNode}><MarketingIcon name="search" /><span>Спрос</span></div>
-          <div className={styles.marketingNode}><MarketingIcon name="layers" /><span>Структура</span></div>
-          <div className={styles.marketingNode}><MarketingIcon name="target" /><span>Измерение</span></div>
-        </div>
+      <div className={[styles.capabilityVisual, styles.seoArtworkVisual].join(" ")} aria-hidden="true">
+        <Image
+          className={styles.seoArtwork}
+          src="/services/seo-journey.png"
+          alt=""
+          width={1536}
+          height={1024}
+          sizes="(max-width: 760px) 80vw, (max-width: 1100px) 35vw, 23vw"
+        />
       </div>
     );
   }
 
   if (slug === "yandex-direct") {
     return (
-      <div className={[styles.capabilityVisual, styles.marketingFunnel].join(" ")} aria-hidden="true">
-        <div className={styles.marketingNodes}>
-          <div className={styles.marketingNode}><MarketingIcon name="megaphone" /><span>Контекстная реклама</span></div>
-          <div className={styles.marketingNode}><MarketingIcon name="message" /><span>CRM</span></div>
-          <div className={styles.marketingNode}><MarketingIcon name="chart" /><span>Отчётность</span></div>
-        </div>
+      <div className={[styles.capabilityVisual, styles.directArtworkVisual].join(" ")} aria-hidden="true">
+        <Image
+          className={styles.directArtwork}
+          src="/services/yandex-direct-journey.png"
+          alt=""
+          width={1229}
+          height={1280}
+          sizes="(max-width: 760px) 80vw, (max-width: 1100px) 35vw, 23vw"
+        />
       </div>
     );
   }
 
   return (
-    <div className={[styles.capabilityVisual, styles.marketingFunnel].join(" ")} aria-hidden="true">
-      <div className={styles.marketingNodes}>
-        <div className={styles.marketingNode}><MarketingIcon name="search" /><span>Поиск / реклама</span></div>
-        <div className={styles.marketingNode}><MarketingIcon name="click" /><span>Переход</span></div>
-        <div className={styles.marketingNode}><MarketingIcon name="message" /><span>Обращение</span></div>
-        <div className={styles.marketingNode}><MarketingIcon name="chart" /><span>Аналитика</span></div>
-      </div>
+    <div className={[styles.capabilityVisual, styles.marketingArtworkVisual].join(" ")} aria-hidden="true">
+      <Image
+        className={styles.marketingArtwork}
+        src="/services/marketing-journey.png"
+        alt=""
+        width={1644}
+        height={957}
+        sizes="(max-width: 760px) 80vw, (max-width: 1100px) 45vw, 40vw"
+      />
     </div>
   );
 }
@@ -149,31 +139,7 @@ function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }
 export function ServicesOverviewPage() {
   return (
     <main id="main" className={styles.page}>
-      <section className={styles.hero} aria-labelledby="services-title">
-        <div className={styles.container}>
-          <nav className={styles.breadcrumbs} aria-label="Хлебные крошки">
-            <Link href="/">Главная</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">Услуги</span>
-          </nav>
-
-          <div className={styles.heroGrid}>
-            <div className={styles.heroCopy}>
-              <p className={styles.kicker}>Услуги ABBiO</p>
-              <h1 id="services-title">Сайты, дизайн и продвижение — в одной системе.</h1>
-              <p>Работаем над тем, как компания выглядит, объясняет предложение, находится в поиске и получает обращения: сайтами, дизайном, маркетингом, SEO и рекламой в Яндекс Директе.</p>
-              <div className={styles.heroActions}>
-                <Link href="#directions" className={styles.primaryAction}>Выбрать направление <ActionArrow /></Link>
-                <a href="#contact-dialog" data-contact-dialog className={styles.secondaryAction}>Обсудить задачу</a>
-              </div>
-            </div>
-
-            <div className={styles.heroVisualWrap}>
-              <ServicesHeroVisual />
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServicesHero directions={directions} />
 
       <section className={styles.directions} id="directions" aria-labelledby="directions-title">
         <div className={styles.container}>
@@ -184,18 +150,77 @@ export function ServicesOverviewPage() {
             </div>
           </div>
 
+          <DirectionsSpotlight targetId="directions" />
           <div className={styles.directionGrid}>
             {directions.map((item) => (
               <article key={item.slug} className={[styles.direction, directionClasses[item.slug]].join(" ")}>
                 <div className={styles.directionMeta}>
-                  <span>{item.number}</span>
+                  <span>{item.number}{item.slug === "design" || item.slug === "marketing" || item.slug === "seo" || item.slug === "yandex-direct" ? " /" : ""}</span>
                   <p>{item.title}</p>
                 </div>
                 <div className={styles.directionContent}>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
+                  <h3>
+                    {item.slug === "websites" ? (
+                      <>
+                        Сайты,<br />
+                        которые ведут<br />
+                        <span>к обращению.</span>
+                      </>
+                    ) : item.slug === "design" ? (
+                      <>
+                        Дизайн,<br />
+                        который делает<br />
+                        <span>ваш продукт сильнее.</span>
+                      </>
+                    ) : item.slug === "marketing" ? (
+                      <>
+                        Маркетинг,<br />
+                        который <span>даёт результат.</span>
+                      </>
+                    ) : item.slug === "seo" ? (
+                      <>
+                        SEO-<br />
+                        продвижение,<br />
+                        <span>которое приводит<br />клиентов.</span>
+                      </>
+                    ) : item.slug === "yandex-direct" ? (
+                      <>
+                        Яндекс<br />
+                        Директ,<br />
+                        <span>который приводит<br />клиентов.</span>
+                      </>
+                    ) : null}
+                  </h3>
+                  <p>
+                    {item.slug === "websites" ? (
+                      <>
+                        Продумываем структуру, дизайн и функциональность,<br />
+                        чтобы сайт работал на ваши цели.
+                      </>
+                    ) : item.slug === "design" ? (
+                      <>
+                        Помогаем понятно и убедительно<br />
+                        представить продукт.
+                      </>
+                    ) : item.slug === "marketing" ? (
+                      <>
+                        Привлекаем целевую аудиторию и превращаем<br />
+                        её в клиентов с понятной аналитикой.
+                      </>
+                    ) : item.slug === "seo" ? (
+                      <>
+                        Развиваем сайт под реальный спрос<br />
+                        и измеримые обращения.
+                      </>
+                    ) : item.slug === "yandex-direct" ? (
+                      <>
+                        Запускаем платный поток обращений<br />
+                        с понятным отчётом.
+                      </>
+                    ) : null}
+                  </p>
                   <ul>
-                    {item.items.map((entry) => <li key={entry}>{entry}</li>)}
+                    {(item.slug === "marketing" ? ["Стратегия", "SMM", "Контент", "Реклама"] : item.items).map((entry) => <li key={entry}>{entry}</li>)}
                   </ul>
                   <div className={styles.directionActions}>
                     <Link href={`/services/${item.slug}`} className={styles.directionLink}>{item.actionLabel} <ActionArrow /></Link>
@@ -210,40 +235,14 @@ export function ServicesOverviewPage() {
 
       <ServicesSituationExplorer />
 
-      <section className={styles.finalCta} aria-labelledby="start-title">
-        <div className={styles.container}>
-          <div className={styles.finalPanel}>
-            <Image
-              className={styles.finalArtwork}
-              src="/services/services-final-cta-brief-v1.png"
-              alt=""
-              fill
-              sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1100px) calc(100vw - 64px), 1280px"
-            />
-            <div>
-              <p className={styles.sectionIndex}>Обсудить задачу</p>
-              <h2 id="start-title">Расскажите, что хотите сделать.</h2>
-            </div>
-            <div>
-              <p>Необязательно выбирать услугу заранее. Начнём с вашей задачи и определим подходящий объём работ.</p>
-              <div className={styles.finalActions}>
-                <a href="#contact-dialog" data-contact-dialog className={styles.finalAction}>Обсудить задачу <ActionArrow /></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <ServicesFinalCta />
 
       <ServicesProgressiveSystem />
 
-      <CasePortfolio
-        eyebrow="Кейсы"
+      <CasesBlock
         title="Как услуги работают вместе."
         description="В каждом проекте свой набор задач. Где-то достаточно одного направления, а где-то сайт, дизайн и продвижение работают как одна система."
-        slugs={["bogov", "oss", "volhonka"]}
-        featuredSlug="bogov"
-        ctaLabel="Смотреть кейс"
-        showServices
+        slugs={["bogov", "volhonka", "profline"]}
       />
     </main>
   );

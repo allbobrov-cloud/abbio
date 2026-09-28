@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
-import { CasePortfolio } from "./CasePortfolio";
+import { CasesBlock } from "@/components/cases/CasesBlock";
 import { SeoHeroExperience } from "./SeoHeroExperience";
 import { SeoDemandSpace } from "./SeoDemandSpace";
 import { SeoHealthScan } from "./SeoHealthScan";
@@ -135,11 +135,10 @@ export function SeoServicePage() {
         </div>
       </section>
 
-      <CasePortfolio
+      <CasesBlock
         title="Три проекта — три разные задачи."
         description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."
-        slugs={["bogov", "oss", "volhonka"]}
-        featuredSlug="bogov"
+        slugs={["potolki-vsem", "profline", "oss"]}
       />
     </main>
   );

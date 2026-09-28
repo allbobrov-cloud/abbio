@@ -74,7 +74,6 @@
 .caseCaption .tags{justify-content:flex-end;min-width:115px}
 .caseCard:not(:first-child) .caseCaption{display:block}
 .caseCard:not(:first-child) .caseCaption .tags{justify-content:flex-start;margin-top:16px}
-.processSection{margin-top:0;padding:75px 0;background:linear-gradient(105deg,#12101c,#0b0c15);border-block:1px solid #ffffff0e}
 .steps{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));border-bottom:1px solid #ffffff14}
 .steps li{position:relative;min-height:0;padding:34px 26px 30px;border-left:1px solid #ffffff14;transition:background .28s ease}
 .steps li:first-child{border-left:0}
@@ -82,13 +81,8 @@
 .stepNumber::after{content:"";width:26px;height:1px;background:currentColor;opacity:.75}
 .steps h3{position:relative;z-index:1;font-size:21px;font-weight:500;letter-spacing:-.5px;margin:0 0 13px}
 .steps p{position:relative;z-index:1;font-size:13px;line-height:1.8;color:#aaa6b8;margin:0;max-width:255px}
-.stepInProgress::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;background:#e5af60}
-.stepInProgress .stepNumber{color:#edbd76}
-.stepInProgress h3{color:#fff4e5}
-.stepInProgress p{color:#d9c9b4}
 @media (hover:hover) and (prefers-reduced-motion:no-preference){
   .steps li:hover{background:linear-gradient(180deg,#b7a0ef14,transparent 68%)}
-  .stepInProgress:hover{background:linear-gradient(180deg,#e6ac5a22,transparent 68%)}
 }
 .teamGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
 .mobileSwipeHint{display:none}
@@ -168,8 +162,6 @@
   .sectionHead{margin-bottom:34px}
   .textLink{min-height:44px;padding-block:10px}
 
-  .processSection{margin-top:0;padding:64px 0}
-  .processSection .sectionHead{align-items:flex-start}
   .steps{display:grid;grid-template-columns:1fr;gap:0;border-bottom:1px solid #ffffff14}
   .steps li{display:grid;grid-template-columns:42px minmax(0,1fr);column-gap:14px;min-height:0;padding:20px 0;border:0;border-top:1px solid #ffffff14;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
   .steps li::before,.steps li::after{display:none}
@@ -177,7 +169,6 @@
   .stepNumber::after{display:none}
   .steps h3{grid-column:2;margin:0 0 7px;font-size:19px}
   .steps p{grid-column:2;max-width:none;font-size:13px;line-height:1.65}
-  .stepInProgress{margin-inline:-12px;padding-inline:12px!important;border:1px solid #e1ac5d6b!important;border-radius:12px;background:linear-gradient(110deg,#2a2018,#17131a)!important;box-shadow:0 12px 30px #0003,inset 3px 0 #eab461!important}
 
   .teamGrid{display:flex;gap:14px;margin-inline:-20px;padding:0 20px 12px;overflow-x:auto;overscroll-behavior-inline:contain;scroll-padding-inline:20px;scroll-snap-type:x mandatory;scrollbar-width:none}
   .teamGrid::-webkit-scrollbar{display:none}

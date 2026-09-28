@@ -1,0 +1,205 @@
+/* «Что хотите изменить?» — вкладки ситуаций + сцена превращения «сейчас → решение → путь».
+   Базовые стили — финальное состояние; анимации только проигрывают переход к нему,
+   поэтому при отключённой анимации всё остаётся на месте. */
+.section {
+  --lav: #b7a0ef;
+  --lav-strong: #d6c3ff;
+  position: relative;
+  padding: clamp(80px, 11vh, 140px) 0;
+  overflow: hidden;
+  color: #f6f7fb;
+  background:
+    radial-gradient(ellipse 45% 50% at 82% 18%, rgba(109, 80, 189, 0.2), transparent 70%),
+    radial-gradient(ellipse 35% 45% at 5% 85%, rgba(51, 89, 139, 0.12), transparent 70%),
+    #08090f;
+}
+
+.head { display: grid; grid-template-columns: minmax(0, 1fr); max-width: 760px; }
+.eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; color: #c2aff9; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
+.eyebrow::before { width: 40px; height: 1px; background: currentColor; content: ""; }
+.head h2 { margin: 0; font-size: clamp(38px, 4.4vw, 76px); font-weight: 500; letter-spacing: -0.05em; line-height: 1.02; }
+.lead { margin: 18px 0 0; color: #b9b4c9; font-size: clamp(15px, 1.15vw, 19px); line-height: 1.5; }
+
+.explorer { display: grid; grid-template-columns: minmax(280px, 0.66fr) minmax(0, 1.6fr); gap: clamp(14px, 1.4vw, 22px); margin-top: clamp(36px, 5vh, 56px); }
+
+/* Вкладки ситуаций */
+/* Вкладки делят высоту сцены поровну — левая колонка заканчивается вровень с правой */
+.tabs { display: grid; grid-template-rows: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.tab {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) 24px;
+  gap: 14px;
+  align-items: center;
+  min-height: 96px;
+  padding: 20px 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.02);
+  color: #cfc9dc;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .3s ease, background .3s ease, color .3s ease, transform .3s cubic-bezier(.22, 1, .36, 1);
+}
+.tab::before {
+  position: absolute;
+  top: 18%;
+  bottom: 18%;
+  left: 0;
+  width: 3px;
+  border-radius: 0 3px 3px 0;
+  background: var(--lav);
+  box-shadow: 0 0 14px var(--lav);
+  content: "";
+  transform: scaleY(0);
+  transition: transform .35s cubic-bezier(.22, 1, .36, 1);
+}
+.tab:hover { border-color: rgba(183, 160, 239, 0.3); background: rgba(183, 160, 239, 0.05); color: #fff; }
+.tab:focus-visible { outline: 2px solid var(--lav); outline-offset: 3px; }
+.tab[aria-selected="true"] {
+  border-color: rgba(201, 175, 255, 0.55);
+  background: linear-gradient(135deg, rgba(183, 160, 239, 0.2), rgba(108, 80, 190, 0.06) 70%);
+  box-shadow: 0 18px 44px -24px rgba(139, 98, 225, 0.8);
+  color: #fff;
+}
+.tab[aria-selected="true"]::before { transform: scaleY(1); }
+.tabNum { color: var(--lav); font-size: 13px; font-weight: 700; letter-spacing: 0.08em; }
+.tabLabel { font-size: clamp(16px, 1.3vw, 20px); font-weight: 550; letter-spacing: -0.02em; line-height: 1.25; }
+.tabArrow { justify-self: end; color: #8f89a3; font-size: 18px; transition: transform .3s ease, color .3s ease; }
+.tab:hover .tabArrow, .tab[aria-selected="true"] .tabArrow { color: var(--lav-strong); transform: translateX(4px); }
+
+/* Сцена */
+.stage {
+  position: relative;
+  display: grid;
+  min-height: 100%;
+  overflow: hidden;
+  border: 1px solid rgba(201, 175, 255, 0.22);
+  border-radius: 28px;
+  background:
+    radial-gradient(520px circle at var(--mx, 78%) var(--my, 12%), rgba(183, 160, 239, 0.16), transparent 62%),
+    linear-gradient(160deg, #15122b 0%, #0b0b16 62%, #09090f 100%);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.07), 0 40px 90px -50px rgba(111, 76, 204, 0.7);
+}
+.watermark {
+  position: absolute;
+  top: -0.14em;
+  right: 0.04em;
+  color: transparent;
+  font-size: clamp(170px, 19vw, 320px);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  -webkit-text-stroke: 1px rgba(201, 175, 255, 0.16);
+  pointer-events: none;
+  user-select: none;
+}
+
+.scene { position: relative; grid-area: 1 / 1; display: flex; flex-direction: column; min-width: 0; padding: clamp(28px, 3.4vw, 56px); visibility: hidden; opacity: 0; }
+.sceneActive { visibility: visible; opacity: 1; }
+.sceneActive > * { animation: rise .6s cubic-bezier(.22, 1, .36, 1) both; }
+.sceneActive > :nth-child(2) { animation-delay: .08s; }
+.sceneActive > :nth-child(3) { animation-delay: .14s; }
+.sceneActive > :nth-child(4) { animation-delay: .2s; }
+.sceneActive > :nth-child(5) { animation-delay: .28s; }
+@keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+
+/* Сейчас → Решение: проблема перечёркивается */
+.shift { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin: 0; }
+.now { display: inline-flex; align-items: center; gap: 10px; padding: 7px 14px 7px 8px; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 999px; background: rgba(255, 255, 255, 0.03); color: #9e98b0; font-size: 14px; }
+.now small { padding: 3px 9px; border-radius: 999px; background: rgba(255, 255, 255, 0.07); color: #cfc9dc; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.now s { position: relative; text-decoration: none; }
+.now s::after {
+  position: absolute;
+  top: 55%;
+  left: -2px;
+  right: -2px;
+  height: 1.5px;
+  background: var(--lav);
+  box-shadow: 0 0 8px var(--lav);
+  content: "";
+  transform-origin: left;
+
+}
+@keyframes strike { from { transform: scaleX(0); } }
+.shiftArrow { width: 34px; height: 1px; background: linear-gradient(90deg, rgba(183, 160, 239, 0.2), var(--lav)); position: relative; }
+.shiftArrow::after { position: absolute; top: -3px; right: 0; width: 7px; height: 7px; border-top: 1px solid var(--lav); border-right: 1px solid var(--lav); content: ""; transform: rotate(45deg); }
+.next { padding: 7px 14px; border-radius: 999px; background: rgba(183, 160, 239, 0.16); color: var(--lav-strong); font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; }
+
+.scene h3 { position: relative; max-width: 20ch; margin: clamp(22px, 3vh, 32px) 0 0; font-size: clamp(30px, 3vw, 50px); font-weight: 500; letter-spacing: -0.045em; line-height: 1.04; text-wrap: balance; }
+.description { max-width: 58ch; margin: 18px 0 0; color: #b9b4c9; font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; }
+
+/* Путь из трёх шагов: линия прорисовывается, узлы загораются по очереди, цель пульсирует */
+.route { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: clamp(32px, 4.4vh, 48px) 0 0; padding: 0; list-style: none; }
+.route::before, .route::after { position: absolute; top: 10px; left: 16.66%; right: 16.66%; height: 2px; border-radius: 2px; content: ""; }
+.route::before { background: rgba(201, 175, 255, 0.14); }
+.route::after { background: linear-gradient(90deg, rgba(183, 160, 239, 0.4), var(--lav-strong)); box-shadow: 0 0 12px rgba(183, 160, 239, 0.6); transform-origin: left; }
+@keyframes draw { from { transform: scaleX(0); } }
+.route li { position: relative; display: grid; justify-items: center; gap: 6px; text-align: center; }
+.node {
+  position: relative;
+  z-index: 1;
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--lav);
+  border-radius: 50%;
+  background: #1a1530;
+  box-shadow: 0 0 0 5px rgba(183, 160, 239, 0.1), 0 0 16px rgba(183, 160, 239, 0.55);
+
+}
+@keyframes light { from { border-color: rgba(201, 175, 255, 0.25); background: #0b0b16; box-shadow: none; } }
+.route li:last-child .node { background: var(--lav); }
+.route li:last-child .node::after {
+  position: absolute;
+  inset: -8px;
+  border: 1px solid var(--lav);
+  border-radius: 50%;
+  content: "";
+
+}
+@keyframes pulse { from { opacity: .8; transform: scale(.6); } to { opacity: 0; transform: scale(1.6); } }
+.stepNum { margin-top: 8px; color: #8f89a3; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; }
+.route strong { font-size: clamp(14px, 1.1vw, 17px); font-weight: 600; }
+
+.foot { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 22px; margin-top: auto; padding-top: clamp(28px, 4vh, 40px); }
+.directions { display: grid; gap: 10px; }
+.directions > span { color: #8f89a3; font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; }
+.directions > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.directions a, .directions > div > span { padding: 8px 14px; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 999px; color: #e2dcec; font-size: 13px; transition: border-color .2s ease, color .2s ease, background .2s ease; }
+.directions a:hover, .directions a:focus-visible { border-color: var(--lav); background: rgba(183, 160, 239, 0.1); color: #fff; }
+
+@media (max-width: 1000px) {
+  .explorer { grid-template-columns: minmax(0, 1fr); }
+  .tabs { grid-template-rows: none; grid-auto-columns: minmax(230px, 1fr); grid-auto-flow: column; overflow-x: auto; scrollbar-width: none; }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab { min-height: 84px; }
+}
+
+@media (max-width: 760px) {
+  .section { padding: 56px 0 64px; }
+  .eyebrow { margin-bottom: 16px; font-size: 11px; }
+  .head h2 { font-size: clamp(32px, 9vw, 42px); }
+  .lead { font-size: 15px; }
+  .explorer { margin-top: 28px; }
+  .tabs { grid-auto-columns: 74%; margin-inline: -20px; padding: 0 20px 4px; scroll-padding-inline: 20px; scroll-snap-type: x mandatory; }
+  .tab { grid-template-columns: 28px minmax(0, 1fr); padding: 16px; scroll-snap-align: start; }
+  .tabArrow { display: none; }
+  .tabLabel { font-size: 15px; }
+  .stage { border-radius: 22px; }
+  .watermark { font-size: 150px; }
+  .scene { padding: 24px 20px; }
+  .now { font-size: 13px; }
+  .scene h3 { font-size: clamp(28px, 8vw, 34px); }
+  .description { font-size: 15px; }
+  .route strong { font-size: 13px; }
+  .foot { flex-direction: column; align-items: stretch; }
+  .foot > a { justify-content: space-between; }
+}
+
+/* Анимации проигрываются только у выбранной сцены — при каждом переключении заново */
+.sceneActive .now s::after { animation: strike .55s .45s cubic-bezier(.65, 0, .35, 1) both; }
+.sceneActive .route::after { animation: draw 1.1s .5s cubic-bezier(.65, 0, .35, 1) both; }
+.sceneActive .node { animation: light .45s calc(.55s + var(--i) * .4s) ease both; }
+.sceneActive .route li:last-child .node::after { animation: pulse 2.4s 1.8s ease-out infinite; }

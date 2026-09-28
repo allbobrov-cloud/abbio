@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent } from "react";
 import Link from "next/link";
 import { ActionArrow } from "@/components/ActionArrow";
-import styles from "./ServicesOverviewPage.module.css";
+import page from "./ServicesOverviewPage.module.css";
+import styles from "./ServicesSituation.module.css";
 
 type Situation = {
   number: string;
@@ -21,7 +22,7 @@ const situations: Situation[] = [
     navigationLabel: "Сложно объяснить предложение",
     title: "Сделать предложение понятным и убедительным.",
     description: "Разберём продукт, структуру подачи и визуальную коммуникацию, чтобы клиент быстрее понимал, что вы предлагаете и почему стоит обратиться.",
-    directions: [{ label: "Дизайн" }, { label: "Сайты" }],
+    directions: [{ label: "Дизайн", href: "/services/design" }, { label: "Сайты", href: "/services/websites" }],
     action: { label: "Посмотреть дизайн", href: "/services/design" },
     path: ["Предложение", "Структура", "Подача"],
   },
@@ -30,7 +31,7 @@ const situations: Situation[] = [
     navigationLabel: "Сайт не приводит к обращению",
     title: "Упростить путь клиента до обращения.",
     description: "Разберём структуру, сценарии и точки контакта. Найдём барьеры, из-за которых посетители не доходят до заявки.",
-    directions: [{ label: "Сайты" }, { label: "UX/UI" }, { label: "Аналитика" }],
+    directions: [{ label: "Сайты", href: "/services/websites" }, { label: "UX/UI" }, { label: "Аналитика" }],
     action: { label: "Посмотреть сайты", href: "/services/websites" },
     path: ["Страница", "Путь", "Заявка"],
   },
@@ -53,91 +54,140 @@ const situations: Situation[] = [
     navigationLabel: "Запускаем новый проект",
     title: "Собрать основу для запуска.",
     description: "Поможем сформулировать предложение, определить структуру, подготовить сайт и выбрать каналы, через которые продукт найдёт первых клиентов.",
-    directions: [{ label: "Дизайн" }, { label: "Сайты" }, { label: "Маркетинг" }],
+    directions: [{ label: "Дизайн", href: "/services/design" }, { label: "Сайты", href: "/services/websites" }, { label: "Маркетинг", href: "/services/marketing" }],
     action: { label: "Обсудить задачу", href: "#contact-dialog", contactDialog: true },
     path: ["Идея", "Основа", "Запуск"],
   },
 ];
 
-function SituationSolution({ situation, compact = false }: { situation: Situation; compact?: boolean }) {
-  const isContactAction = situation.action.contactDialog;
-
-  return (
-    <div className={[styles.situationSolution, compact ? styles.situationSolutionCompact : ""].filter(Boolean).join(" ")}>
-      <div className={styles.solutionCopy}>
-        <p className={styles.solutionEyebrow}>Решение</p>
-        <h3>{situation.title}</h3>
-        <p>{situation.description}</p>
-        <p className={styles.solutionDirections}>Подходящие направления</p>
-        <div className={styles.solutionTags}>
-          {situation.directions.map((direction) => direction.href ? (
-            <Link href={direction.href} key={direction.label}>{direction.label}</Link>
-          ) : <span key={direction.label}>{direction.label}</span>)}
-        </div>
-        {isContactAction ? (
-          <a href={situation.action.href} data-contact-dialog className={styles.solutionAction}>{situation.action.label} <ActionArrow /></a>
-        ) : (
-          <Link href={situation.action.href} className={styles.solutionAction}>{situation.action.label} <ActionArrow /></Link>
-        )}
-      </div>
-      <div className={styles.solutionPath} aria-hidden="true">
-        {situation.path.map((step, index) => (
-          <div key={step}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <strong>{step}</strong>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
+/*
+ * «Что хотите изменить?»: слева ситуации (вкладки), справа сцена превращения —
+ * проблема зачёркивается, появляется решение, путь из трёх шагов загорается по очереди.
+ */
 export function ServicesSituationExplorer() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeSituation = situations[activeIndex];
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const stageRef = useRef<HTMLDivElement>(null);
+  const active = situations[activeIndex];
+
+  const select = (index: number) => {
+    const next = (index + situations.length) % situations.length;
+    setActiveIndex(next);
+    tabRefs.current[next]?.focus();
+  };
+
+  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const moves: Record<string, number> = { ArrowDown: index + 1, ArrowRight: index + 1, ArrowUp: index - 1, ArrowLeft: index - 1, Home: 0, End: situations.length - 1 };
+    if (!(event.key in moves)) return;
+    event.preventDefault();
+    select(moves[event.key]);
+  };
+
+  // Подсветка сцены следует за курсором (только мышь/тачпад)
+  const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "mouse" || !stageRef.current) return;
+    const rect = stageRef.current.getBoundingClientRect();
+    stageRef.current.style.setProperty("--mx", `${event.clientX - rect.left}px`);
+    stageRef.current.style.setProperty("--my", `${event.clientY - rect.top}px`);
+  };
 
   return (
-    <section className={styles.situations} aria-labelledby="situations-title">
-      <div className={styles.container}>
-        <div className={styles.sectionHeading}>
-          <p className={styles.sectionIndex}>С какой задачей вы пришли</p>
-          <div>
-            <h2 id="situations-title">Что хотите изменить?</h2>
-            <p>Выберите ситуацию — покажем, с чего можно начать.</p>
-          </div>
-        </div>
+    <section className={styles.section} aria-labelledby="situations-title">
+      <div className={page.container}>
+        <header className={styles.head}>
+          <p className={styles.eyebrow}>С какой задачей вы пришли</p>
+          <h2 id="situations-title">Что хотите изменить?</h2>
+          <p className={styles.lead}>Выберите ситуацию — покажем, с чего можно начать.</p>
+        </header>
 
-        <div className={styles.situationExplorer}>
-          <div className={styles.situationNavigation} aria-label="Выберите ситуацию">
+        <div className={styles.explorer}>
+          <div className={styles.tabs} role="tablist" aria-label="Ситуации" aria-orientation="vertical">
             {situations.map((situation, index) => {
-              const isActive = index === activeIndex;
-              const mobilePanelId = `mobile-situation-panel-${situation.number}`;
-              const desktopPanelId = `desktop-situation-panel-${situation.number}`;
-
+              const selected = index === activeIndex;
               return (
-                <div className={styles.situationItem} key={situation.number}>
-                  <button
-                    type="button"
-                    className={styles.situationOption}
-                    aria-expanded={isActive}
-                    aria-controls={`${mobilePanelId} ${desktopPanelId}`}
-                    onClick={() => setActiveIndex(index)}
-                  >
-                    <span>{situation.number}</span>
-                    <strong>{situation.navigationLabel}</strong>
-                    <i aria-hidden="true">→</i>
-                  </button>
-                  {isActive && (
-                    <div className={styles.mobileSituationPanel} id={mobilePanelId}>
-                      <SituationSolution situation={situation} compact />
-                    </div>
-                  )}
-                </div>
+                <button
+                  key={situation.number}
+                  ref={(node) => { tabRefs.current[index] = node; }}
+                  type="button"
+                  role="tab"
+                  id={`situation-tab-${situation.number}`}
+                  aria-selected={selected}
+                  aria-controls="situation-panel"
+                  tabIndex={selected ? 0 : -1}
+                  className={styles.tab}
+                  onClick={() => setActiveIndex(index)}
+                  onKeyDown={(event) => onKeyDown(event, index)}
+                >
+                  <span className={styles.tabNum}>{situation.number}</span>
+                  <span className={styles.tabLabel}>{situation.navigationLabel}</span>
+                  <span className={styles.tabArrow} aria-hidden="true">→</span>
+                </button>
               );
             })}
           </div>
-          <div className={styles.desktopSituationPanel} id={`desktop-situation-panel-${activeSituation.number}`}>
-            <SituationSolution key={activeSituation.number} situation={activeSituation} />
+
+          <div
+            ref={stageRef}
+            className={styles.stage}
+            role="tabpanel"
+            id="situation-panel"
+            aria-labelledby={`situation-tab-${active.number}`}
+            onPointerMove={onPointerMove}
+          >
+            <span className={styles.watermark} aria-hidden="true">{active.number}</span>
+
+            {/* Все сцены лежат в одной ячейке: высота карточки = самой длинной сцене и не прыгает */}
+            {situations.map((situation, sceneIndex) => {
+              const isActive = sceneIndex === activeIndex;
+              return (
+                <div
+                  key={situation.number}
+                  className={`${styles.scene} ${isActive ? styles.sceneActive : ""}`}
+                  aria-hidden={!isActive}
+                  inert={!isActive}
+                >
+                  <p className={styles.shift}>
+                    <span className={styles.now}>
+                      <small>Сейчас</small>
+                      <s>{situation.navigationLabel}</s>
+                    </span>
+                    <span className={styles.shiftArrow} aria-hidden="true" />
+                    <span className={styles.next}>Решение</span>
+                  </p>
+
+                  <h3>{situation.title}</h3>
+                  <p className={styles.description}>{situation.description}</p>
+
+                  <ol className={styles.route} aria-label="С чего начнём">
+                    {situation.path.map((step, index) => (
+                      <li key={step} style={{ "--i": index } as CSSProperties}>
+                        <span className={styles.node} aria-hidden="true" />
+                        <span className={styles.stepNum}>{String(index + 1).padStart(2, "0")}</span>
+                        <strong>{step}</strong>
+                      </li>
+                    ))}
+                  </ol>
+
+                  <div className={styles.foot}>
+                    <div className={styles.directions}>
+                      <span>Направления</span>
+                      <div>
+                        {situation.directions.map((direction) => direction.href ? (
+                          <Link key={direction.label} href={direction.href}>{direction.label}</Link>
+                        ) : (
+                          <span key={direction.label}>{direction.label}</span>
+                        ))}
+                      </div>
+                    </div>
+                    {situation.action.contactDialog ? (
+                      <a href={situation.action.href} data-contact-dialog className={page.primaryAction}>{situation.action.label} <ActionArrow /></a>
+                    ) : (
+                      <Link href={situation.action.href} className={page.primaryAction}>{situation.action.label} <ActionArrow /></Link>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -8,11 +8,6 @@ import { ActionArrow } from "../ActionArrow";
 import base from "../Agency.module.css";
 import styles from "./HomeExperience.module.css";
 
-const directions = [
-  { slug: "design", name: "Дизайн", title: "Впечатление, за которым есть смысл.", text: "Помогаем объяснить продукт и сделать бренд узнаваемым.", image: "/home/design-board-v1.avif", project: "Дизайн-доска / AI-концепция", label: "От идеи к макету", output: "Характер вашего бренда", icon: "◈", caseSlug: null },
-  { slug: "websites", name: "Сайты", title: "Удобно выбрать. Легко обратиться.", text: "Продумываем путь посетителя — от первого экрана до заявки.", image: "/cases/volhonka-desktop.avif", project: "Металлобаза Волхонка", label: "Сценарий клиента", output: "От интереса к заявке", icon: "▤", caseSlug: "volhonka" },
-  { slug: "marketing", name: "Маркетинг", title: "Привлечение — только начало.", text: "Соединяем продвижение с аналитикой и работой с обращениями.", image: "/home/marketing-report-v1.avif", project: "Пример отчёта / условные данные", label: "Каналы · обращения · расходы", output: "Решения на основе данных", icon: "▥", caseSlug: null }
-];
 
 function useVisible() {
   const ref = useRef<HTMLDivElement>(null);
@@ -23,58 +18,6 @@ function useVisible() {
     return () => observer.disconnect();
   }, []);
   return { ref, visible };
-}
-
-export function HomeHero() {
-  const [selected, setSelected] = useState(1);
-  const [pointer, setPointer] = useState(true);
-  const direction = directions[selected];
-
-  const selectDirection = (index: number) => {
-    // Motion in the hero is intentionally always on. Do not infer the input
-    // device from `event.detail`: keyboard and touch activations may report 0.
-    setPointer(true);
-    setSelected(index);
-  };
-
-  return (
-    <section className={styles.hero} data-force-motion="true" aria-labelledby="hero-title">
-      <div className={styles.heroGridTexture} aria-hidden="true" />
-      <div className={base.container}>
-        <div className={styles.heroGrid}>
-          <div className={styles.heroCopy}>
-            <p className={base.eyebrow}><span className={base.dot} /> Агентство ABBiO / от идеи до запуска</p>
-            <h1 id="hero-title" aria-label="Дизайн, сайты и маркетинг. Для бизнеса.">Дизайн, сайты<br />и маркетинг.<br /><em>Для бизнеса.</em></h1>
-            <p className={styles.lead}>Помогаем выглядеть убедительно, привлекать клиентов и работать с обращениями.</p>
-            <div className={styles.actions}>
-              <a className={base.button} href="#contact-dialog" data-contact-dialog>Обсудить задачу <ActionArrow /></a>
-              <a className={base.textLink} href="#cases">Посмотреть работы <span aria-hidden="true">↓</span></a>
-            </div>
-          </div>
-          <div className={styles.workspace} data-motion={pointer}>
-            <div className={styles.orbital} aria-hidden="true"><span><i /></span><span><i /></span><span><i /></span></div>
-            <div className={styles.previewStack}>
-              <span className={styles.backPlate} aria-hidden="true" />
-              {direction.caseSlug ? (
-                <Link href={`/cases/${direction.caseSlug}`} className={styles.previewWindow} aria-label={`Смотреть кейс: ${direction.project}`}>
-                  <div className={styles.browserBar}><span aria-hidden="true">● ● ●</span><span>{direction.project}</span></div>
-                  <div className={styles.previewImages}><Image key={direction.name} src={direction.image} alt={`Пример работы: сайт ${direction.project}`} width={1536} height={1024} className={styles.previewImage} data-active="true" loading="eager" sizes="(max-width: 760px) 90vw, 48vw" /></div>
-                </Link>
-              ) : (
-                <div className={styles.previewWindow}>
-                  <div className={styles.browserBar}><span aria-hidden="true">● ● ●</span><span>{direction.project}</span></div>
-                  <div className={styles.previewImages}><Image key={direction.name} src={direction.image} alt={direction.project} width={1536} height={1024} className={styles.previewImage} data-active="true" loading="lazy" sizes="(max-width: 760px) 90vw, 48vw" /></div>
-                </div>
-              )}
-              <div className={styles.floatingNote} aria-hidden="true"><span className={styles.noteIcon}>{direction.icon}</span><div><small>{direction.label}</small><strong>{direction.output}</strong></div></div>
-            </div>
-            <div className={styles.directionButtons} role="group" aria-label="Направления агентства">{directions.map((item, index) => <button key={item.name} type="button" aria-pressed={selected === index} aria-controls="direction-summary" onClick={() => selectDirection(index)}><span>0{index + 1}</span>{item.name}<span aria-hidden="true">{selected === index ? "−" : "+"}</span></button>)}</div>
-            <div className={styles.directionSummary} id="direction-summary" aria-live="polite"><strong>{direction.title}</strong><p>{direction.text}</p><Link href={`/services/${direction.slug}`} className={base.textLink}>Подробнее об услуге <ActionArrow /></Link></div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
 }
 
 const situations = [
@@ -143,7 +86,7 @@ const journey = [
 ];
 
 export function ClientJourney() {
-  const [selected, setSelected] = useState(2);
+  const [selected, setSelected] = useState(3);
   const [pointer, setPointer] = useState(true);
   const stage = journey[selected];
   const selectStage = (index: number) => {
@@ -156,7 +99,7 @@ export function ClientJourney() {
       <div className={`${base.sectionHead} ${styles.journeyHead}`}><div><p className={base.eyebrow}>Путь после первого интереса</p><h2 id="journey-title" aria-label="Важно не только привлечь. Важно довести до продажи.">Важно не только привлечь.<br /><em>Важно довести до продажи.</em></h2></div><p className={`${base.sectionIntro} ${styles.journeyIntro}`}>Соединяем каналы, страницы и работу команды, чтобы интерес не терялся по пути.</p></div>
       <div className={styles.journeyRoute} data-motion={pointer}>
         <div className={styles.journeyStages} data-stage={selected} role="group" aria-label="Этапы пути клиента">{journey.map((item, index) => <button key={item.title} type="button" aria-pressed={selected === index} aria-controls="journey-detail" onClick={() => selectStage(index)}><span className={styles.stageNode} aria-hidden="true"><JourneyIcon name={item.symbol} /></span><span className={styles.stageIndex}>0{index + 1}</span><strong>{item.title}</strong><small>{item.subtitle}</small></button>)}</div>
-        <div className={styles.journeyDetail} id="journey-detail" aria-live="polite" data-scenario={selected}><div className={styles.journeyNarrative}><p className={styles.detailLabel}>Этап 0{selected + 1} / 04</p><h3>{stage.heading}</h3><p>{stage.text}</p><strong className={styles.journeyResult}>{stage.result}</strong></div><div className={styles.journeyVisual} key={selected}><ScenarioVisual kind={(["reach", "audit", "crm", "report"] as const)[selected]} animate={pointer} /></div></div>
+        <div className={styles.journeyDetail} id="journey-detail" aria-live="polite" data-scenario={selected}><div className={styles.journeyNarrative}><p className={styles.detailLabel}>Этап 0{selected + 1} / 04</p><h3>{selected === 0 ? <>Встречаем клиента<br /><span>там, где он ищет.</span></> : selected === 1 ? <>Помогаем<br />разобраться и сделать<br /><span>следующий шаг.</span></> : selected === 2 ? <>Заявка не должна<br /><span>потеряться</span> после сайта.</> : <>Смотрим, что<br />происходит <span>дальше.</span></>}</h3><p>{stage.text}</p><strong className={styles.journeyResult}>{stage.result}</strong></div><div className={styles.journeyVisual} key={selected}>{selected === 0 ? <Image className={styles.journeyAttractArtwork} src="/home/attract-journey.png" alt="" width={1656} height={950} sizes="(max-width: 760px) 90vw, 50vw" /> : selected === 1 ? <Image className={styles.journeyInterestArtwork} src="/home/interest-journey.png" alt="" width={1628} height={966} sizes="(max-width: 760px) 90vw, 50vw" /> : selected === 2 ? <Image className={styles.journeyProcessArtwork} src="/home/process-journey.png" alt="Обращения из формы, звонка и чата попадают в CRM; затем создаётся задача и команда получает уведомление." width={1750} height={899} sizes="(max-width: 760px) 90vw, 50vw" /> : <Image className={styles.journeyInsightArtwork} src="/home/insight-journey.png" alt="Источники обращений связаны с аналитикой, которая помогает понять, что работает, найти точки роста и принять решения." width={1774} height={887} sizes="(max-width: 760px) 90vw, 50vw" />}</div></div>
       </div>
     </div></section>
   );

@@ -4,57 +4,7 @@
 }
 .home > section { scroll-margin-top: 76px; }
 .home [id="services"] { background: radial-gradient(ellipse at 12% 60%, #63408018, transparent 60%); }
-.hero { position: relative; min-height: calc(100svh - 88px); overflow: hidden; background: radial-gradient(ellipse at 78% 42%, #633d863b, transparent 56%), linear-gradient(125deg, #070912, #090914 70%); }
-.hero::before, .hero::after { content: ''; position: absolute; pointer-events: none; z-index: 0; }
-.hero::before { inset: -24% -12% -16% 35%; background: radial-gradient(ellipse 34% 42% at 58% 48%, #a982e52e, transparent 70%), radial-gradient(ellipse 19% 24% at 83% 23%, #6d59bf22, transparent 72%); opacity: .8; }
-.hero::after { width: 78%; height: 92%; right: -16%; top: 3%; border: 1px solid #b7a0ef10; border-radius: 50%; transform: rotate(-17deg); box-shadow: 0 0 0 34px #b7a0ef08, 0 0 0 82px #b7a0ef05; opacity: .8; }
-.hero > .container { position: relative; z-index: 1; }
-.heroGridTexture { position: absolute; inset: 0; z-index: 0; opacity: .28; pointer-events: none; background-image: linear-gradient(#a999d010 1px, transparent 1px), linear-gradient(90deg, #a999d010 1px, transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(90deg, transparent 28%, #000); }
-.heroGrid { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 70px; min-height: calc(100svh - 88px); padding: 80px 0 55px; }
-.heroCopy { position: relative; z-index: 1; }
-.hero h1 { font-size: clamp(48px, 5.2vw, 76px); line-height: 1.07; font-weight: 550; letter-spacing: -3.5px; margin: 0 0 26px; }
-.hero em { font-style: normal; color: var(--accent); }
-.lead { font-size: 20px; line-height: 1.5; max-width: 460px; margin: 0 0 16px; color: #e0dce9; text-wrap: pretty; }
-.actions { display: flex; flex-wrap: wrap; gap: 18px 28px; align-items: center; margin-top: 30px; }
-.workspace { min-width: 0; position: relative; padding: 20px 0 0; }
-.workspaceTop { display: flex; justify-content: space-between; gap: 15px; font-size: 10px; letter-spacing: .8px; color: #aaa2ba; position: relative; }
-.workspaceTop>span:last-child { font-size: 9px; color: #877995; }
-.orbital { position: absolute; inset: -40px -30px 100px; pointer-events: none; transform: translate3d(-2%, 3%, 0) rotate(-10deg) scale(.96); will-change: transform; animation: orbitalField 16s cubic-bezier(.45, 0, .2, 1) infinite alternate -5s; }
-.orbital span { position: absolute; inset: 15%; border: 1px solid #b99bf055; border-radius: 50%; transform: rotate(-23deg) scaleX(1.5); }
-.previewStack, .directionButtons, .directionSummary { z-index: 1; }
-.orbital span > i { position: absolute; inset: 0; display: block; will-change: transform; animation: orbitalDotClockwise 11s linear -2.5s infinite; }
-.orbital span > i:after { content: ''; position: absolute; width: 7px; height: 7px; top: -3px; left: 50%; margin-left: -3px; border-radius: 50%; background: #e0d2ff; box-shadow: 0 0 10px #c7aceeb0; }
-@keyframes orbitalDotClockwise { to { transform: rotate(1turn); } }
-@keyframes orbitalDotCounter { to { transform: rotate(-1turn); } }
-@keyframes orbitalField { from { transform: translate3d(-2%, 3%, 0) rotate(-10deg) scale(.96); } to { transform: translate3d(3%, -2%, 0) rotate(5deg) scale(1.04); } }
-.orbital span:nth-child(2) { inset: 8%; opacity: .6; }
-.orbital span:nth-child(3) { inset: 0; opacity: .3; }
-.orbital span:nth-child(2) > i { animation-name: orbitalDotCounter; animation-duration: 17s; animation-delay: -8.5s; }
-.orbital span:nth-child(3) > i { animation-duration: 23s; animation-delay: -14s; }
-.previewStack { height: 355px; position: relative; perspective: 1000px; margin-top: 22px; }
-.backPlate { position: absolute; inset: 35px 0 28px 10px; border: 1px solid #b7a0ef40; background: linear-gradient(135deg, #52385e66, #19172499); border-radius: 12px; transform: rotate(5deg); }
-.previewWindow { position: absolute; inset: 20px 5px 35px; border: 1px solid #afa0d34d; border-radius: 12px; overflow: hidden; background: #16151f; transform: rotate(-4deg) rotateY(-5deg); box-shadow: 0 30px 70px #02020b90; transition: transform .5s; }
-@media (hover:hover) and (pointer:fine) { .previewStack:hover .previewWindow { transform: rotate(-1deg) rotateY(0); } }
-.browserBar { display: flex; justify-content: space-between; align-items: center; height: 29px; padding: 0 12px; font-size: 9px; color: #bcb1d1; }
-.browserBar>span:first-child { font-size: 6px; letter-spacing: 3px; color: #777084; }
-.previewImages { position: relative; height: calc(100% - 29px); overflow: hidden; }
-.previewImage { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; visibility: hidden; transition: opacity .25s; }
-.previewImage[data-active=true] { opacity: 1; visibility: visible; }
-.floatingNote { position: absolute; right: -12px; bottom: 5px; display: flex; align-items: center; gap: 13px; padding: 17px 20px; background: linear-gradient(120deg, #2b2238ee, #17151fee); border: 1px solid #c2a5f35c; border-radius: 10px; box-shadow: 0 15px 50px #0007, inset 0 1px #ffffff12; backdrop-filter: blur(18px); transform: rotate(3deg); }
-.noteIcon { display: grid; place-items: center; width: 36px; height: 36px; font-size: 21px; background: #b7a0ef20; border-radius: 9px; color: #cfb9f2; }
-.floatingNote small { display: block; color: #b0a2c4; font-size: 9px; margin-bottom: 6px; }
-.floatingNote strong { font-size: 12px; font-weight: 500; }
 .coordinates { position: absolute; bottom: 4px; left: 0; max-width: 140px; color: #9c8aaf; font-size: 9px; line-height: 1.6; letter-spacing: .5px; }
-.directionButtons { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 25px; }
-.directionButtons button { background: #14121daa; border: 1px solid #bda9db2e; color: #c0b6d0; padding: 12px 10px; border-radius: 6px; display: flex; align-items: center; gap: 7px; font-size: 11px; cursor: pointer; transition: background .2s, border-color .2s; }
-.directionButtons button>span:first-child { font-size: 9px; opacity: .6; }
-.directionButtons button>span:last-child { margin-left: auto; }
-.directionButtons button[aria-pressed=true] { background: #b7a0ef21; border-color: #b7a0ef; color: #f5edff; }
-.directionButtons button:hover { background: #b7a0ef30; }
-.directionSummary { min-height: 78px; padding-top: 19px; position: relative; }
-.directionSummary strong { font-size: 14px; font-weight: 500; }
-.directionSummary p { font-size: 12px; line-height: 1.6; color: #a69ab8; margin: 7px 0 0; }
-.directionSummary a { display: inline-flex; align-items: center; gap: 10px; margin-top: 12px; font-size: 12px; }
 .tasks { position: relative; background: radial-gradient(ellipse at 90% 55%, #56396923, transparent 65%); }
 .taskLayout { display: grid; grid-template-columns: .85fr 1.3fr; gap: 30px; }
 .taskChoices { display: grid; grid-template-rows: repeat(4, 1fr); gap: 12px; }
@@ -106,7 +56,7 @@
 .journeyVisual { min-width: 0; }
 .journeyBoard[data-motion=true] .journeyVisual { animation: answerIn .22s cubic-bezier(.23,1,.32,1); }
 .journeyResult { display: block; margin-top: 23px; padding-top: 16px; border-top: 1px solid #b7a0ef30; color: #d8c4ee; font-size: 12px; font-weight: 500; line-height: 1.6; }
-.workspace[data-motion=false] .previewImage, .journeyBoard[data-motion=false] *, .journeyBoard[data-motion=false] *:after { transition: none; animation: none; }
+.journeyBoard[data-motion=false] *, .journeyBoard[data-motion=false] *:after { transition: none; animation: none; }
 .detailLabel { margin: 0 0 14px !important; color: #b39bc9 !important; font-size: 9px !important; text-transform: uppercase; letter-spacing: 1.1px; }
 .journeyDetail h3 { max-width: 420px; margin: 0 0 15px; color: #f1ecf6; font-size: clamp(25px, 2.25vw, 34px); font-weight: 500; letter-spacing: -.9px; line-height: 1.15; }
 .journeyDetail p { max-width: 410px; margin: 0; color: #b7abc8; font-size: 13px; line-height: 1.75; }
@@ -134,11 +84,6 @@
 .longTerm .formatArt span { border-radius: 50%; width: 53px; height: 53px; background: transparent; }
 
 @media (max-width: 1100px) {
-  .heroGrid { gap: 35px; padding-top: 60px; }
-  .hero h1 { font-size: 59px; }
-  .lead { font-size: 18px; }
-  .previewStack { height: 310px; }
-  .directionButtons button { font-size: 10px; gap: 6px; }
   .taskLayout { gap: 20px; grid-template-columns: .9fr 1.2fr; }
   .taskChoices button { padding: 23px 18px; gap: 13px; }
   .taskChoices strong { font-size: 14px; }
@@ -147,14 +92,6 @@
   .journeyDetail { gap: clamp(24px, 3vw, 40px); }
 }
 @media (max-width: 760px) {
-  .heroGrid { grid-template-columns: 1fr; gap: 35px; min-height: calc(100svh - 68px); padding: 48px 0 30px; }
-  .hero h1 { font-size: clamp(43px, 9vw, 66px); letter-spacing: -2.5px; }
-  .heroCopy>p:first-child { font-size: 9px; letter-spacing: 1px; }
-  .lead { font-size: 18px; }
-  .workspace { max-width: 560px; width: 100%; margin-inline: auto; }
-  .previewStack { height: 330px; }
-  .floatingNote { right: 0; }
-  .directionButtons button { font-size: 12px; }
   .taskLayout { grid-template-columns: 1fr; }
   .taskChoices { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(2,1fr); gap: 9px; }
   .taskChoices strong small { display: none; }
@@ -174,17 +111,7 @@
   .formatCard h3 { font-size: 29px; }
 }
 @media (max-width: 420px) {
-  .hero h1 { font-size: 45px; letter-spacing: -2px; }
-  .actions { gap: 12px 20px; }
-  .previewStack { height: 275px; }
-  .previewWindow { bottom: 35px; }
-  .floatingNote { padding: 12px; gap: 9px; }
-  .floatingNote strong { font-size: 10px; }
-  .floatingNote small { font-size: 8px; }
   .coordinates { max-width: 110px; font-size: 8px; }
-  .directionButtons { gap: 6px; }
-  .directionButtons button { font-size: 10px; padding: 13px 9px; }
-  .directionButtons button>span:first-child { display: none; }
   .taskAnswer { padding: 20px; }
   .answerMeta { font-size: 8px; letter-spacing: .7px; }
   .taskAnswer h3 { font-size: 24px; }
@@ -232,12 +159,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .orbital, .orbital span > i { animation: none; }
   .journeyBoard[data-motion=true] .journeyVisual { animation: none; }
-  .hero[data-force-motion=true] .orbital { transform: rotate(-4deg) scale(1.02); opacity: .78; }
   .journeyStages:after { transition: none; }
   .answerContent { animation: none; }
-  .previewWindow, .previewImage, .stageNode, .formatArt span { transition: none; }
+  .stageNode, .formatArt span { transition: none; }
 }
 
 /* The task explorer is a complete viewport panel. Keep the section below the sticky header. */
@@ -692,33 +617,6 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
 /* Mobile quality pass: preserve the editorial character without stacking the
    complete desktop composition into one very long column. */
 @media (max-width: 760px) {
-  .heroGrid {
-    gap: 20px;
-    min-height: calc(100svh - 68px);
-    padding: 36px 0 28px;
-  }
-
-  .hero h1 {
-    margin-bottom: 18px;
-    font-size: clamp(40px, 11vw, 47px);
-    line-height: 1.05;
-    letter-spacing: -2.2px;
-  }
-
-  .heroCopy > p:first-child { margin-bottom: 20px; }
-  .lead { margin-bottom: 12px; font-size: 16px; line-height: 1.48; }
-  .actions { display: grid; gap: 12px; margin-top: 22px; }
-  .actions > a:first-child { width: 100%; min-height: 52px; }
-  .actions > a:last-child { width: max-content; min-height: 44px; }
-  .workspace { margin-top: 2px; }
-  .previewStack { height: 280px; margin-top: 6px; perspective: 700px; }
-  .previewWindow { inset: 14px 4px 30px; transform: rotate(-1.5deg) rotateY(-1deg); }
-  .floatingNote { right: 2px; bottom: 0; max-width: 72%; }
-  @keyframes orbitalFieldMobile { from { transform: translate3d(-1%, 1.5%, 0) rotate(-5deg) scale(.98); } to { transform: translate3d(1.5%, -1%, 0) rotate(2.5deg) scale(1.02); } }
-  .orbital { opacity: .6; animation-name: orbitalFieldMobile; }
-  .directionButtons { margin-top: 14px; }
-  .directionButtons button { min-height: 48px; justify-content: center; }
-  .directionSummary { min-height: 70px; padding-top: 15px; }
   .tasks .taskChoices button { min-height: 52px; }
   .tasks .taskChoices strong { font-size: 13px; }
   .tasks .taskAnswer { border-radius: 16px; }
@@ -766,11 +664,6 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
 }
 
 @media (max-width: 380px) {
-  .heroGrid { padding-top: 30px; }
-  .hero h1 { font-size: clamp(37px, 11.5vw, 42px); }
-  .previewStack { height: 220px; }
-  .floatingNote { padding: 10px 11px; }
-  .directionButtons button { padding-inline: 7px; font-size: 10px; }
   .journeyRoute .journeyVisual { min-height: 158px; }
   .journeyRoute .journeyVisual .scene { height: 158px; }
   .formatCard { flex-basis: 84vw; min-height: 450px; padding: 24px; }
@@ -789,10 +682,62 @@ section.tasks { --tasks-header-height: 89px; min-height: calc(100vh - var(--task
 }
 
 /* The first screen always fills the available viewport below the sticky header. */
-@media (max-width: 960px) {
-  .hero, .heroGrid { min-height: calc(100svh - 76px); }
+
+/* The first journey stage uses the supplied transparent illustration. */
+.journeyRoute .journeyDetail[data-scenario="0"] h3 span { color: #b7a0ef; }
+.journeyRoute .journeyDetail[data-scenario="0"] .journeyVisual { padding-left: clamp(16px, 2vw, 30px); }
+.journeyAttractArtwork { display: block; align-self: center; width: 100%; height: 100%; min-height: 0; object-fit: contain; object-position: center; }
+.journeyRoute .journeyDetail[data-scenario="1"] h3 span { color: #b7a0ef; }
+.journeyRoute .journeyDetail[data-scenario="1"] .journeyVisual { padding-left: clamp(16px, 2vw, 30px); }
+.journeyInterestArtwork { display: block; align-self: center; width: 100%; height: 100%; min-height: 0; object-fit: contain; object-position: center; }
+.journeyRoute .journeyDetail[data-scenario="2"] h3 span { color: #b7a0ef; }
+.journeyRoute .journeyDetail[data-scenario="2"] .journeyVisual { padding-left: clamp(16px, 2vw, 30px); }
+.journeyProcessArtwork { display: block; align-self: center; width: 100%; height: 100%; min-height: 0; object-fit: contain; object-position: center; }
+.journeyRoute .journeyDetail[data-scenario="3"] h3 span { color: #b7a0ef; }
+.journeyRoute .journeyDetail[data-scenario="3"] .journeyVisual { padding-left: clamp(16px, 2vw, 30px); }
+.journeyInsightArtwork { display: block; align-self: center; width: 100%; height: 100%; min-height: 0; object-fit: contain; object-position: center; }
+@media (max-width: 760px) {
+  .journeyRoute .journeyDetail[data-scenario="0"] .journeyVisual { min-height: 0; padding: 24px 0 0; }
+  .journeyAttractArtwork { height: auto; max-width: 100%; }
+  .journeyRoute .journeyDetail[data-scenario="1"] .journeyVisual { min-height: 0; padding: 24px 0 0; }
+  .journeyInterestArtwork { height: auto; max-width: 100%; }
+  .journeyRoute .journeyDetail[data-scenario="2"] .journeyVisual { min-height: 0; padding: 24px 0 0; }
+  .journeyProcessArtwork { height: auto; max-width: 100%; }
+  .journeyRoute .journeyDetail[data-scenario="3"] .journeyVisual { min-height: 0; padding: 24px 0 0; }
+  .journeyInsightArtwork { height: auto; max-width: 100%; }
 }
 
+/* ── «Важно довести до продажи»: визуалы этапов (2026-09-29) ─────────────────────────
+   Яркие иллюстрации приглушены и уложены в спокойную рамку-сцену: тёмная подложка
+   с точечной сеткой и мягким свечением, тонкая рамка. При наведении краски возвращаются. */
+.journeyRoute .journeyVisual img {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  padding: clamp(14px, 1.8vw, 28px);
+  border-radius: 24px;
+  background:
+    radial-gradient(ellipse 70% 70% at 50% 45%, rgba(139, 98, 225, 0.12), transparent 70%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1.4px) 0 0 / 20px 20px,
+    linear-gradient(160deg, #13121f, #0b0b14);
+  box-shadow:
+    inset 0 0 0 1px rgba(221, 211, 246, 0.1),
+    inset 0 1px rgba(255, 255, 255, 0.06),
+    0 30px 70px -45px rgba(111, 76, 204, 0.6);
+  filter: saturate(0.68) brightness(0.86) contrast(1.05);
+  transition: filter .6s ease, box-shadow .6s ease, transform .7s cubic-bezier(.22, 1, .36, 1);
+}
+@media (hover: hover) and (pointer: fine) {
+  .journeyRoute .journeyVisual:hover img {
+    filter: saturate(0.9) brightness(0.96) contrast(1.05);
+    box-shadow:
+      inset 0 0 0 1px rgba(201, 175, 255, 0.28),
+      inset 0 1px rgba(255, 255, 255, 0.08),
+      0 36px 80px -40px rgba(139, 98, 225, 0.75);
+    transform: translateY(-4px);
+  }
+}
 @media (max-width: 760px) {
-  .hero, .heroGrid { min-height: calc(100svh - 68px); }
+  .journeyRoute .journeyVisual img { padding: 12px; border-radius: 18px; }
 }

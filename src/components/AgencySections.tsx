@@ -1,9 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ActionArrow } from "./ActionArrow";
-import { cases, services, steps } from "@/lib/content";
-import { FooterContactForm } from "./FooterContactForm";
-import { FooterFrame } from "./FooterFrame";
+import { cases, services } from "@/lib/content";
 import styles from "./Agency.module.css";
 
 export function AgencyHero() {
@@ -27,17 +25,7 @@ export function AgencyCases({ overview = false }: { overview?: boolean }) {
   </div></section>;
 }
 
-export function AgencyProcess({ overview = false }: { overview?: boolean }) {
-  return <section id="process" className={`${styles.section} ${styles.processSection}`} aria-labelledby="process-title"><div className={styles.container}>
-    {!overview ? <div className={styles.sectionHead}><div><p className={styles.eyebrow}>Как работаем</p><h2 id="process-title" aria-label="На связи. На каждом этапе.">На связи.<br /><em>На каждом этапе.</em></h2></div><Link className={styles.textLink} href="/process">Подробнее о работе <span aria-hidden="true">↗</span></Link></div> : <h2 id="process-title" className="sr-only">Этапы работы</h2>}
-    <ol className={styles.steps}>{steps.map((step, index) => <li className={index === 2 ? styles.stepInProgress : undefined} key={step.title}><span className={styles.stepNumber}>0{index + 1}</span><h3>{step.title}</h3><p>{step.text}</p></li>)}</ol>
-  </div></section>;
-}
 
 export function ArticlesSection() {
   return <section id="articles" className={styles.section} aria-labelledby="articles-title"><div className={styles.container}><div className={styles.journal}><div><p className={styles.eyebrow}>05 / Практика</p><h2 id="articles-title">Разбираем то,<br />что важно бизнесу.</h2><Link href="/articles" className={styles.textLink}>В раздел статей <span aria-hidden="true">↗</span></Link></div><div className={styles.journalTopics}><span className={styles.comingSoon}>Готовим первые материалы</span><p><span>01</span> Сайт, который помогает выбрать</p><p><span>02</span> SEO без туманных обещаний</p><p><span>03</span> Куда пропадают заявки</p></div></div></div></section>;
-}
-
-export function AgencyFooter() {
-  return <FooterFrame className={styles.footer} compactClassName={styles.footerCompact} containerClassName={styles.container} contact={<div className={styles.contactGrid}><div><p className={styles.eyebrow}>Начнём с разговора</p><h2 aria-label="Есть задача? Давайте обсудим.">Есть задача?<br /><em>Давайте обсудим.</em></h2><p className={styles.contactDescription}>Оставьте контакты и пару слов о том, что хотите изменить.</p></div><div className={styles.contactDetails}><FooterContactForm /></div></div>}><div className={styles.footerBottom}><Link href="/" className={styles.footerBrand} aria-label="ABBiO — на главную"><span className={styles.footerBrandWordmark} aria-hidden="true"><span className={styles.footerBrandCore}>ABB</span><span className={styles.footerBrandI}>i</span><span className={styles.footerBrandO}>O</span></span></Link><div className={styles.footerScope}><span>Независимое агентство</span><strong>Дизайн · Сайты · Маркетинг</strong></div><a className={styles.footerTop} href="#main"><span>Наверх</span><i aria-hidden="true">↑</i></a></div></FooterFrame>;
 }

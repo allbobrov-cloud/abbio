@@ -1,0 +1,174 @@
+/* «На связи. На каждом этапе.» — этапы на светящейся линии, активный этап поднят и подсвечен. */
+.section {
+  --lav: #b7a0ef;
+
+  position: relative;
+  padding: clamp(80px, 11vh, 140px) 0;
+  overflow: hidden;
+  color: #f6f7fb;
+  background:
+    radial-gradient(ellipse 55% 45% at 50% 100%, rgba(109, 80, 189, 0.2), transparent 70%),
+    radial-gradient(ellipse 35% 45% at 100% 0%, rgba(51, 89, 139, 0.12), transparent 70%),
+    #07080f;
+  border-block: 1px solid rgba(213, 201, 245, 0.08);
+}
+.container { width: min(1360px, calc(100% - 96px)); margin-inline: auto; }
+
+.head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 24px; }
+.eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; color: #c2aff9; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
+.eyebrow::before { width: 40px; height: 1px; background: currentColor; content: ""; }
+.head h2 { margin: 0; font-size: clamp(38px, 4.4vw, 76px); font-weight: 500; letter-spacing: -0.05em; line-height: 1.02; }
+.head h2 em { font-style: normal; background: linear-gradient(100deg, #d9c9ff 0%, #b7a0ef 50%, #8f6de0 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+.more { display: inline-flex; align-items: center; gap: 12px; height: 52px; padding: 0 6px 0 20px; border: 1px solid rgba(221, 211, 246, 0.22); border-radius: 999px; background: rgba(255, 255, 255, 0.03); color: #f6f7fb; font-size: 14px; font-weight: 600; transition: border-color .25s ease, background .25s ease; }
+.more > span { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%; background: rgba(183, 160, 239, 0.16); color: #e6dcff; transition: transform .25s ease; }
+.more svg { width: 16px; height: 16px; }
+.more:hover, .more:focus-visible { border-color: var(--lav); background: rgba(183, 160, 239, 0.1); }
+.more:hover > span { transform: rotate(45deg); }
+
+/* Линия с узлами */
+.track { position: relative; margin-top: clamp(44px, 6vh, 72px); }
+.rail { position: absolute; top: 11px; left: 12.5%; right: 12.5%; height: 2px; border-radius: 2px; background: rgba(201, 175, 255, 0.14); }
+.railFill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(183, 160, 239, 0.3), var(--lav));
+  box-shadow: 0 0 12px rgba(183, 160, 239, 0.6);
+  transform: scaleX(calc(var(--active) / (var(--count) - 1)));
+  transform-origin: left;
+  transition: transform .9s cubic-bezier(.65, 0, .35, 1);
+}
+.signal {
+  position: absolute;
+  top: 50%;
+  left: calc(var(--active) / (var(--count) - 1) * 100%);
+  width: 60px;
+  height: 6px;
+  border-radius: 6px;
+  background: radial-gradient(ellipse, #fff 0%, rgba(214, 195, 255, 0.9) 30%, transparent 70%);
+  filter: blur(1px);
+  transform: translate(-50%, -50%);
+  transition: left .9s cubic-bezier(.65, 0, .35, 1);
+}
+
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(12px, 1.4vw, 22px); margin: 0; padding: 0; list-style: none; }
+/* Акцент этапа: лавандовый у всех, янтарный у «Делаем» — этап, где идёт основная работа */
+.steps li { --accent: #b7a0ef; --accent-soft: #d6c3ff; --accent-deep: #9f84e6; position: relative; display: flex; padding-top: 42px; }
+.steps li[data-in-work="true"] { --accent: #f2b64c; --accent-soft: #ffd88a; --accent-deep: #d8902a; }
+
+.node {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  z-index: 1;
+  width: 24px;
+  height: 24px;
+  border: 2px solid rgba(201, 175, 255, 0.35);
+  border-radius: 50%;
+  background: #0b0b16;
+  transform: translateX(-50%);
+  transition: border-color .4s ease, background .4s ease, box-shadow .4s ease;
+}
+li[data-state="done"] .node { border-color: rgba(183, 160, 239, 0.8); background: #3a2d63; }
+li[data-in-work="true"] .node { border-color: color-mix(in srgb, var(--accent) 70%, transparent); }
+li[data-state="active"] .node { border-color: var(--accent); background: var(--accent); box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 16%, transparent), 0 0 22px color-mix(in srgb, var(--accent) 80%, transparent); }
+
+/* Карточка этапа */
+.step {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: 300px;
+  padding: clamp(22px, 2vw, 32px);
+  overflow: hidden;
+  border: 1px solid rgba(221, 211, 246, 0.1);
+  border-radius: 24px;
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  color: #f6f7fb;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .5s ease, background .5s ease, box-shadow .5s ease, transform .5s cubic-bezier(.22, 1, .36, 1), opacity .5s ease;
+}
+.step:hover { border-color: color-mix(in srgb, var(--accent) 35%, transparent); }
+.step:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+li[data-state="next"] .step { opacity: 0.72; }
+/* «Делаем» заметен и когда не выбран: тонкая янтарная рамка и тёплый отсвет */
+li[data-in-work="true"] .step {
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  background:
+    radial-gradient(300px circle at 20% 0%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%),
+    linear-gradient(170deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+  opacity: 1;
+}
+li[data-state="active"] .step {
+  border-color: color-mix(in srgb, var(--accent) 60%, transparent);
+  background:
+    radial-gradient(360px circle at 20% 0%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 70%),
+    linear-gradient(170deg, color-mix(in srgb, var(--accent) 12%, #0e0d1a), #0c0c18);
+  box-shadow: 0 30px 70px -36px color-mix(in srgb, var(--accent) 85%, transparent), inset 0 1px rgba(255, 255, 255, 0.08);
+  transform: translateY(-6px);
+  opacity: 1;
+}
+
+.num {
+  position: absolute;
+  top: -0.12em;
+  right: 0.12em;
+  color: transparent;
+  font-size: clamp(90px, 8vw, 140px);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 1;
+  -webkit-text-stroke: 1px rgba(201, 175, 255, 0.18);
+  transition: -webkit-text-stroke-color .5s ease;
+}
+li[data-state="active"] .num { -webkit-text-stroke-color: color-mix(in srgb, var(--accent-soft) 45%, transparent); }
+
+.icon { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid rgba(221, 211, 246, 0.14); border-radius: 14px; background: rgba(255, 255, 255, 0.04); color: #cdbdf5; transition: background .5s ease, color .5s ease, border-color .5s ease; }
+.icon svg { width: 22px; height: 22px; }
+li[data-in-work="true"] .icon { color: var(--accent-soft); }
+li[data-state="active"] .icon { border-color: transparent; background: linear-gradient(135deg, var(--accent-soft), var(--accent-deep)); color: #171124; }
+li[data-in-work="true"] .label { color: var(--accent); }
+
+.label { margin-top: auto; padding-top: 28px; color: #8f89a3; font-size: 11px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; }
+.step strong { margin-top: 8px; font-size: clamp(22px, 1.8vw, 28px); font-weight: 600; letter-spacing: -0.03em; }
+.text { margin-top: 10px; color: #b9b4c9; font-size: clamp(14px, 1vw, 16px); line-height: 1.55; }
+
+.live { display: inline-flex; align-items: center; gap: 8px; margin-top: 18px; padding: 5px 12px 5px 10px; border-radius: 999px; background: rgba(34, 181, 107, 0.12); color: #7fe0ae; font-size: 12px; font-weight: 600; opacity: 0; transform: translateY(6px); transition: opacity .4s ease, transform .4s ease; }
+.live i { width: 7px; height: 7px; border-radius: 50%; background: #3fd98a; box-shadow: 0 0 0 0 rgba(63, 217, 138, 0.6); }
+li[data-state="active"] .live { opacity: 1; transform: none; }
+li[data-state="active"] .live i { animation: ping 1.6s ease-out infinite; }
+@keyframes ping { to { box-shadow: 0 0 0 8px rgba(63, 217, 138, 0); } }
+
+
+@media (max-width: 1100px) {
+  .container { width: calc(100% - 64px); }
+  .step { min-height: 320px; }
+  .text { font-size: 14px; }
+}
+
+/* Планшет и телефон: этапы столбиком, линия вертикальная слева */
+@media (max-width: 900px) {
+  .rail { top: 12px; bottom: 12px; left: 11px; right: auto; width: 2px; height: auto; }
+  .railFill { transform: scaleY(calc(var(--active) / (var(--count) - 1))); transform-origin: top; }
+  .signal { display: none; }
+  .steps { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .steps li { padding: 0 0 0 40px; }
+  .node { top: 26px; left: 12px; }
+  .step { min-height: 0; }
+  .label { margin-top: 20px; padding-top: 0; }
+  li[data-state="active"] .step { transform: none; }
+}
+
+@media (max-width: 760px) {
+  .section { padding: 56px 0 64px; }
+  .container { width: calc(100% - 40px); }
+  .eyebrow { font-size: 11px; }
+  .head h2 { font-size: clamp(32px, 9vw, 42px); }
+  .num { font-size: 84px; }
+  .icon { width: 42px; height: 42px; }
+}

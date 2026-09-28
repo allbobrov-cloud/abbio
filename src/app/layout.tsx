@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AgencyHeader } from "@/components/AgencyHeader";
-import { AgencyFooter } from "@/components/AgencySections";
+import { SiteFooter } from "@/components/SiteFooter";
 import { ContactDialog } from "@/components/ContactDialog";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" data-scroll-behavior="smooth">
-      <body><a className="skip-link" href="#main">Перейти к содержанию</a><AgencyHeader />{children}<AgencyFooter /><ContactDialog /></body>
+      <body><a className="skip-link" href="#main">Перейти к содержанию</a><AgencyHeader />{children}<SiteFooter /><ContactDialog /></body>
     </html>
   );
 }

@@ -4,7 +4,7 @@ import { ActionArrow } from "@/components/ActionArrow";
 import styles from "./DesignServicePage.module.css";
 import { DesignFlow } from "./DesignFlow";
 import { DesignDeliverables } from "./DesignDeliverables";
-import { CasePortfolio } from "./CasePortfolio";
+import { CasesBlock } from "@/components/cases/CasesBlock";
 
 const situations = [
   {
@@ -220,7 +220,7 @@ export function DesignServicePage() {
         </div>
       </section>
 
-      <CasePortfolio title="Три проекта — три разные задачи." description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта." slugs={["bogov", "oss", "volhonka"]} featuredSlug="bogov" />
+      <CasesBlock title="Три проекта — три разные задачи." description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта." slugs={["bogov", "stroybaza-volhonka", "oss"]} />
 
     </main>
   );

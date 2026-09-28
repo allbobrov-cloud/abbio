@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 const base = process.env.SITE_TEST_URL || 'http://127.0.0.1:3000';
-const paths = ['/', '/services', '/services/design', '/services/websites', '/services/marketing', '/cases', '/cases/bogov', '/cases/oss', '/cases/volhonka', '/process', '/about', '/articles'];
+const paths = ['/', '/services', '/services/design', '/services/websites', '/services/marketing', '/cases', '/cases/bogov', '/cases/oss', '/cases/volhonka', '/process', '/articles'];
 for (const path of paths) {
   const response = await fetch(new URL(path, base));
   assert.equal(response.status, 200, `${path}: HTTP status`);

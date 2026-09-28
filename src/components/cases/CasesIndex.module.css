@@ -1,0 +1,108 @@
+/* /cases — hero с оглавлением + бенто-сетка из 6 карточек. Тёмная сцена ABBiO,
+   у каждой карточки мягкое свечение цвета клиента (--tint). */
+.hero,
+.gridSection {
+  --lav: #b7a0ef;
+  --ink: #fbfaff;
+  --muted: #b9b4c9;
+  --line: rgba(255, 255, 255, 0.08);
+  position: relative;
+  color: var(--ink);
+}
+
+.container { width: min(1360px, calc(100% - 96px)); margin-inline: auto; }
+
+/* Hero */
+.hero {
+  padding: clamp(40px, 7vh, 96px) 0 clamp(36px, 6vh, 72px);
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 50% 70% at 82% 20%, rgba(107, 75, 181, 0.2), transparent 70%),
+    radial-gradient(ellipse 40% 60% at 0% 100%, rgba(51, 89, 139, 0.12), transparent 70%),
+    #06070f;
+}
+.hero .container {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  gap: clamp(32px, 5vw, 96px);
+  align-items: end;
+}
+
+.eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 26px; color: #b2b1c3; font-size: 12px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; }
+.eyebrow::before { width: 40px; height: 1px; background: currentColor; content: ""; }
+.eyebrow span { padding: 4px 10px; border: 1px solid rgba(183, 160, 239, 0.35); border-radius: 999px; color: var(--lav); letter-spacing: 0.08em; }
+
+.copy h1 { margin: 0; font-size: clamp(38px, 4.2vw, 74px); font-weight: 500; letter-spacing: -0.05em; line-height: 1.04; }
+.copy h1 em { color: var(--lav); font-style: normal; }
+.lead { margin: 22px 0 0; color: var(--muted); font-size: clamp(15px, 1.15vw, 20px); line-height: 1.5; }
+
+/* Оглавление: все кейсы одним списком, каждый ведёт на страницу кейса */
+.toc ol { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); }
+.toc li { border-bottom: 1px solid var(--line); }
+.toc a {
+  position: relative;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto 36px;
+  gap: 18px;
+  align-items: center;
+  padding: 14px 4px;
+  color: var(--ink);
+  transition: padding .25s ease, color .25s ease;
+}
+.toc a::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--tint) 16%, transparent), transparent 70%);
+  opacity: 0;
+  content: "";
+  transition: opacity .25s ease;
+}
+.tocNum { position: relative; color: #8f89a3; font-size: 12px; font-weight: 600; letter-spacing: .08em; }
+.tocName { position: relative; overflow: hidden; font-size: clamp(15px, 1.15vw, 19px); font-weight: 600; letter-spacing: -.01em; text-overflow: ellipsis; white-space: nowrap; }
+.tocCat { position: relative; color: #8f89a3; font-size: 13px; white-space: nowrap; }
+.tocArrow { position: relative; justify-self: end; color: #8f89a3; transition: color .25s ease, transform .25s ease; }
+.toc a:hover, .toc a:focus-visible { padding-left: 14px; }
+.toc a:hover::before, .toc a:focus-visible::before { opacity: 1; }
+.toc a:hover .tocNum, .toc a:focus-visible .tocNum { color: var(--tint); }
+.toc a:hover .tocArrow, .toc a:focus-visible .tocArrow { color: var(--ink); transform: translate(2px, -2px); }
+
+/* Бенто: 12 колонок, ряды 7/5 · 5/7 · 7/5 */
+.gridSection {
+  padding: clamp(28px, 4vh, 56px) 0 clamp(72px, 10vh, 140px);
+  background:
+    radial-gradient(ellipse 60% 40% at 50% 0%, rgba(107, 75, 181, 0.08), transparent 70%),
+    #05070d;
+}
+.bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: clamp(14px, 1.4vw, 24px); margin: 0; padding: 0; list-style: none; }
+.cell { grid-column: span 5; display: flex; }
+.cell:nth-child(4n + 1), .cell:nth-child(4n) { grid-column: span 7; }
+
+/* Карточки проявляются по мере прокрутки — только там, где браузер это умеет */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .cell { animation: cellIn linear both; animation-timeline: view(); animation-range: entry 0% cover 22%; }
+  }
+}
+@keyframes cellIn {
+  from { opacity: 0; transform: translateY(40px) scale(.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 1100px) {
+  .container { width: calc(100% - 64px); }
+  .hero .container { grid-template-columns: minmax(0, 1fr); align-items: start; }
+  .cell, .cell:nth-child(4n + 1), .cell:nth-child(4n) { grid-column: span 6; }
+}
+
+@media (max-width: 760px) {
+  .container { width: calc(100% - 40px); }
+  .hero { padding-top: 36px; }
+  .eyebrow { margin-bottom: 20px; font-size: 11px; }
+  .copy h1 { font-size: clamp(32px, 9vw, 42px); }
+  .copy h1 br { display: none; }
+  .lead { font-size: 16px; }
+  .toc a { grid-template-columns: 28px minmax(0, 1fr) 36px; gap: 12px; padding-block: 13px; }
+  .tocCat { display: none; }
+  .bento { grid-template-columns: minmax(0, 1fr); }
+  .cell, .cell:nth-child(4n + 1), .cell:nth-child(4n) { grid-column: auto; }
+}
