@@ -36,7 +36,7 @@ const reportDemoUrl = "https://docs.google.com/spreadsheets/d/1_t_nzlVjj-NE8Lvdq
 export function HomeCases() {
   return <section id="cases" className={base.section} aria-labelledby="cases-title"><div className={base.container}>
     <div className={base.sectionHead}><div><p className={base.eyebrow}>Избранные проекты</p><h2 id="cases-title">Лучше показать.</h2></div><Link href="/cases" className={base.textLink}>Все кейсы <ActionArrow /></Link></div>
-    <div className={styles.caseList}>{cases.map((item, i) => <article key={item.slug} className={styles.caseCard} data-theme={item.slug}>
+    <div className={styles.caseList}>{cases.slice(0, outputs.length).map((item, i) => <article key={item.slug} className={styles.caseCard} data-theme={item.slug}>
       <div className={styles.caseInfo}><div className={styles.caseMeta}><span>0{i + 1}</span><small>{item.category}</small></div><h3>{item.name}</h3><h4>Задача</h4><p>{item.task}</p><h4>Решение</h4><p>{item.solution}</p><Link className={styles.caseLink} href={`/cases/${item.slug}`}>Подробнее о проекте <ActionArrow /></Link></div>
       <div className={styles.outputs}><h4>Что сделано</h4>{outputs[i].map(([title, text]) => <div key={title}><span aria-hidden="true">✓</span><strong>{title}<small>{text}</small></strong></div>)}</div>
       <div className={styles.devices}><div className={styles.monitor}><div className={styles.screen}><Image src={item.image} alt={`${item.name} — версия для компьютера`} width={1363} height={654} sizes="(max-width: 760px) 75vw, 42vw" /></div><i /><b /></div><div className={styles.phone}><Image src={item.mobile} alt={`${item.name} — мобильная версия`} width={354} height={692} sizes="(max-width: 760px) 20vw, 110px" /></div></div>

@@ -25,7 +25,7 @@ import { VolhonkaResult } from "@/components/cases/VolhonkaResult";
 import { VolhonkaSeo } from "@/components/cases/VolhonkaSeo";
 import { VolhonkaSite } from "@/components/cases/VolhonkaSite";
 import styles from "@/components/Agency.module.css";
-export function generateStaticParams() { return cases.map(({ slug }) => ({ slug })); }
+export function generateStaticParams() { return cases.filter(({ slug }) => slug !== "stroybaza-volhonka").map(({ slug }) => ({ slug })); }
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) { const { slug } = await params; const project = cases.find(item => item.slug === slug); return { title: project?.name || "Проект не найден", description: project?.summary }; }
 export default async function Page({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

@@ -1,0 +1,145 @@
+/* 01 · Структура каталога: единый «stage» с фиксированной пропорцией — гарантирует, что
+   секция помещается на одном экране десктопа на любом разрешении (как в PotolkiBusiness/
+   PotolkiFuture), вместо подгонки отступов вручную. */
+.section {
+  --ink: #0a243c;
+  --soft: #5f7890;
+  --blue: #24a8f4;
+  position: relative;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(ellipse 46% 60% at 88% 8%, #24a8f426, transparent 68%),
+    radial-gradient(ellipse 40% 50% at 4% 96%, #ff710d1c, transparent 70%),
+    linear-gradient(165deg, #f6faff 0%, #eef5fb 55%, #eaf2f9 100%);
+}
+/* Тонкая «чертёжная» сетка — отсылка к каталогу стройматериалов, без фото-ассетов */
+.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(#0a243c0a 1px, transparent 1px),
+    linear-gradient(90deg, #0a243c0a 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(ellipse 75% 75% at 50% 40%, #000 40%, transparent 92%);
+}
+
+.stage {
+  position: relative;
+  z-index: 1;
+  container-type: inline-size;
+  width: min(1520px, calc(100% - 96px));
+  aspect-ratio: 2.2 / 1;
+  margin: clamp(28px, 3.4vw, 48px) auto clamp(24px, 3vw, 40px);
+}
+.stage > * { position: absolute; }
+
+.corner {
+  top: 1.8cqw;
+  right: 4.4cqw;
+  margin: 0;
+  color: #5c6c78;
+  font-size: clamp(11px, 0.78cqw, 12px);
+  font-weight: 600;
+  line-height: 1.55;
+  letter-spacing: .08em;
+  text-align: right;
+  text-transform: uppercase;
+}
+
+.head { top: 8.8cqw; left: 4.4cqw; width: 35cqw; }
+.eyebrow { display: flex; align-items: center; gap: 1.4cqw; margin: 0 0 1cqw; color: #5c6c78; font-size: clamp(11px, 0.85cqw, 13px); font-weight: 600; letter-spacing: .14em; text-transform: uppercase; }
+.eyebrow span { flex: none; width: 3.4cqw; height: 2px; background: var(--blue); }
+.head h2 { margin: 0; font-size: clamp(27px, 3.15cqw, 45px); font-weight: 800; line-height: 1.06; letter-spacing: -.03em; }
+.head h2 em { display: block; color: var(--blue); font-style: normal; }
+.description { max-width: 34cqw; margin: .95cqw 0 0; color: var(--soft); font-size: clamp(12.5px, 1.05cqw, 15.5px); line-height: 1.5; }
+
+.facts { top: 33cqw; left: 4.4cqw; display: flex; gap: 3.2cqw; }
+.facts div { min-width: 0; }
+.facts strong { display: block; color: var(--ink); font-size: clamp(16px, 1.55cqw, 22px); font-weight: 800; letter-spacing: -.02em; line-height: 1.15; }
+.facts span { display: block; margin-top: .27cqw; color: var(--soft); font-size: clamp(11px, 0.78cqw, 12px); line-height: 1.3; }
+
+.grid { top: 3.8cqw; right: 4cqw; bottom: 1cqw; left: 42.5cqw; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); column-gap: 1.5cqw; row-gap: .5cqw; }
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(12px, 1.5cqw, 18px);
+  border: 1px solid #0f283c14;
+  border-radius: 1.3cqw;
+  background: linear-gradient(180deg, #ffffffee, #ffffffd2);
+  box-shadow: 0 1.4cqw 2.8cqw -1.6cqw #1c3a5528;
+}
+.art { display: block; flex: none; width: 100%; aspect-ratio: 3 / 2; margin: 0 0 .7cqw; border-radius: .9cqw; background-image: url('/cases/stroybaza-categories-atlas.png'); background-size: 300% 200%; background-repeat: no-repeat; }
+.art0 { background-position: 0 0; }
+.art1 { background-position: 50% 0; }
+.art2 { background-position: 100% 0; }
+.art3 { background-position: 0 100%; }
+.art4 { background-position: 50% 100%; }
+.art5 { background-position: 100% 100%; }
+.card h3 { flex: none; margin: 0; color: var(--ink); font-size: clamp(14px, 1.25cqw, 18px); font-weight: 750; letter-spacing: -.01em; line-height: 1.25; }
+.tags { display: flex; flex: none; flex-wrap: wrap; gap: .5cqw; margin: .75cqw 0 0; padding-right: 2.2cqw; }
+.tags span { padding: .35cqw .9cqw; border-radius: 999px; background: #e5f2ff; color: #1a68bd; font-size: clamp(11px, 0.85cqw, 13px); line-height: 1.6; white-space: nowrap; }
+.go { position: absolute; right: 1.2cqw; bottom: 1.2cqw; display: grid; width: 2.1cqw; height: 2.1cqw; min-width: 26px; min-height: 26px; place-items: center; border-radius: 50%; background: #eef4f9; color: var(--ink); font-size: 1cqw; transition: background .2s ease, color .2s ease; }
+
+@media (hover: hover) {
+  .card { transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease, border-color .3s ease; }
+  .card:hover { transform: translateY(-.6cqw); border-color: #24a8f455; box-shadow: 0 2cqw 3.4cqw -1.4cqw #1c3a5538; }
+  .card:hover .go { background: var(--blue); color: #fff; }
+}
+
+/* Появление: текст → факты → кнопка → карточки цепочкой */
+.rev { transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+.stage[data-armed="true"] .rev { opacity: 0; transform: translateY(16px); }
+.stage[data-armed="true"].seen .rev { opacity: 1; transform: none; }
+.stage[data-armed="true"] .head { transition-delay: 0s; }
+.stage[data-armed="true"] .facts { transition-delay: .2s; }
+.stage[data-armed="true"] .c0 { transition-delay: .3s; }
+.stage[data-armed="true"] .c1 { transition-delay: .4s; }
+.stage[data-armed="true"] .c2 { transition-delay: .5s; }
+.stage[data-armed="true"] .c3 { transition-delay: .45s; }
+.stage[data-armed="true"] .c4 { transition-delay: .55s; }
+.stage[data-armed="true"] .c5 { transition-delay: .65s; }
+
+@media (max-width: 1020px) {
+  .stage {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    container-type: normal;
+    aspect-ratio: auto;
+    width: calc(100% - 40px);
+    margin: 44px auto 40px;
+    gap: 22px;
+  }
+  .stage > * { position: static; width: 100%; }
+  .corner { display: none; }
+  .head { max-width: none; }
+  .eyebrow { gap: 12px; margin-bottom: 16px; font-size: 11px; }
+  .eyebrow span { width: 28px; }
+  .head h2 { font-size: clamp(30px, 8vw, 42px); }
+  .description { max-width: none; margin-top: 16px; font-size: 16px; }
+  .facts { gap: 28px; }
+  .facts strong { font-size: 19px; }
+  .facts span { margin-top: 5px; font-size: 11px; }
+  .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; gap: 12px; }
+  .card { padding: 14px 14px 16px; border-radius: 16px; }
+  .art { border-radius: 10px; margin-bottom: 10px; }
+  .card h3 { font-size: 14px; }
+  .tags { gap: 6px; margin-top: 8px; padding-right: 0; }
+  .tags span { padding: 4px 10px; font-size: 11px; }
+  .go { display: none; }
+}
+
+@media (max-width: 480px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev { transition: none; }
+}

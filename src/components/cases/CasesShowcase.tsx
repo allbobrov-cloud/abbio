@@ -40,6 +40,15 @@ const layouts = [
     positionMobile: "38% 60%",
     tint: "rgba(240, 190, 64, 0.12)",
   },
+  {
+    slug: "stroybaza-volhonka",
+    variant: "b",
+    ratio: 1.9,
+    ratioMobile: 1.25,
+    position: "62% 50%",
+    positionMobile: "68% 50%",
+    tint: "rgba(36, 168, 244, 0.12)",
+  },
 ] as const;
 
 function Field({

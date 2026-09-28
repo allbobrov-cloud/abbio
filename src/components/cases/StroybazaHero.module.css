@@ -1,0 +1,258 @@
+.hero {
+  --client-blue: #24a8f4;
+  --client-orange: #ff710d;
+  position: relative;
+  overflow: hidden;
+  color: var(--foreground);
+  background: #071b2b;
+  border-bottom: 1px solid #ffffff20;
+}
+
+.stage {
+  position: relative;
+  min-height: clamp(740px, calc(100svh - 88px), 880px);
+  max-width: 2000px;
+  margin-inline: auto;
+  isolation: isolate;
+}
+
+.background, .shade { position: absolute; inset: 0; }
+/* Фон приглушён размытием и лёгким затемнением, чтобы не спорить с основным фото материалов */
+.background img {
+  object-fit: cover;
+  object-position: 70% 55%;
+  filter: blur(9px) brightness(.82) saturate(1.05);
+  transform: scale(1.06);
+}
+.shade {
+  background:
+    linear-gradient(90deg, #061a29f9 0%, #061a29f0 28%, #061a29b5 48%, #061a2959 72%, #061a2930 100%),
+    linear-gradient(0deg, #061a29f7 0%, #061a29ba 20%, #061a2966 42%, #061a2922 66%, transparent 88%);
+}
+
+.content {
+  position: relative;
+  width: min(1440px, calc(100% - 96px));
+  min-height: inherit;
+  margin-inline: auto;
+  padding: clamp(20px, 2.4vw, 32px) 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Верхняя строка: логотип клиента */
+.topbar {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: clamp(22px, 3.2vw, 40px);
+}
+.logo { display: block; width: auto; height: 36px; }
+
+.copy { position: relative; z-index: 2; width: min(38%, 540px); }
+.copy h1 {
+  margin: 0;
+  font-size: clamp(40px, 3.1vw, 60px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.048em;
+  text-wrap: balance;
+}
+.copy h1 span { color: var(--client-blue); }
+.description {
+  max-width: 480px;
+  margin: 18px 0 0;
+  color: #ffffffbd;
+  font-size: clamp(16px, 1.1vw, 20px);
+  line-height: 1.45;
+}
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+.actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  min-height: 58px;
+  padding: 0 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 700;
+  transition: transform .2s ease, background .2s ease, border-color .2s ease;
+}
+.actions a:hover { transform: translateY(-2px); }
+.primary { background: #c04d00; color: #fff; }
+.primary:hover { background: #a84300; }
+.secondary { border: 1px solid #ffffff69; background: #071b2b8c; color: #fff; }
+.secondary:hover { border-color: #fff; background: #071b2bcc; }
+.actions a span { font-size: 22px; font-weight: 400; }
+
+/* Главное фото материалов — справа и ниже, не перекрывает текст */
+.materials {
+  position: absolute;
+  z-index: 1;
+  width: min(48%, 720px);
+  right: 0;
+  bottom: 88px;
+  line-height: 0;
+  filter: drop-shadow(0 30px 48px #0006);
+  animation: materialIn .78s .7s both;
+}
+.materials img { display: block; width: 100%; height: auto; }
+
+.features {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  width: min(62%, 830px);
+  margin: auto 0 26px;
+  padding: 0;
+  list-style: none;
+}
+.features li { display: flex; gap: 14px; padding: 0 17px; border-right: 1px solid #ffffff55; }
+.features li:first-child { padding-left: 0; }
+.features li:last-child { border-right: 0; }
+.features svg { width: 36px; height: 36px; flex: none; color: var(--client-blue); }
+/* Доставка — фирменный оранжевый акцент, как в референсе (грузовик) */
+.features li:last-child svg { color: var(--client-orange); }
+.features strong, .features span { display: block; }
+.features strong { margin-bottom: 5px; color: #fff; font-size: 15px; text-transform: uppercase; }
+.features span { color: #d2dce3; font-size: 12px; line-height: 1.5; }
+
+/* Путь по сайту: 4 шага, разделённые тонкими линиями, со связующей линией-таймлайном снизу */
+.journeyRow {
+  display: flex;
+  align-items: center;
+  gap: clamp(24px, 3vw, 48px);
+  width: 100%;
+  margin: 0;
+  padding: 18px 0 22px;
+  border-top: 1px solid #ffffff36;
+}
+.journey {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  flex: 1;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.journey li { position: relative; padding-bottom: 26px; }
+.journey li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: -14px;
+  bottom: 30px;
+  width: 1px;
+  background: #ffffff24;
+}
+.journey::before {
+  content: "";
+  position: absolute;
+  right: 2px;
+  bottom: 8px;
+  left: 2px;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #24a8f4b0 0%, #24a8f470 60%, #24a8f42a 100%);
+}
+.stepTop { display: flex; align-items: baseline; gap: 10px; }
+.number { color: var(--client-blue); font-size: 16px; font-weight: 700; }
+.journey strong { color: #fff; font-size: 15px; }
+.stepText { display: block; margin-top: 4px; color: #c7d6e0; font-size: 12px; line-height: 1.4; }
+.dot {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--client-blue);
+  box-shadow: 0 0 0 4px #071b2b, 0 0 12px 1px #24a8f470;
+}
+.aside {
+  flex: none;
+  max-width: 220px;
+  margin: 0;
+  padding-left: clamp(24px, 3vw, 48px);
+  border-left: 1px solid #ffffff30;
+  color: #9fb7c9;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.6;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+.reveal { animation: riseIn .62s both; }
+.topbar { animation-delay: 0s; }
+.copy h1 { animation-delay: .13s; }
+.description { animation-delay: .23s; }
+.actions { animation-delay: .33s; }
+.features { animation-delay: .43s; }
+.journeyRow { animation-delay: .5s; }
+@keyframes riseIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes materialIn { from { opacity: 0; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+@media (max-width: 1180px) {
+  .stage { min-height: 820px; }
+  .content { width: calc(100% - 64px); }
+  .copy { width: min(44%, 480px); }
+  .copy h1 { font-size: clamp(40px, 4.4vw, 58px); }
+  .materials { width: min(48%, 560px); right: 1%; bottom: 96px; }
+  .features { width: 63%; }
+}
+
+/* С этой ширины фото материалов уходит из потока под текст — раздельное позиционирование по горизонтали больше не нужно */
+@media (max-width: 900px) {
+  .stage { min-height: 0; }
+  .background img { object-position: 67% center; }
+  .content { display: block; width: calc(100% - 48px); padding: 26px 0 30px; }
+  .copy { width: 100%; }
+  .copy h1 { font-size: clamp(38px, 6vw, 56px); }
+  .materials { position: relative; z-index: 1; width: 108%; right: auto; bottom: auto; margin: 22px -4% 18px; }
+  .features { width: 100%; margin: 0 0 30px; }
+  .features li { gap: 8px; padding-inline: 10px; }
+  .features svg { width: 27px; height: 27px; }
+  .journeyRow { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .journey { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 22px; }
+  .journey li::after { display: none; }
+  .journey::before { display: none; }
+  .dot { display: none; }
+  .aside { max-width: none; padding-left: 0; border-left: 0; }
+}
+
+@media (max-width: 760px) {
+  .background img { object-position: 60% center; }
+  .logo { height: 32px; }
+  .copy h1 { font-size: clamp(35px, 8.7vw, 55px); line-height: 1.05; letter-spacing: -.045em; }
+  .description { margin-top: 20px; font-size: 16px; }
+  .actions { gap: 10px; margin-top: 26px; }
+  .actions a { min-height: 51px; padding-inline: 16px; gap: 10px; font-size: 13px; }
+  .materials { width: 118%; margin: 20px -8% 16px; }
+  .features { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .features li { display: block; padding-inline: 9px; }
+  .features li:first-child { padding-left: 0; }
+  .features svg { width: 25px; height: 25px; margin-bottom: 8px; }
+  .features strong { font-size: 12px; }
+  .features span { font-size: 12px; line-height: 1.4; }
+  .journeyRow { padding-bottom: 0; gap: 18px; }
+  .journey strong { font-size: 13px; }
+  .stepText { font-size: 12px; }
+}
+
+@media (max-width: 390px) {
+  .actions a { flex: 1 1 100%; }
+  .features { gap: 8px; }
+  .features li { border-right: 0; padding: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .materials { animation: none; }
+}

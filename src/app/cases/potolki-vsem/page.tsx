@@ -7,6 +7,7 @@ import { PotolkiSeo } from "@/components/cases/PotolkiSeo";
 import { PotolkiResults } from "@/components/cases/PotolkiResults";
 import { PotolkiBusiness } from "@/components/cases/PotolkiBusiness";
 import { PotolkiFuture } from "@/components/cases/PotolkiFuture";
+import { PotolkiResult } from "@/components/cases/PotolkiResult";
 
 export const metadata: Metadata = {
   title: { absolute: "Потолки Всем — кейс: многостраничный сайт под органический поиск | ABBiO" },
@@ -25,6 +26,7 @@ export default function Page() {
       <PotolkiResults />
       <PotolkiBusiness />
       <PotolkiFuture />
+      <PotolkiResult />
     </main>
   );
 }

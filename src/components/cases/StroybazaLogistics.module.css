@@ -1,0 +1,181 @@
+/* 06 · Не только купить. Ещё и доставить. — логистическая сцена: три переданных PNG
+   (заказ / транспорт / объект) свободно на общем светлом фоне, БЕЗ карточек-оберток, с лёгким
+   разнобоем по вертикали (depth-offset) для живости. Под сценой — второстепенная dashed-line
+   timeline из 4 этапов. Кардинально светлее/«физичнее» интерфейсных 01–05. */
+.section {
+  --ink: #0a2036;
+  --soft: #5c7186;
+  --blue: #24a8f4;
+  position: relative;
+  overflow: hidden;
+  color: var(--ink);
+  background: linear-gradient(180deg, #f8fbfd 0%, #eef7fc 55%, #ffffff 100%);
+}
+
+/* Блок должен помещаться в один экран: вертикальные размеры считаются от vh,
+   картинки сцены получают высоту от --h, а ширина следует из aspect-ratio. */
+.stage {
+  position: relative;
+  max-width: 2000px;
+  margin: 0 auto;
+  padding: clamp(28px, 4.5vh, 72px) clamp(24px, 4vw, 72px);
+}
+
+.eyebrow { display: flex; align-items: center; gap: 14px; margin: 0 0 clamp(10px, 1.6vh, 20px); color: #5c6c78; font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; }
+.eyebrow span { flex: none; width: 30px; height: 2px; background: var(--blue); }
+
+.headRow { display: flex; align-items: flex-start; justify-content: space-between; gap: clamp(32px, 4vw, 64px); }
+.headRow h2 { margin: 0; font-size: clamp(30px, min(3.3vw, 5.4vh), 62px); font-weight: 780; line-height: 1.02; letter-spacing: -.03em; }
+.headRow h2 em { color: var(--blue); font-style: normal; }
+.description { flex: none; width: min(420px, 32%); margin: 0; padding-top: 6px; color: var(--soft); font-size: clamp(15px, min(1.05vw, 2vh), 19px); line-height: 1.5; }
+
+/* Главная сцена: assets свободно на фоне, без границ и без белых карточек */
+.scene {
+  --h: min(38vh, 20.5vw, 480px);
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(10px, 1.4vw, 26px);
+  margin-top: clamp(18px, 3.4vh, 56px);
+}
+
+.order, .truck, .object { flex: none; overflow: hidden; }
+.order img, .truck img, .object img { display: block; max-width: none; height: auto; }
+
+.order {
+  height: calc(var(--h) * .92);
+  aspect-ratio: 1195 / 1130;
+  filter: drop-shadow(0 24px 35px rgba(30, 65, 90, .1));
+}
+.order img { width: 105.52%; margin-left: -3.1%; margin-top: -5.27%; }
+
+.truck {
+  position: relative;
+  z-index: 2;
+  height: var(--h);
+  aspect-ratio: 1322 / 923;
+  filter: drop-shadow(0 30px 45px rgba(30, 65, 90, .13));
+}
+.truck img { width: 116.19%; margin-left: -8.09%; margin-top: -4.69%; }
+/* Слабое голубое glow за грузовиком — единственный фоновый акцент сцены */
+.truck::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -18%;
+  background: radial-gradient(ellipse 55% 60% at 50% 55%, #24a8f422, transparent 72%);
+  filter: blur(4px);
+}
+
+.object {
+  height: calc(var(--h) * .82);
+  aspect-ratio: 1501 / 867;
+  filter: drop-shadow(0 24px 35px rgba(30, 65, 90, .1));
+}
+.object img { width: 102.33%; margin-left: -1.67%; margin-top: -5.26%; }
+
+.connector { flex: none; width: clamp(30px, 2.4vw, 44px); color: var(--blue); }
+.connector svg { display: block; width: 100%; height: auto; }
+
+/* Timeline: линия от первой точки до последней, подписи слева под точками */
+.timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: clamp(14px, 2.8vh, 52px) 0 0;
+  padding: 0;
+  list-style: none;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 11px;
+  right: calc(25% - 11px);
+  border-top: 2px dashed rgba(28, 143, 224, .55);
+}
+.tlStep { position: relative; min-width: 0; padding: clamp(28px, 3.6vh, 36px) 16px 0 34px; }
+.dot { position: absolute; z-index: 1; top: 0; left: 0; width: 22px; height: 22px; box-sizing: border-box; border: 3px solid #1c8fe0; border-radius: 50%; background: #fff; }
+.dotActive { background: #1c8fe0; box-shadow: 0 0 0 5px rgba(36, 168, 244, .16); }
+.tlStep strong { display: block; color: var(--ink); font-size: clamp(13px, min(1vw, 1.9vh), 16px); font-weight: 800; letter-spacing: .02em; text-transform: uppercase; }
+.tlStep span { display: block; margin-top: 3px; color: var(--soft); font-size: clamp(12.5px, min(.95vw, 1.8vh), 15px); line-height: 1.35; }
+
+/* Финальный тезис: иконка в круге → вертикальный разделитель → две строки */
+.finalThesis { display: flex; align-items: center; gap: clamp(18px, 2.2vw, 40px); margin: clamp(18px, 3.6vh, 64px) 0 0; }
+.thesisIcon { flex: none; display: grid; place-items: center; width: clamp(50px, min(4.2vw, 7.4vh), 72px); aspect-ratio: 1; border-radius: 50%; background: #e4f1fb; color: #1c8fe0; }
+.thesisIcon svg { width: 46%; height: 46%; }
+.finalThesis > span { display: block; padding-left: clamp(18px, 2.6vw, 52px); border-left: 1px solid #d3e1ec; color: #0d2b52; font-size: clamp(20px, min(2vw, 3.6vh), 38px); font-weight: 700; line-height: 1.28; }
+.finalThesis em { display: block; margin-top: 2px; color: #1c8fe0; font-style: normal; font-weight: 700; }
+
+/* Появление: label → заголовок → описание → заказ → стрелка → грузовик → стрелка → объект → timeline → тезис */
+.rev, .revOrder, .revTruck, .revObject { transition: opacity .7s cubic-bezier(.22, 1, .36, 1), transform .7s cubic-bezier(.22, 1, .36, 1); }
+.stage[data-armed="true"] .rev { opacity: 0; transform: translateY(16px); }
+.stage[data-armed="true"].seen .rev { opacity: 1; transform: none; }
+.stage[data-armed="true"] .order { opacity: 0; transform: translateX(-15px); }
+.stage[data-armed="true"] .truck { opacity: 0; transform: translateY(18px); }
+.stage[data-armed="true"] .object { opacity: 0; transform: translateX(15px); }
+.stage[data-armed="true"].seen .order,
+.stage[data-armed="true"].seen .truck,
+.stage[data-armed="true"].seen .object { opacity: 1; transform: none; }
+.stage[data-armed="true"] .eyebrow { transition-delay: 0s; }
+.stage[data-armed="true"] .headRow h2 { transition-delay: .08s; }
+.stage[data-armed="true"] .description { transition-delay: .16s; }
+.stage[data-armed="true"] .order { transition-delay: .26s; }
+.stage[data-armed="true"] .connector:nth-of-type(2) { transition-delay: .34s; }
+.stage[data-armed="true"] .truck { transition-delay: .42s; }
+.stage[data-armed="true"] .connector:nth-of-type(4) { transition-delay: .5s; }
+.stage[data-armed="true"] .object { transition-delay: .58s; }
+.stage[data-armed="true"] .timeline { transition-delay: .68s; }
+.stage[data-armed="true"] .finalThesis { transition-delay: .78s; }
+
+@media (min-width: 1300px) {
+  .scene { justify-content: space-between; }
+}
+
+@media (min-width: 701px) and (max-height: 740px) {
+  .scene { --h: min(34vh, 20.5vw); }
+}
+
+/* Tablet: та же горизонтальная история, ассеты компактнее */
+@media (max-width: 1180px) {
+  .headRow { flex-direction: column; align-items: stretch; gap: 20px; }
+  .headRow h2 { max-width: none; }
+  .description { width: 100%; max-width: 560px; padding-top: 0; }
+  .scene { --h: min(30vh, 21vw); }
+}
+
+/* Тесно — order+truck сверху, object ниже справа */
+@media (max-width: 900px) {
+  .scene { flex-wrap: wrap; justify-content: center; row-gap: 28px; }
+  .object { margin-left: auto; }
+}
+
+/* Mobile: строго вертикальный сценарий, стрелки вниз, timeline вертикальная */
+@media (max-width: 700px) {
+  .stage { padding: 44px clamp(20px, 5vw, 32px) 52px; overflow: hidden; }
+  .headRow h2 { font-size: clamp(34px, 8.8vw, 44px); }
+  .description { font-size: 16px; }
+
+  .scene { flex-direction: column; gap: 24px; margin-top: 36px; }
+  .order, .truck, .object { width: min(82vw, 380px); height: auto; transform: none; }
+  .stage[data-armed="true"] .order,
+  .stage[data-armed="true"] .truck,
+  .stage[data-armed="true"] .object { transform: translateY(14px); }
+  .stage[data-armed="true"].seen .order,
+  .stage[data-armed="true"].seen .truck,
+  .stage[data-armed="true"].seen .object { transform: none; }
+  .connector { width: 26px; transform: rotate(90deg); }
+
+  .timeline { display: flex; flex-direction: column; gap: 22px; margin-top: 40px; }
+  .timeline::before { top: 11px; bottom: 40px; left: 10px; right: auto; border-top: 0; border-left: 2px dashed rgba(28, 143, 224, .55); }
+  .tlStep { padding: 0 0 0 38px; }
+
+  .finalThesis { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .thesisIcon { width: 52px; }
+  .finalThesis > span { padding-left: 0; border-left: 0; font-size: clamp(22px, 6.2vw, 28px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rev, .revOrder, .revTruck, .revObject { transition: none; }
+}
