@@ -10,18 +10,18 @@
     "indexnow": "node scripts/indexnow.mjs"
   },
   "dependencies": {
-    "next": "latest",
+    "next": "16.3.7",
     "react": "latest",
     "react-dom": "latest"
   },
   "devDependencies": {
     "@eslint/eslintrc": "latest",
-    "@next/swc-wasm-nodejs": "^16.2.6",
+    "@next/swc-wasm-nodejs": "16.3.7",
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "eslint": "latest",
-    "eslint-config-next": "latest",
+    "eslint-config-next": "16.3.7",
     "typescript": "latest"
   }
 }
