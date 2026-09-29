@@ -3,6 +3,10 @@
 /* Вариант «task»: спокойная форма без внешней карточки, задача — главное поле. */
 .formSection.task,.success.task{max-width:none}
 .formFooter a,.success a{color:#d6c3ff;text-decoration:underline;text-underline-offset:2px}
+.honeypot{position:absolute;left:-10000px;width:1px;height:1px;opacity:0;pointer-events:none}
+.formFooter button:disabled{cursor:wait;opacity:.7;transform:none}
+.formFooter{flex-wrap:wrap}
+.formFooter .error{flex-basis:100%;max-width:none}
 .formFooter button{width:100%}
 .task .form{gap:22px}
 .task .field{gap:9px}

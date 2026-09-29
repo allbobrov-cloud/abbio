@@ -9,6 +9,7 @@ import {
 } from "@/lib/contactForm";
 import { ActionArrow } from "./ActionArrow";
 import { operator } from "@/lib/legal";
+import { submitContact } from "@/lib/contactDelivery";
 import styles from "./ContactDialog.module.css";
 
 export function ContactDialog() {
@@ -18,8 +19,12 @@ export function ContactDialog() {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("+7");
   const [description, setDescription] = useState("");
+  const [website, setWebsite] = useState("");
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [deliveryMode, setDeliveryMode] = useState<"telegram" | "email">("email");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const handlePhoneChange = (value: string) => {
@@ -32,6 +37,7 @@ export function ContactDialog() {
     dialogRef.current?.close();
     setIsOpen(false);
     setSubmitted(false);
+    setSubmitError(false);
     setErrors({});
     window.history.replaceState(
       null,
@@ -65,11 +71,12 @@ export function ContactDialog() {
     nameInput.current?.focus();
   }, [isOpen]);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
 
     const nextErrors: ContactFormErrors = {};
-    if (!fullName.trim())
+    if (fullName.trim().length < 2)
       nextErrors.fullName =
         "Укажите ФИО, чтобы мы знали, как к вам обратиться.";
     if (nationalPhoneDigits(phone).length !== 10)
@@ -78,8 +85,18 @@ export function ContactDialog() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    window.location.href = contactEmailLink(fullName, phone, description);
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(false);
+    try {
+      const mode = await submitContact({ fullName, phone, description, website, page: window.location.pathname });
+      if (mode === "email") window.location.href = contactEmailLink(fullName, phone, description);
+      setDeliveryMode(mode);
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -115,11 +132,9 @@ export function ContactDialog() {
             <span className={styles.successMark} aria-hidden="true">
               ✓
             </span>
-            <p className={styles.eyebrow}>Заявка подготовлена</p>
-            <h2 id="contact-dialog-title">Завершите отправку письма.</h2>
-            <p>
-              Откройте почтовое приложение и отправьте подготовленное письмо на <a href={`mailto:${operator.email}`}>{operator.email}</a>.
-            </p>
+            <p className={styles.eyebrow}>{deliveryMode === "telegram" ? "Заявка отправлена" : "Заявка подготовлена"}</p>
+            <h2 id="contact-dialog-title">{deliveryMode === "telegram" ? "Спасибо! Мы получили вашу заявку." : "Завершите отправку письма."}</h2>
+            <p>{deliveryMode === "telegram" ? "Свяжемся с вами по указанному номеру." : <>Откройте почтовое приложение и отправьте подготовленное письмо на <a href={`mailto:${operator.email}`}>{operator.email}</a>.</>}</p>
             <button
               className={styles.secondaryAction}
               type="button"
@@ -139,6 +154,7 @@ export function ContactDialog() {
             </div>
 
             <form className={styles.form} noValidate onSubmit={handleSubmit}>
+              <input className={styles.honeypot} type="text" name="website" value={website} onChange={(event) => setWebsite(event.target.value)} autoComplete="off" tabIndex={-1} aria-hidden="true" />
               <div className={styles.field}>
                 <label htmlFor="contact-full-name">
                   ФИО <span aria-hidden="true">*</span>
@@ -148,6 +164,7 @@ export function ContactDialog() {
                   id="contact-full-name"
                   name="fullName"
                   type="text"
+                  maxLength={120}
                   autoComplete="name"
                   value={fullName}
                   onChange={(event) => {
@@ -219,6 +236,7 @@ export function ContactDialog() {
                 <textarea
                   id="contact-description"
                   name="description"
+                  maxLength={2000}
                   value={description}
                   onChange={(event) => setDescription(event.target.value)}
                   placeholder="Например: нужен сайт для нового направления и понятный план продвижения."
@@ -227,9 +245,10 @@ export function ContactDialog() {
               </div>
 
               <div className={styles.formFooter}>
-                <button className={styles.submit} type="submit">
-                  Отправить заявку <ActionArrow />
+                <button className={styles.submit} type="submit" disabled={submitting}>
+                  {submitting ? "Отправляем…" : "Отправить заявку"} <ActionArrow />
                 </button>
+                {submitError && <p className={styles.error} role="alert">Не удалось отправить заявку. Попробуйте позже или напишите на <a href={`mailto:${operator.email}`}>{operator.email}</a>.</p>}
               </div>
             </form>
           </>

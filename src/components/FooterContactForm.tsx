@@ -3,6 +3,7 @@
 import { FormEvent, useState } from "react";
 import { ContactFormErrors, contactEmailLink, formatRussianPhone, nationalPhoneDigits } from "@/lib/contactForm";
 import { operator } from "@/lib/legal";
+import { submitContact } from "@/lib/contactDelivery";
 import { ActionArrow } from "./ActionArrow";
 import styles from "./FooterContactForm.module.css";
 
@@ -46,29 +47,46 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("+7");
   const [description, setDescription] = useState("");
+  const [website, setWebsite] = useState("");
   const [errors, setErrors] = useState<ContactFormErrors>({});
   const [submitted, setSubmitted] = useState(false);
+  const [deliveryMode, setDeliveryMode] = useState<"telegram" | "email">("email");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const resetForm = () => {
     setFullName("");
     setPhone("+7");
     setDescription("");
+    setWebsite("");
     setErrors({});
     setSubmitted(false);
+    setSubmitError(false);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (submitting) return;
 
     const nextErrors: ContactFormErrors = {};
-    if (!fullName.trim()) nextErrors.fullName = text.nameError;
+    if (fullName.trim().length < 2) nextErrors.fullName = text.nameError;
     if (nationalPhoneDigits(phone).length !== 10) nextErrors.phone = "Введите 10 цифр номера после +7.";
 
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
-    window.location.href = contactEmailLink(fullName, phone, description);
-    setSubmitted(true);
+    setSubmitting(true);
+    setSubmitError(false);
+    try {
+      const mode = await submitContact({ fullName, phone, description, website, page: window.location.pathname });
+      if (mode === "email") window.location.href = contactEmailLink(fullName, phone, description);
+      setDeliveryMode(mode);
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const rootClass = variant === "task" ? ` ${styles.task}` : "";
@@ -78,9 +96,9 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
       <section className={`${styles.success}${rootClass}`} aria-live="polite" aria-labelledby={`${id}-success-title`}>
         <span className={styles.successMark} aria-hidden="true">✓</span>
         <div>
-          <p className={styles.eyebrow}>Заявка подготовлена</p>
-          <h3 id={`${id}-success-title`}>{text.successTitle}</h3>
-          <p>Откройте почтовое приложение и отправьте подготовленное письмо на <a href={`mailto:${operator.email}`}>{operator.email}</a>.</p>
+          <p className={styles.eyebrow}>{deliveryMode === "telegram" ? "Заявка отправлена" : "Заявка подготовлена"}</p>
+          <h3 id={`${id}-success-title`}>{deliveryMode === "telegram" ? "Спасибо! Мы получили вашу заявку." : text.successTitle}</h3>
+          <p>{deliveryMode === "telegram" ? "Свяжемся с вами по указанному номеру." : <>Откройте почтовое приложение и отправьте подготовленное письмо на <a href={`mailto:${operator.email}`}>{operator.email}</a>.</>}</p>
         </div>
         <button type="button" onClick={resetForm}>Заполнить ещё раз</button>
       </section>
@@ -90,12 +108,14 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
   return (
     <section className={`${styles.formSection}${rootClass}`} aria-label="Форма обратной связи">
       <form className={styles.form} noValidate onSubmit={handleSubmit}>
+        <input className={styles.honeypot} type="text" name="website" value={website} onChange={(event) => setWebsite(event.target.value)} autoComplete="off" tabIndex={-1} aria-hidden="true" />
         <div className={styles.field}>
           <label htmlFor={`${id}-full-name`}>{text.nameLabel} <span aria-hidden="true">*</span></label>
           <input
             id={`${id}-full-name`}
             name="fullName"
             type="text"
+            maxLength={120}
             autoComplete="name"
             value={fullName}
             onChange={event => {
@@ -137,6 +157,7 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
           <textarea
             id={`${id}-description`}
             name="description"
+            maxLength={2000}
             value={description}
             onChange={event => setDescription(event.target.value)}
             placeholder={text.taskPlaceholder}
@@ -145,7 +166,8 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
         </div>
 
         <div className={styles.formFooter}>
-          <button type="submit">{text.button} <ActionArrow /></button>
+          <button type="submit" disabled={submitting}>{submitting ? "Отправляем…" : text.button} <ActionArrow /></button>
+          {submitError && <p className={styles.error} role="alert">Не удалось отправить заявку. Попробуйте позже или напишите на <a href={`mailto:${operator.email}`}>{operator.email}</a>.</p>}
         </div>
       </form>
     </section>
