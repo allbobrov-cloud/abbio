@@ -44,15 +44,14 @@ export function CookieBanner() {
   if (!visible) return null;
 
   return (
-    <section className={styles.banner} aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description">
+    <section className={`${styles.banner}${hasOptionalServices ? ` ${styles.withOptions}` : ""}`} aria-labelledby="cookie-banner-title" aria-describedby="cookie-banner-description">
       <div className={styles.content}>
         <div className={styles.copy}>
-          <p className={styles.eyebrow}>Настройки приватности</p>
-          <h2 id="cookie-banner-title">Cookies на сайте ABBiO</h2>
+          <h2 id="cookie-banner-title">О cookies</h2>
           {hasOptionalServices ? (
-            <p id="cookie-banner-description">Необходимые данные используются для работы сайта. Аналитику и рекламу подключаем только с вашего согласия. Вы можете отказаться или выбрать категории. <Link href="/privacy">Подробнее в политике</Link>.</p>
+            <p id="cookie-banner-description">Аналитику и рекламу включим только с вашего согласия. <Link href="/privacy">Подробнее</Link></p>
           ) : (
-            <p id="cookie-banner-description">Сейчас на сайте нет аналитических и рекламных cookies. Мы сохраняем в браузере только ваш выбор о показе этого уведомления. Перед подключением новых сервисов попросим согласие заново. <Link href="/privacy">Подробнее в политике</Link>.</p>
+            <p id="cookie-banner-description">Аналитики и рекламных cookies пока нет. В браузере сохраняется только ваш выбор. <Link href="/privacy">Подробнее</Link></p>
           )}
         </div>
 

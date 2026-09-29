@@ -97,7 +97,7 @@ export function SiteFooter() {
         <span>© {new Date().getFullYear()} ABBiO</span>
         <span className={styles.requisites}>{operator.name} · ИНН {operator.inn} · ОГРНИП {operator.ogrnip}</span>
         <a className={styles.policy} href={`mailto:${operator.email}`}>{operator.email}</a>
-        <Link className={styles.policy} href="/privacy">Политика обработки персональных данных</Link>
+        <Link className={styles.policy} href="/privacy">Политика обработки данных</Link>
         <CookieSettingsButton className={styles.cookieSettings} />
         <a className={styles.top} href="#main">
           Наверх <span aria-hidden="true">↑</span>
