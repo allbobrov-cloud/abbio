@@ -67,10 +67,18 @@ export async function sendTelegramContact(submission: ContactSubmission) {
       cache: "no-store",
       signal: AbortSignal.timeout(10000),
     });
-    if (!response.ok) return false;
+    if (!response.ok) {
+      console.warn(`Telegram contact delivery failed with HTTP ${response.status}.`);
+      return false;
+    }
     const result: unknown = await response.json();
-    return Boolean(result && typeof result === "object" && "ok" in result && result.ok === true);
-  } catch {
+    const accepted = Boolean(result && typeof result === "object" && "ok" in result && result.ok === true);
+    if (!accepted) console.warn("Telegram contact delivery returned an unexpected response.");
+    return accepted;
+  } catch (error) {
+    const cause = error && typeof error === "object" && "cause" in error ? error.cause : null;
+    const code = cause && typeof cause === "object" && "code" in cause && typeof cause.code === "string" ? cause.code : "unknown";
+    console.warn(`Telegram contact delivery failed before confirmation (${code}).`);
     return false;
   }
 }
