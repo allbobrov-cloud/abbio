@@ -19,15 +19,25 @@ export async function submitContact(payload: ContactPayload): Promise<"telegram"
   }
   if (!telegramReady) return "email";
 
-  const response = await fetch("/api/contact", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-    cache: "no-store",
-  });
-  if (!response.ok) throw new Error("delivery_failed");
+  let response: Response;
+  try {
+    response = await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+      cache: "no-store",
+    });
+  } catch {
+    console.warn("Contact request could not reach the server.");
+    throw new Error("delivery_failed");
+  }
+  if (!response.ok) {
+    console.warn(`Contact request failed with HTTP ${response.status}.`);
+    throw new Error("delivery_failed");
+  }
   const result: unknown = await response.json();
   if (!result || typeof result !== "object" || !("ok" in result) || result.ok !== true) {
+    console.warn("Contact request returned an unexpected response.");
     throw new Error("delivery_failed");
   }
   return "telegram";
