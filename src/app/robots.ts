@@ -3,7 +3,6 @@ import { absoluteUrl } from "@/lib/seo";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    // Crawlers must be able to read the page-level noindex directive until indexing is enabled.
     rules: { userAgent: "*", allow: "/" },
     sitemap: absoluteUrl("/sitemap.xml"),
   };

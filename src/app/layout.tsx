@@ -4,14 +4,14 @@ import { AgencyHeader } from "@/components/AgencyHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ContactDialog } from "@/components/ContactDialog";
 import { CookieBanner } from "@/components/CookieBanner";
-import { indexingEnabled, SITE_URL } from "@/lib/seo";
+import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: "Агентство ABBiO — дизайн, сайты и маркетинг", template: "%s | Агентство ABBiO" },
   description:
     "Создаём дизайн и сайты, занимаемся SEO, рекламой, CRM и автоматизацией. Посмотрите проекты агентства ABBiO и обсудите свою задачу.",
-  robots: { index: indexingEnabled, follow: true },
+  robots: { index: true, follow: true },
   openGraph: {
     type: "website",
     locale: "ru_RU",

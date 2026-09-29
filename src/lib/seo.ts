@@ -2,10 +2,6 @@ import type { Metadata } from "next";
 
 export const SITE_URL = "https://abbio.ru";
 
-// Enable only for the production release after forms and published facts are verified.
-export const indexingEnabled =
-  process.env.NODE_ENV === "production" && process.env.SEO_INDEXING_ENABLED === "true";
-
 export function absoluteUrl(path: string) {
   return new URL(path, SITE_URL).toString();
 }
