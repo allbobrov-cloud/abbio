@@ -1,7 +1,17 @@
+import { operator } from "@/lib/legal";
+
 export type ContactFormErrors = {
   fullName?: string;
   phone?: string;
 };
+
+export function contactEmailLink(fullName: string, phone: string, description: string) {
+  const subject = encodeURIComponent("Заявка с сайта ABBiO");
+  const body = encodeURIComponent(
+    `Имя: ${fullName.trim()}\nТелефон: ${phone.trim()}\n\nЗадача:\n${description.trim() || "Не указана"}`,
+  );
+  return `mailto:${operator.email}?subject=${subject}&body=${body}`;
+}
 
 export function nationalPhoneDigits(value: string) {
   let digits = value.replace(/\D/g, "");

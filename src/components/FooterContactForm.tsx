@@ -1,7 +1,7 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { ContactFormErrors, formatRussianPhone, nationalPhoneDigits } from "@/lib/contactForm";
+import { ContactFormErrors, contactEmailLink, formatRussianPhone, nationalPhoneDigits } from "@/lib/contactForm";
 import { operator } from "@/lib/legal";
 import { ActionArrow } from "./ActionArrow";
 import styles from "./FooterContactForm.module.css";
@@ -23,8 +23,8 @@ const copy = {
     taskLabel: "Описание задачи",
     taskPlaceholder: "Например: нужен сайт для нового направления.",
     taskRows: 3,
-    button: "Проверить данные",
-    successTitle: "Данные проверены.",
+    button: "Отправить заявку",
+    successTitle: "Завершите отправку письма.",
   },
   task: {
     prefix: "task-contact",
@@ -35,8 +35,8 @@ const copy = {
     taskLabel: "Коротко расскажите, что хотите изменить",
     taskPlaceholder: "Например: сайт есть, но обращений мало",
     taskRows: 5,
-    button: "Проверить данные",
-    successTitle: "Данные проверены.",
+    button: "Отправить заявку",
+    successTitle: "Завершите отправку письма.",
   },
 } as const;
 
@@ -67,6 +67,7 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
+    window.location.href = contactEmailLink(fullName, phone, description);
     setSubmitted(true);
   };
 
@@ -77,9 +78,9 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
       <section className={`${styles.success}${rootClass}`} aria-live="polite" aria-labelledby={`${id}-success-title`}>
         <span className={styles.successMark} aria-hidden="true">✓</span>
         <div>
-          <p className={styles.eyebrow}>Данные проверены</p>
+          <p className={styles.eyebrow}>Заявка подготовлена</p>
           <h3 id={`${id}-success-title`}>{text.successTitle}</h3>
-          <p>Приём заявок ещё не подключён, поэтому данные никуда не отправлены и не сохранены. Для связи напишите на <a href={`mailto:${operator.email}`}>{operator.email}</a>.</p>
+          <p>Откройте почтовое приложение и отправьте подготовленное письмо на <a href={`mailto:${operator.email}`}>{operator.email}</a>.</p>
         </div>
         <button type="button" onClick={resetForm}>Заполнить ещё раз</button>
       </section>
@@ -145,7 +146,6 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
 
         <div className={styles.formFooter}>
           <button type="submit">{text.button} <ActionArrow /></button>
-          <p>Форма пока не отправляет заявки. Для связи: <a href={`mailto:${operator.email}`}>{operator.email}</a>. <a href="/privacy">Политика обработки данных</a>.</p>
         </div>
       </form>
     </section>

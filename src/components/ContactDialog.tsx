@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
 import {
   ContactFormErrors,
+  contactEmailLink,
   formatRussianPhone,
   nationalPhoneDigits,
 } from "@/lib/contactForm";
@@ -77,6 +78,7 @@ export function ContactDialog() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
+    window.location.href = contactEmailLink(fullName, phone, description);
     setSubmitted(true);
   };
 
@@ -113,11 +115,10 @@ export function ContactDialog() {
             <span className={styles.successMark} aria-hidden="true">
               ✓
             </span>
-            <p className={styles.eyebrow}>Данные проверены</p>
-            <h2 id="contact-dialog-title">Данные проверены.</h2>
+            <p className={styles.eyebrow}>Заявка подготовлена</p>
+            <h2 id="contact-dialog-title">Завершите отправку письма.</h2>
             <p>
-              Приём заявок ещё не подключён, поэтому данные никуда не отправлены
-              и не сохранены. Для связи напишите на <a href={`mailto:${operator.email}`}>{operator.email}</a>.
+              Откройте почтовое приложение и отправьте подготовленное письмо на <a href={`mailto:${operator.email}`}>{operator.email}</a>.
             </p>
             <button
               className={styles.secondaryAction}
@@ -134,9 +135,7 @@ export function ContactDialog() {
               <h2 id="contact-dialog-title">
                 Расскажите, что хотите изменить.
               </h2>
-              <p id="contact-dialog-description">
-                Форма пока не отправляет заявки. Для связи напишите на <a href={`mailto:${operator.email}`}>{operator.email}</a>.
-              </p>
+              <p id="contact-dialog-description">Опишите задачу — так будет проще подготовиться к разговору.</p>
             </div>
 
             <form className={styles.form} noValidate onSubmit={handleSubmit}>
@@ -229,9 +228,8 @@ export function ContactDialog() {
 
               <div className={styles.formFooter}>
                 <button className={styles.submit} type="submit">
-                  Проверить данные <ActionArrow />
+                  Отправить заявку <ActionArrow />
                 </button>
-                <p>Данные проверяются только в браузере. <a href="/privacy">Политика обработки данных</a>.</p>
               </div>
             </form>
           </>
