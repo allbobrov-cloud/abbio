@@ -3,6 +3,7 @@ import { caseIndex, services } from "@/lib/content";
 import { operator } from "@/lib/legal";
 import { FooterContactForm } from "./FooterContactForm";
 import { FooterFrame } from "./FooterFrame";
+import { CookieSettingsButton } from "./CookieSettingsButton";
 import styles from "./SiteFooter.module.css";
 
 const company = [
@@ -97,6 +98,7 @@ export function SiteFooter() {
         <span className={styles.requisites}>{operator.name} · ИНН {operator.inn} · ОГРНИП {operator.ogrnip}</span>
         <a className={styles.policy} href={`mailto:${operator.email}`}>{operator.email}</a>
         <Link className={styles.policy} href="/privacy">Политика обработки персональных данных</Link>
+        <CookieSettingsButton className={styles.cookieSettings} />
         <a className={styles.top} href="#main">
           Наверх <span aria-hidden="true">↑</span>
         </a>
