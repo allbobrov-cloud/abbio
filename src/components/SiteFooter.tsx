@@ -40,7 +40,7 @@ export function SiteFooter() {
               <br />
               <em>Давайте обсудим.</em>
             </h2>
-            <p className={styles.contactLead}>Оставьте контакты и пару слов о том, что хотите изменить. Ответим и предложим, с чего начать.</p>
+            <p className={styles.contactLead}>Сейчас форма только проверяет поля и не отправляет заявку. Чтобы обсудить задачу, напишите на <a href={`mailto:${operator.email}`}>{operator.email}</a>.</p>
             <ul className={styles.promises}>
               <li>Без обязательств</li>
               <li>Разберём задачу</li>

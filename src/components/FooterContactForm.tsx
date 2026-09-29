@@ -2,6 +2,7 @@
 
 import { FormEvent, useState } from "react";
 import { ContactFormErrors, formatRussianPhone, nationalPhoneDigits } from "@/lib/contactForm";
+import { operator } from "@/lib/legal";
 import { ActionArrow } from "./ActionArrow";
 import styles from "./FooterContactForm.module.css";
 
@@ -22,8 +23,8 @@ const copy = {
     taskLabel: "Описание задачи",
     taskPlaceholder: "Например: нужен сайт для нового направления.",
     taskRows: 3,
-    button: "Отправить заявку",
-    successTitle: "Обращение подготовлено.",
+    button: "Проверить данные",
+    successTitle: "Данные проверены.",
   },
   task: {
     prefix: "task-contact",
@@ -34,8 +35,8 @@ const copy = {
     taskLabel: "Коротко расскажите, что хотите изменить",
     taskPlaceholder: "Например: сайт есть, но обращений мало",
     taskRows: 5,
-    button: "Обсудить задачу",
-    successTitle: "Задача подготовлена.",
+    button: "Проверить данные",
+    successTitle: "Данные проверены.",
   },
 } as const;
 
@@ -78,7 +79,7 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
         <div>
           <p className={styles.eyebrow}>Данные проверены</p>
           <h3 id={`${id}-success-title`}>{text.successTitle}</h3>
-          <p>Приём заявок ещё не подключён, поэтому данные никуда не отправлены и не сохранены.</p>
+          <p>Приём заявок ещё не подключён, поэтому данные никуда не отправлены и не сохранены. Для связи напишите на <a href={`mailto:${operator.email}`}>{operator.email}</a>.</p>
         </div>
         <button type="button" onClick={resetForm}>Заполнить ещё раз</button>
       </section>
@@ -144,7 +145,7 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
 
         <div className={styles.formFooter}>
           <button type="submit">{text.button} <ActionArrow /></button>
-          <p>Поля со звёздочкой обязательны.</p>
+          <p>Форма пока не отправляет заявки. Для связи: <a href={`mailto:${operator.email}`}>{operator.email}</a>. <a href="/privacy">Политика обработки данных</a>.</p>
         </div>
       </form>
     </section>

@@ -7,6 +7,7 @@ import {
   nationalPhoneDigits,
 } from "@/lib/contactForm";
 import { ActionArrow } from "./ActionArrow";
+import { operator } from "@/lib/legal";
 import styles from "./ContactDialog.module.css";
 
 export function ContactDialog() {
@@ -113,10 +114,10 @@ export function ContactDialog() {
               ✓
             </span>
             <p className={styles.eyebrow}>Данные проверены</p>
-            <h2 id="contact-dialog-title">Обращение подготовлено.</h2>
+            <h2 id="contact-dialog-title">Данные проверены.</h2>
             <p>
               Приём заявок ещё не подключён, поэтому данные никуда не отправлены
-              и не сохранены.
+              и не сохранены. Для связи напишите на <a href={`mailto:${operator.email}`}>{operator.email}</a>.
             </p>
             <button
               className={styles.secondaryAction}
@@ -134,7 +135,7 @@ export function ContactDialog() {
                 Расскажите, что хотите изменить.
               </h2>
               <p id="contact-dialog-description">
-                Опишите задачу — так будет проще подготовиться к разговору.
+                Форма пока не отправляет заявки. Для связи напишите на <a href={`mailto:${operator.email}`}>{operator.email}</a>.
               </p>
             </div>
 
@@ -228,9 +229,9 @@ export function ContactDialog() {
 
               <div className={styles.formFooter}>
                 <button className={styles.submit} type="submit">
-                  Отправить заявку <ActionArrow />
+                  Проверить данные <ActionArrow />
                 </button>
-                <p>Поля со звёздочкой обязательны.</p>
+                <p>Данные проверяются только в браузере. <a href="/privacy">Политика обработки данных</a>.</p>
               </div>
             </form>
           </>

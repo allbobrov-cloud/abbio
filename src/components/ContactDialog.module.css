@@ -480,3 +480,4 @@
     0 32px 100px rgba(0, 0, 0, 0.6),
     0 0 0 1px rgba(255, 255, 255, 0.04) inset;
 }
+.heading a,.formFooter a,.success a{color:#d6c3ff;text-decoration:underline;text-underline-offset:2px}

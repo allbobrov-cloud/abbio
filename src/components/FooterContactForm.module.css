@@ -2,6 +2,7 @@
 
 /* Вариант «task»: спокойная форма без внешней карточки, задача — главное поле. */
 .formSection.task,.success.task{max-width:none}
+.formFooter a,.success a{color:#d6c3ff;text-decoration:underline;text-underline-offset:2px}
 .task .form{gap:22px}
 .task .field{gap:9px}
 .task .field label{font-size:13px}
