@@ -86,7 +86,7 @@ export function StroybazaParameters() {
         <div className={styles.chain}>
           <div className={`${styles.item} ${styles.assortment} ${styles.revItem}`} style={{ transitionDelay: armed ? "0.26s" : undefined }}>
             <div className={styles.imgAssortment}>
-              <Image src="/cases/stroybaza-parameters-assortment.webp" alt="Большой ассортимент газобетонных блоков разных форм и размеров" width={1645} height={956} sizes="(max-width: 700px) 78vw, 20vw" loading="eager" />
+              <Image src="/cases/stroybaza-parameters-assortment.webp" alt="Большой ассортимент газобетонных блоков разных форм и размеров" width={1645} height={956} sizes="(max-width: 700px) 78vw, 20vw" />
             </div>
             <p className={styles.caption}>Весь ассортимент</p>
           </div>
@@ -102,7 +102,7 @@ export function StroybazaParameters() {
                   <p className={styles.badgeValue}>{item.value}</p>
                 </div>
                 <div className={`${styles.img} ${styles[item.className]}`}>
-                  <Image src={item.img} alt={item.alt} width={1536} height={1024} sizes="(max-width: 700px) 70vw, 16vw" loading="eager" />
+                  <Image src={item.img} alt={item.alt} width={1536} height={1024} sizes="(max-width: 700px) 70vw, 16vw" />
                 </div>
               </div>
               <span className={styles.arrow} aria-hidden="true">→</span>
@@ -111,7 +111,7 @@ export function StroybazaParameters() {
 
           <div className={`${styles.resultCard} ${styles.revResult}`} style={{ transitionDelay: armed ? "0.7s" : undefined }}>
             <div className={styles.result}>
-              <Image src="/cases/stroybaza-parameters-result.webp" alt="Подходит: 3 позиции — блок, блок, перемычка" width={1774} height={887} sizes="(max-width: 700px) 84vw, 24vw" loading="eager" />
+              <Image src="/cases/stroybaza-parameters-result.webp" alt="Подходит: 3 позиции — блок, блок, перемычка" width={1774} height={887} sizes="(max-width: 700px) 84vw, 24vw" />
             </div>
           </div>
         </div>

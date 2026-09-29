@@ -19,7 +19,7 @@ export function StroybazaHero() {
     <section className={styles.hero} aria-labelledby="stroybaza-title">
       <div className={styles.stage}>
         <div className={styles.background} aria-hidden="true">
-          <Image src="/cases/stroybaza-house.png" alt="" fill sizes="100vw" priority />
+          <Image src="/cases/stroybaza-house.webp" alt="" fill sizes="100vw" priority />
         </div>
         <div className={styles.shade} aria-hidden="true" />
 
@@ -46,7 +46,7 @@ export function StroybazaHero() {
           </div>
 
           <div className={styles.materials}>
-            <Image src="/cases/stroybaza-materials.png" alt="Газобетон, кирпич, дерево и металлопрокат; интерфейс поиска, расчёта и доставки" width={1536} height={1024} sizes="(max-width: 900px) 110vw, 50vw" priority />
+            <Image src="/cases/stroybaza-materials.webp" alt="Газобетон, кирпич, дерево и металлопрокат; интерфейс поиска, расчёта и доставки" width={1536} height={1024} sizes="(max-width: 900px) 110vw, 50vw" priority />
           </div>
 
           <ul className={`${styles.features} ${styles.reveal}`} aria-label="Возможности сайта">

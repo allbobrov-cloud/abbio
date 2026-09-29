@@ -1,10 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./BogovHero.module.css";
+import { CaseSiteLink } from "./CaseSiteLink";
 
 /*
  * Hero кейса Bogov Team — цельная layered-обложка.
- * Показатель 94% (91 из 97), дата и выборка взяты из ТЗ владельца (в данных проекта их нет).
+ * Показатель 94% (91 из 97), дата и выборка взяты из ТЗ и подтверждены владельцем.
  * Изображения desktop/mobile/background — готовые ассеты, не перерисовываются.
  */
 const toc = [
@@ -51,6 +52,7 @@ export function BogovHero() {
             Спроектировали и разработали сайт с нуля, связали обращения с
             источниками и развили органический поиск.
           </p>
+          <CaseSiteLink href="https://bogov-team.ru/" caseHref="#structure" />
         </div>
 
         <ul className={styles.facts}>

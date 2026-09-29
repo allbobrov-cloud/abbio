@@ -12,7 +12,7 @@ const platforms = {
   },
   wordpress: {
     title: "WordPress",
-    logo: "/services/websites-platform-wordpress.png",
+    logo: "/services/websites-platform-wordpress.webp",
     reasoning: "Даёт команде самостоятельно вести разделы и материалы при понятной структуре сайта.",
   },
   react: {

@@ -82,7 +82,6 @@ export function StroybazaProduct() {
                 width={1536}
                 height={1024}
                 sizes="(max-width: 900px) 88vw, 46vw"
-                loading="eager"
               />
             </div>
 

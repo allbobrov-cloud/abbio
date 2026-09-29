@@ -76,7 +76,7 @@ function SituationVisual({ code }: { code: (typeof situations)[number]["code"] }
 
   return (
     <div className={`${styles.situationVisual} ${styles.svPhoto}`} aria-hidden="true">
-      <Image src="/services/design-situation-presentation-v3.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), 420px" />
+      <Image src="/services/design-situation-presentation-v3.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), 420px" />
     </div>
   );
 }

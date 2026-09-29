@@ -144,7 +144,7 @@ function Stage() {
         </div>
         <div className={`${styles.search} ${styles.rev} ${on(0)}`}>
           <span className={styles.mark}>
-            <Image src="/cases/yandex-mark.png" alt="" width={90} height={90} />
+            <Image src="/cases/yandex-mark.webp" alt="" width={90} height={90} />
           </span>
           <span className={styles.query}>
             {QUERY.slice(0, typed)}

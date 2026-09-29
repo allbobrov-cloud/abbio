@@ -216,7 +216,7 @@ function Stage({ next }: { next: { slug: string; name: string } }) {
         <p className={styles.text}>Директ → страница курса</p>
         <div className={`${styles.mini} ${styles.chain}`}>
           <span className={styles.mark}>
-            <Image src="/cases/yandex-mark.png" alt="" width={90} height={90} />
+            <Image src="/cases/yandex-mark.webp" alt="" width={90} height={90} />
           </span>
           <span>
             Запрос

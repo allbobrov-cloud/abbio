@@ -87,7 +87,6 @@ export function StroybazaLogistics() {
               width={1261}
               height={1247}
               sizes="(max-width: 700px) 78vw, (max-width: 1180px) 32vw, 24vw"
-              loading="eager"
             />
           </div>
 
@@ -100,7 +99,6 @@ export function StroybazaLogistics() {
               width={1536}
               height={1024}
               sizes="(max-width: 700px) 92vw, (max-width: 1180px) 46vw, 38vw"
-              loading="eager"
             />
           </div>
 
@@ -113,7 +111,6 @@ export function StroybazaLogistics() {
               width={1536}
               height={1024}
               sizes="(max-width: 700px) 80vw, (max-width: 1180px) 34vw, 26vw"
-              loading="eager"
             />
           </div>
         </div>

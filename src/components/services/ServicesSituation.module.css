@@ -190,7 +190,8 @@
   .stage { border-radius: 22px; }
   .watermark { font-size: 150px; }
   .scene { padding: 24px 20px; }
-  .now { font-size: 13px; }
+  .now { flex-wrap: wrap; row-gap: 6px; border-radius: 16px; font-size: 13px; }
+  .now s { white-space: nowrap; }
   .scene h3 { font-size: clamp(28px, 8vw, 34px); }
   .description { font-size: 15px; }
   .route strong { font-size: 13px; }

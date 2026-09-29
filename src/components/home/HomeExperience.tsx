@@ -1,82 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { ScenarioVisual } from "./ScenarioVisual";
-import { ActionArrow } from "../ActionArrow";
+import { useState } from "react";
 import base from "../Agency.module.css";
 import styles from "./HomeExperience.module.css";
 
 
-function useVisible() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: .15 });
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, []);
-  return { ref, visible };
-}
 
-const situations = [
-  { label: "Запускаю новый проект", heading: "Дать идее форму. Подготовить к запуску.", text: "Поможем сформулировать предложение, показать продукт и подготовить первые точки контакта с клиентами.", steps: ["Предложение и структура", "Дизайн и сайт", "Подготовка продвижения"], result: "Понятная точка старта для нового бизнеса или направления.", code: "START", serviceSlug: "design" },
-  { label: "Сайт есть, обращений мало", heading: "Разобраться, где теряются новые сделки.", text: "Проверим путь от первого визита до обращения: предложение, страницы, мобильную версию и источники трафика. Найдём, что мешает довести интерес до сделки.", steps: ["Найти точки потери", "Усилить предложение", "Довести до сделки"], result: "Понятно, что изменить, чтобы сайт приводил больше новых сделок.", code: "WEBSITE", serviceSlug: "websites" },
-  { label: "Нужны новые клиенты", heading: "Помочь клиентам найти ваше предложение.", text: "Подбираем страницы и каналы под спрос: SEO, контент и рекламу. Настраиваем учёт источников, чтобы оценивать обращения.", steps: ["Спрос и задачи аудитории", "SEO, контент и реклама", "Аналитика обращений"], result: "Продвижение, которое можно оценивать по понятным данным.", code: "MARKETING", serviceSlug: "seo" },
-  { label: "Заявки теряются, много рутины", heading: "Навести порядок после первого обращения.", text: "Связываем формы, звонки и сообщения с CRM. Настраиваем ответственных, уведомления и автоматические действия.", steps: ["Карта текущего процесса", "CRM и интеграции", "Задачи и уведомления"], result: "Видно, откуда пришло обращение и кто работает с ним дальше.", code: "OPERATIONS", serviceSlug: "marketing" }
-];
 
-const taskVisuals = {
-  launch: "/home/launch-concept-workspace-v3.png",
-  reach: "/home/task-reach-workspace-v2.png"
-} as const;
 
-export function TaskExplorer() {
-  const [selected, setSelected] = useState(0);
-  const [pointer, setPointer] = useState(true);
-  const { ref } = useVisible();
-  const situation = situations[selected];
-  return (
-    <section className={`${base.section} ${styles.tasks}`} id="tasks" aria-labelledby="tasks-title">
-      <div className={`${base.container} ${styles.tasksInner}`}>
-        <div className={`${base.sectionHead} ${styles.tasksHead}`}><div><p className={base.eyebrow}>С чего начать</p><h2 id="tasks-title" aria-label="Узнаёте свою ситуацию?">Узнаёте<br /><em>свою ситуацию?</em></h2></div><p className={`${base.sectionIntro} ${styles.tasksIntro}`}>Не обязательно знать, какая услуга нужна.<br /> Начнём с того, что хочется изменить.</p></div>
-        <div className={styles.taskLayout} ref={ref} data-motion={pointer}>
-          <div className={styles.taskChoices} role="group" aria-label="Выберите задачу бизнеса">{situations.map((item, index) => <button type="button" key={item.code} aria-pressed={selected === index} aria-controls="task-answer" onClick={() => { setPointer(true); setSelected(index); }}><span>0{index + 1}</span><strong>{item.label}<small>{["От идеи к первому запуску", "Найти барьеры на пути клиента", "Выбрать каналы привлечения", "Связать обращения и команду"][index]}</small></strong><span className={styles.choiceMark} aria-hidden="true">{selected === index ? "−" : "+"}</span></button>)}</div>
-          <div className={styles.taskAnswer} id="task-answer" aria-live="polite" data-scenario={selected}>
-            <div className={styles.answerMeta}><span>{["Собираем новый проект", "Находим, где теряются сделки", "Работаем со спросом", "Организуем работу с заявками"][selected]}</span><span aria-hidden="true">0{selected + 1} / 04</span></div>
-            <div className={styles.answerContent}>
-              <h3>{situation.heading}</h3>
-              <p>{situation.text}</p>
-              {selected === 1 ? (
-                <ScenarioVisual kind="audit" animate={pointer} expanded className={styles.taskScene} />
-              ) : selected === 3 ? (
-                <div className={styles.crmMetricVisual} aria-hidden="true">
-                  <div className={styles.crmMetricHeader}><span>CRM / СЦЕНАРИЙ</span><b>ПРИМЕР</b></div>
-                  <div className={styles.crmMetricGrid}>
-                    <div className={styles.crmMetric}><strong>03</strong><small>канала входа</small></div>
-                    <div className={styles.crmMetric}><strong>01</strong><small>маршрут заявки</small></div>
-                    <div className={styles.crmMetric}><strong>→</strong><small>следующий шаг</small></div>
-                  </div>
-                  <div className={styles.crmTimeline}><span>Форма</span><i /><span>CRM</span><i /><span>Ответственный</span></div>
-                </div>
-              ) : (
-                <div className={styles.answerImage} aria-hidden="true">
-                  <Image src={selected === 0 ? taskVisuals.launch : taskVisuals.reach} alt="" fill sizes="(max-width: 760px) 95vw, 58vw" />
-                </div>
-              )}
-              <p className={styles.taskResult}>{situation.result}</p>
-            </div>
-            <div className={styles.taskActions}>
-              <a href="#contact-dialog" data-contact-dialog className={base.textLink}>Обсудить такую задачу <ActionArrow /></a>
-              <Link href={`/services/${situation.serviceSlug}`} className={base.textLink}>Смотреть услугу <ActionArrow /></Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 const journey = [
   { title: "Привлечь", subtitle: "SEO · реклама · контент", heading: "Встречаем клиента там, где он ищет.", text: "Подбираем поисковые запросы, рекламные сообщения и материалы под задачу человека, а не просто ведём трафик на главную.", result: "Релевантный переход на нужную страницу", symbol: "attract" },
@@ -111,17 +43,4 @@ function JourneyIcon({ name }: { name: string }) {
   if (name === "interest") return <svg {...common}><path d="m4 4 7.8 16 2.2-6.2L20 11 4 4Z" /><path d="m16.5 4.5 1.5-1.5M20 7h2M19 3v2" /></svg>;
   if (name === "process") return <svg {...common}><path d="M5 8h12.5l-2.8-2.8M19 16H6.5l2.8 2.8" /><path d="M18 8v3M6 16v-3" /><circle cx="5" cy="8" r="1" /><circle cx="19" cy="16" r="1" /></svg>;
   return <svg {...common}><path d="M4 19V5M4 19h16M7.5 15.5l4-4 3 2.5 5-6" /><circle cx="19.5" cy="8" r="1.5" /></svg>;
-}
-
-export function WorkFormats() {
-  return (
-    <section className={`${base.section} ${styles.formats}`} aria-labelledby="formats-title"><div className={base.container}>
-      <div className={base.sectionHead}><div><p className={base.eyebrow}>Масштаб выбираем вместе</p><h2 id="formats-title" aria-label="Одна задача. Или работа вдолгую.">Одна задача.<br /><em>Или работа вдолгую.</em></h2></div><p className={base.sectionIntro}>Не обязательно заказывать всё сразу.<br /> Отталкиваемся от приоритетов и ресурсов.</p></div>
-      <p className={styles.mobileSwipeHint} id="formats-scroll-hint">Листайте варианты <span aria-hidden="true">→</span></p>
-      <div className={styles.formatGrid} role="region" aria-label="Форматы работы" aria-describedby="formats-scroll-hint" tabIndex={0}>
-        <article className={styles.formatCard}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Проект</span><h3>Сделать и запустить</h3><p>Когда есть конкретная задача: разработать сайт, обновить дизайн, подключить CRM или автоматизировать процесс.</p><ul><li>Понятный состав работ</li><li>Согласованные этапы</li><li>Передача результата</li></ul><a href="#contact-dialog" data-contact-dialog className={base.textLink}>Обсудить проект <ActionArrow /></a></article>
-        <article className={`${styles.formatCard} ${styles.longTerm}`}><div className={styles.formatArt} aria-hidden="true"><span /><span /><span /></div><span className={styles.formatLabel}>Развитие</span><h3>Улучшать и развивать</h3><p>Когда нужно регулярно работать над сайтом, поисковым продвижением, контентом и качеством обращений.</p><ul><li>Приоритеты на следующий этап</li><li>Проверка изменений</li><li>Обсуждение данных и результатов</li></ul><a href="#contact-dialog" data-contact-dialog className={base.textLink}>Обсудить развитие <ActionArrow /></a></article>
-      </div>
-    </div></section>
-  );
 }

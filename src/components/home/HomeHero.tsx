@@ -59,7 +59,7 @@ export function HomeHero() {
                       style={{ "--tint": item.tint } as CSSProperties}
                     >
                       <span className={`${styles.shot} ${item.coverFit === "contain" ? styles.shotContain : ""}`}>
-                        <Image src={item.cover} alt="" fill sizes="(max-width: 900px) 40vw, 20vw" style={{ objectPosition: item.coverPosition }} />
+                        <Image src={item.cover} alt="" fill sizes="(max-width: 900px) 40vw, 20vw" loading={copy === 0 ? "eager" : "lazy"} style={{ objectPosition: item.coverPosition }} />
                       </span>
                       <span className={styles.caption}>
                         <b>{item.name}</b>

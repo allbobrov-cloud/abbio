@@ -75,7 +75,7 @@
   background: linear-gradient(180deg, #ffffffee, #ffffffd2);
   box-shadow: 0 1.4cqw 2.8cqw -1.6cqw #1c3a5528;
 }
-.art { display: block; flex: none; width: 100%; aspect-ratio: 3 / 2; margin: 0 0 .7cqw; border-radius: .9cqw; background-image: url('/cases/stroybaza-categories-atlas.png'); background-size: 300% 200%; background-repeat: no-repeat; }
+.art { display: block; flex: none; width: 100%; aspect-ratio: 3 / 2; margin: 0 0 .7cqw; border-radius: .9cqw; background-image: url('/cases/stroybaza-categories-atlas.webp'); background-size: 300% 200%; background-repeat: no-repeat; }
 .art0 { background-position: 0 0; }
 .art1 { background-position: 50% 0; }
 .art2 { background-position: 100% 0; }

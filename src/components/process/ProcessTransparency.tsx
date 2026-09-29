@@ -1,311 +1,168 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./ProcessTransparency.module.css";
 
-const useArmingEffect =
-  typeof window === "undefined" ? useEffect : useLayoutEffect;
-
-/* Один объект: прототип меняется вместе с шагами истории. */
+// Условный пример согласования прототипа главной страницы.
 const steps = [
-  { date: "14 сент", title: "Показали прототип" },
-  { date: "15 сент", title: "Получили комментарии" },
-  { date: "16 сент", title: "Внесли изменения" },
-  { date: "16 сент", title: "Согласовали" },
+  { date: "14 сент", title: "Показали прототип", note: "Версия 01 главной — до дизайна и разработки" },
+  { date: "15 сент", title: "Получили комментарии", note: "Отметки прямо на макете: 3 замечания" },
+  { date: "16 сент", title: "Внесли изменения", note: "Версия 02: заголовок, кнопка и форма" },
+  { date: "16 сент", title: "Согласовали", note: "Фиксируем версию и идём дальше" },
 ] as const;
 
-const LAST = steps.length;
-const INTRO_STEP_MS = 800;
+const comments = [
+  "Заголовок про компанию, а не про задачу клиента",
+  "«Подробнее» — непонятно, что будет дальше",
+  "Форме не хватает поля для задачи",
+];
 
-type Mode = "idle" | "comments" | "changed" | "approved";
+const STEP_MS = 1400;
 
 function Tick() {
   return (
-    <svg
-      viewBox="0 0 12 12"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
+    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
       <path d="M2.5 6.4 4.9 8.8 9.6 3.5" />
     </svg>
   );
 }
 
-function Marker({ on, children }: { on: boolean; children: string }) {
-  return (
-    <b
-      className={`${styles.marker} ${on ? styles.markerOn : ""}`}
-      aria-hidden="true"
-    >
-      {children}
-    </b>
-  );
+/* Номер замечания на макете; тексты — в карточке «Замечания» рядом */
+function Pin({ n, side = "right" }: { n: number; side?: "right" | "left" }) {
+  return <span className={styles.pin} data-side={side} style={{ "--i": n } as CSSProperties}>{n}</span>;
 }
 
-const benefits = [
-  ["Понятный процесс", "Этапы и сроки заранее"],
-  ["Прозрачные условия", "Состав работ фиксируем"],
-  ["Поддержка", "Помогаем после запуска"],
-] as const;
-
-function TransparencyStage() {
+/*
+ * «Проект не превращается в чёрный ящик»: слева история согласования, справа прототип главной,
+ * который меняется вместе с шагом — появляются замечания, затем версия 02, затем отметка «Согласовано».
+ * При первом показе шаги проигрываются автоматически; дальше шаг выбирается кликом.
+ */
+export function ProcessTransparency() {
   const rootRef = useRef<HTMLDivElement>(null);
-  // step — выбранный шаг, reveal — сколько шагов уже показано при появлении.
-  const [step, setStep] = useState<number>(LAST);
-  const [reveal, setReveal] = useState<number>(LAST);
-  const [armed, setArmed] = useState(false);
-  const [ready, setReady] = useState(true);
+  const [step, setStep] = useState(3);
+  const [playing, setPlaying] = useState(false);
 
-  useArmingEffect(() => {
+  useEffect(() => {
     const root = rootRef.current;
-    if (!root) {
-      return;
-    }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-
-    setArmed(true);
-    setReady(false);
-    setStep(0);
-    setReveal(0);
-
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let timers: number[] = [];
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry?.isIntersecting) {
-          return;
-        }
+        if (!entry?.isIntersecting) return;
         observer.disconnect();
-        timers = steps.map((_, index) =>
-          window.setTimeout(() => {
-            setStep(index + 1);
-            setReveal(index + 1);
-            if (index + 1 === LAST) {
-              setReady(true);
-            }
-          }, index * INTRO_STEP_MS)
-        );
+        setPlaying(true);
+        setStep(0);
+        timers = [1, 2, 3].map((s) => window.setTimeout(() => {
+          setStep(s);
+          if (s === 3) setPlaying(false);
+        }, s * STEP_MS));
       },
-      { threshold: 0.3 }
+      { threshold: 0.35 },
     );
-
     observer.observe(root);
     return () => {
       observer.disconnect();
-      timers.forEach((timer) => window.clearTimeout(timer));
+      timers.forEach((t) => window.clearTimeout(t));
     };
   }, []);
 
-  const version = step >= 3 ? "v2" : "v1";
-  const mode: Mode =
-    step === 2
-      ? "comments"
-      : step === 3
-        ? "changed"
-        : step === LAST
-          ? "approved"
-          : "idle";
-  const commentsOn = mode === "comments";
-  const v2 = version === "v2";
-
-  const status =
-    step === 0
-      ? ""
-      : mode === "approved"
-        ? "Версия 02, согласована"
-        : mode === "changed"
-          ? "Версия 02, внесены изменения"
-          : mode === "comments"
-            ? "Версия 01, получены комментарии"
-            : "Версия 01, на согласовании";
-
-  const caption =
-    mode === "comments"
-      ? "Комментарии: 1 первый экран · 2 кнопка · 3 форма"
-      : mode === "changed"
-        ? "Изменено: заголовок, кнопка, форма"
-        : mode === "approved"
-          ? "Версия 02 согласована 16 сентября"
-          : "Первая версия на согласовании";
+  const v2 = step >= 2;
+  const mode = step === 1 ? "comments" : step === 2 ? "changed" : step === 3 ? "approved" : "draft";
+  const status = mode === "approved" ? "Согласовано" : mode === "changed" ? "Изменения внесены" : mode === "comments" ? "3 замечания" : "На согласовании";
 
   return (
-    <div
-      ref={rootRef}
-      className={styles.root}
-      data-armed={armed ? "true" : undefined}
-    >
-      <div className={styles.grid}>
-        {/* Прототип главной страницы */}
-        <div className={`${styles.proto} ${reveal >= 1 ? styles.isIn : ""}`}>
-          <div className={styles.protoHead}>
-            <span className={styles.label}>Прототип главной</span>
-            <span className={styles.version} key={version}>
-              {v2 ? "V02" : "V01"}
-            </span>
-            {mode === "approved" && (
-              <span className={styles.approved}>
-                <i>
-                  <Tick />
-                </i>
-                Согласован
-              </span>
-            )}
-          </div>
-
-          <div className={styles.site} data-version={version} data-mode={mode}>
-            <div className={styles.siteBody} key={version} aria-hidden="true">
-              <div className={styles.chrome}>
-                <i />
-                <i />
-                <i />
-                <span>prototype / главная</span>
-              </div>
-
-              <div className={styles.bar}>
-                <span className={styles.logo} />
-                <strong>Компания</strong>
-                <nav>
-                  <span>Услуги</span>
-                  <span>О нас</span>
-                  <span>Контакты</span>
-                </nav>
-              </div>
-
-              <div className={styles.text}>
-                <div className={`${styles.zone} ${styles.headline}`}>
-                  <strong>
-                    {v2
-                      ? "Понятное решение для вашей задачи"
-                      : "Добро пожаловать в нашу компанию"}
-                  </strong>
-                  <p>
-                    {v2
-                      ? "Расскажите, что хотите изменить, — предложим решение."
-                      : "Коротко о компании и наших услугах."}
-                  </p>
-                  <Marker on={commentsOn}>1</Marker>
-                </div>
-                <span className={`${styles.zone} ${styles.button}`}>
-                  {v2 ? "Обсудить задачу" : "Подробнее"}
-                  <Marker on={commentsOn}>2</Marker>
-                </span>
-              </div>
-
-              <div className={styles.benefits}>
-                {benefits.map(([title, note]) => (
-                  <div key={title}>
-                    <i />
-                    <strong>{title}</strong>
-                    <span>{note}</span>
-                  </div>
-                ))}
-              </div>
-
-              <div className={`${styles.zone} ${styles.form}`}>
-                <strong>{v2 ? "Расскажите о задаче" : "Оставьте контакты"}</strong>
-                <span className={styles.field}>Имя</span>
-                <span className={styles.field}>Телефон</span>
-                {v2 && <span className={`${styles.field} ${styles.fieldTall}`}>Задача</span>}
-                <span className={styles.formButton}>
-                  {v2 ? "Обсудить" : "Отправить"}
-                </span>
-                <Marker on={commentsOn}>3</Marker>
-              </div>
-
-              <div className={styles.foot}>
-                <span>Контакты</span>
-                <span>Политика конфиденциальности</span>
-              </div>
-
-              <span className={styles.stamp}>
-                <i>
-                  <Tick />
-                </i>
-                Согласовано
-              </span>
-            </div>
-          </div>
-
-          <p className={styles.caption} key={caption}>
-            {caption}
-          </p>
-          <span className="sr-only" aria-live="polite">
-            {status}
-          </span>
-        </div>
-
-        {/* Шаги истории — переключают прототип */}
-        <div className={styles.stepsGroup}>
-          <p className={styles.stepsLabel}>Пример согласования</p>
-          <ol className={styles.steps}>
-          {steps.map((item, index) => {
-            const number = index + 1;
-            const state =
-              number === step ? "now" : number < step ? "done" : "next";
-
-            return (
-              <li
-                key={item.title}
-                className={`${styles.stepItem} ${
-                  reveal >= number ? styles.isIn : ""
-                }`}
-              >
-                <button
-                  type="button"
-                  className={`${styles.step} ${styles[state]}`}
-                  aria-current={number === step ? "step" : undefined}
-                  disabled={!ready}
-                  onClick={() => setStep(number)}
-                >
-                  <time>{item.date}</time>
-                  <strong>{item.title}</strong>
-                  {number === LAST && (
-                    <i className={styles.stepTick}>
-                      <Tick />
-                    </i>
-                  )}
-                </button>
-              </li>
-            );
-          })}
-          </ol>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-export function ProcessTransparency() {
-  return (
-    <section
-      id="transparency"
-      className={styles.section}
-      aria-labelledby="transparency-title"
-    >
+    <section id="transparency" className={styles.section} aria-labelledby="transparency-title">
       <div className={styles.container}>
         <header className={styles.head}>
           <div>
             <p className={styles.eyebrow}>Внутри проекта</p>
-            <h2
-              id="transparency-title"
-              aria-label="Проект не превращается в чёрный ящик."
-            >
-              Проект не превращается
+            <h2 id="transparency-title">
+              Проект не превращается{" "}
               <br />
               <em>в чёрный ящик.</em>
             </h2>
           </div>
-          <p className={styles.description}>
-            Вы видите результат по ходу работы{" "}
-            <br />и участвуете в решениях.
-          </p>
+          <p className={styles.lead}>Вы видите результат по ходу работы и участвуете в решениях.</p>
         </header>
-        <TransparencyStage />
+
+        <div ref={rootRef} className={styles.grid} data-mode={mode}>
+          <div className={styles.history}>
+            <p className={styles.historyLabel}>Пример согласования</p>
+            <ol className={styles.steps} style={{ "--step": step } as CSSProperties}>
+              {steps.map((item, index) => {
+                const state = index === step ? "now" : index < step ? "done" : "next";
+                return (
+                  <li key={item.title} data-state={state}>
+                    <button type="button" aria-pressed={index === step} disabled={playing} onClick={() => setStep(index)}>
+                      <span className={styles.dot} aria-hidden="true">{index < step || (index === 3 && step === 3) ? <Tick /> : null}</span>
+                      <span className={styles.stepBody}>
+                        <time>{item.date}</time>
+                        <strong>{item.title}</strong>
+                        <small>{item.note}</small>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ol>
+          </div>
+
+          <figure className={styles.stage}>
+            <div className={styles.glow} aria-hidden="true" />
+            <div className={styles.window} aria-hidden="true">
+              <div className={styles.chrome}>
+                <span className={styles.dots}><i /><i /><i /></span>
+                <span className={styles.url}>prototype / главная</span>
+                <span className={styles.version} key={v2 ? "v2" : "v1"}>{v2 ? "V02" : "V01"}</span>
+                <span className={styles.status} data-mode={mode}><i />{status}</span>
+              </div>
+
+              <div className={styles.page} key={v2 ? "p2" : "p1"}>
+                <div className={styles.nav}>
+                  <span className={styles.logo} /><strong>Компания</strong>
+                  <span className={styles.links}><i>Услуги</i><i>О нас</i><i>Контакты</i></span>
+                </div>
+
+                <div className={styles.hero}>
+                  <div className={styles.heroCopy}>
+                    <div className={`${styles.zone} ${styles.zoneHead}`}>
+                      <strong>{v2 ? "Понятное решение для вашей задачи" : "Добро пожаловать в нашу компанию"}</strong>
+                      <p>{v2 ? "Расскажите, что хотите изменить, — предложим решение." : "Коротко о компании и наших услугах."}</p>
+                      <Pin n={1} />
+                    </div>
+                    <span className={`${styles.zone} ${styles.zoneButton}`}>
+                      {v2 ? "Обсудить задачу" : "Подробнее"}
+                      <Pin n={2} />
+                    </span>
+                  </div>
+
+                  <div className={`${styles.zone} ${styles.zoneForm}`}>
+                    <strong>{v2 ? "Расскажите о задаче" : "Оставьте контакты"}</strong>
+                    <span className={styles.field}>Имя</span>
+                    <span className={styles.field}>Телефон</span>
+                    {v2 && <span className={`${styles.field} ${styles.fieldTall}`}>Задача</span>}
+                    <span className={styles.submit}>{v2 ? "Обсудить" : "Отправить"}</span>
+                    <Pin n={3} side="left" />
+                  </div>
+                </div>
+
+                <div className={styles.cards}><i /><i /><i /></div>
+              </div>
+
+              <div className={styles.notes}>
+                <p>Замечания клиента</p>
+                <ol>
+                  {comments.map((text, i) => (
+                    <li key={text} style={{ "--i": i + 1 } as CSSProperties}><b>{i + 1}</b>{text}</li>
+                  ))}
+                </ol>
+              </div>
+
+              <span className={styles.stamp}><i><Tick /></i>Согласовано · 16 сент</span>
+            </div>
+          </figure>
+          <p className="sr-only" aria-live="polite">{`Шаг ${step + 1}: ${steps[step].title}. ${steps[step].note}.`}</p>
+        </div>
       </div>
     </section>
   );

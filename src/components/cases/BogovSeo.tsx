@@ -10,8 +10,8 @@ const useArmingEffect =
 
 /*
  * Цифры — из ТЗ владельца: 91 из 97 отслеживаемых запросов (93,8% → 94%),
- * срез 09.09.2026, Яндекс, Санкт-Петербург. Скриншота исходных данных
- * (Топвизор / Вебмастер) в проекте нет, поэтому proof-source не показываем.
+ * срез 09.09.2026, Яндекс, Санкт-Петербург. Владелец подтвердил показатели
+ * 29.09.2026; скриншот источника в репозитории не хранится.
  */
 const MAIN_QUERY = "мотошкола санкт петербург";
 const queries = [
@@ -136,7 +136,7 @@ function Stage() {
       <div className={styles.serp}>
         <div className={`${styles.bar} ${styles.rev} ${on(2)}`}>
           <span className={styles.mark}>
-            <Image src="/cases/yandex-mark.png" alt="" width={90} height={90} />
+            <Image src="/cases/yandex-mark.webp" alt="" width={90} height={90} />
           </span>
           <span className={styles.query}>
             {MAIN_QUERY.slice(0, typed)}

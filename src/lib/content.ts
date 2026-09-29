@@ -10,7 +10,7 @@ export const cases = [
   { slug: "bogov", name: "Мотошкола Владимира Богова", category: "Образование / спорт", title: "Первое знакомство с мотоспортом начинается здесь.", summary: "Сайт мотошколы: курсы для разных райдеров и запись на обучение.", image: "/cases/bogov-desktop.avif", mobile: "/cases/bogov-mobile.avif", tags: ["Дизайн", "Разработка", "SEO", "Яндекс Директ"], task: "Показать курсы школы, включая детскую мотошколу, и упростить запись.", solution: "Собрали курсы школы в понятную структуру, передали характер мотоспорта в дизайне и сделали запись удобной с телефона.", service: "websites" },
   { slug: "oss", name: "ОборонСпецСплав", category: "Промышленность / B2B", title: "Сложный ассортимент. Понятный выбор.", summary: "Каталог специального металлопроката с поиском продукции и связью с менеджером.", image: "/cases/oss-desktop.avif", mobile: "/cases/oss-mobile.avif", tags: ["Каталог", "SEO"], task: "Упростить поиск промышленной продукции и обращение к поставщику с большим ассортиментом.", solution: "Разработали структуру каталога, поиск продукции и точки обращения к менеджерам. В основе продвижения — страницы конкретных категорий и товаров.", service: "marketing" },
   { slug: "volhonka", name: "Металлобаза Волхонка", category: "Металлопрокат / B2B", title: "От поиска металла до заявки на поставку.", summary: "Сайт металлобазы, поисковое продвижение и работа с обращениями в CRM.", image: "/cases/volhonka-desktop.avif", mobile: "/cases/volhonka-mobile.avif", tags: ["Сайт", "SEO", "CRM"], task: "Помочь покупателю выбрать металлопрокат и отправить запрос, а отделу продаж — не потерять обращение.", solution: "Объединили каталог, онлайн-заявки и CRM. Организовали учёт обращений из разных каналов и работу с поисковым продвижением.", service: "marketing" },
-  { slug: "stroybaza-volhonka", name: "Стройбаза Волхонка", category: "Стройматериалы", title: "Не просто каталог стройматериалов. Система для стройки.", summary: "Материалы, характеристики, расчёты и доставка в одном интерфейсе.", image: "/cases/stroybaza-house.png", mobile: "/cases/stroybaza-house.png", tags: ["Каталог", "Расчёт", "Доставка"], task: "Помочь выбрать материалы для разных этапов стройки и рассчитать потребность.", solution: "Собрали материалы, характеристики, расчёты и доставку в одном интерфейсе.", service: "websites" },
+  { slug: "stroybaza-volhonka", name: "Стройбаза Волхонка", category: "Стройматериалы", title: "Не просто каталог стройматериалов. Система для стройки.", summary: "Материалы, характеристики, расчёты и доставка в одном интерфейсе.", image: "/cases/stroybaza-house.webp", mobile: "/cases/stroybaza-house.webp", tags: ["Каталог", "Расчёт", "Доставка"], task: "Помочь выбрать материалы для разных этапов стройки и рассчитать потребность.", solution: "Собрали материалы, характеристики, расчёты и доставку в одном интерфейсе.", service: "websites" },
 ];
 // Все кейсы для страницы /cases. Тексты взяты с hero-блоков страниц кейсов, без новых цифр.
 export const caseIndex = [
@@ -19,7 +19,7 @@ export const caseIndex = [
   { slug: "volhonka", name: "Металлобаза Волхонка", category: "Металлопрокат · Санкт-Петербург", title: "Из металлобазы — в заметный digital-бренд.", services: ["Сайт", "SEO", "CRM"], cover: "/cases/volhonka-hero-visual.avif", coverFit: "contain", coverPosition: "50% 50%", tint: "#f0be40" },
   { slug: "profline", name: "ПрофЛайн", category: "Кровельные и фасадные материалы", title: "Из сайта о профнастиле — в большой каталог материалов.", services: ["Сайт", "SEO", "Аналитика"], cover: "/cases/profline-hero.webp", coverFit: "cover", coverPosition: "70% 55%", tint: "#e0342b" },
   { slug: "potolki-vsem", name: "Потолки Всем", category: "Натяжные потолки", title: "Не лендинг под рекламу. Собственный канал привлечения.", services: ["Многостраничный сайт", "SEO"], cover: "/cases/potolki-hero-bg.avif", coverFit: "cover", coverPosition: "50% 50%", overlay: "/cases/potolki-ui.avif", tint: "#e2383f" },
-  { slug: "stroybaza-volhonka", name: "Стройбаза Волхонка", category: "Стройматериалы", title: "Не просто каталог стройматериалов. Система для стройки.", services: ["Каталог", "Расчёт", "Доставка"], cover: "/cases/stroybaza-materials.png", coverFit: "contain", coverPosition: "50% 50%", tint: "#24a8f4" },
+  { slug: "stroybaza-volhonka", name: "Стройбаза Волхонка", category: "Стройматериалы", title: "Не просто каталог стройматериалов. Система для стройки.", services: ["Каталог", "Расчёт", "Доставка"], cover: "/cases/stroybaza-materials.webp", coverFit: "contain", coverPosition: "50% 50%", tint: "#24a8f4" },
 ] as const;
 export const steps = [
   { title: "Разбираемся", text: "Обсуждаем бизнес, клиентов и задачу. Определяем, что важно изменить." },
@@ -28,7 +28,7 @@ export const steps = [
   { title: "Запускаем", text: "Проверяем, передаём результат и договариваемся о дальнейшем развитии." }
 ];
 
-// Демонстрационные профили из прежнего блока; реальные данные команды не подтверждены.
+// Состав команды подтверждён владельцем 29.09.2026.
 export const team = [
   { name: "Алексей Морозов", role: "Продукт и стратегия", image: "/team/product.avif" },
   { name: "Анна Белова", role: "Дизайн", image: "/team/design.avif" },

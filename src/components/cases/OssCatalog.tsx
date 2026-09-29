@@ -9,8 +9,7 @@ const useArmingEffect =
   typeof window === "undefined" ? useEffect : useLayoutEffect;
 
 /*
- * Показатели — из ТЗ владельца, точные значения не подтверждены данными проекта.
- * TODO(content): сверить с клиентом перед публикацией кейса.
+ * Показатели из ТЗ подтверждены владельцем 29.09.2026.
  */
 const stats = [
   { key: "categories", value: "6", label: "основных\nкатегорий" },

@@ -1,0 +1,129 @@
+/* «Одна задача. Или работа вдолгую.» — проект (путь с финишем) и развитие (цикл). */
+.section {
+  --lav: #b7a0ef;
+  position: relative;
+  padding: clamp(80px, 11vh, 140px) 0;
+  overflow: hidden;
+  color: #f6f7fb;
+  background:
+    radial-gradient(ellipse 40% 50% at 25% 80%, rgba(109, 80, 189, 0.14), transparent 70%),
+    radial-gradient(ellipse 40% 50% at 80% 70%, rgba(124, 155, 255, 0.1), transparent 70%),
+    #05070d;
+}
+.container { width: min(1360px, calc(100% - 96px)); margin-inline: auto; }
+
+.head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(260px, 22em); align-items: end; gap: 20px clamp(32px, 5vw, 80px); }
+.eyebrow { display: flex; align-items: center; gap: 12px; margin: 0 0 20px; color: #c2aff9; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
+.eyebrow::before { width: 40px; height: 1px; background: currentColor; content: ""; }
+.head h2 { margin: 0; font-size: clamp(38px, 4.6vw, 76px); font-weight: 500; letter-spacing: -0.05em; line-height: 1.02; }
+.head h2 em { font-style: normal; background: linear-gradient(100deg, #d9c9ff 0%, #b7a0ef 50%, #8f6de0 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { justify-self: end; max-width: 22em; margin: 0; color: #b9b4c9; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.6; }
+
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2vw, 28px); margin-top: clamp(44px, 6vh, 72px); }
+
+.card {
+  --c: #b7a0ef;
+  --c-soft: #d6c3ff;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: clamp(26px, 3vw, 40px);
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 28px;
+  background:
+    radial-gradient(ellipse 70% 60% at 100% 0%, color-mix(in srgb, var(--c) 18%, transparent), transparent 70%),
+    radial-gradient(circle, rgba(255, 255, 255, 0.035) 1px, transparent 1.4px) 0 0 / 22px 22px,
+    linear-gradient(160deg, #121126, #0a0a14);
+  box-shadow: inset 0 1px rgba(255, 255, 255, 0.07), 0 40px 90px -60px color-mix(in srgb, var(--c) 80%, transparent);
+  transition: transform .5s cubic-bezier(.22, 1, .36, 1), box-shadow .5s ease;
+}
+.card::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: inherit;
+  background: linear-gradient(140deg, color-mix(in srgb, var(--c) 55%, transparent), rgba(255, 255, 255, 0.05) 42%, rgba(255, 255, 255, 0.04) 70%, color-mix(in srgb, var(--c) 30%, transparent));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  content: "";
+  pointer-events: none;
+}
+
+.cardHead { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.chip { padding: 6px 14px; border: 1px solid color-mix(in srgb, var(--c) 50%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--c) 14%, transparent); color: var(--c-soft); font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.kind { color: #8f89a3; font-size: 14px; }
+
+/* Схема проекта: путь с финишем */
+.path { position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); width: 100%; margin: 34px 0 30px; }
+.pathLine { position: absolute; top: 13px; left: 14px; right: calc(33.33% - 14px); height: 2px; border-radius: 2px; background: linear-gradient(90deg, rgba(183, 160, 239, 0.25), var(--c)); }
+.pathLine::after { position: absolute; top: -2px; left: 0; width: 22%; height: 6px; border-radius: 6px; background: radial-gradient(ellipse, #fff, color-mix(in srgb, var(--c-soft) 80%, transparent) 40%, transparent 70%); content: ""; animation: travel 3s ease-in-out infinite !important; }
+@keyframes travel { from { left: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } to { left: 78%; opacity: 0; } }
+.node { position: relative; display: grid; justify-items: start; gap: 10px; color: #c9c3d8; font-size: 14px; font-weight: 600; }
+.node i { display: grid; place-items: center; width: 28px; height: 28px; border: 2px solid color-mix(in srgb, var(--c) 55%, transparent); border-radius: 50%; background: #0f0e1f; }
+.node i::after { width: 8px; height: 8px; border-radius: 50%; background: var(--c); content: ""; }
+.finish { color: #fff; }
+.finish i { border-color: transparent; background: linear-gradient(140deg, var(--c-soft), var(--c)); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 16%, transparent), 0 0 24px color-mix(in srgb, var(--c) 80%, transparent); }
+.finish i::after { display: none; }
+.finish svg { width: 14px; height: 14px; fill: none; stroke: #171124; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Схема развития: цикл — те же узлы, дуга возвращает от «Данных» к «Приоритетам» */
+.loopPath { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.loopPath .pathLine { right: calc(25% - 14px); background: linear-gradient(90deg, var(--c), color-mix(in srgb, var(--c) 45%, transparent)); }
+.loopPath .pathLine::after { display: none; }
+.back { position: absolute; top: -22px; left: 14px; width: calc(75% - 0px); height: 34px; overflow: visible; fill: none; }
+.back path { stroke: var(--c); stroke-width: 1.6; stroke-dasharray: 4 6; vector-effect: non-scaling-stroke; opacity: .8; animation: back 1.6s linear infinite !important; }
+@keyframes back { to { stroke-dashoffset: -20; } }
+.loopPath .pathLine + .node i { border-color: transparent; background: linear-gradient(140deg, var(--c-soft), var(--c)); box-shadow: 0 0 0 6px color-mix(in srgb, var(--c) 16%, transparent), 0 0 20px color-mix(in srgb, var(--c) 70%, transparent); }
+.loopPath .pathLine + .node i::after { background: #0f1024; }
+.loopPath .pathLine + .node { color: #fff; }
+
+/* Текст карточки */
+.card h3 { margin: 0; font-size: clamp(28px, 2.6vw, 40px); font-weight: 500; letter-spacing: -0.04em; line-height: 1.05; }
+.card > p { max-width: 30em; margin: 14px 0 0; color: #b9b4c9; font-size: 16px; line-height: 1.6; }
+.card ul { display: grid; gap: 10px; margin: 24px 0 0; padding: 0; list-style: none; }
+.card li { display: flex; align-items: center; gap: 12px; color: #e4e0ee; font-size: 15px; }
+.card li::before { display: grid; flex: none; place-items: center; width: 22px; height: 22px; border-radius: 50%; background: color-mix(in srgb, var(--c) 18%, transparent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 12.5 4 4 8-9'/%3E%3C/svg%3E") center / 12px no-repeat; content: ""; }
+
+/* Кнопка-пилюля */
+.cta { display: inline-flex; align-items: center; gap: 16px; margin-top: auto; padding: 6px 6px 6px 22px; border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); border-radius: 999px; background: color-mix(in srgb, var(--c) 10%, transparent); color: #fff; font-size: 15px; font-weight: 600; transition: background .3s ease, border-color .3s ease, color .3s ease; }
+.card ul + .cta { margin-top: 32px; }
+.cta span { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; background: var(--c); color: #120f1f; transition: transform .3s ease; }
+.cta svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.cta:hover { border-color: var(--c); background: color-mix(in srgb, var(--c) 22%, transparent); }
+.cta:hover span { transform: rotate(45deg); }
+.cta:focus-visible { outline: 2px solid var(--c-soft); outline-offset: 3px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .card:hover { transform: translateY(-4px); box-shadow: inset 0 1px rgba(255, 255, 255, 0.07), 0 50px 100px -55px color-mix(in srgb, var(--c) 90%, transparent); }
+}
+
+@media (max-width: 1100px) {
+  .container { width: calc(100% - 64px); }
+}
+
+@media (max-width: 900px) {
+  .grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 760px) {
+  .section { padding: 56px 0 64px; }
+  .container { width: calc(100% - 40px); }
+  .eyebrow { font-size: 11px; }
+  .head { grid-template-columns: minmax(0, 1fr); }
+  .head h2 { font-size: clamp(32px, 9vw, 42px); }
+  .lead { justify-self: start; font-size: 15px; }
+  .grid { margin-top: 32px; }
+  .card { border-radius: 22px; }
+  .card > p { font-size: 15px; }
+  .node { font-size: 12px; }
+  .loopPath .node { font-size: 11px; }
+  .cta { width: 100%; justify-content: space-between; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card, .cta, .cta span { transition: none; }
+}

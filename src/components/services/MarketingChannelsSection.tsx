@@ -65,7 +65,7 @@ export function MarketingChannelsSection() {
           </button>
           {exampleOpen && (
             <div className={styles.channelExamplePanel} id="channel-example-panel">
-              <p className={styles.channelExampleLabel}>Пример записи, не реальное обращение</p>
+              <p className={styles.channelExampleLabel}>Пример записи обращения</p>
               <dl>
                 <div><dt>Источник</dt><dd>SEO / Google</dd></div>
                 <div><dt>Тема обращения</dt><dd>Корпоративный сайт</dd></div>

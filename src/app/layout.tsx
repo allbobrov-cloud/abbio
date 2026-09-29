@@ -3,12 +3,22 @@ import "./globals.css";
 import { AgencyHeader } from "@/components/AgencyHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ContactDialog } from "@/components/ContactDialog";
+import { indexingEnabled, SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: { default: "Агентство ABBiO — дизайн, сайты и маркетинг", template: "%s | Агентство ABBiO" },
   description:
     "Создаём дизайн и сайты, занимаемся SEO, рекламой, CRM и автоматизацией. Посмотрите проекты агентства ABBiO и обсудите свою задачу.",
-  robots: { index: false, follow: false }
+  robots: { index: indexingEnabled, follow: true },
+  openGraph: {
+    type: "website",
+    locale: "ru_RU",
+    siteName: "ABBiO",
+    title: "Агентство ABBiO — дизайн, сайты и маркетинг",
+    description: "Создаём дизайн и сайты, занимаемся SEO, рекламой, CRM и автоматизацией.",
+  },
+  twitter: { card: "summary_large_image" },
 };
 
 export const viewport: Viewport = {

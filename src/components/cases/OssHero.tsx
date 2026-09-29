@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./OssHero.module.css";
+import { CaseSiteLink } from "./CaseSiteLink";
 
 /*
  * Hero кейса «ОборонСпецСплав».
@@ -58,6 +59,7 @@ export function OssHero() {
             марки, ГОСТы, регионы и экспертные материалы работают как единая
             система.
           </p>
+          <CaseSiteLink href="https://oboronspecsplav.ru/" caseHref="#catalog" />
         </div>
 
         <div className={styles.factsWrap}>

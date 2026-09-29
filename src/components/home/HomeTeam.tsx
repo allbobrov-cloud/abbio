@@ -5,7 +5,7 @@ import styles from "./HomeTeam.module.css";
 
 /*
  * «Люди за проектом»: портреты в тёмных карточках с лавандовым тонированием, имя и роль —
- * на стеклянной плашке. Портреты и имена демонстрационные — это подписано на карточке и под блоком.
+ * на стеклянной плашке.
  */
 export function HomeTeam() {
   return (
@@ -30,18 +30,16 @@ export function HomeTeam() {
 
         <p className={styles.swipeHint} id="team-scroll-hint">Листайте команду <span aria-hidden="true">→</span></p>
         <ul className={styles.grid} aria-label="Команда агентства" aria-describedby="team-scroll-hint">
-          {team.map((person, index) => (
+          {team.map((person) => (
             <li key={person.name} className={styles.card}>
               <span className={styles.photo}>
                 <Image
                   src={person.image}
-                  alt={`Демонстрационный AI-портрет: ${person.name}, вымышленный персонаж`}
+                  alt={`Портрет ${person.name}, ${person.role}`}
                   fill
                   sizes="(max-width: 760px) 80vw, 30vw"
                 />
               </span>
-              <span className={styles.demo}>Демо-профиль</span>
-              <span className={styles.num} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
               <span className={styles.plate}>
                 <strong>{person.name}</strong>
                 <span>{person.role}</span>
@@ -50,7 +48,6 @@ export function HomeTeam() {
           ))}
         </ul>
 
-        <p className={styles.note}>Профили и портреты здесь демонстрационные. Данные реальной команды уточняются.</p>
       </div>
     </section>
   );

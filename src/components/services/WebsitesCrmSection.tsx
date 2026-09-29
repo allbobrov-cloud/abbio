@@ -6,19 +6,19 @@ const steps = [
     number: "01",
     title: "Форма, почта, звонок или чат",
     description: "Точка обращения",
-    image: "/services/websites-crm-contact-points-v1.png",
+    image: "/services/websites-crm-contact-points-v1.webp",
   },
   {
     number: "02",
     title: "Источник и содержание",
     description: "Контакт и детали запроса",
-    image: "/services/websites-crm-request-context-v1.png",
+    image: "/services/websites-crm-request-context-v1.webp",
   },
   {
     number: "03",
     title: "CRM",
     description: "Обращение передано команде",
-    image: "/services/websites-crm-workspace-v1.png",
+    image: "/services/websites-crm-workspace-v1.webp",
   },
 ] as const;
 

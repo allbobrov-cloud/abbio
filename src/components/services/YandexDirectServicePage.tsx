@@ -48,12 +48,12 @@ export function YandexDirectServicePage() {
       <SectionLead index="02 / Места показа" id="placements-title" title="Выбираем места показа под задачу, а не подключаем всё подряд." description="Поиск, Рекламную сеть Яндекса и другие доступные форматы рассматриваем отдельно. Для каждого направления определяем аудиторию, предложение и подходящую страницу." />
       <div className={styles.placementLanes}>
         <article className={styles.searchLane}>
-          <div className={styles.searchVisual} aria-hidden="true"><Image src="/services/yandex-direct-search-query-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), 500px" /></div>
+          <div className={styles.searchVisual} aria-hidden="true"><Image src="/services/yandex-direct-search-query-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), 500px" /></div>
           <header><span>01</span><strong>Поиск</strong></header>
           <div className={styles.searchCopy}><p>Сформированный вопрос, который человек задаёт в поиске.</p><small>Объявление отвечает на запрос и ведёт к подходящей странице.</small></div>
         </article>
         <article className={styles.networkLane}>
-          <div className={styles.networkVisual} aria-hidden="true"><Image src="/services/yandex-direct-network-banner-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), 650px" /></div>
+          <div className={styles.networkVisual} aria-hidden="true"><Image src="/services/yandex-direct-network-banner-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), 650px" /></div>
           <header><span>02</span><strong>Рекламная сеть Яндекса</strong></header>
           <p>Отдельная работа с аудиторией и подачей.</p>
         </article>
@@ -95,7 +95,7 @@ export function YandexDirectServicePage() {
         <header className={styles.reportHeader}><div><span>Пример среза отчёта</span><strong>Период: 30 дней</strong></div><small>демонстрационные данные</small></header>
         <div className={styles.reportGrid}>
           <article className={styles.reportSpend}><span>Расходы</span><strong>147 800 <em>₽</em></strong><p>За выбранный период</p></article>
-          <div className={styles.reportVisual} aria-hidden="true"><Image src="/services/yandex-direct-report-calibration-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1080px) 52vw, 700px" /></div>
+          <div className={styles.reportVisual} aria-hidden="true"><Image src="/services/yandex-direct-report-calibration-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), (max-width: 1080px) 52vw, 700px" /></div>
           <div className={styles.reportSignals}>
             <article><span>Обращения</span><strong>38</strong><small>формы, звонки и чаты</small></article>
             <article><span>Стоимость обращения</span><strong>3 889 <em>₽</em></strong><small>расходы / обращения</small></article>
@@ -116,7 +116,7 @@ export function YandexDirectServicePage() {
           <li><span>03</span><strong>Уточняем гипотезу</strong></li>
           <li><span>04</span><strong>Корректируем кампанию</strong></li>
         </ol>
-        <div className={styles.managementVisual} aria-hidden="true"><Image src="/services/yandex-direct-management-loop-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 720px" /></div>
+        <div className={styles.managementVisual} aria-hidden="true"><Image src="/services/yandex-direct-management-loop-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 720px" /></div>
       </div>
     </div></section>
 
@@ -131,26 +131,26 @@ export function YandexDirectServicePage() {
       <div className={styles.relatedServices}>
         <Link href="/services/websites" className={styles.relatedService}>
           <div className={styles.relatedVisual} aria-hidden="true">
-            <Image src="/services/yandex-direct-related-websites-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), (max-width: 1080px) 30vw, 400px" />
+            <Image src="/services/yandex-direct-related-websites-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), (max-width: 1080px) 30vw, 400px" />
           </div>
           <span>01</span><h3>Сайты</h3><p>Посадочные страницы и формы для обращения.</p><b>Открыть направление <ActionArrow/></b>
         </Link>
         <Link href="/services/design" className={styles.relatedService}>
           <div className={styles.relatedVisual} aria-hidden="true">
-            <Image src="/services/yandex-direct-related-design-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), (max-width: 1080px) 30vw, 400px" />
+            <Image src="/services/yandex-direct-related-design-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), (max-width: 1080px) 30vw, 400px" />
           </div>
           <span>02</span><h3>Дизайн</h3><p>Визуальная подача объявления и страницы.</p><b>Открыть направление <ActionArrow/></b>
         </Link>
         <Link href="/services/seo" className={styles.relatedService}>
           <div className={styles.relatedVisual} aria-hidden="true">
-            <Image src="/services/yandex-direct-related-seo-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), (max-width: 1080px) 30vw, 400px" />
+            <Image src="/services/yandex-direct-related-seo-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 64px), (max-width: 1080px) 30vw, 400px" />
           </div>
           <span>03</span><h3>SEO-продвижение</h3><p>Развитие собственного поискового канала.</p><b>Открыть направление <ActionArrow/></b>
         </Link>
       </div>
     </div></section>
 
-    <section className={styles.finalSection} aria-labelledby="direct-contact-title"><div className={styles.container}><div className={styles.finalPanel}><p className={styles.sectionIndex}>Связаться с ABBiO</p><h2 id="direct-contact-title">Запустим Яндекс Директ как управляемый канал.</h2><p>Разберём предложение, посадочные страницы, доступный бюджет и текущую передачу обращений, чтобы определить структуру запуска.</p><a href="#contact-dialog" data-contact-dialog className={styles.finalAction}>Обсудить рекламу <ActionArrow/></a><div className={styles.finalVisual} aria-hidden="true"><Image src="/services/yandex-direct-final-launch-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 760px" /></div></div></div></section>
+    <section className={styles.finalSection} aria-labelledby="direct-contact-title"><div className={styles.container}><div className={styles.finalPanel}><p className={styles.sectionIndex}>Связаться с ABBiO</p><h2 id="direct-contact-title">Запустим Яндекс Директ как управляемый канал.</h2><p>Разберём предложение, посадочные страницы, доступный бюджет и текущую передачу обращений, чтобы определить структуру запуска.</p><a href="#contact-dialog" data-contact-dialog className={styles.finalAction}>Обсудить рекламу <ActionArrow/></a><div className={styles.finalVisual} aria-hidden="true"><Image src="/services/yandex-direct-final-launch-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 32px), 760px" /></div></div></div></section>
     <CasesBlock
       title="Три проекта — три разные задачи."
       description="Откройте кейс, чтобы посмотреть задачу, решение и материалы проекта."

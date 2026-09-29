@@ -46,50 +46,50 @@ const creationStages = [
     number: "01",
     title: "Бизнес, продукт, аудитория",
     text: "Разбираемся, что продаёт компания, кому и как принимает обращения.",
-    visual: "/services/websites-creation-discovery-v1.png",
+    visual: "/services/websites-creation-discovery-v1.webp",
   },
   {
     number: "02",
     title: "Структура и содержание",
     text: "Определяем страницы, разделы и материалы, которые помогают выбрать.",
-    visual: "/services/websites-creation-structure-v1.png",
+    visual: "/services/websites-creation-structure-v1.webp",
   },
   {
     number: "03",
     title: "Сценарии и прототип",
     text: "Собираем путь по сайту и проверяем логику до визуального решения.",
-    visual: "/services/websites-creation-prototype-v1.png",
+    visual: "/services/websites-creation-prototype-v1.webp",
   },
   {
     number: "04",
     title: "Дизайн",
     text: "Показываем главное, выстраиваем иерархию и точки действия.",
-    visual: "/services/websites-creation-design-v1.png",
+    visual: "/services/websites-creation-design-v1.webp",
   },
   {
     number: "05",
     title: "Desktop и mobile",
     text: "Разрабатываем сайт и его адаптивные состояния для разных экранов.",
-    visual: "/services/websites-creation-responsive-v1.png",
+    visual: "/services/websites-creation-responsive-v1.webp",
   },
   {
     number: "06",
     title: "Тестирование и запуск",
     text: "Проверяем основные сценарии, подключаем согласованные интеграции и запускаем.",
-    visual: "/services/websites-creation-launch-v1.png",
+    visual: "/services/websites-creation-launch-v1.webp",
   },
 ] as const;
 
 const formatVisuals = {
-  landing: "/services/websites-format-landing-photo-studio-v1.png",
-  corporate: "/services/websites-format-corporate-refinery-v1.png",
-  catalog: "/services/websites-format-catalog-smartphones-v1.png",
+  landing: "/services/websites-format-landing-photo-studio-v1.webp",
+  corporate: "/services/websites-format-corporate-refinery-v1.webp",
+  catalog: "/services/websites-format-catalog-smartphones-v1.webp",
 } as const;
 
 const platformLogos = {
   react: "/services/websites-platform-react.svg",
   bitrix: "/services/websites-platform-1c-bitrix.svg",
-  wordpress: "/services/websites-platform-wordpress.png",
+  wordpress: "/services/websites-platform-wordpress.webp",
 } as const;
 
 const platforms = [
@@ -125,7 +125,6 @@ function FormatVisual({ kind }: { kind: (typeof formats)[number]["kind"] }) {
         src={formatVisuals[kind]}
         alt=""
         fill
-        loading="eager"
         sizes="(max-width: 760px) calc(100vw - 88px), (max-width: 1080px) 29vw, 380px"
       />
     </div>
@@ -181,11 +180,10 @@ export function WebsitesServicePage() {
               <div className={styles.heroMedia}>
                 <div className={styles.heroVisual} aria-hidden="true">
                   <Image
-                    src="/services/websites-hero-sales-workflow-v2.png"
+                    src="/services/websites-hero-sales-workflow-v2.webp"
                     alt=""
                     fill
                     priority
-                    quality={100}
                     sizes="(max-width: 760px) calc(100vw - 24px), 100vw"
                   />
                 </div>
@@ -328,7 +326,6 @@ export function WebsitesServicePage() {
                     src={item.visual}
                     alt=""
                     fill
-                    loading="eager"
                     sizes="(max-width: 760px) calc((100vw - 60px) / 2), (max-width: 1080px) 15vw, 200px"
                   />
                   <span>{item.number}</span>
@@ -398,7 +395,7 @@ export function WebsitesServicePage() {
           <div className={styles.readinessPanel}>
             <div className={styles.readinessVisual} aria-hidden="true">
               <Image
-                src="/services/websites-post-launch-handoff-v2.png"
+                src="/services/websites-post-launch-handoff-v2.webp"
                 alt=""
                 fill
                 sizes="(max-width: 760px) calc(100vw - 44px), (max-width: 1080px) 52vw, 620px"
@@ -464,10 +461,9 @@ export function WebsitesServicePage() {
           >
             <div className={styles.designPortalVisual} aria-hidden="true">
               <Image
-                src="/services/design-hero-volterra-wide-v7.png"
+                src="/services/design-hero-volterra-wide-v7.webp"
                 alt=""
                 fill
-                loading="eager"
                 sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) calc(100vw - 96px), 1280px"
               />
             </div>

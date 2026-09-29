@@ -499,23 +499,23 @@
 }
 
 .improvementCycle li:nth-child(1) > span {
-  background-image: url("/services/marketing-cycle-launch-icon-v2.png") !important;
+  background-image: url("/services/marketing-cycle-launch-icon-v2.webp") !important;
 }
 
 .improvementCycle li:nth-child(2) > span {
-  background-image: url("/services/marketing-cycle-data-icon-v2.png") !important;
+  background-image: url("/services/marketing-cycle-data-icon-v2.webp") !important;
 }
 
 .improvementCycle li:nth-child(3) > span {
-  background-image: url("/services/marketing-cycle-insight-icon-v2.png") !important;
+  background-image: url("/services/marketing-cycle-insight-icon-v2.webp") !important;
 }
 
 .improvementCycle li:nth-child(4) > span {
-  background-image: url("/services/marketing-cycle-change-icon-v2.png") !important;
+  background-image: url("/services/marketing-cycle-change-icon-v2.webp") !important;
 }
 
 .improvementCycle li:nth-child(5) > span {
-  background-image: url("/services/marketing-cycle-observation-icon-v2.png") !important;
+  background-image: url("/services/marketing-cycle-observation-icon-v2.webp") !important;
 }
 @media (min-width: 761px) {
   .deliverablesSection {

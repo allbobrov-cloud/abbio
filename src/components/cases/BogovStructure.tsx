@@ -146,7 +146,6 @@ function Stage() {
             src="/cases/bogov-structure-main.webp"
             alt=""
             fill
-            loading="eager"
             sizes="(max-width: 760px) 100vw, 36vw"
           />
         </div>
@@ -189,7 +188,6 @@ function Stage() {
                 src={card.image}
                 alt=""
                 fill
-                loading="eager"
                 sizes="(max-width: 760px) 100vw, 26vw"
               />
             </div>
@@ -229,7 +227,6 @@ export function BogovStructure() {
           src="/cases/bogov-structure-bg.webp"
           alt=""
           fill
-          loading="eager"
           sizes="70vw"
         />
       </div>

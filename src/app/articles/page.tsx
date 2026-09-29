@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "@/components/Agency.module.css";
-export const metadata = { title: "Статьи", description: "Будущие материалы ABBiO о сайтах, поисковом продвижении, аналитике и работе с заявками." };
+import { socialMetadata } from "@/lib/seo";
+export const metadata = { title: "Статьи", description: "Будущие материалы ABBiO о сайтах, поисковом продвижении, аналитике и работе с заявками.", robots: { index: false, follow: true }, alternates: { canonical: "/articles" }, ...socialMetadata("Статьи | Агентство ABBiO", "Материалы ABBiO о сайтах, поисковом продвижении, аналитике и работе с заявками готовятся.") };
 export default function Page() {
   return (
     <main id="main">

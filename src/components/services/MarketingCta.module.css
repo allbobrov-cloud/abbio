@@ -23,7 +23,7 @@
     background:
       linear-gradient(90deg, rgba(6, 7, 13, 0.05) 46%, rgba(6, 7, 13, 0.94) 100%),
       linear-gradient(0deg, rgba(6, 7, 13, 0.36), rgba(6, 7, 13, 0.04)),
-      url("/services/marketing-cta-conversation-v1.png") center / cover no-repeat;
+      url("/services/marketing-cta-conversation-v1.webp") center / cover no-repeat;
   }
 
   .panel > div {

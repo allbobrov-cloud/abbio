@@ -348,3 +348,6 @@
 /* Текст «Сайтов» больше не лежит на картинке — размытая плашка за описанием не нужна */
 .directionGrid .directionWebsites .directionContent > p::before,
 .directionGrid .directionWebsites .directionContent > p::after { display: none; }
+
+/* Телефон: теги направлений читаемого размера (перекрывает ранние правила по 9–10px). */
+@media (max-width:760px) { .direction .directionContent li { padding:6px 10px; font-size:12px } .direction .directionMeta p { font-size:11px } .direction .directionContent > p br { display:none } }

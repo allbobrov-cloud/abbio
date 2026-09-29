@@ -67,8 +67,6 @@
   transition: opacity .6s ease;
 }
 
-.demo { position: absolute; top: 18px; left: 18px; z-index: 2; padding: 6px 12px; border: 1px solid rgba(255, 255, 255, 0.16); border-radius: 999px; background: rgba(5, 7, 13, 0.5); color: #d8d2e0; font-size: 12px; font-weight: 600; letter-spacing: 0.04em; backdrop-filter: blur(8px); }
-.num { position: absolute; top: 12px; right: 20px; z-index: 2; color: transparent; font-size: clamp(56px, 5vw, 84px); font-weight: 700; letter-spacing: -0.06em; line-height: 1; -webkit-text-stroke: 1px rgba(221, 211, 246, 0.35); }
 
 .plate {
   position: absolute;
@@ -89,7 +87,6 @@
 .plate span { display: inline-flex; align-items: center; gap: 8px; color: #c2aff9; font-size: 14px; }
 .plate span::before { width: 7px; height: 7px; border-radius: 50%; background: var(--lav); box-shadow: 0 0 10px var(--lav); content: ""; }
 
-.note { margin: 22px 0 0; color: #8f89a3; font-size: 13px; }
 
 @media (hover: hover) and (pointer: fine) {
   .card:hover { box-shadow: 0 40px 90px -45px rgba(139, 98, 225, 0.85); transform: translateY(-6px); }

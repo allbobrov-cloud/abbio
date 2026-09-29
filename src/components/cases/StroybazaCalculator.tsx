@@ -133,7 +133,6 @@ export function StroybazaCalculator() {
                 width={1513}
                 height={1040}
                 sizes="(max-width: 760px) 90vw, (max-width: 1180px) 60vw, 32vw"
-                loading="eager"
               />
             </div>
 
@@ -191,7 +190,6 @@ export function StroybazaCalculator() {
                   width={1498}
                   height={1050}
                   sizes="(max-width: 760px) 30vw, 10vw"
-                  loading="eager"
                 />
               </div>
             </div>

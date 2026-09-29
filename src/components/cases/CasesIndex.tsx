@@ -52,7 +52,7 @@ export function CasesIndex() {
           <ul className={styles.bento}>
             {caseIndex.map((item, index) => (
               <li key={item.slug} className={styles.cell} style={{ "--tint": item.tint } as CSSProperties}>
-                <CaseCard item={item} index={index} sizes="(max-width: 760px) 92vw, (max-width: 1100px) 50vw, 58vw" priority={index < 2} />
+                <CaseCard item={item} index={index} sizes="(max-width: 760px) 92vw, (max-width: 1100px) 50vw, 58vw" />
               </li>
             ))}
           </ul>

@@ -11,7 +11,7 @@ const situations = [
     label: "Запуск",
     title: "Новый бренд, продукт или направление",
     description: "Запускается новый бренд, продукт или направление.",
-    artwork: "/services/design-situation-launch-v1.png",
+    artwork: "/services/design-situation-launch-v1.webp",
   },
   {
     label: "Язык",
@@ -32,7 +32,7 @@ const situations = [
     label: "Подача",
     title: "Продукт нужно представить убедительнее",
     description: "Нужна убедительная презентация продукта или компании.",
-    artwork: "/services/design-situation-presentation-v3.png",
+    artwork: "/services/design-situation-presentation-v3.webp",
   },
 ];
 
@@ -67,7 +67,7 @@ function DesignHeroVisual() {
   return (
     <div className={styles.heroVisual} aria-hidden="true">
       <Image
-        src="/services/design-hero-volterra-perspective-v9.png"
+        src="/services/design-hero-volterra-perspective-v9.webp"
         alt=""
         fill
         priority
@@ -120,7 +120,7 @@ export function DesignServicePage() {
             <p>Сначала определяем, что должно быть понятно человеку. Затем собираем визуальный принцип и применяем его в нужных материалах.</p>
           </div>
           <div className={styles.heroBoard}>
-            <Image src="/services/design-fashion-catalog-v1.png" alt="" fill priority sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) calc(100vw - 96px), 1280px" />
+            <Image src="/services/design-fashion-catalog-v1.webp" alt="" fill priority sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) calc(100vw - 96px), 1280px" />
           </div>
         </div>
       </section>
@@ -185,7 +185,7 @@ export function DesignServicePage() {
       <section className={styles.startSection} id="design-contact-cta" aria-labelledby="start-title">
         <div className={styles.container}>
           <div className={styles.startPanel}>
-            <Image className={styles.startArtwork} src="/services/design-contact-workspace-v1.png" alt="" fill sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) calc(100vw - 96px), 1280px" />
+            <Image className={styles.startArtwork} src="/services/design-contact-workspace-v1.webp" alt="" fill sizes="(max-width: 760px) calc(100vw - 40px), (max-width: 1280px) calc(100vw - 96px), 1280px" />
             <div className={styles.startLead}>
               <p className={styles.sectionIndex}>Связаться с ABBiO</p>
               <h2 id="start-title">Готовы обсудить дизайн-задачу?</h2>

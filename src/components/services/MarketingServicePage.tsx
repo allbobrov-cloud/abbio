@@ -15,37 +15,37 @@ const demandStages = [
   {
     title: "Потребность",
     text: "Задача или вопрос, с которым приходит человек.",
-    image: "/services/marketing-demand-need-v1.png",
+    image: "/services/marketing-demand-need-v1.webp",
   },
   {
     title: "Канал",
     text: "Согласованный источник приводит к нужному предложению.",
-    image: "/services/marketing-demand-channel-v1.png",
+    image: "/services/marketing-demand-channel-v1.webp",
   },
   {
     title: "Посадочная страница",
     text: "Страница объясняет предложение и помогает выбрать.",
-    image: "/services/marketing-demand-landing-v1.png",
+    image: "/services/marketing-demand-landing-v1.webp",
   },
   {
     title: "Действие",
     text: "Форма, звонок или чат дают способ обратиться.",
-    image: "/services/marketing-demand-action-v1.png",
+    image: "/services/marketing-demand-action-v1.webp",
   },
   {
     title: "Обращение",
     text: "Интерес получает контакт, контекст и следующий шаг.",
-    image: "/services/marketing-demand-lead-v1.png",
+    image: "/services/marketing-demand-lead-v1.webp",
   },
 ];
 
 const crmStages = [
-  { title: "Обращение", text: "Контакт сохранён", icon: "/services/marketing-crm-lead-icon-v1.png" },
-  { title: "Источник и запрос", text: "Согласованный контекст", icon: "/services/marketing-crm-source-icon-v1.png" },
-  { title: "CRM", text: "Рабочая точка команды", icon: "/services/marketing-crm-icon-v1.png" },
-  { title: "Ответственный", text: "Обращение передано", icon: "/services/marketing-crm-owner-icon-v1.png" },
-  { title: "Статус", text: "Текущий этап виден", icon: "/services/marketing-crm-status-icon-v1.png" },
-  { title: "Следующий этап", text: "Работа продолжается", icon: "/services/marketing-crm-next-icon-v1.png" },
+  { title: "Обращение", text: "Контакт сохранён", icon: "/services/marketing-crm-lead-icon-v1.webp" },
+  { title: "Источник и запрос", text: "Согласованный контекст", icon: "/services/marketing-crm-source-icon-v1.webp" },
+  { title: "CRM", text: "Рабочая точка команды", icon: "/services/marketing-crm-icon-v1.webp" },
+  { title: "Ответственный", text: "Обращение передано", icon: "/services/marketing-crm-owner-icon-v1.webp" },
+  { title: "Статус", text: "Текущий этап виден", icon: "/services/marketing-crm-status-icon-v1.webp" },
+  { title: "Следующий этап", text: "Работа продолжается", icon: "/services/marketing-crm-next-icon-v1.webp" },
 ];
 
 const reportMetrics = [
@@ -142,7 +142,7 @@ export function MarketingServicePage() {
 
         <div className={`${styles.heroVisual} ${heroBlendStyles.visual}`} aria-hidden="true">
               <Image
-                src="/services/marketing-hero-measurable-workflow-v1.png"
+                src="/services/marketing-hero-measurable-workflow-v1.webp"
                 alt=""
                 fill
                 priority
@@ -254,7 +254,7 @@ export function MarketingServicePage() {
           <div className={`${styles.startPanel} ${ctaStyles.panel}`}>
             <div className={ctaStyles.image}>
               <Image
-                src="/services/marketing-cta-project-brief-v1.png"
+                src="/services/marketing-cta-project-brief-v1.webp"
                 alt=""
                 fill
                 sizes="(max-width: 1040px) 48vw, 760px"
@@ -283,7 +283,7 @@ export function MarketingServicePage() {
           />
           <div className={styles.reportHero}>
             <div className={styles.reportCopy}>
-              <p className={styles.reportWarning}>В примере используются условные данные. Это демонстрация структуры отчёта, а не показатели клиента и не гарантия конкретного результата.</p>
+              <p className={styles.reportWarning}>Данные в примере условные.</p>
               <a href={reportDemoUrl} target="_blank" rel="noopener noreferrer" className={styles.reportLink} aria-label="Открыть демонстрацию структуры отчёта в Google Sheets, новая вкладка">
                 Открыть демо-отчёт <ActionArrow />
               </a>

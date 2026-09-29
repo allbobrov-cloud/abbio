@@ -29,7 +29,7 @@ export function ScenarioVisual({ kind, animate = true, className, expanded = fal
     {kind === "report" && <>
       <div className={styles.reportHead}><span>КАНАЛ → ОБРАЩЕНИЕ → ПРОДАЖА</span><b>Анализ</b></div>
       <div className={styles.reportBody}><div className={styles.bars}><i /><i /><i /><i /><i /><i /></div><div className={styles.reportQuestions}><span>Откуда приходят?</span><span>Где останавливаются?</span><strong>Что изменить дальше?</strong></div></div>
-      <small className={styles.reportNote}>Схема анализа, не показатели клиента</small>
+      <small className={styles.reportNote}>Схема анализа</small>
     </>}
   </div>;
 }

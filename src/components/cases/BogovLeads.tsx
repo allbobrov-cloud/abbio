@@ -65,7 +65,7 @@ function SourceIcon({ kind }: { kind: "seo" | "social" }) {
 function YandexMark() {
   return (
     <span className={styles.mark}>
-      <Image src="/cases/yandex-mark.png" alt="" width={90} height={90} />
+      <Image src="/cases/yandex-mark.webp" alt="" width={90} height={90} />
     </span>
   );
 }

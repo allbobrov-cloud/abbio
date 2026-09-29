@@ -66,11 +66,10 @@ function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }
       <div className={[styles.capabilityVisual, styles.websitesVisual].join(" ")} aria-hidden="true">
         <Image
           className={styles.websitesArtwork}
-          src="/services/websites-journey.png"
+          src="/services/websites-journey.webp"
           alt=""
           width={1212}
           height={1297}
-          loading="eager"
           sizes="(max-width: 760px) 80vw, (max-width: 1100px) 22vw, 24vw"
         />
       </div>
@@ -82,7 +81,7 @@ function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }
       <div className={[styles.capabilityVisual, styles.designArtworkVisual].join(" ")} aria-hidden="true">
         <Image
           className={styles.designArtwork}
-          src="/services/design-journey.png"
+          src="/services/design-journey.webp"
           alt=""
           width={1277}
           height={1231}
@@ -97,7 +96,7 @@ function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }
       <div className={[styles.capabilityVisual, styles.seoArtworkVisual].join(" ")} aria-hidden="true">
         <Image
           className={styles.seoArtwork}
-          src="/services/seo-journey.png"
+          src="/services/seo-journey.webp"
           alt=""
           width={1536}
           height={1024}
@@ -112,7 +111,7 @@ function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }
       <div className={[styles.capabilityVisual, styles.directArtworkVisual].join(" ")} aria-hidden="true">
         <Image
           className={styles.directArtwork}
-          src="/services/yandex-direct-journey.png"
+          src="/services/yandex-direct-journey.webp"
           alt=""
           width={1229}
           height={1280}
@@ -126,7 +125,7 @@ function DirectionVisual({ slug }: { slug: (typeof directions)[number]["slug"] }
     <div className={[styles.capabilityVisual, styles.marketingArtworkVisual].join(" ")} aria-hidden="true">
       <Image
         className={styles.marketingArtwork}
-        src="/services/marketing-journey.png"
+        src="/services/marketing-journey.webp"
         alt=""
         width={1644}
         height={957}
@@ -194,7 +193,7 @@ export function ServicesOverviewPage() {
                   <p>
                     {item.slug === "websites" ? (
                       <>
-                        Продумываем структуру, дизайн и функциональность,<br />
+                        Продумываем структуру, дизайн и функциональность,{" "}<br />
                         чтобы сайт работал на ваши цели.
                       </>
                     ) : item.slug === "design" ? (

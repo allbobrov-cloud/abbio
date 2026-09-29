@@ -117,7 +117,7 @@ export function SeoServicePage() {
             </ol>
             <div className={`${styles.loopMark} ${developmentCycleStyles.loopMark}`} aria-hidden="true">
               <Image
-                src="/services/seo-development-cycle-core-v1.png"
+                src="/services/seo-development-cycle-core-v1.webp"
                 alt=""
                 fill
                 sizes="(max-width: 760px) 128px, 168px"

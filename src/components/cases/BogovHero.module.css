@@ -463,3 +463,11 @@
     animation: none;
   }
 }
+
+/* Кнопки «Перейти на сайт / Смотреть кейс» под описанием: текст чуть выше,
+   факты — в нижнюю строку слева, оглавление кейса — в ту же строку справа. */
+@media (min-width: 1181px) {
+  .copy { top: 18%; }
+  .facts { top: auto; bottom: 6%; }
+  .toc { left: auto; right: 5%; bottom: calc(6% + 10px); justify-content: flex-end; max-width: 46%; }
+}

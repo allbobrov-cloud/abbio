@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./ProflineHero.module.css";
+import { CaseSiteLink } from "./CaseSiteLink";
 
 /*
  * Hero кейса «ПрофЛайн». Визуал (ноутбук, дом, профнастил) — готовый asset
@@ -76,6 +77,7 @@ export function ProflineHero() {
             каталог объединяет кровельные и фасадные материалы, сэндвич-панели и
             решения для ограждений — и продолжает расти.
           </p>
+          <CaseSiteLink href="https://profnastils.ru/" caseHref="#profline-case" tone="red" />
 
           <ul className={styles.metrics}>
             {METRICS.map((m) => (

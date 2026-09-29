@@ -1,6 +1,6 @@
-# Временные портреты команды ABB
+# Портреты команды ABBiO
 
-Созданы встроенным imagegen, не CLI. Все персонажи вымышлены, имена и роли — заглушки, не реальные члены команды. Оригиналы оставлены в каталоге generated_images; рабочие копии — public/team. Перед публикацией заменить.
+Текущий статус на 29.09.2026: владелец подтвердил имена, роли и использование портретов, показанных в блоке команды. Служебные пометки «демо-профиль» удалены из интерфейса. Портреты созданы встроенным imagegen и остаются иллюстративными изображениями, а не документальными фотографиями. Ниже сохранены исходные промпты как история создания ассетов; их прежнее обозначение персонажей как вымышленных больше не описывает подтверждённый владельцем статус профилей.
 
 ## product
 
@@ -25,4 +25,3 @@ Use case: photorealistic-natural. Asset type: temporary fictional team portrait 
 Промпт:
 
 Use case: photorealistic-natural. Asset type: temporary fictional team portrait for ABB creative agency website. Single portrait of a fictional man aged 31, short brown hair, thin dark eyeglasses, washed charcoal overshirt. Contemporary understated editorial photography, relaxed thoughtful expression, looking at camera, chest-up centered composition with ample headroom, portrait 4:5. Soft side daylight, textured light gray studio wall, muted neutral colors, realistic skin texture, subtle film grain. Cohesive quiet art-direction, not glossy corporate stock. No props, no text, no logos, no watermark. Person entirely fictional. Save the generated asset.
-

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import styles from "./VolhonkaHero.module.css";
+import { CaseSiteLink } from "./CaseSiteLink";
 
 /*
  * Hero кейса «Металлобаза Волхонка».
@@ -57,6 +58,7 @@ export function VolhonkaHero() {
             Санкт-Петербурге: развиваем каталог, поддерживаем актуальность
             предложения и превращаем поисковый спрос в обращения.
           </p>
+          <CaseSiteLink href="https://metallobazav.ru/" caseHref="#brand" />
         </div>
 
         <div className={styles.metricsWrap}>
