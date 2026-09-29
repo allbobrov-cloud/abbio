@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { caseIndex, services } from "@/lib/content";
+import { operator } from "@/lib/legal";
 import { FooterContactForm } from "./FooterContactForm";
 import { FooterFrame } from "./FooterFrame";
 import styles from "./SiteFooter.module.css";
@@ -22,7 +23,7 @@ function Arrow() {
 /*
  * Футер сайта: панель «Есть задача?» с формой (скрывается там, где у страницы своя форма —
  * логика в FooterFrame), навигация по услугам, кейсам и разделам, нижняя строка и
- * крупный вордмарк ABBiO как подпись. Контактов (почта, телефон) нет — они ещё не утверждены.
+ * крупный вордмарк ABBiO как подпись. Телефон не указан до подтверждения владельцем.
  */
 export function SiteFooter() {
   return (
@@ -93,7 +94,9 @@ export function SiteFooter() {
 
       <div className={styles.bar}>
         <span>© {new Date().getFullYear()} ABBiO</span>
-        <span className={styles.scope}>Дизайн · Сайты · Маркетинг</span>
+        <span className={styles.requisites}>{operator.name} · ИНН {operator.inn} · ОГРНИП {operator.ogrnip}</span>
+        <a className={styles.policy} href={`mailto:${operator.email}`}>{operator.email}</a>
+        <Link className={styles.policy} href="/privacy">Политика обработки персональных данных</Link>
         <a className={styles.top} href="#main">
           Наверх <span aria-hidden="true">↑</span>
         </a>

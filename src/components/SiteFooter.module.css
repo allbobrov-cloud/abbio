@@ -73,6 +73,9 @@
 /* Нижняя строка */
 .bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 22px 0; border-top: 1px solid rgba(255, 255, 255, 0.08); color: #8f89a3; font-size: 13px; }
 .scope { letter-spacing: 0.08em; }
+.requisites { max-width: 38em; line-height: 1.5; }
+.policy { color: #d8d2e0; text-decoration: underline; text-decoration-color: rgba(216, 210, 224, 0.35); text-underline-offset: 3px; }
+.policy:hover, .policy:focus-visible { color: #fff; text-decoration-color: currentColor; }
 .top { display: inline-flex; align-items: center; gap: 10px; padding: 7px 7px 7px 16px; border: 1px solid rgba(221, 211, 246, 0.18); border-radius: 999px; color: #e2dcec; transition: border-color .25s ease, background .25s ease; }
 .top span { display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: rgba(183, 160, 239, 0.18); color: #e6dcff; transition: transform .25s ease; }
 .top:hover { border-color: var(--lav); background: rgba(183, 160, 239, 0.08); }
