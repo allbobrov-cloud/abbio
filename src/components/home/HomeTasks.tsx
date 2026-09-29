@@ -44,6 +44,7 @@ export function HomeTasks() {
   const [active, setActive] = useState(0);
   const tabs = useRef<(HTMLButtonElement | null)[]>([]);
   const stage = useRef<HTMLDivElement>(null);
+  const stageOrigin = useRef<{ left: number; top: number } | null>(null);
 
   const select = (index: number) => {
     const next = (index + situations.length) % situations.length;
@@ -60,9 +61,16 @@ export function HomeTasks() {
 
   const onPointerMove = (event: PointerEvent<HTMLDivElement>) => {
     if (event.pointerType !== "mouse" || !stage.current) return;
-    const rect = stage.current.getBoundingClientRect();
-    stage.current.style.setProperty("--mx", `${event.clientX - rect.left}px`);
-    stage.current.style.setProperty("--my", `${event.clientY - rect.top}px`);
+    const origin = stageOrigin.current;
+    if (!origin) return;
+    stage.current.style.setProperty("--mx", `${event.clientX - origin.left}px`);
+    stage.current.style.setProperty("--my", `${event.clientY - origin.top}px`);
+  };
+
+  const onPointerEnter = (event: PointerEvent<HTMLDivElement>) => {
+    if (event.pointerType !== "mouse") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    stageOrigin.current = { left: rect.left, top: rect.top };
   };
 
   return (
@@ -110,7 +118,7 @@ export function HomeTasks() {
             ))}
           </div>
 
-          <div ref={stage} className={styles.stage} role="tabpanel" id="task-panel" aria-labelledby={`task-tab-${active}`} onPointerMove={onPointerMove}>
+          <div ref={stage} className={styles.stage} role="tabpanel" id="task-panel" aria-labelledby={`task-tab-${active}`} onPointerEnter={onPointerEnter} onPointerMove={onPointerMove} onPointerLeave={() => { stageOrigin.current = null; }}>
             {situations.map((item, index) => {
               const on = index === active;
               return (

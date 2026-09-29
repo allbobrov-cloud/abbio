@@ -94,7 +94,7 @@
   background-clip: text;
   color: transparent;
 }
-@keyframes rise { from { opacity: 0; transform: translateY(24px); filter: blur(6px); } }
+@keyframes rise { from { opacity: 0; transform: translateY(24px); } }
 
 .lead { max-width: 30em; margin: clamp(20px, 3.4vh, 30px) 0 0; color: #cfc9dc; font-size: clamp(16px, min(1.35vw, 2.4vh), 21px); line-height: 1.5; animation: rise .9s .24s cubic-bezier(.22, 1, .36, 1) both !important; }
 

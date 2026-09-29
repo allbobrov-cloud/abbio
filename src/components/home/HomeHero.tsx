@@ -54,12 +54,13 @@ export function HomeHero() {
                     <Link
                       key={`${copy}-${item.slug}`}
                       href={`/cases/${item.slug}`}
+                      prefetch={false}
                       tabIndex={-1}
                       className={styles.tile}
                       style={{ "--tint": item.tint } as CSSProperties}
                     >
                       <span className={`${styles.shot} ${item.coverFit === "contain" ? styles.shotContain : ""}`}>
-                        <Image src={item.cover} alt="" fill sizes="(max-width: 900px) 40vw, 20vw" loading={copy === 0 ? "eager" : "lazy"} style={{ objectPosition: item.coverPosition }} />
+                        <Image src={item.cover} alt="" fill sizes="(max-width: 900px) 40vw, 20vw" priority={copy === 0 && (item.slug === "oss" || item.slug === "bogov")} fetchPriority={copy === 0 && (item.slug === "oss" || item.slug === "bogov") ? "high" : undefined} loading={copy === 0 && (item.slug === "oss" || item.slug === "bogov") ? "eager" : "lazy"} style={{ objectPosition: item.coverPosition }} />
                       </span>
                       <span className={styles.caption}>
                         <b>{item.name}</b>

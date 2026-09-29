@@ -2,13 +2,20 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   allowedDevOrigins: ["127.0.0.1"],
+  experimental: { inlineCss: true },
   async redirects() {
     return [
       {
-        source: "/:path*",
+        source: "/",
+        has: [{ type: "host", value: "www.abbio.ru" }],
+        destination: "https://abbio.ru/",
+        statusCode: 301,
+      },
+      {
+        source: "/:path+",
         has: [{ type: "host", value: "www.abbio.ru" }],
         destination: "https://abbio.ru/:path*",
-        permanent: true,
+        statusCode: 301,
       },
     ];
   },
