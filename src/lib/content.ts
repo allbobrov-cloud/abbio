@@ -28,9 +28,9 @@ export const steps = [
   { title: "Запускаем", text: "Проверяем, передаём результат и договариваемся о дальнейшем развитии." }
 ];
 
-// Состав команды подтверждён владельцем 29.09.2026.
+// Состав команды и портреты предоставлены владельцем 29.09.2026.
 export const team = [
-  { name: "Алексей Морозов", role: "Продукт и стратегия", image: "/team/product.avif" },
-  { name: "Анна Белова", role: "Дизайн", image: "/team/design.avif" },
-  { name: "Михаил Орлов", role: "Разработка", image: "/team/development.avif" }
+  { name: "Бобров Александр", role: "Продукт и стратегия", image: "/team/product.avif" },
+  { name: "Боброва Ирина", role: "Дизайн", image: "/team/design.avif" },
+  { name: "Егор Афанасьев", role: "Разработка", image: "/team/development.avif" }
 ];
