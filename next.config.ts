@@ -50,7 +50,8 @@ const nextConfig: NextConfig = {
     ];
   },
   images: {
-    formats: ["image/avif", "image/webp"],
+    // WebP is substantially faster to encode on the production server for cold image requests.
+    formats: ["image/webp"],
     qualities: [75, 100],
   }
 };
