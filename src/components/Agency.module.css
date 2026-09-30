@@ -124,7 +124,6 @@
 .pageHero .textLink{margin-top:30px}
 .pageDescription{font-size:18px;line-height:1.7;max-width:650px;color:#ada7bc;margin:0}
 .detailSection{padding:60px 0 20px}
-.notFoundActions{display:flex;flex-wrap:wrap;align-items:center;gap:16px 32px}
 .detailGrid{display:grid;grid-template-columns:1fr 1fr;gap:70px;margin-bottom:50px}
 .detailGrid h2{font-size:28px;font-weight:500;margin:0 0 20px;letter-spacing:-.7px}
 .detailGrid p,.detailGrid li{font-size:16px;color:#b1aabc;line-height:1.8}
