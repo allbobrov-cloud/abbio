@@ -4,6 +4,7 @@ import { AgencyHeader } from "@/components/AgencyHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import { ContactDialog } from "@/components/ContactDialog";
 import { CookieBanner } from "@/components/CookieBanner";
+import { ScrollReveal } from "@/components/ScrollReveal";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -34,7 +35,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" data-scroll-behavior="smooth">
-      <body><a className="skip-link" href="#main">Перейти к содержанию</a><AgencyHeader />{children}<SiteFooter /><ContactDialog /><CookieBanner /></body>
+      <body><a className="skip-link" href="#main">Перейти к содержанию</a><AgencyHeader />{children}<SiteFooter /><ContactDialog /><CookieBanner /><ScrollReveal /></body>
     </html>
   );
 }

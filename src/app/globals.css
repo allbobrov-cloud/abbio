@@ -54,3 +54,6 @@ button {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ScrollReveal: блок ниже экрана ждёт появления (атрибут ставит только JS). */
+[data-reveal="pending"] { opacity: 0 !important; }
