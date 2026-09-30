@@ -13,9 +13,9 @@ const CHOICE_LIFETIME = 180 * 24 * 60 * 60 * 1000;
 
 // Change this version and add exact providers/purposes below before enabling a category.
 // An acknowledgement of today's notice must never authorize future trackers.
-export const CONSENT_VERSION = "2026-09-29-no-optional-services";
+export const CONSENT_VERSION = "2026-09-30-yandex-metrika";
 export const OPTIONAL_SERVICES: Record<OptionalCategory, ServiceDetails | null> = {
-  analytics: null,
+  analytics: { label: "Аналитика Яндекс Метрики", description: "Помогает понять посещаемость и использование сайта. Включает Вебвизор и cookies Яндекса." },
   advertising: null,
 };
 

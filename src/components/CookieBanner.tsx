@@ -35,10 +35,12 @@ export function CookieBanner() {
   }, []);
 
   function choose(nextAnalytics: boolean, nextAdvertising: boolean) {
+    const wasEnabled = readCookieChoice()?.analytics === true;
     saveCookieChoice({ analytics: nextAnalytics, advertising: nextAdvertising });
     // If storage is blocked, the banner may reappear after a reload.
     setVisible(false);
     setShowSettings(false);
+    if (wasEnabled && !nextAnalytics) window.location.reload();
   }
 
   if (!visible) return null;
@@ -49,7 +51,7 @@ export function CookieBanner() {
         <div className={styles.copy}>
           <h2 id="cookie-banner-title">О cookies</h2>
           {hasOptionalServices ? (
-            <p id="cookie-banner-description">Аналитику и рекламу включим только с вашего согласия. <Link href="/privacy">Подробнее</Link></p>
+            <p id="cookie-banner-description">Яндекс Метрика помогает понять, как пользуются сайтом. Включим её только с вашего согласия. <Link href="/privacy">Подробнее</Link></p>
           ) : (
             <p id="cookie-banner-description">Аналитики и рекламных cookies пока нет. В браузере сохраняется только ваш выбор. <Link href="/privacy">Подробнее</Link></p>
           )}
@@ -76,7 +78,7 @@ export function CookieBanner() {
               ) : (
                 <button type="button" className={styles.secondary} onClick={() => setShowSettings(true)}>Настроить</button>
               )}
-              <button type="button" className={styles.primary} onClick={() => choose(true, true)}>Разрешить все</button>
+              <button type="button" className={styles.primary} onClick={() => choose(true, true)}>Разрешить аналитику</button>
             </>
           ) : (
             <button type="button" className={styles.primary} onClick={() => choose(false, false)}>Понятно</button>

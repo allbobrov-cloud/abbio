@@ -107,7 +107,7 @@ export function FooterContactForm({ variant = "footer" }: { variant?: Variant })
 
   return (
     <section className={`${styles.formSection}${rootClass}`} aria-label="Форма обратной связи">
-      <form className={styles.form} noValidate onSubmit={handleSubmit}>
+      <form className={`${styles.form} ym-hide-content`} noValidate onSubmit={handleSubmit}>
         <input className={styles.honeypot} type="text" name="website" value={website} onChange={(event) => setWebsite(event.target.value)} autoComplete="off" tabIndex={-1} aria-hidden="true" />
         <div className={styles.field}>
           <label htmlFor={`${id}-full-name`}>{text.nameLabel} <span aria-hidden="true">*</span></label>

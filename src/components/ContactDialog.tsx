@@ -153,7 +153,7 @@ export function ContactDialog() {
               <p id="contact-dialog-description">Опишите задачу — так будет проще подготовиться к разговору.</p>
             </div>
 
-            <form className={styles.form} noValidate onSubmit={handleSubmit}>
+            <form className={`${styles.form} ym-hide-content`} noValidate onSubmit={handleSubmit}>
               <input className={styles.honeypot} type="text" name="website" value={website} onChange={(event) => setWebsite(event.target.value)} autoComplete="off" tabIndex={-1} aria-hidden="true" />
               <div className={styles.field}>
                 <label htmlFor="contact-full-name">
