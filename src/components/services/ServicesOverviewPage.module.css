@@ -300,7 +300,7 @@
 /* ── Карточки направлений: слоистый фон + эффекты наведения (2026-09-29) ──────────────
    Фон: подсветка за курсором (--mx/--my от DirectionsSpotlight), точечная сетка, «аврора»
    цвета направления в углу. Рамка — градиент через маску на ::before. */
-@property --spot { syntax: "<percentage>"; inherits: false; initial-value: 0%; }
+@property --spot { syntax: "<percentage>"; inherits: false; initial-value: 0.01%; } /* не 0%: минификатор сокращает до 0, и правило становится недействительным */
 
 .directionGrid .direction { --accent: #b7a0ef; }
 .directionGrid .directionWebsites { --accent: #58b8e6; }
@@ -312,7 +312,7 @@
 .directionGrid .direction {
   border-color: transparent;
   background:
-    radial-gradient(480px circle at var(--mx, 50%) var(--my, -60%), color-mix(in srgb, var(--accent) var(--spot), transparent), transparent 62%),
+    radial-gradient(480px circle at var(--mx, 50%) var(--my, -60%), color-mix(in srgb, var(--accent) var(--spot, 0%), transparent), transparent 62%),
     radial-gradient(circle, rgba(255, 255, 255, 0.05) 1px, transparent 1.4px) 0 0 / 24px 24px,
     radial-gradient(ellipse 60% 85% at 100% 0%, color-mix(in srgb, var(--accent) 20%, transparent), transparent 68%),
     radial-gradient(ellipse 45% 60% at 0% 100%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%),

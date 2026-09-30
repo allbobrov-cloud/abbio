@@ -1,11 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import { team } from "@/lib/content";
+import { MobileFocus } from "./MobileFocus";
 import styles from "./HomeTeam.module.css";
 
 /*
  * «Люди за проектом»: портреты в тёмных карточках с лавандовым тонированием, имя и роль —
- * на стеклянной плашке.
+ * на стеклянной плашке. На телефоне карточка в центре ленты оживает как при наведении (MobileFocus), под лентой — точки.
  */
 export function HomeTeam() {
   return (
@@ -47,7 +48,10 @@ export function HomeTeam() {
             </li>
           ))}
         </ul>
-
+        <div className={styles.dots} aria-hidden="true">
+          {team.map((person) => <span key={person.name} />)}
+        </div>
+        <MobileFocus targetId="team" items="li" mode="carousel" dots={`.${styles.dots} span`} />
       </div>
     </section>
   );

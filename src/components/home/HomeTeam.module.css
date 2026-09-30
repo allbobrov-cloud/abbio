@@ -24,6 +24,7 @@
 .more:focus-visible { outline: 2px solid var(--lav); outline-offset: 3px; }
 
 .swipeHint { display: none; }
+.dots { display: none; }
 
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(14px, 1.6vw, 24px); margin: clamp(40px, 6vh, 64px) 0 0; padding: 0; list-style: none; }
 
@@ -108,4 +109,23 @@
   .grid { display: flex; gap: 14px; margin: 14px -20px 0; padding: 0 20px 6px; overflow-x: auto; scroll-padding-inline: 20px; scroll-snap-type: x mandatory; scrollbar-width: none; }
   .grid::-webkit-scrollbar { display: none; }
   .card { flex: 0 0 80%; border-radius: 22px; scroll-snap-align: start; }
+}
+
+/* Телефон: карточка в центре ленты «оживает» как при наведении, соседние приглушены */
+@media (max-width: 760px) {
+  .grid { padding-block: 10px 18px; }
+  .card {
+    transform: scale(0.94);
+    filter: brightness(0.72);
+    transition: transform .6s cubic-bezier(.22, 1, .36, 1), filter .6s ease, box-shadow .6s ease;
+  }
+  .card[data-focus] { transform: none; filter: none; box-shadow: 0 34px 70px -40px rgba(139, 98, 225, 0.9); }
+  .card[data-focus]::after { background: linear-gradient(160deg, rgba(221, 211, 246, 0.6), rgba(255, 255, 255, 0.06) 45%, rgba(183, 160, 239, 0.6)); }
+  .card[data-focus] .photo img { filter: grayscale(0.2) contrast(1.05) brightness(0.98); transform: scale(1.06); }
+  .card[data-focus] .photo::after { opacity: 0.75; }
+  .card[data-focus] .plate { border-color: rgba(201, 175, 255, 0.5); background: rgba(24, 18, 44, 0.62); transform: translateY(-4px); }
+
+  .dots { display: flex; justify-content: center; gap: 8px; margin-top: 4px; }
+  .dots span { width: 8px; height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.2); transition: width .45s cubic-bezier(.22, 1, .36, 1), background .45s ease; }
+  .dots span[data-focus] { width: 26px; background: linear-gradient(90deg, #d6c3ff, #b7a0ef); box-shadow: 0 0 12px rgba(183, 160, 239, 0.6); }
 }

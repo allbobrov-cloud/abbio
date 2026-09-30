@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { services } from "@/lib/content";
 import { DirectionsSpotlight } from "../services/DirectionsSpotlight";
+import { MobileFocus } from "./MobileFocus";
 import styles from "./HomeServices.module.css";
 
 type Slug = (typeof services)[number]["slug"];
@@ -51,7 +52,8 @@ const art: Record<Slug, ReactNode> = {
 
 /*
  * «Пять направлений»: бенто-сетка (2 широкие + 3), у каждого направления свой акцент,
- * линейная эмблема и подсветка за курсором. Тексты — из `services`.
+ * линейная эмблема и подсветка за курсором. На телефоне — стопка: карточки наезжают друг на друга,
+ * верхняя «оживает» как при наведении (MobileFocus). Тексты — из `services`.
  */
 export function HomeServices() {
   return (
@@ -70,9 +72,10 @@ export function HomeServices() {
         </header>
 
         <DirectionsSpotlight targetId="services" />
+        <MobileFocus targetId="services" items="article" mode="stack" />
         <div className={styles.grid}>
-          {services.map((service) => (
-            <article key={service.slug} className={styles.cell} style={{ "--accent": accents[service.slug] } as CSSProperties}>
+          {services.map((service, index) => (
+            <article key={service.slug} className={styles.cell} style={{ "--accent": accents[service.slug], "--i": index } as CSSProperties}>
               <Link href={`/services/${service.slug}`} className={styles.card}>
                 <svg className={styles.art} viewBox="0 0 120 104" aria-hidden="true">{art[service.slug]}</svg>
                 <span className={styles.num}>{service.number}</span>
