@@ -6,6 +6,7 @@ import deliverablesStyles from "./MarketingDeliverables.module.css";
 import ctaStyles from "./MarketingCta.module.css";
 import heroBlendStyles from "./MarketingHeroBlend.module.css";
 import { CasesBlock } from "@/components/cases/CasesBlock";
+import { QuestMark } from "@/components/QuestLayer";
 
 const reportDemoUrl = "https://docs.google.com/spreadsheets/d/1_t_nzlVjj-NE8Lvdqqsz3XC_L0DNfjz0K1nLGFqu1Tk/edit?gid=185043878#gid=185043878";
 
@@ -82,6 +83,7 @@ function CrmPipelineVisual() {
           </div>
           <h3>{stage.title}</h3>
           <p>{stage.text}</p>
+          {stage.title === "Ответственный" && <QuestMark id="marketing" label="Исследовать деталь маршрута обращения" />}
         </li>
       ))}
     </ol>

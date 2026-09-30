@@ -6,6 +6,7 @@ import { ContactDialog } from "@/components/ContactDialog";
 import { CookieBanner } from "@/components/CookieBanner";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { YandexMetrika } from "@/components/YandexMetrika";
+import { QuestLayer } from "@/components/QuestLayer";
 import { SITE_URL } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -36,7 +37,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" data-scroll-behavior="smooth">
-      <body><a className="skip-link" href="#main">Перейти к содержанию</a><AgencyHeader />{children}<SiteFooter /><ContactDialog /><CookieBanner /><ScrollReveal /><YandexMetrika /></body>
+      <body><QuestLayer><a className="skip-link" href="#main">Перейти к содержанию</a><AgencyHeader />{children}<SiteFooter /><ContactDialog /><CookieBanner /><ScrollReveal /><YandexMetrika /></QuestLayer></body>
     </html>
   );
 }

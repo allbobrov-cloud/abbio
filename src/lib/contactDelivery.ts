@@ -4,6 +4,7 @@ export type ContactPayload = {
   description: string;
   page: string;
   website: string;
+  quest?: { questId: string; completedAt: string; foundCount: 4 };
 };
 
 export async function submitContact(payload: ContactPayload): Promise<"telegram" | "email"> {

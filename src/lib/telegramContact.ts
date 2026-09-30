@@ -4,6 +4,7 @@ export type ContactSubmission = {
   description: string;
   page: string;
   website?: string;
+  quest?: { questId: string; completedAt: string; foundCount: 4 };
 };
 
 export function isTelegramContactEnabled() {
@@ -27,6 +28,15 @@ export function parseContactSubmission(value: unknown): ContactSubmission | null
   const phone = data.phone.trim();
   const description = data.description.trim();
   const page = data.page.trim();
+  let quest: ContactSubmission["quest"];
+  if (data.quest !== undefined) {
+    if (!data.quest || typeof data.quest !== "object" || Array.isArray(data.quest)) return null;
+    const claimed = data.quest as Record<string, unknown>;
+    if (page !== "/found" || claimed.foundCount !== 4 || typeof claimed.questId !== "string" ||
+      !/^Q-[A-Z0-9]{6,12}$/.test(claimed.questId) || typeof claimed.completedAt !== "string" ||
+      !Number.isFinite(Date.parse(claimed.completedAt))) return null;
+    quest = { questId: claimed.questId, completedAt: claimed.completedAt, foundCount: 4 };
+  }
   if (
     fullName.length < 2 || fullName.length > 120 ||
     /[\r\n\x00-\x1f]/.test(fullName) ||
@@ -36,14 +46,15 @@ export function parseContactSubmission(value: unknown): ContactSubmission | null
     (data.website && data.website.length > 200)
   ) return null;
 
-  return { fullName, phone, description, page, website: data.website };
+  return { fullName, phone, description, page, website: data.website, quest };
 }
 
 export function formatTelegramContact(submission: ContactSubmission) {
-  const { fullName, phone, description, page } = submission;
+  const { fullName, phone, description, page, quest } = submission;
   return [
-    "Новая заявка с сайта ABBiO",
+    quest ? "🎁 ЗАЯВКА С ФИНАЛА КВЕСТА ABBiO" : "Новая заявка с сайта ABBiO",
     "",
+    ...(quest ? ["Источник: квест ABBiO", "Находки: 4/4", "Награда: бесплатный созвон 60 минут", `Quest ID: ${quest.questId}`, `Пройден: ${quest.completedAt}`, ""] : []),
     `Имя: ${fullName}`,
     `Телефон: ${phone}`,
     `Задача: ${description || "Не указана"}`,

@@ -5,7 +5,7 @@ import { caseIndex, services } from "@/lib/content";
 import { absoluteUrl, SITE_URL } from "@/lib/seo";
 
 // The articles route is a placeholder and explicitly noindexed.
-const excludedPaths = new Set(["/articles"]);
+const excludedPaths = new Set(["/articles", "/found"]);
 
 function staticPagePaths(directory: string, segments: string[] = []): string[] {
   const paths: string[] = [];

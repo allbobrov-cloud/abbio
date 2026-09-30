@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import styles from "./DesignFlow.module.css";
+import { QuestMark } from "@/components/QuestLayer";
 
 const palette = [
   ["Cobalt", "#1649ed"], ["Orange", "#f45132"], ["Lime", "#d8fa69"],
@@ -63,7 +64,7 @@ export function DesignFlow() {
         <StepHeading number="03" name="Язык" title="Aa / цвет / сетка" />
         <div className={`${styles.surface} ${styles.kit}`}>
           <div className={styles.windowTitle}><b>UI kit</b><span>ARC 01</span></div>
-          <div className={styles.typeScale}><b>Aa</b><dl><div><dt>H1</dt><dd>Bold / 56</dd></div><div><dt>H2</dt><dd>Medium / 32</dd></div><div><dt>Body</dt><dd>Regular / 16</dd></div></dl></div>
+          <div className={styles.typeScale}><b>Aa</b><QuestMark id="design" label="Исследовать деталь типографики" /><dl><div><dt>H1</dt><dd>Bold / 56</dd></div><div><dt>H2</dt><dd>Medium / 32</dd></div><div><dt>Body</dt><dd>Regular / 16</dd></div></dl></div>
           <p className={styles.kitLabel}>Цвета</p><Colors names />
           <div className={styles.gridLabel}><b>Сетка</b><span>8px</span></div><div className={styles.gridPreview} aria-label="Модульная сетка с шагом 8 пикселей"><i /><i /><i /><i /><i /><i /></div>
           <p className={styles.kitLabel}>Компоненты</p><Actions />

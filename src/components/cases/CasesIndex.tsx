@@ -3,6 +3,7 @@ import type { CSSProperties } from "react";
 import { ActionArrow } from "@/components/ActionArrow";
 import { caseIndex } from "@/lib/content";
 import { CaseCard } from "./CaseCard";
+import { QuestMark } from "@/components/QuestLayer";
 import styles from "./CasesIndex.module.css";
 
 const num = (index: number) => String(index + 1).padStart(2, "0");
@@ -26,7 +27,7 @@ export function CasesIndex() {
               <br />
               <em>Что сделали и как это работает.</em>
             </h1>
-            <p className={styles.lead}>Задача → решение → что получилось.</p>
+            <p className={styles.lead}>Задача → решение → что получилось. <QuestMark id="cases" label="Исследовать деталь списка проектов" /></p>
           </div>
 
           <nav className={styles.toc} aria-label="Все кейсы">
