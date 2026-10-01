@@ -77,8 +77,9 @@ export function QuestLayer({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function QuestMark({ id, label, className = "" }: { id: QuestId; label: string; className?: string }) {
-  const { state, find } = useQuest();
+export function QuestMark({ id, label, className = "", firstHint = false }: { id: QuestId; label: string; className?: string; firstHint?: boolean }) {
+  const { state, hydrated, find } = useQuest();
   const found = state?.found.includes(id) ?? false;
-  return <button type="button" className={`${styles.mark} ${className}`} data-found={found} onClick={() => find(id)} aria-label={label} title={label}><span aria-hidden="true">✳</span></button>;
+  const showFirstHint = firstHint && hydrated && !state;
+  return <button type="button" className={`${styles.mark} ${className}`} data-found={found} data-first-hint={showFirstHint} onClick={() => find(id)} aria-label={showFirstHint ? `Нажмите на знак. ${label}` : label} title={label}><span aria-hidden="true">✳</span></button>;
 }

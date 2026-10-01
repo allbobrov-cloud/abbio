@@ -2,6 +2,10 @@
 .mark span{display:grid;place-items:center;width:24px;height:24px;border:1px solid rgba(228,173,97,.68);border-radius:50%;font-size:14px;line-height:1;box-shadow:0 0 14px rgba(219,160,72,.13)}
 .mark:hover,.mark:focus-visible{background:rgba(228,173,97,.18);color:#ffd39a;transform:rotate(35deg)}
 .mark[data-found=true]{color:#ad9980;opacity:.7}
+.mark[data-first-hint=true]{position:relative;isolation:isolate;background:#e4ad612b;color:#ffdda7;box-shadow:0 0 0 1px #e4ad61aa,0 0 24px #e4ad6170;animation:quest-first-glow 2.4s ease-in-out infinite}
+.mark[data-first-hint=true] span{border-color:#ffdda7;background:#e4ad612e;box-shadow:0 0 16px #e4ad6199}
+.mark[data-first-hint=true]::after{position:absolute;right:-8px;bottom:calc(100% + 10px);padding:7px 11px;border:1px solid #e4ad61a8;border-radius:8px;background:#211924;color:#ffe0ae;content:"Нажмите на знак";font-size:11px;font-weight:700;letter-spacing:.02em;line-height:1.2;white-space:nowrap;box-shadow:0 9px 24px #0008;pointer-events:none}
+@keyframes quest-first-glow{50%{box-shadow:0 0 0 5px #e4ad6128,0 0 30px #e4ad618c}}
 .mark:focus-visible,.indicator:focus-visible,.panel button:focus-visible,.panel a:focus-visible{outline:2px solid #ffd39a;outline-offset:3px}
 .indicator{position:fixed;z-index:90;right:24px;bottom:24px;display:flex;align-items:center;gap:9px;min-width:84px;min-height:44px;padding:8px 15px;border:1px solid rgba(222,173,101,.66);border-radius:99px;background:#15131b;color:#f8e8d4;font:600 12px/1.2 inherit;cursor:pointer;box-shadow:0 10px 30px #0006}
 .indicator span{color:#e4ad61;font-size:19px}
@@ -10,4 +14,4 @@
 .count{margin:28px 0 9px;color:#e5b378;font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}.panel h2{margin:0;font-size:clamp(25px,5vw,34px);font-weight:500;letter-spacing:-.055em;line-height:1.08}.intro{margin:12px 0 0;color:#d1c6d7;font-size:13px;line-height:1.55}
 .hint{margin-top:25px;padding-top:17px;border-top:1px solid #ffffff2a}.hint>span{display:block;color:#b99e80;font-size:10px;letter-spacing:.13em;text-transform:uppercase}.hint>a{display:inline-block;margin-top:7px;color:#f2c98e;font-size:16px;font-weight:650;text-decoration:underline;text-underline-offset:4px}.hint p{margin:11px 0 0;color:#e5dce8;font-size:13px;line-height:1.6}.hint button{margin-top:15px;padding:0;border:0;border-bottom:1px solid #c9ae8d;background:transparent;color:#c9ae8d;font:inherit;font-size:12px;cursor:pointer}.reward{display:flex;justify-content:space-between;gap:10px;align-items:center;min-height:49px;margin-top:23px;padding:11px 15px;border-radius:9px;background:#e4ad61;color:#20151d;font-size:13px;font-weight:700;text-decoration:none}
 @media(max-width:760px){.indicator{right:12px;top:88px;bottom:auto}.panel{right:12px;bottom:12px;max-height:calc(100dvh - 110px);overflow:auto;padding:20px}.panel h2{font-size:28px}}
-@media(prefers-reduced-motion:reduce){.mark{transition:none}}
+@media(prefers-reduced-motion:reduce){.mark{transition:none}.mark[data-first-hint=true]{animation:none}}
