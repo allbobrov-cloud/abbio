@@ -4,7 +4,7 @@
 .mark[data-found=true]{color:#ad9980;opacity:.7}
 .mark[data-first-hint=true]{position:relative;isolation:isolate;background:#e4ad612b;color:#ffdda7;box-shadow:0 0 0 1px #e4ad61aa,0 0 24px #e4ad6170;animation:quest-first-glow 2.4s ease-in-out infinite}
 .mark[data-first-hint=true] span{border-color:#ffdda7;background:#e4ad612e;box-shadow:0 0 16px #e4ad6199}
-.mark[data-first-hint=true]::after{position:absolute;right:-8px;bottom:calc(100% + 10px);padding:7px 11px;border:1px solid #e4ad61a8;border-radius:8px;background:#211924;color:#ffe0ae;content:"Нажмите на знак";font-size:11px;font-weight:700;letter-spacing:.02em;line-height:1.2;white-space:nowrap;box-shadow:0 9px 24px #0008;pointer-events:none}
+.mark[data-first-hint=true]::after{position:absolute;right:-8px;bottom:calc(100% + 10px);padding:7px 11px;border:1px solid #e4ad61a8;border-radius:8px;background:#211924;color:#ffe0ae;content:"Поиграем? Нажми";font-size:11px;font-weight:700;letter-spacing:.02em;line-height:1.2;white-space:nowrap;box-shadow:0 9px 24px #0008;pointer-events:none}
 @keyframes quest-first-glow{50%{box-shadow:0 0 0 5px #e4ad6128,0 0 30px #e4ad618c}}
 .mark:focus-visible,.indicator:focus-visible,.panel button:focus-visible,.panel a:focus-visible{outline:2px solid #ffd39a;outline-offset:3px}
 .indicator{position:fixed;z-index:90;right:24px;bottom:24px;display:flex;align-items:center;gap:9px;min-width:84px;min-height:44px;padding:8px 15px;border:1px solid rgba(222,173,101,.66);border-radius:99px;background:#15131b;color:#f8e8d4;font:600 12px/1.2 inherit;cursor:pointer;box-shadow:0 10px 30px #0006}

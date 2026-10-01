@@ -81,5 +81,5 @@ export function QuestMark({ id, label, className = "", firstHint = false }: { id
   const { state, hydrated, find } = useQuest();
   const found = state?.found.includes(id) ?? false;
   const showFirstHint = firstHint && hydrated && !state;
-  return <button type="button" className={`${styles.mark} ${className}`} data-found={found} data-first-hint={showFirstHint} onClick={() => find(id)} aria-label={showFirstHint ? `Нажмите на знак. ${label}` : label} title={label}><span aria-hidden="true">✳</span></button>;
+  return <button type="button" className={`${styles.mark} ${className}`} data-found={found} data-first-hint={showFirstHint} onClick={() => find(id)} aria-label={showFirstHint ? `Поиграем? Нажми. ${label}` : label} title={label}><span aria-hidden="true">✳</span></button>;
 }
