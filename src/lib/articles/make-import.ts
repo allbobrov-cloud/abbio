@@ -35,10 +35,10 @@ export async function importArticleHtml(html: string) {
   return { content, description: introduction.slice(0, 500), excerpt: introduction.slice(0, 350) };
 }
 
-export function importSlug(title: string, sourceId: string) {
+export function importSlug(title: string) {
   const alphabet: Record<string, string> = { а:"a", б:"b", в:"v", г:"g", д:"d", е:"e", ё:"yo", ж:"zh", з:"z", и:"i", й:"y", к:"k", л:"l", м:"m", н:"n", о:"o", п:"p", р:"r", с:"s", т:"t", у:"u", ф:"f", х:"h", ц:"ts", ч:"ch", ш:"sh", щ:"sch", ъ:"", ы:"y", ь:"", э:"e", ю:"yu", я:"ya" };
   const name = [...title.toLowerCase()].map(c => alphabet[c] ?? c).join("").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80).replace(/-$/g, "") || "article";
-  return `${name}-${sourceId.toLowerCase()}`;
+  return name;
 }
 
 export function importCategory(topic: string): ArticleCategory {

@@ -44,7 +44,7 @@ export async function publishedSitemap() {
 }
 export async function relatedPublished(current: Article) {
   const rows = await articlePool().query(`${publicSelect.replace("r.data\n", "r.data - 'content' AS data\n")} AND a.id<>$1
-    ORDER BY (a.slug=ANY($2::text[])) DESC, (r.data->>'category'=$3) DESC,
+    ORDER BY (a.slug=ANY($2::text[]) OR a.id IN (SELECT article_id FROM abbio_editorial.article_slug_aliases WHERE slug=ANY($2::text[]))) DESC, (r.data->>'category'=$3) DESC,
     (SELECT count(*) FROM jsonb_array_elements_text(r.data->'tags') t WHERE t=ANY($4::text[])) DESC,
     a.published_at DESC LIMIT 3`, [current.id, current.relatedArticles, current.category, current.tags]);
   return rows.rows.map(summary);
@@ -59,6 +59,13 @@ export async function getWorkingBySlug(slug: string): Promise<Article | null> {
   const result = await articlePool().query("SELECT id FROM abbio_editorial.articles WHERE slug=$1", [slug]);
   return result.rows[0] ? getWorking(result.rows[0].id) : null;
 }
+export async function allocateImportSlug(client: PoolClient, base: string, sourceId: string) {
+  await client.query("SELECT pg_advisory_xact_lock(hashtext('abbio-article-slugs'))");
+  if ((await client.query("SELECT id FROM abbio_editorial.articles WHERE source_id=$1", [sourceId])).rowCount) throw new ArticleError("source_conflict", 409);
+  let slug = base; let suffix = 2;
+  while ((await client.query("SELECT slug FROM abbio_editorial.articles WHERE slug=$1 UNION ALL SELECT slug FROM abbio_editorial.article_slug_aliases WHERE slug=$1", [slug])).rowCount) slug = `${base}-${suffix++}`;
+  return slug;
+}
 async function validateReferences(client: PoolClient, data: ArticleInput, ownSlug?: string) {
   const analysis = analyseMarkdown(data.content);
   const paths = [...new Set([...analysis.images, data.coverImage, data.ogImage].filter((v): v is string => Boolean(v)))];
@@ -69,15 +76,17 @@ async function validateReferences(client: PoolClient, data: ArticleInput, ownSlu
   }
   if (ownSlug && data.relatedArticles.includes(ownSlug)) throw new ArticleError("self_reference", 422);
   if (data.relatedArticles.length) {
-    const result = await client.query("SELECT slug FROM abbio_editorial.articles WHERE slug=ANY($1::text[])", [data.relatedArticles]);
+    const result = await client.query("SELECT slug FROM abbio_editorial.articles WHERE slug=ANY($1::text[]) UNION SELECT slug FROM abbio_editorial.article_slug_aliases WHERE slug=ANY($1::text[])", [data.relatedArticles]);
     if (result.rows.length !== data.relatedArticles.length) throw new ArticleError("related_article_not_found", 422);
+    if (ownSlug && (await client.query("SELECT 1 FROM abbio_editorial.article_slug_aliases old JOIN abbio_editorial.articles a ON a.id=old.article_id WHERE old.slug=ANY($1::text[]) AND a.slug=$2", [data.relatedArticles, ownSlug])).rowCount) throw new ArticleError("self_reference", 422);
   }
   return analysis;
 }
 export async function createArticle(client: PoolClient, slug: string, input: ArticleInput) {
   const data = parseInput(articleInputSchema, input);
   const analysis = await validateReferences(client, data, slug);
-  const existing = await client.query("SELECT id FROM abbio_editorial.articles WHERE slug=$1", [slug]);
+  await client.query("SELECT pg_advisory_xact_lock(hashtext('abbio-article-slugs'))");
+  const existing = await client.query("SELECT slug FROM abbio_editorial.articles WHERE slug=$1 UNION ALL SELECT slug FROM abbio_editorial.article_slug_aliases WHERE slug=$1", [slug]);
   if (existing.rowCount) throw new ArticleError("slug_conflict", 409);
   const id = randomUUID();
   await client.query("INSERT INTO abbio_editorial.articles(id,slug) VALUES($1,$2)", [id, slug]);

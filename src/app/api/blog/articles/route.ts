@@ -2,7 +2,7 @@ import { randomUUID, createHash } from "node:crypto";
 import sharp from "sharp";
 import { articleApi, authorizeArticles, mutateArticles } from "@/lib/articles/api";
 import { ArticleError, createSchema, parseInput } from "@/lib/articles/schema";
-import { createArticle, publishArticle } from "@/lib/articles/repository";
+import { allocateImportSlug, createArticle, publishArticle } from "@/lib/articles/repository";
 import { formText, importArticleHtml, importCategory, importSlug, makeCover, readMakeForm } from "@/lib/articles/make-import";
 
 export const runtime = "nodejs";
@@ -28,9 +28,10 @@ export async function POST(request: Request) {
       if (!["jpeg", "png", "webp", "avif", "heif"].includes(metadata.format ?? "") || (metadata.pages ?? 1) > 1) throw new Error("unsupported");
       cover = await image.rotate().resize({ width: 1920, height: 1920, fit: "inside", withoutEnlargement: true }).webp({ quality: 82 }).toBuffer({ resolveWithObject: true });
     } catch { throw new ArticleError("invalid_image", 422); }
-    const slug = importSlug(title, sourceId);
+    const baseSlug = importSlug(title);
     const fingerprint = { sourceId, title, html, topic, coverAlt, imageHash: createHash("sha256").update(rawImage).digest("hex") };
     return mutateArticles(request, fingerprint, async client => {
+      const slug = await allocateImportSlug(client, baseSlug, sourceId.toLowerCase());
       const assetId = randomUUID();
       const { data, info } = cover;
       await client.query("INSERT INTO abbio_editorial.article_assets(id,data,width,height) VALUES($1,$2,$3,$4)", [assetId, data, info.width, info.height]);
@@ -40,6 +41,7 @@ export async function POST(request: Request) {
       });
       void _slug; void _status;
       const draft = await createArticle(client, slug, input);
+      await client.query("UPDATE abbio_editorial.articles SET source_id=$2 WHERE id=$1", [draft.id, sourceId.toLowerCase()]);
       const published = await publishArticle(client, draft.id, draft.revision);
       return { ...published, url: `/articles/${published.slug}` };
     }, 201);
