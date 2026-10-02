@@ -36,3 +36,14 @@ CREATE TABLE IF NOT EXISTS abbio_editorial.api_operations (
 CREATE INDEX IF NOT EXISTS articles_public ON abbio_editorial.articles(published_at DESC) WHERE status = 'published';
 ALTER TABLE abbio_editorial.articles ADD COLUMN IF NOT EXISTS public_title text;
 CREATE UNIQUE INDEX IF NOT EXISTS articles_public_title ON abbio_editorial.articles(public_title) WHERE status = 'published';
+
+CREATE TABLE IF NOT EXISTS abbio_editorial.indexnow_outbox (
+  id bigserial PRIMARY KEY,
+  path text NOT NULL CHECK (path = '/articles' OR path ~ '^/articles/[a-z0-9-]+$'),
+  attempts integer NOT NULL DEFAULT 0,
+  next_attempt_at timestamptz NOT NULL DEFAULT now(),
+  last_status integer,
+  delivered_at timestamptz,
+  created_at timestamptz NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS indexnow_pending ON abbio_editorial.indexnow_outbox(next_attempt_at) WHERE delivered_at IS NULL;

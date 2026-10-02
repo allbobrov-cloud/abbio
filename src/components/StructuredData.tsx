@@ -1,13 +1,17 @@
 import { absoluteUrl } from "@/lib/seo";
 import type { Article } from "@/lib/articles/types";
+import { articleSeo } from "@/lib/articles/seo";
 
 export function ArticleJsonLd({ article }: { article: Article }) {
-  return <JsonLd data={{ "@context": "https://schema.org", "@type": "BlogPosting", headline: article.title,
-    description: article.description, image: absoluteUrl(article.ogImage ?? article.coverImage!),
+  const seo = articleSeo(article);
+  const url = absoluteUrl(`/articles/${article.slug}`);
+  return <JsonLd data={{ "@context": "https://schema.org", "@type": "BlogPosting", "@id": `${url}#article`, url, headline: article.title,
+    description: seo.description, image: absoluteUrl(article.ogImage ?? article.coverImage!),
+    inLanguage: "ru-RU", isAccessibleForFree: true, articleSection: seo.section, ...(article.tags.length ? { keywords: article.tags.join(", ") } : {}),
     datePublished: article.publishedAt, dateModified: article.updatedAt,
-    author: { "@type": article.author === "ABBiO" ? "Organization" : "Person", name: article.author, url: absoluteUrl("/") },
+    author: { "@type": article.author === "ABBiO" ? "Organization" : "Person", name: article.author, ...(article.author === "ABBiO" ? { url: absoluteUrl("/") } : {}) },
     publisher: { "@type": "Organization", name: "ABBiO", url: absoluteUrl("/") },
-    mainEntityOfPage: absoluteUrl(`/articles/${article.slug}`) }} />;
+    mainEntityOfPage: { "@type": "WebPage", "@id": url } }} />;
 }
 
 type Breadcrumb = { name: string; path: string };

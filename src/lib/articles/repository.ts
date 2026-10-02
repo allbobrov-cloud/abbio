@@ -2,6 +2,7 @@ import "server-only";
 import { randomUUID } from "node:crypto";
 import type { PoolClient } from "pg";
 import { articlePool } from "./db";
+import { queueArticleIndexNow } from "./indexnow";
 import { ArticleError, articleInputSchema, parseInput } from "./schema";
 import { analyseMarkdown } from "./markdown";
 import type { Article, ArticleInput, ArticleSummary, ArticleCategory } from "./types";
@@ -53,6 +54,10 @@ export async function getWorking(id: string, client?: PoolClient): Promise<Artic
   const rows = await db.query(`SELECT a.id, a.slug, a.status, r.revision, a.published_revision, a.published_at, r.created_at AS updated_at, r.reading_time, r.data
     FROM abbio_editorial.articles a JOIN abbio_editorial.article_revisions r ON r.article_id=a.id AND r.revision=a.latest_revision WHERE a.id=$1`, [id]);
   return rows.rows[0] ? article(rows.rows[0]) : null;
+}
+export async function getWorkingBySlug(slug: string): Promise<Article | null> {
+  const result = await articlePool().query("SELECT id FROM abbio_editorial.articles WHERE slug=$1", [slug]);
+  return result.rows[0] ? getWorking(result.rows[0].id) : null;
 }
 async function validateReferences(client: PoolClient, data: ArticleInput, ownSlug?: string) {
   const analysis = analyseMarkdown(data.content);
@@ -108,10 +113,12 @@ export async function publishArticle(client: PoolClient, id: string, expected: n
   const duplicateTitle = await client.query(`${publicSelect} AND a.id<>$1 AND COALESCE(r.data->>'seoTitle',r.data->>'title')=$2`, [id, current.seoTitle ?? current.title]);
   if (duplicateTitle.rowCount) throw new ArticleError("seo_title_conflict", 409);
   await client.query("UPDATE abbio_editorial.articles SET status='published',published_revision=$2,published_at=COALESCE(published_at,$3::timestamptz,now()),public_updated_at=now(),public_title=$4 WHERE id=$1", [id, expected, publishedAt ?? null, current.seoTitle ?? current.title]);
+  await queueArticleIndexNow(client, current.slug);
   return (await getWorking(id, client))!;
 }
 export async function unpublishArticle(client: PoolClient, id: string, expected: number) {
-  await lockArticle(client, id, expected);
+  const locked = await lockArticle(client, id, expected);
   await client.query("UPDATE abbio_editorial.articles SET status='draft' WHERE id=$1", [id]);
+  if (locked.status === "published") await queueArticleIndexNow(client, locked.slug);
   return (await getWorking(id, client))!;
 }

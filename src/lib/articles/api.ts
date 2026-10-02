@@ -1,9 +1,10 @@
 import "server-only";
 import { createHash, timingSafeEqual } from "node:crypto";
-import { NextResponse } from "next/server";
+import { after, NextResponse } from "next/server";
 import type { PoolClient } from "pg";
 import { articleTransaction } from "./db";
 import { ArticleError } from "./schema";
+import { flushIndexNow, indexNowEnabled } from "./indexnow";
 
 export function apiJson(body: unknown, status = 200) {
   return NextResponse.json(body, { status, headers: { "Cache-Control": "no-store", "X-Robots-Tag": "noindex, nofollow" } });
@@ -44,6 +45,7 @@ export async function mutateArticles(request: Request, payload: unknown, fn: (cl
     await client.query("INSERT INTO abbio_editorial.api_operations(key,fingerprint,response) VALUES($1,$2,$3)", [key, fingerprint, JSON.stringify(saved)]);
     return saved;
   });
+  if (indexNowEnabled()) after(flushIndexNow);
   return apiJson(response.data, response.status);
 }
 export async function articleApi(fn: () => Promise<Response>) {

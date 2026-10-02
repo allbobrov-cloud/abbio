@@ -9,13 +9,14 @@ import { ArticleError } from "./schema";
 import { analyseMarkdown, plainText, safeLink } from "./markdown";
 import type { ArticleCategory } from "./types";
 
-const allowed = new Set(["article", "section", "p", "h2", "h3", "h4", "ul", "ol", "li", "table", "thead", "tbody", "tfoot", "tr", "th", "td", "caption", "blockquote", "strong", "em", "b", "i", "br", "hr", "pre", "code", "a"]);
+const allowed = new Set(["article", "section", "p", "h1", "h2", "h3", "h4", "ul", "ol", "li", "table", "thead", "tbody", "tfoot", "tr", "th", "td", "caption", "blockquote", "strong", "em", "b", "i", "br", "hr", "pre", "code", "a"]);
 const converter = unified().use(rehypeParse, { fragment: true }).use(() => (tree: Root) => {
   visit(tree, "element", (node: Element) => {
     if (!allowed.has(node.tagName) || Object.keys(node.properties).some(p => /^on/i.test(p) || ["style", "src", "srcDoc"].includes(p))) throw new ArticleError("unsupported_article_html", 422);
     const href = node.tagName === "a" ? String(node.properties.href ?? "") : "";
     if (node.tagName === "a" && !safeLink(href)) throw new ArticleError("unsafe_link", 422);
     node.properties = href ? { href } : {};
+    if (node.tagName === "h1") node.tagName = "h2";
     if (node.tagName === "h4") node.tagName = "h3";
   });
 }).use(rehypeRemark).use(remarkGfm).use(remarkStringify, { bullet: "-", fences: true });
