@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { readdirSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { caseIndex, services } from "@/lib/content";
 import { absoluteUrl, SITE_URL } from "@/lib/seo";
@@ -10,27 +10,18 @@ export const runtime = "nodejs";
 // The article catalog is added separately once it contains published material.
 const excludedPaths = new Set(["/articles", "/found"]);
 
-function staticPagePaths(directory: string, segments: string[] = []): string[] {
-  const paths: string[] = [];
-
-  for (const entry of readdirSync(directory, { withFileTypes: true })) {
-    if (entry.isFile() && /^page\.[jt]sx?$/.test(entry.name)) {
-      paths.push(`/${segments.join("/")}`);
-    } else if (entry.isDirectory()) {
-      // Dynamic segments are expanded from their content sources below.
-      if (entry.name.startsWith("[") || entry.name.startsWith("@")) continue;
-      const nextSegments = entry.name.startsWith("(") ? segments : [...segments, entry.name];
-      paths.push(...staticPagePaths(join(directory, entry.name), nextSegments));
-    }
-  }
-
-  return paths;
+function staticPagePaths(): string[] {
+  // Source folders are absent in a standalone deployment; Next ships this manifest.
+  const manifest = JSON.parse(readFileSync(join(process.cwd(), ".next/server/app-paths-manifest.json"), "utf8")) as Record<string, string>;
+  return Object.keys(manifest)
+    .filter(path => path.endsWith("/page") && !path.split("/").some(segment => /^[\[@_]/.test(segment)))
+    .map(path => path.replace(/\/page$/, "").replace(/\/\([^/]+\)/g, "") || "/");
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articles = await publishedSitemap();
   const paths = new Set([
-    ...staticPagePaths(join(process.cwd(), "src", "app")),
+    ...staticPagePaths(),
     ...services.map(({ slug }) => `/services/${slug}`),
     ...caseIndex.map(({ slug }) => `/cases/${slug}`),
   ]);
