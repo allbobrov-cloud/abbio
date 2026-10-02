@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
 import styles from "./Agency.module.css";
-const items = [["Услуги", "/services"], ["Кейсы", "/cases"], ["Как работаем", "/process"]];
+const items = [["Услуги", "/services"], ["Кейсы", "/cases"], ["Как работаем", "/process"], ["Статьи", "/articles"]];
 export function AgencyHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();

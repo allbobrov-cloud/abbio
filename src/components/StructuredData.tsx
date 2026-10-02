@@ -1,4 +1,14 @@
 import { absoluteUrl } from "@/lib/seo";
+import type { Article } from "@/lib/articles/types";
+
+export function ArticleJsonLd({ article }: { article: Article }) {
+  return <JsonLd data={{ "@context": "https://schema.org", "@type": "BlogPosting", headline: article.title,
+    description: article.description, image: absoluteUrl(article.ogImage ?? article.coverImage!),
+    datePublished: article.publishedAt, dateModified: article.updatedAt,
+    author: { "@type": article.author === "ABBiO" ? "Organization" : "Person", name: article.author, url: absoluteUrl("/") },
+    publisher: { "@type": "Organization", name: "ABBiO", url: absoluteUrl("/") },
+    mainEntityOfPage: absoluteUrl(`/articles/${article.slug}`) }} />;
+}
 
 type Breadcrumb = { name: string; path: string };
 

@@ -24,6 +24,13 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
+        source: "/api/articles/:path*",
+        headers: [
+          { key: "X-Robots-Tag", value: "noindex, nofollow" },
+          { key: "Cache-Control", value: "no-store" },
+        ],
+      },
+      {
         source: "/:path*",
         headers: [
           { key: "Strict-Transport-Security", value: "max-age=604800" },

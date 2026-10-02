@@ -5,23 +5,40 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
+    "prestart": "node scripts/articles-migrate.mjs",
     "start": "next start",
     "lint": "eslint .",
-    "indexnow": "node scripts/indexnow.mjs"
+    "indexnow": "node scripts/indexnow.mjs",
+    "articles:migrate": "node scripts/articles-migrate.mjs"
   },
   "dependencies": {
     "next": "16.3.7",
+    "pg": "^8.23.1",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "react-markdown": "^10.1.0",
+    "rehype-parse": "^9.0.1",
+    "rehype-remark": "^10.0.1",
+    "remark-directive": "^4.0.0",
+    "remark-gfm": "^4.0.1",
+    "remark-parse": "^11.0.0",
+    "remark-stringify": "^11.0.0",
+    "server-only": "^0.0.1",
+    "sharp": "^0.35.5",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "latest",
     "@next/swc-wasm-nodejs": "16.3.7",
     "@types/node": "latest",
+    "@types/pg": "^8.23.1",
     "@types/react": "latest",
     "@types/react-dom": "latest",
     "eslint": "latest",
     "eslint-config-next": "16.3.7",
+    "tsx": "^4.23.15",
     "typescript": "latest"
   }
 }

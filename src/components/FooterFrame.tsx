@@ -41,7 +41,7 @@ export function FooterFrame({
 }) {
   const pathname = usePathname();
   const own =
-    PAGES_WITH_OWN_CONTACT.includes(pathname) || !KNOWN_ROUTES.has(pathname);
+    PAGES_WITH_OWN_CONTACT.includes(pathname) || (!KNOWN_ROUTES.has(pathname) && !pathname.startsWith("/articles/"));
 
   return (
     <footer id="contacts" className={own ? `${className} ${compactClassName}` : className}>
