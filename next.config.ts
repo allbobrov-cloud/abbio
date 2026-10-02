@@ -18,6 +18,7 @@ const contentSecurityPolicy = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  outputFileTracingIncludes: { "/*": ["./migrations/articles/001_editorial.sql"] },
   allowedDevOrigins: ["127.0.0.1"],
   experimental: { inlineCss: true },
   poweredByHeader: false,
