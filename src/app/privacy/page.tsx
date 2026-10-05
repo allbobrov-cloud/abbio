@@ -20,7 +20,7 @@ export default function PrivacyPage() {
         <Link href="/" className={styles.back}>← На главную</Link>
         <p className={styles.eyebrow}>Документы · ABBiO</p>
         <h1>Политика обработки персональных данных</h1>
-        <p className={styles.updated}>Редакция от 30 сентября 2026 года</p>
+        <p className={styles.updated}>Редакция от 5 октября 2026 года</p>
 
         <div className={styles.content}>
           <section>
