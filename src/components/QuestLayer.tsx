@@ -65,8 +65,8 @@ export function QuestLayer({ children }: { children: React.ReactNode }) {
   return (
     <QuestContext.Provider value={{ state, hydrated, find }}>
       {children}
-      {pathname !== "/found" && state && !panel && <button className={styles.indicator} type="button" onClick={() => setOpen(true)} aria-label={`Открыть найденное: ${state.found.length} из 4`}><span aria-hidden="true">✳</span>{state.found.length} / 4</button>}
-      {panel && <aside className={styles.panel} aria-label="Найденные детали" aria-live="polite">
+      {pathname !== "/found" && state && !panel && <button className={styles.indicator} data-agency-chrome type="button" onClick={() => setOpen(true)} aria-label={`Открыть найденное: ${state.found.length} из 4`}><span aria-hidden="true">✳</span>{state.found.length} / 4</button>}
+      {panel && <aside className={styles.panel} data-agency-chrome aria-label="Найденные детали" aria-live="polite">
         <div className={styles.panelTop}><span>Скрытый слой / ABBiO</span><button type="button" onClick={() => { setToast(false); setOpen(false); }} aria-label="Закрыть подсказку">×</button></div>
         <p className={styles.count}>Найдено {state.found.length} / 4</p>
         <h2>{state.found.length === 4 ? "Вы нашли всё." : state.found.length === 1 ? "Что-то нашли." : state.found.length === 2 ? "Это уже не случайность." : "Осталась одна деталь."}</h2>

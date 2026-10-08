@@ -8,7 +8,7 @@ export function AgencyHeader() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const toggle = useRef<HTMLButtonElement>(null);
-  return <header className={styles.header} onKeyDown={event => { if (event.key === "Escape" && open) { setOpen(false); toggle.current?.focus(); } }}><div className={styles.headerInner}>
+  return <header className={styles.header} data-agency-chrome onKeyDown={event => { if (event.key === "Escape" && open) { setOpen(false); toggle.current?.focus(); } }}><div className={styles.headerInner}>
     <Link href="/" className={styles.brand} onClick={() => setOpen(false)} aria-label="Агентство ABBiO — главная"><span className={styles.brandWordmark} aria-hidden="true"><span className={styles.brandCore}>ABB</span><span className={styles.brandI}>i</span><span className={styles.brandO}>O</span></span><small>дизайн · сайты · маркетинг</small></Link>
     <button className={styles.menuButton} ref={toggle} type="button" aria-expanded={open} aria-controls="main-navigation" aria-label={open ? "Закрыть меню" : "Открыть меню"} onClick={() => setOpen(!open)}><span /><span /><span /></button>
     {open && <button className={styles.menuBackdrop} type="button" aria-hidden="true" tabIndex={-1} onClick={() => setOpen(false)} />}

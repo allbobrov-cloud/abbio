@@ -44,7 +44,7 @@ export function FooterFrame({
     PAGES_WITH_OWN_CONTACT.includes(pathname) || (!KNOWN_ROUTES.has(pathname) && !pathname.startsWith("/articles/"));
 
   return (
-    <footer id="contacts" className={own ? `${className} ${compactClassName}` : className}>
+    <footer id="contacts" data-agency-chrome className={own ? `${className} ${compactClassName}` : className}>
       <div className={containerClassName}>
         {!own && contact}
         {children}

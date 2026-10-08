@@ -1,0 +1,87 @@
+.grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+@media (min-width: 960px) {
+  .grid { grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); }
+  .cities { grid-column: 1 / -1; }
+}
+
+/* ---------- Фото объекта ---------- */
+.photo {
+  position: relative;
+  margin: 0;
+  min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px var(--np-line), 0 40px 90px -50px rgba(0, 0, 0, 0.9);
+}
+.photo img { object-fit: cover; }
+.photo::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(6, 7, 12, 0) 45%, rgba(6, 7, 12, 0.92) 100%);
+}
+.photo::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 28px;
+  right: 28px;
+  bottom: 0;
+  height: 2px;
+  background: var(--np-beam);
+  box-shadow: 0 0 20px rgba(236, 59, 67, 0.8);
+}
+.photoCaption { position: absolute; z-index: 1; left: clamp(22px, 3vw, 36px); bottom: clamp(22px, 3vw, 32px); display: grid; gap: 6px; }
+.photoCaption strong { font-size: clamp(30px, 3.4vw, 48px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; }
+.photoCaption > span:last-child { color: var(--np-ink-2); font-size: 15px; }
+.live { display: inline-flex; align-items: center; gap: 8px; justify-self: start; padding: 5px 11px; border-radius: 999px; font-size: 13px; font-weight: 600; background: rgba(6, 7, 12, 0.6); backdrop-filter: blur(8px); box-shadow: inset 0 0 0 1px var(--np-line-2); }
+.live i { width: 8px; height: 8px; border-radius: 50%; background: #3ccf7e; box-shadow: 0 0 0 3px rgba(60, 207, 126, 0.22), 0 0 12px #3ccf7e; animation: pulse 2.4s ease-in-out infinite; }
+@keyframes pulse { 50% { box-shadow: 0 0 0 6px rgba(60, 207, 126, 0.08), 0 0 16px #3ccf7e; } }
+
+/* ---------- Цифры ---------- */
+.stats { display: grid; gap: 12px; }
+.stat {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+  padding: 24px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015));
+  box-shadow: inset 0 0 0 1px var(--np-line);
+}
+.statHead { display: grid; gap: 6px; }
+.statHead strong { font-size: clamp(38px, 3.6vw, 54px); font-weight: 500; letter-spacing: -0.045em; line-height: 1; }
+.statHead strong span { font-size: 0.5em; letter-spacing: -0.02em; color: var(--np-ink-2); }
+.statHead > span { font-size: 15px; color: var(--np-ink-2); }
+.stat small { font-size: 13px; color: var(--np-ink-3); }
+.meter { position: relative; height: 8px; border-radius: 8px; background: rgba(255, 255, 255, 0.07); overflow: hidden; }
+.meter span { position: absolute; inset: 0 auto 0 0; border-radius: 8px; background: var(--np-beam); box-shadow: 0 0 16px rgba(236, 59, 67, 0.6); }
+.statAccent {
+  background:
+    radial-gradient(80% 90% at 100% 0%, rgba(236, 59, 67, 0.3), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.015));
+  box-shadow: inset 0 0 0 1px rgba(255, 120, 130, 0.3);
+}
+.statAccent .statHead strong { color: var(--np-red-2); }
+
+/* ---------- Города ---------- */
+.cities { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.cities a {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  padding: 20px 56px 20px 22px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.03);
+  box-shadow: inset 0 0 0 1px var(--np-line);
+  transition: background-color 0.25s ease, box-shadow 0.25s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cities a:hover { background: rgba(255, 255, 255, 0.06); box-shadow: inset 0 0 0 1px rgba(255, 130, 140, 0.4); transform: translateY(-2px); }
+.cityName { font-size: 19px; font-weight: 550; letter-spacing: -0.02em; }
+.cityHost { font-size: 14px; color: var(--np-violet-2); }
+.cityIcon { position: absolute; top: 50%; right: 20px; width: 20px; height: 20px; color: var(--np-ink-2); transform: translateY(-50%); }
+
+@media (max-width: 640px) {
+  .photo { min-height: 300px; }
+  .stat { padding: 20px; }
+}

@@ -1,0 +1,89 @@
+.scene { position: relative; padding: 0 0 40px 28px; }
+
+.browser {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #0f1118;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 50px 100px -40px rgba(0, 0, 0, 0.95), 0 0 80px -30px rgba(236, 59, 67, 0.5);
+  transform: perspective(1400px) rotateY(-7deg) rotateX(2deg);
+  transform-origin: 30% 50%;
+}
+.browser::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 24px;
+  right: 24px;
+  height: 2px;
+  background: var(--np-beam);
+  box-shadow: 0 0 18px rgba(236, 59, 67, 0.8);
+}
+.chrome { display: flex; align-items: center; gap: 14px; padding: 12px 16px; background: rgba(255, 255, 255, 0.04); border-bottom: 1px solid var(--np-line); }
+.dots { display: flex; gap: 6px; }
+.dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255, 255, 255, 0.16); }
+.url { flex: 1; padding: 5px 12px; border-radius: 8px; font-size: 13px; color: var(--np-ink-2); background: rgba(255, 255, 255, 0.05); }
+
+.page { display: grid; gap: 14px; padding: 18px 20px 22px; }
+.top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.top img { display: block; height: 25px; width: auto; }
+.city { display: inline-flex; align-items: center; gap: 6px; padding: 5px 10px; border-radius: 999px; font-size: 13px; font-weight: 600; background: rgba(236, 59, 67, 0.16); color: #ffb0b4; box-shadow: inset 0 0 0 1px rgba(255, 110, 118, 0.4); }
+.city svg { width: 14px; height: 14px; }
+.title { margin: 0; font-size: 22px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.15; }
+
+.partner {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(236, 59, 67, 0.22), rgba(183, 160, 239, 0.12));
+  box-shadow: inset 0 0 0 1px rgba(255, 130, 140, 0.45), 0 0 30px -10px rgba(236, 59, 67, 0.6);
+}
+.partnerLabel { font-size: 12px; font-weight: 600; color: var(--np-ink-2); }
+.partner strong { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
+.phone { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: var(--np-ink); }
+.phone svg { width: 15px; height: 15px; color: var(--np-red-2); }
+
+.photos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.photo { position: relative; aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; box-shadow: inset 0 0 0 1px var(--np-line); }
+.photo img { object-fit: cover; }
+.meta { display: flex; flex-wrap: wrap; gap: 6px; }
+.meta span { padding: 5px 10px; border-radius: 999px; font-size: 12px; color: var(--np-ink-2); background: rgba(255, 255, 255, 0.05); box-shadow: inset 0 0 0 1px var(--np-line); }
+
+/* Всплывающее уведомление о заявке. */
+.toast {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px 12px 12px;
+  border-radius: 16px;
+  background: rgba(14, 16, 23, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.14), 0 24px 50px -20px rgba(0, 0, 0, 0.9);
+  animation: float 5s ease-in-out infinite;
+}
+.toastIcon { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 12px; background: var(--np-red); box-shadow: 0 0 22px rgba(236, 59, 67, 0.8); }
+.toastIcon svg { width: 20px; height: 20px; }
+.toast span:last-child { display: grid; }
+.toast strong { font-size: 15px; font-weight: 600; }
+.toast small { font-size: 13px; color: var(--np-ink-2); }
+@keyframes float { 50% { transform: translateY(-6px); } }
+
+.note { position: absolute; right: 4px; bottom: 6px; font-size: 12px; color: var(--np-ink-3); }
+
+@media (max-width: 960px) {
+  .scene { padding: 24px 0 40px; }
+  .browser { transform: none; }
+  .note { top: 0; bottom: auto; right: 0; }
+}
+
+/* На невысоких десктопных экранах макет уменьшается, чтобы первый экран помещался целиком. */
+@media (min-width: 961px) and (max-height: 820px) { .scene { zoom: 0.86; } }
+@media (min-width: 961px) and (max-height: 700px) { .scene { zoom: 0.74; } }
+@media (min-width: 961px) and (max-height: 600px) { .scene { zoom: 0.64; } }

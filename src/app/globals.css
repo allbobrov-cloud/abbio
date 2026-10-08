@@ -60,3 +60,10 @@ button {
 body:has(#found-page) > header,
 body:has(#found-page) > footer,
 body:has(#found-page) > .skip-link { display: none; }
+
+/* np.abbio.ru: у раздела «Потолки Всем для бизнеса» своя шапка и подвал. */
+body:has([data-np-root]) [data-agency-chrome] { display: none !important; }
+html:has([data-np-root]) { color-scheme: dark; }
+body:has([data-np-root]) { background: #06070c; color: #f4f5f8; }
+body:has([data-np-root]) ::selection { background: #ec3b43; color: #fff; }
+body:has([data-np-root]) :focus-visible { outline-color: #d4c4ff; outline-offset: 3px; }

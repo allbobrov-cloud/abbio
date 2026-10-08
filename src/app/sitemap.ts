@@ -1,4 +1,6 @@
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
+import { isNpHost } from "@/lib/np/host";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { caseIndex, services } from "@/lib/content";
@@ -19,6 +21,9 @@ function staticPagePaths(): string[] {
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  // На np.abbio.ru (закрытый раздел) карта сайта пустая.
+  const requestHeaders = await headers();
+  if (isNpHost(requestHeaders.get("x-forwarded-host") ?? requestHeaders.get("host"))) return [];
   const articles = await publishedSitemap();
   const paths = new Set([
     ...staticPagePaths(),
@@ -27,7 +32,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ]);
 
   const existing = [...paths]
-    .filter((path) => !excludedPaths.has(path))
+    // /np — внутренний маршрут закрытого раздела np.abbio.ru.
+    .filter((path) => !excludedPaths.has(path) && path !== "/np" && !path.startsWith("/np/"))
     .sort((a, b) => (a === "/" ? -1 : b === "/" ? 1 : a.localeCompare(b)))
     .map((path) => ({ url: path === "/" ? SITE_URL : absoluteUrl(path) }));
   return [...existing, ...(articles.length ? [{ url: absoluteUrl("/articles"), lastModified: articles.reduce((latest, item) => item.updatedAt > latest ? item.updatedAt : latest, articles[0].updatedAt) }] : []),

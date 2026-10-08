@@ -1,0 +1,62 @@
+.scene {
+  position: relative;
+  min-height: 300px;
+  height: 100%;
+  padding: 28px 28px 28px 28px;
+  background:
+    radial-gradient(60% 70% at 30% 40%, rgba(183, 160, 239, 0.18), transparent 70%),
+    radial-gradient(50% 60% at 85% 80%, rgba(236, 59, 67, 0.2), transparent 70%);
+}
+
+/* Поисковая выдача */
+.search {
+  position: relative;
+  width: min(440px, 88%);
+  padding: 16px;
+  border-radius: 18px;
+  background: #f6f6f8;
+  color: #1a1b20;
+  box-shadow: 0 30px 70px -30px rgba(0, 0, 0, 0.9);
+  transform: rotate(-2deg);
+}
+.query { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; background: #fff; box-shadow: inset 0 0 0 2px #ffcc00; font-size: 14px; }
+.query svg { width: 18px; height: 18px; color: #8a8d96; flex-shrink: 0; }
+.ad { position: relative; margin-top: 14px; padding: 14px; border-radius: 12px; background: #fff; box-shadow: 0 0 0 2px rgba(236, 59, 67, 0.55), 0 0 30px rgba(236, 59, 67, 0.35); }
+.adMark { display: inline-block; padding: 2px 7px; border-radius: 5px; font-size: 11px; font-weight: 600; color: #6b6e77; background: #eceef2; }
+.adUrl { margin: 8px 0 2px; font-size: 12px; color: #1f8a3a; }
+.adTitle { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.25; color: #1d3fb8; }
+.adText { margin: 4px 0 0; font-size: 13px; line-height: 1.4; color: #4b4e57; }
+.adLinks { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; font-size: 13px; color: #1d3fb8; }
+.organic { display: grid; gap: 8px; margin-top: 14px; padding: 0 4px; }
+.organic i { display: block; height: 8px; border-radius: 4px; background: #dfe1e7; }
+.organic i:nth-child(1) { width: 70%; }
+.organic i:nth-child(2) { width: 92%; }
+.organic i:nth-child(3) { width: 55%; }
+
+/* Баннер РСЯ */
+.banner {
+  position: absolute;
+  right: 28px;
+  bottom: 28px;
+  width: 230px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  color: #1a1b20;
+  box-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.9), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  transform: rotate(3deg);
+}
+.bannerPhoto { position: relative; aspect-ratio: 16 / 9; }
+.bannerPhoto img { object-fit: cover; }
+.bannerBody { display: grid; gap: 6px; padding: 12px; }
+.bannerBody p { margin: 0; font-size: 14px; font-weight: 600; line-height: 1.3; }
+.bannerCta { justify-self: start; padding: 6px 12px; border-radius: 8px; font-size: 13px; font-weight: 600; color: #fff; background: #ec3b43; }
+
+.note { position: absolute; right: 28px; top: 18px; font-size: 12px; color: var(--np-ink-3); }
+
+@media (max-width: 640px) {
+  .scene { min-height: 0; padding: 20px 20px 52px; }
+  .search { width: 100%; transform: none; }
+  .banner { position: relative; right: auto; bottom: auto; width: 70%; margin: -24px 0 0 auto; }
+  .note { top: auto; right: auto; left: 20px; bottom: 18px; }
+}

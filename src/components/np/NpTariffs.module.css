@@ -1,0 +1,119 @@
+.wrap {
+  position: relative;
+  display: grid;
+  gap: 28px;
+  padding: clamp(22px, 3vw, 36px);
+  border-radius: 24px;
+  background:
+    radial-gradient(70% 60% at 85% 0%, rgba(183, 160, 239, 0.14), transparent 70%),
+    radial-gradient(60% 60% at 10% 100%, rgba(236, 59, 67, 0.16), transparent 70%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.012));
+  box-shadow: inset 0 0 0 1px var(--np-line);
+}
+
+/* ---------- Переключатель сценария ---------- */
+.toggleRow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+.toggleLabel { font-size: 15px; font-weight: 600; color: var(--np-ink-2); }
+.toggle {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: inset 0 0 0 1px var(--np-line);
+}
+.toggle button {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--np-ink-2);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+}
+.toggle button:hover { color: var(--np-ink); }
+.toggle button[aria-checked="true"] { color: #fff; background: linear-gradient(135deg, #f0444c, #c0306a); box-shadow: 0 8px 24px -10px rgba(236, 59, 67, 0.9); }
+.wrap:not([data-reached]) .toggle button[aria-checked="true"] { background: #2a2d36; box-shadow: inset 0 0 0 1px var(--np-line-2); }
+
+/* ---------- Лестница ---------- */
+.stairs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+.stage { display: grid; gap: 12px; }
+.column { position: relative; height: 300px; display: flex; flex-direction: column; justify-content: flex-end; gap: 12px; }
+.price { margin: 0; font-size: clamp(22px, 2.3vw, 34px); font-weight: 500; letter-spacing: -0.04em; line-height: 1; white-space: nowrap; transition: color 0.4s ease; }
+.upTo { font-size: 0.5em; letter-spacing: 0; color: var(--np-ink-3); font-weight: 550; }
+.rub { font-size: 0.7em; color: var(--np-ink-2); }
+.bar {
+  position: relative;
+  height: var(--h);
+  border-radius: 14px 14px 6px 6px;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--c) 34%, transparent), rgba(255, 255, 255, 0.02) 90%);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--c) 34%, transparent);
+  transition: height 0.7s cubic-bezier(0.22, 1, 0.36, 1), background 0.5s ease;
+}
+/* Световая кромка ступени. */
+.bar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12px;
+  right: 12px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--c);
+  box-shadow: 0 0 16px var(--c), 0 0 36px var(--c);
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+.stage:nth-child(1) { --c: #ff4b53; }
+.stage:nth-child(2) { --c: #f25a7a; }
+.stage:nth-child(3) { --c: #d07cc4; }
+.stage:nth-child(4) { --c: #b7a0ef; }
+.stage:nth-child(1) .bar { background: linear-gradient(180deg, rgba(236, 59, 67, 0.8), rgba(150, 25, 45, 0.3)); box-shadow: 0 24px 60px -24px rgba(236, 59, 67, 0.8); }
+.wrap:not([data-reached]) .stage:not(:first-child) { --c: #5d6270; }
+.wrap:not([data-reached]) .stage:not(:first-child) .price { color: var(--np-ink-2); }
+
+/* «Ворота» показателей на левой кромке ступени. */
+.gate {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(8, 9, 14, 0.7);
+  box-shadow: inset 0 0 0 1px var(--np-line-2);
+  color: #5fe39a;
+  transform: translateX(-50%);
+  transition: color 0.3s ease;
+}
+.gate svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.wrap:not([data-reached]) .gate { color: #ff8d93; }
+
+.months { margin: 0; padding-top: 12px; border-top: 1px solid var(--np-line-2); font-size: 14px; font-weight: 600; color: var(--np-ink-2); }
+.stage:first-child .months { color: var(--np-red-2); border-top-color: var(--np-red); }
+.caption { margin: 0; min-height: 3em; font-size: 15px; color: var(--np-ink-2); }
+
+@media (max-width: 640px) {
+  .toggle button { padding: 0 12px; font-size: 14px; }
+  .column { height: 220px; }
+  .stairs { gap: 6px; }
+  .price { font-size: 17px; }
+  .upTo { display: block; font-size: 11px; margin-bottom: 2px; }
+  .gate { top: 10px; width: 24px; height: 24px; }
+  .months { font-size: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar { transition: none; }
+}

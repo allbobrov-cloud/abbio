@@ -19,7 +19,7 @@ const contentSecurityPolicy = [
 
 const nextConfig: NextConfig = {
   outputFileTracingIncludes: { "/*": ["./migrations/articles/001_editorial.sql"] },
-  allowedDevOrigins: ["127.0.0.1"],
+  allowedDevOrigins: ["127.0.0.1", "np.localhost"],
   experimental: { inlineCss: true },
   poweredByHeader: false,
   async headers() {
@@ -30,6 +30,12 @@ const nextConfig: NextConfig = {
           { key: "X-Robots-Tag", value: "noindex, nofollow" },
           { key: "Cache-Control", value: "no-store" },
         ],
+      },
+      {
+        // np.abbio.ru — раздел для потолочных компаний, открывается только по ссылке.
+        source: "/:path*",
+        has: [{ type: "host", value: "np.abbio.ru" }],
+        headers: [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }],
       },
       {
         source: "/:path*",

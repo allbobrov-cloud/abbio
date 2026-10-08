@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { isTelegramContactEnabled, parseContactSubmission, sendTelegramContact } from "@/lib/telegramContact";
 import { SITE_URL } from "@/lib/seo";
+import { NP_URL } from "@/lib/np/content";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -22,8 +23,8 @@ export async function POST(request: NextRequest) {
   if (!isTelegramContactEnabled()) return noStoreJson({ error: "not_configured" }, 503);
 
   const origin = request.headers.get("origin");
-  const expectedOrigin = process.env.NODE_ENV === "production" ? SITE_URL : request.nextUrl.origin;
-  if (origin && origin !== expectedOrigin) return noStoreJson({ error: "invalid_origin" }, 403);
+  const expectedOrigins = process.env.NODE_ENV === "production" ? [SITE_URL, NP_URL] : [request.nextUrl.origin];
+  if (origin && !expectedOrigins.includes(origin)) return noStoreJson({ error: "invalid_origin" }, 403);
   if (!request.headers.get("content-type")?.startsWith("application/json")) {
     return noStoreJson({ error: "invalid_content_type" }, 415);
   }
