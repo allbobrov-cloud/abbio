@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import { cases, services } from "@/lib/content";
+import { isNpHost, NP_PREFIX } from "@/lib/np/host";
 
 /*
  * Общий футер. На страницах, где контактная секция встроена в саму страницу
@@ -41,6 +42,9 @@ export function FooterFrame({
 }) {
   const pathname = usePathname();
   const own =
+    // После rewrite браузер видит /, а сервер /np: обе стороны должны скрыть форму.
+    pathname === NP_PREFIX || pathname.startsWith(`${NP_PREFIX}/`) ||
+    (typeof window !== "undefined" && isNpHost(window.location.host)) ||
     PAGES_WITH_OWN_CONTACT.includes(pathname) || (!KNOWN_ROUTES.has(pathname) && !pathname.startsWith("/articles/"));
 
   return (
