@@ -1,4 +1,5 @@
 import "server-only";
+import { revalidateArticles } from "./revalidate";
 import { createHash, timingSafeEqual } from "node:crypto";
 import { after, NextResponse } from "next/server";
 import type { PoolClient } from "pg";
@@ -45,6 +46,8 @@ export async function mutateArticles(request: Request, payload: unknown, fn: (cl
     await client.query("INSERT INTO abbio_editorial.api_operations(key,fingerprint,response) VALUES($1,$2,$3)", [key, fingerprint, JSON.stringify(saved)]);
     return saved;
   });
+  // Публичные страницы статей кэшируются — после записи сбрасываем кэш.
+  if (request.method !== "GET") revalidateArticles();
   if (indexNowEnabled()) after(flushIndexNow);
   return apiJson(response.data, response.status);
 }

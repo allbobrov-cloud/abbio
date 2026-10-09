@@ -49,6 +49,10 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  async rewrites() {
+    // Markdown-версия статьи для ИИ-ассистентов: /articles/<slug>.md
+    return [{ source: "/articles/:slug.md", destination: "/articles/md/:slug" }];
+  },
   async redirects() {
     return [
       {

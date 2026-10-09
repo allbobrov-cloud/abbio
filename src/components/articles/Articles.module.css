@@ -104,3 +104,31 @@
   .mobileToc ol { gap: 4px; padding-bottom: 12px; }
   .mobileToc a { align-items: baseline; min-height: 44px; padding: 10px 0; }
 }
+
+/* Одно оглавление: заголовок на десктопе, кнопка-раскрытие на телефоне. */
+.tocTitle { margin: 0 0 20px; color: #f1ecfa; font-size: 14px; font-weight: 500; }
+.tocToggle { display: none; }
+@media (max-width:760px) {
+  .tocTitle { display: none; }
+  .tocToggle { display: flex; align-items: center; justify-content: space-between; gap: 16px; width: 100%; min-height: 44px; padding: 12px 0; border: 0; background: none; color: #f1ecfa; font: inherit; font-size: 14px; font-weight: 500; cursor: pointer; text-align: left; }
+  .tocToggle::after { content: "+"; color: var(--accent); font-size: 22px; }
+  .toc { padding: 0 0 26px; border-block: 1px solid #ffffff25; margin-bottom: 26px; }
+  .toc ol { display: none; gap: 4px; padding-bottom: 12px; }
+  .toc[data-open] ol { display: grid; }
+  .toc[data-open] .tocToggle::after { content: "−"; }
+  .toc a { align-items: baseline; min-height: 44px; padding: 10px 0; }
+}
+
+/* Подпись автора статьи. */
+.byline { display: flex; align-items: center; gap: 14px; margin-top: 22px; }
+.byline img { border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.byline a { display: grid; gap: 2px; color: inherit; }
+.byline a:hover strong { color: var(--accent); }
+.byline strong { font-size: 15px; font-weight: 600; color: #f6f7fb; transition: color .2s; }
+.byline span { font-size: 13px; color: var(--muted); }
+
+/* Страница автора. */
+.authorHead { display: flex; align-items: center; gap: 28px; }
+.authorHead img { border-radius: 50%; object-fit: cover; flex-shrink: 0; }
+.authorHead h1 { margin: 0; }
+@media (max-width:760px) { .authorHead { gap: 18px; } .authorHead img { width: 84px; height: 84px; } }

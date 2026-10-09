@@ -67,3 +67,28 @@ export function articleMarkdownPlugin() {
     });
   };
 }
+
+/*
+ * Вопросы и ответы из текста статьи: подзаголовок H2, который заканчивается «?»,
+ * и первый абзац под ним. Используется для разметки FAQPage — текст статьи не меняется.
+ */
+export function articleQuestions(content: string, limit = 6) {
+  const tree = parser.parse(content) as Root;
+  const items: { question: string; answer: string }[] = [];
+  const nodes = tree.children as Node[];
+  nodes.forEach((node, index) => {
+    if (node.type !== "heading" || node.depth !== 2) return;
+    const question = plainText(node).replace(/\s+/g, " ").trim();
+    if (!question.endsWith("?")) return;
+    const answer = nodes.slice(index + 1).find((next) => next.type === "paragraph" || next.type === "heading");
+    if (!answer || answer.type !== "paragraph") return;
+    const text = plainText(answer).replace(/\s+/g, " ").trim();
+    if (text.length >= 40) items.push({ question, answer: text.length > 600 ? `${text.slice(0, 597).replace(/\s+\S*$/, "")}…` : text });
+  });
+  return items.slice(0, limit);
+}
+
+/** Количество слов статьи — для разметки wordCount. */
+export function articleWordCount(content: string) {
+  return plainText(parser.parse(content) as Root).match(/[\p{L}\p{N}]+/gu)?.length ?? 0;
+}

@@ -32,6 +32,13 @@ export async function listPublished(category?: ArticleCategory, page = 1) {
     ORDER BY (r.data->>'featured')::boolean DESC, a.published_at DESC, a.id LIMIT 12 OFFSET $${args.length + 1}`, [...args, (page - 1) * 12]);
   return { items: items.rows.map(summary), total: Number(total.rows[0].count) };
 }
+/** Все опубликованные статьи, новые сверху. withContent — для llms-full.txt. */
+export async function allPublished(withContent = false, limit = 500): Promise<Article[]> {
+  if (!articlesConfigured()) return [];
+  const select = withContent ? publicSelect : publicSelect.replace("r.data\n", "r.data - 'content' AS data\n");
+  const rows = await articlePool().query(`${select} ORDER BY a.published_at DESC, a.id LIMIT $1`, [limit]);
+  return rows.rows.map((row) => { const value = article(row); return { ...value, content: value.content ?? "" }; });
+}
 export async function getPublished(slug: string): Promise<Article | null> {
   if (!articlesConfigured()) return null;
   const result = await articlePool().query(`${publicSelect} AND a.slug=$1`, [slug]);
