@@ -42,7 +42,7 @@ export default async function ArticlePage({ params }: Props) {
   const value = await readArticle((await params).slug); if (!value) notFound();
   const analysis = analyseMarkdown(value.content);
   const [related, images] = await Promise.all([relatedPublished(value), articleImageSizes([...analysis.images, value.coverImage!])]);
-  const relatedServices = services.filter(s => articleServiceLinks(value.category, value.relatedServices).includes(s.slug));
+  const relatedServices = services.filter(s => articleServiceLinks(value.category, value.relatedServices, `${value.title} ${value.tags.join(" ")}`).includes(s.slug));
   const relatedCases = caseIndex.filter(c => value.relatedCases.includes(c.slug));
   const author = articleAuthor(value.author);
   const cover = images[value.coverImage!];

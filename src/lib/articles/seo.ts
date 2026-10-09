@@ -26,8 +26,19 @@ export function articleSeo(article: Pick<ArticleInput, "title" | "description" |
     section: ARTICLE_CATEGORIES[article.category] };
 }
 
-export function articleServiceLinks(category: ArticleInput["category"], explicit: string[]) {
+/* Услуги по теме статьи: по ключевым словам заголовка и тегов, затем по категории. */
+const serviceTopics: [string, RegExp][] = [
+  ["yandex-direct", /директ|контекстн|реклам/i],
+  ["seo", /seo|сео|поисков|выдач|позици|продвижени/i],
+  ["websites", /сайт|посадоч|лендинг|страниц|форм[аыу]|ux/i],
+  ["marketing", /crm|заявк|аналитик|метрик|воронк|продаж/i],
+  ["design", /дизайн|айдентик|брендинг/i],
+];
+
+export function articleServiceLinks(category: ArticleInput["category"], explicit: string[], topic = "") {
   if (explicit.length) return explicit;
+  const byTopic = serviceTopics.filter(([, pattern]) => pattern.test(topic)).map(([slug]) => slug).slice(0, 2);
+  if (byTopic.length) return byTopic;
   return ({ websites: ["websites"], seo: ["seo"], marketing: ["marketing"], analytics: [], practice: [] })[category];
 }
 
