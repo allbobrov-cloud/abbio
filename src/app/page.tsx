@@ -1,5 +1,4 @@
 import { HomeProcess } from "@/components/home/HomeProcess";
-import { HomeTeam } from "@/components/home/HomeTeam";
 import { CasesBlock } from "@/components/cases/CasesBlock";
 import { IndustryFocus } from "@/components/home/IndustryFocus";
 import { HomeServices } from "@/components/home/HomeServices";
@@ -27,7 +26,6 @@ export default function Home() {
       <ClientJourney />
       <HomeProcess />
       <WorkFormats />
-      <HomeTeam />
     </main>
   );
 }

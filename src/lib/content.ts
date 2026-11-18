@@ -29,8 +29,4 @@ export const steps = [
 ];
 
 // Состав команды и портреты предоставлены владельцем 29.09.2026.
-export const team = [
-  { name: "Бобров Александр", role: "Продукт и стратегия", image: "/team/bobrov-alexander.avif" },
-  { name: "Боброва Ирина", role: "Дизайн", image: "/team/bobrova-irina.avif" },
-  { name: "Егор Афанасьев", role: "Разработка", image: "/team/afanasyev-egor.avif" }
-];
+export const team: { name: string; role: string; image: string }[] = [];
